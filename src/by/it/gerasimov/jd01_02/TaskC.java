@@ -4,74 +4,119 @@ import java.util.Scanner;
 
 public class TaskC {
 
-    static int[][] step3(int[][] array1) {
-        int n = array1.length;
-        int[] row = new int[n];
-        int[] col = new int[n];
-        int rowCount = 0;
-        int colCount = 0;
-        int max = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (array1[i][j] > max) {
-                    max = array1[i][j];
-                }
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (array1[i][j] == max) {
-                    row[i] = 1;
-                    col[j] = 1;
-                }
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            if (row[i] == 1) {
-                rowCount += 1;
-            }
-            if (col[i] == 1) {
-                colCount += 1;
-            }
-        }
-        int i1 = 0;
-        int[][] array2 = new int[n-rowCount][n-colCount];
-        for (int i = 0; i < n; i++) {
-            if (row[i] == 0) {
-                int j1 = 0;
+    static int[][] step1(int n) {
+        int[][] array = new int[n][n];
+        boolean condition = false;
+        while (!condition) {
+            boolean isN = false;
+            boolean isMinusN = false;
+            for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (col[j] == 0) {
-                        array2[i1][j1] = array1[i][j];
-                        j1++;
+                    array[i][j] = (int) (Math.random() * (2*n + 1)) - n;
+                    if (array[i][j] == n) {
+                        isN = true;
+                    }
+                    else if (array[i][j] == -n) {
+                        isMinusN = true;
                     }
                 }
-                i1++;
             }
+            condition = isN && isMinusN;
         }
-        return array2;
-    }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[][] array = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                array[i][j] = (int) (Math.random() * 100);
-            }
-        }
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length; j++) {
                 System.out.print(array[i][j] + " ");
             }
             System.out.println();
         }
-        int[][] array2 = step3(array);
-        for (int i = 0; i < array2.length; i++) {
-            for (int j = 0; j < array2.length; j++) {
-                System.out.print(array2[i][j] + " ");
+        return array;
+    }
+
+    static int step2 (int[][] array) {
+        int n = array[0].length;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            boolean toCount = false;
+            for (int j = 0; j < n; j++) {
+                if (toCount) {
+                    if (array[i][j] > 0) {
+                        break;
+                    }
+                    else {
+                        sum += array[i][j];
+                    }
+                }
+                else if (array[i][j] > 0) {
+                    toCount = true;
+                }
             }
-            System.out.println();
         }
+        System.out.println(sum);
+        return sum;
+    }
+
+    static int[][] step3 (int[][] array) {
+
+        int n = array[0].length;
+        int max = array[0][0];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (array[i][j] > max) {
+                    max = array[i][j];
+                }
+            }
+        }
+
+        boolean[] rowMin = new boolean[n];
+        boolean[] colMin = new boolean[n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (array[i][j] == max) {
+                    rowMin[i] = true;
+                    colMin[j] = true;
+                }
+            }
+        }
+
+        int rowCount = 0;
+        int colCount = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (!rowMin[i]) {
+                rowCount++;
+            }
+            if (!colMin[i]) {
+                colCount++;
+            }
+        }
+
+        int[][] arrayNew = new int[rowCount][colCount];
+
+        int i1 = 0;
+        for (int i = 0; i < n; i++) {
+            int j1 = 0;
+            if (!rowMin[i]) {
+                for (int j = 0; j < n; j++) {
+                    if (!colMin[j]) {
+                        arrayNew[i1][j1] = array[i][j];
+                        System.out.print(arrayNew[i1][j1] + " ");
+                        j1++;
+                    }
+                }
+                System.out.println();
+                i1++;
+            }
+        }
+
+        return arrayNew;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int[][] array = step1(n);
+        step2(array);
+        step3(array);
     }
 }
