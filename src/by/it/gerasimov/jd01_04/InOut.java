@@ -28,6 +28,9 @@ class InOut {
     static void printArray(double[] arr, String name, int colCount) {
         for (int i = 0; i < arr.length; i++) {
             System.out.printf("%s[%d]=%.1f ", name, i, arr[i]);
+            if (((i + 1) % colCount == 0 && i != 0) || i == arr.length - 1) {
+                System.out.println();
+            }
         }
         System.out.println();
     }

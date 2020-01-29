@@ -22,11 +22,11 @@ public class TaskB {
             } else if (x == 0.4) {
                 b = 1 / tan(x * x);
             } else {
-                System.out.printf("x = %3.1f %s\n", x, "вычисления не определены");
+                System.out.printf("x = %4.1f %s\n", x, "вычисления не определены");
                 continue;
             }
             a = log10(abs(b + 2.74));
-            System.out.printf("x = %3.1f a = %.2e\n", x, a);
+            System.out.printf("x = %4.1f a = %e\n", x, a);
         }
     }
 }
