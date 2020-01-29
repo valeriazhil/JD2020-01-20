@@ -1,5 +1,4 @@
 package by.it._tasks_.jd01_01;
-
 /*
 Выводим квадрат числа
 Напишите программу, которая считывает с клавиатуры целое число a и выводит квадрат этого числа (a * a).
@@ -19,5 +18,14 @@ int i=sc.nextInt();
 
  */
 
+import java.util.Scanner;
+
 class TaskB1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введите число");
+        double i = sc.nextInt();
+        double k = Math.pow(i,2);
+        System.out.println(k);
+    }
 }
