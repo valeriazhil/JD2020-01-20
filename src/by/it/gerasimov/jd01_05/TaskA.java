@@ -19,7 +19,7 @@ public class TaskA {
         x = 12.1;
         for (a = -5; a <= 12; a += 3.75) {
             double f = pow(E, a * x) - 3.45 * a;
-            System.out.printf("a = %5.2f g = %g\n", a, f);
+            System.out.printf("a = %5.2f f = %g\n", a, f);
         }
     }
 }
