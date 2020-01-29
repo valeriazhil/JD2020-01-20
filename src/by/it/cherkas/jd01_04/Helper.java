@@ -1,5 +1,5 @@
 package by.it.cherkas.jd01_04;
-
+// класс хелпер
 public class Helper {
     static double findMin(double[] arr) {
         if (arr.length == 0) {
