@@ -10,16 +10,8 @@ public class TaskC {
         task7();
         int[] arrayA = createArray31();
         int[] arrayB = createArrayB(arrayA);
-        for (int a : arrayA
-        ) {
-            System.out.print(a + " ");
-        }
-        System.out.println();
-        for (int a : arrayB
-        ) {
-            System.out.print(a + " ");
-        }
-        System.out.println();
+        printArray(arrayA);
+        printArray(arrayB);
         printTableA(arrayA, 3);
         printTableB(arrayB, 2);
     }
@@ -160,6 +152,13 @@ public class TaskC {
             if ((i + 1) % columnCount == 0) {
                 System.out.println();
             }
+        }
+        System.out.println();
+    }
+
+    private static void printArray(int[] arr) {
+        for (int a : arr) {
+            System.out.print(a + " ");
         }
         System.out.println();
     }
