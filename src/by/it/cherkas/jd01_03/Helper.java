@@ -28,17 +28,17 @@ public class Helper {
     static void sort(double[] arr) {
         boolean swap;
         int last = arr.length - 1;
-        do{
+        do {
             swap = false;
             for (int j = 0; j < last; j++) {
-                if (arr[j] > arr[j+1]){
+                if (arr[j] > arr[j + 1]) {
                     double buffer = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = buffer;
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = buffer;
                     swap = true;
                 }
             }
-            last --;
+            last--;
         }
         while (swap);
         for (double element : arr) {
@@ -46,4 +46,26 @@ public class Helper {
         }
         System.out.println();
     }
+
+   /* static double[] mul(double[][] matrix, double[] vector) {
+        double[] arr = new double[matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < vector.length; j++) {
+                arr[i] = arr[i] + matrix[i][j] + vector[j];
+
+
+            }
+        }
+    }*/
+
+   /* static double[][] mul(double[][] matrixLeft, double[][] matrixRight) {
+        double[][] arr = new double[matrixLeft.length][matrixRight[0].length];
+        for (int i = 0; i < matrixLeft.length; i++) {
+            for (int j = 0; j <matrixRight[0].length ; j++) {
+                for (int k = 0; k < matrixRight.length; k++) {
+                    arr[i][j] = arr[i][j] + matrixLeft[i][k]*matrixRight[k][j];
+                }
+            }
+        }
+    }*/
 }

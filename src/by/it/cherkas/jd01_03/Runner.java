@@ -13,5 +13,6 @@ public class Runner {
         System.out.println("Максимум массива max=" + Helper.findMax(array));
         System.out.println("Сортировка: ");
         Helper.sort(array);
+
     }
 }
