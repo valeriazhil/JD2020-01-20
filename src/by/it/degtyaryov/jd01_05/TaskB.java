@@ -8,7 +8,7 @@ class TaskB {
         exerciseFour();
         exerciseFive();
     }
-    
+
     private static void exerciseFour() {
         for (double a = 0; a <= 2; a += 0.2) {
             double y = 0;

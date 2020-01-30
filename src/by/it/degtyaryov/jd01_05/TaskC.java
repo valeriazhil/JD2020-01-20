@@ -8,13 +8,13 @@ import static java.lang.Math.*;
 class TaskC {
 
     public static void main(String[] args) {
-        /*double[] array = randomArray();
+        double[] array = randomArray();
         System.out.println("Массив A[]");
         InOut.printArray(array, "A", 5);
         double[] arrayGreater = arrayWithGreaterNums(array, 3.5);
         System.out.println("Массив B[] из элементов массива A > 3.5");
         InOut.printArray(arrayGreater, "B", 5);
-        System.out.printf("Среднее геометрическое значение = %.3f", geometricValue(arrayGreater));*/
+        System.out.printf("Среднее геометрическое значение = %.3f", geometricValue(arrayGreater));
 
         double[] arr = new double[]{1, 9.4, 70, -30, 2, 50, 11, 130.2, 132.2, 1};
         InOut.printBorderedArrayHorizontal(arr, "A");

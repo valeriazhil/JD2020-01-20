@@ -26,7 +26,7 @@ class InOut {
     }
 
     static void printBorderedArrayHorizontal(double[] array, String arrayName) {
-        if(array.length==0){
+        if (array.length == 0) {
             System.out.printf("Массив %s не содержит элементов", arrayName);
             return;
         }
@@ -51,7 +51,7 @@ class InOut {
                 } else {
                     printEmptyElement(elementWidth);
                 }
-				System.out.print("\u2551");
+                System.out.print("\u2551");
             }
             System.out.println();
             if (i != rows - 1) {
@@ -62,7 +62,7 @@ class InOut {
     }
 
     static void printBorderedArrayVertical(double[] array, String arrayName) {
-        if(array.length==0){
+        if (array.length == 0) {
             System.out.printf("Массив %s не содержит элементов", arrayName);
             return;
         }
@@ -77,7 +77,6 @@ class InOut {
         int index = 0;
 
 
-
         printFirstLine(columns, elementWidth);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -85,7 +84,7 @@ class InOut {
                     System.out.print("\u2551");
                 }
                 if (index < array.length) {
-                    printElement(pattern, arrayName, (j*5+i), array[j*5+i]);
+                    printElement(pattern, arrayName, (j * 5 + i), array[j * 5 + i]);
                     index++;
                 } else {
                     printEmptyElement(elementWidth);
@@ -150,7 +149,7 @@ class InOut {
     }
 
     private static double findMax(double[] array) {
-        if(array.length == 0) {
+        if (array.length == 0) {
             return 0;
         }
         double max = array[0];
