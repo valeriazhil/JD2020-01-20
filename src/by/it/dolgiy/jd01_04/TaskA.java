@@ -1,6 +1,5 @@
 package by.it.dolgiy.jd01_04;
 
-import jdk.nashorn.internal.runtime.arrays.ArrayIndex;
 
 import java.util.Arrays;
 import java.util.Scanner;
