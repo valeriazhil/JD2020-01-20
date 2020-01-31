@@ -23,7 +23,6 @@ class TaskC {
     }
 
     private static void exerciseSeven() {
-        //TODO:сделать метод создающий массив случайных чисел
         double[] arr = randomArray(31, -103, 450);
         InOut.printBorderedArrayHorizontal(arr, "M");
         double[] newArr = arrayWithNumsBiggerIndex(arr);
