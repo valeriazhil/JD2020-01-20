@@ -284,7 +284,7 @@ public class Test_jd01_02 {
 
 
     //метод находит и создает класс для тестирования
-    //по имени вызывающего его метода, testTaskA будет работать с TaskA
+    //по имени вызывающего его метода, testTaskA будет работать с TaskA1
     private static Test_jd01_02 run(String in) {
         return run(in, true);
     }
