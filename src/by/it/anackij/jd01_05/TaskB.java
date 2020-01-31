@@ -32,8 +32,8 @@ public class TaskB {
                 b = 1 / tan(pow(x, 2));
             }else flag = false;
             if (flag){
-                a= log(abs(b+2.74));
-                System.out.printf("При x/2=%4.2f b=%4.2f a=%6.4f\n",x/2,b,a);
+                a= log10(abs(b+2.74));
+                System.out.printf("При x/2=%4.2f b=%4.2f a=%8.6f\n",x/2,b,a);
             } else System.out.printf("При x/2=%4.2f вычисления не определены\n",x);
         }
     }
