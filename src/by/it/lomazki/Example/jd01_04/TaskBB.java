@@ -1,8 +1,8 @@
-package by.it.lomazki.jd01_04;
+package by.it.lomazki.Example.jd01_04;
 
 import java.util.Scanner;
 
-public class TaskB {
+public class TaskBB {
     public static void main(String[] args) {
 
         System.out.println("Число людей: ");
