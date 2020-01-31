@@ -34,7 +34,6 @@ class TaskB {
                 System.out.printf("При x/2=%5.2f вычисления не определены%n", x / 2);
                 continue;
             }
-
             double a = log10(abs(b + 2.74));
             System.out.printf("При x/2=%5.2f a = %e%n", x / 2, a);
         }
