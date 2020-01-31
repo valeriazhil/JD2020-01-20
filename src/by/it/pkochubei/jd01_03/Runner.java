@@ -8,6 +8,6 @@ public class Runner {
         double[] array = InOut.getArray(str);
         InOut.printArray(array);
         InOut.printArray(array,"M",4);
-
+        //
     }
 }
