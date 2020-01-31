@@ -8,40 +8,31 @@ import static java.lang.Math.*;
 class TaskC {
 
     public static void main(String[] args) {
+        exerciseSix();
+        exerciseSeven();
+    }
+
+    private static void exerciseSix() {
         double[] array = randomArray();
         System.out.println("Массив A[]");
         InOut.printArray(array, "A", 5);
         double[] arrayGreater = arrayWithGreaterNums(array, 3.5);
         System.out.println("Массив B[] из элементов массива A > 3.5");
         InOut.printArray(arrayGreater, "B", 5);
-        System.out.printf("Среднее геометрическое значение = %.3f", geometricValue(arrayGreater));
+        System.out.printf("Среднее геометрическое значение = %.3f%n", geometricValue(arrayGreater));
+    }
 
-        double[] arr = new double[]{1, 9.4, 70, -30, 2, 50, 11, 130.2, 132.2, 1};
-        InOut.printBorderedArrayHorizontal(arr, "A");
-        Arrays.sort(arr);
+    private static void exerciseSeven() {
+        //TODO:сделать метод создающий массив случайных чисел
+        double[] arr = randomArray(31, -103, 450);
+        InOut.printBorderedArrayHorizontal(arr, "M");
         double[] newArr = arrayWithNumsBiggerIndex(arr);
+        Arrays.sort(arr);
         InOut.printBorderedArrayVertical(newArr, "B");
     }
 
-    private static double[] arrayWithNumsBiggerIndex(double[] sourceArray) {
-        int size = 0;
-        for (int i = 0; i < sourceArray.length; i++) {
-            if (sourceArray[i] * 0.1 > i) {
-                size++;
-            }
-        }
-        int index = 0;
-        double[] newArray = new double[size];
-        for (int i = 0; i < sourceArray.length; i++) {
-            if (sourceArray[i] * 0.1 > i) {
-                newArray[index++] = sourceArray[i];
-            }
-        }
-        return newArray;
-    }
-
     /**
-     * @return массив из 20-40 элементов, заполненных значениями z = (x^2+4.5)^(1/3),
+     * @return массив из 20-40 элементов, заполненных значениями z=(x^2+4.5)^(1/3),
      * где x изменяется от [5.33; 9]
      * @author DEA
      */
@@ -100,5 +91,45 @@ class TaskC {
             multiply *= element;
         }
         return pow(multiply, 1.0 / array.length);
+    }
+
+    /**
+     * @param size количество элементов в новом массиве
+     * @param min  минимальное значение элемента
+     * @param max  максимальное значение элемента
+     * @return массив содержащий size элементов, заполненный случайными значениями от min значения до max
+     * @author DEA
+     */
+    private static double[] randomArray(int size, int min, int max) {
+        double[] array = new double[size];
+        Random random = new Random();
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextDouble() * (max - min) + min;
+        }
+        return array;
+    }
+
+    /**
+     * Создает новый массив содержащий только элементы, у которых 10% значения больше индекса в исходном массиве
+     *
+     * @param sourceArray исходный массив
+     * @return массив элементов, у которых 10% значения больше индекса в исходном массиве
+     * @author DEA
+     */
+    private static double[] arrayWithNumsBiggerIndex(double[] sourceArray) {
+        int size = 0;
+        for (int i = 0; i < sourceArray.length; i++) {
+            if (sourceArray[i] * 0.1 > i) {
+                size++;
+            }
+        }
+        int index = 0;
+        double[] newArray = new double[size];
+        for (int i = 0; i < sourceArray.length; i++) {
+            if (sourceArray[i] * 0.1 > i) {
+                newArray[index++] = sourceArray[i];
+            }
+        }
+        return newArray;
     }
 }
