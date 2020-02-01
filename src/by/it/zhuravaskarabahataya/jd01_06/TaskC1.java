@@ -19,7 +19,6 @@ public class TaskC1 {
         Matcher matcher = pattern.matcher(text);
         int maxLength = 0;
         int countOfStrings = 0;
-
         while (matcher.find()) {
             if (maxLength < matcher.end() - matcher.start()) {
                 maxLength = matcher.end() - matcher.start();
