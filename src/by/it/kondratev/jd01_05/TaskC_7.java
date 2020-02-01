@@ -13,7 +13,7 @@ public class TaskC_7 {
         array2(A);
     }
 
-    private static void begin_end(int columns, int z) {
+    public static void begin_end(int columns, int z) {
         if (z == 1) {
             System.out.print("╔");
             for (int i = 1; i <= columns - 1; i++) {
@@ -30,7 +30,7 @@ public class TaskC_7 {
         }
     }
 
-    private static void border(int columns) {
+    public static void border(int columns) {
         System.out.print("╠");
         for (int i = 1; i <= columns - 1; i++) {
             System.out.print("═════════╬");
@@ -44,7 +44,7 @@ public class TaskC_7 {
         return mas;
     }
 
-    private static void values(int[] mas, int columns) {
+    public static void values(int[] mas, int columns) {
         int i = 0;
         for (i = 0; i < mas.length; i++) {
             System.out.printf("║A[%2d]=%3d", i + 1, mas[i]);
