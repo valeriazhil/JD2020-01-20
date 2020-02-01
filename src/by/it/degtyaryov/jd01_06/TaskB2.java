@@ -41,7 +41,7 @@ public class TaskB2 {
      * Сортируем массив строк по возрастанию размера строки
      *
      * @param array массив для сортировки
-     * @author DEAs
+     * @author DEA
      */
     private static void sortByLength(String[] array) {
         boolean wasChanged = true;
