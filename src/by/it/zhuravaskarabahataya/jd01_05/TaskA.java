@@ -1,13 +1,12 @@
 package by.it.zhuravaskarabahataya.jd01_05;
 import static java.lang.Math.*;
-// один вопрос
+
 public class TaskA {
     public static void main(String[] args) {
         double a = 756.13;
         double x = 0.3;
         System.out.println(task1oneLine(a, x));
         System.out.println(task1separate(a, x));
-
         double a2 = 1.21;
         double b2 = 0.371;
         System.out.println(task2(a2, b2));
@@ -21,8 +20,7 @@ public class TaskA {
 
         for (double a = -5; a <= 12; a+=deltaA ) {
             double f = exp(a*x) - 3.45*a;
-            System.out.printf("%-10s%-8.4f %2s %-8.4f\n","При a = ", a, "f = ", f); //а как красиво сделать??
-
+            System.out.printf("%-10s%-8.4f %2s %-8.4f\n","При a = ", a, "f = ", f);
         }
     }
 

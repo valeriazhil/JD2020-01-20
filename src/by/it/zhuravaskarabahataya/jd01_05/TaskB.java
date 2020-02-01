@@ -1,7 +1,5 @@
 package by.it.zhuravaskarabahataya.jd01_05;
 
-import com.sun.org.apache.bcel.internal.classfile.SourceFile;
-
 import static java.lang.Math.*;
 
 public class TaskB {

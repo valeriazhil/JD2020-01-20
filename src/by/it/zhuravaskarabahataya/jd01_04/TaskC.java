@@ -26,19 +26,28 @@ public class TaskC {
 
 
 
-//    private static double[] mergeSort(double[] array) {
-//        if (array.length < 2) {
-//            return array;
-//        }
-//        int left = 0;
-//        int right = array.length - 1;
-//        return mergeSort(array, array.length);
-//    }
-
     private static void mergeSort(double[] array) {
         double[] temp = mergeSort(array, 0, array.length);
         System.arraycopy(temp, 0, array, 0, array.length);
     }
+
+//    private static void mergeSort (double[] array, int left, int right){
+//        int mid = (left+right)/2;
+//        double[] leftArray = new double[mid - left];
+//        double[] rightArray = new double[right-mid];
+//        for (int i = left; i < mid; i++) {
+//            leftArray[i-left] = array[i];
+//        }
+//        for (int i = mid; i <= right; i++) {
+//            rightArray[i-mid] = array[i];
+//        }
+//        mergeSort(leftArray);
+//        mergeSort(rightArray);
+//        double[] result = merge(leftArray, rightArray);
+//        for (int i = left; i < right; i++) {
+//            array[i] = result[i-left];
+//        }
+//    }
 
     private static double[] mergeSort(double[] array , int left, int right) {
         if (right > 1) {
