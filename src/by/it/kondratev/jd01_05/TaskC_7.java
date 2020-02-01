@@ -1,6 +1,6 @@
 package by.it.kondratev.jd01_05;
 
-public class TaskC {
+public class TaskC_7 {
 
     public static void main(String[] args) {
         int[] A = array(31);                              // получаем массив
