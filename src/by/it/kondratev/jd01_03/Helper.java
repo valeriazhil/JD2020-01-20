@@ -1,6 +1,5 @@
 package by.it.kondratev.jd01_03;
 
-import static java.lang.Integer.MIN_VALUE;
 
 public class Helper {
 
@@ -25,6 +24,5 @@ public class Helper {
                     arr[j] = arr[i];
                     arr[i] = min;    }
         }
-        //for (int i = 0; i < arr.length ; i++) System.out.println(arr[i]+" ");
     }
 }
