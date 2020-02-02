@@ -15,7 +15,9 @@ public class Runner {
         //Helper.sort(array);
         double [] mas1 = {3, 4, 7, 43, 56};
         double [] mas2 = {1, 5, 7, 32, 65};
-        double [] mas3 = merge(mas1,mas2); }
+        double [] mas3 = merge(mas1,mas2);
+        InOut.printArray(mas3,"V",2);
+    }
 
         private static double[ ] merge(double[ ] part1, double[ ] part2){
             double [] mas = new double[part1.length+part2.length];

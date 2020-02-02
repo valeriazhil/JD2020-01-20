@@ -9,7 +9,7 @@ public class TaskC {
     public static void main(String[] args) {
         //Scanner scanner = new Scanner(System.in);
         //String  str = scanner.nextLine();
-        String str="3 4 56 7 43 65 7 32 1 5";
+        String str="3 4 56 7 43 65 7 32 1 5 55 48 97 99";
         buildOneDimArray(str);
     }
 
@@ -49,24 +49,24 @@ public class TaskC {
         }
         mergeSort(part1);
         mergeSort(part2);
-        double [] massive = merge(part1,part1);
+        double [] massive = merge_my(part1,part2);
         for (int i = l; i < r ; i++) {
             array[i] = massive[i-l];
         }
     }
 
-    private static double[ ] merge(double[ ] part1, double[ ] part2){
-        double [] mas = new double[part1.length+part2.length];
-        int index1 = 0;
-        int index2 = 0;
-        int i=0;
-        while (i<mas.length){
-            if(index1<part1.length && (index2 == part2.length || part1[index1]<part2[index2]))
-                mas[i++] = part1[index1++];
-            else  mas[i++] = part2[index2++];
-        }
-        return mas;
-    }
+    //private static double[ ] merge(double[ ] part1, double[ ] part2){
+     //   double [] mas = new double[part1.length+part2.length];
+     //   int index1 = 0;
+      //  int index2 = 0;
+      //  int i=0;
+       // while (i<mas.length){
+       //     if(index1<part1.length && (index2 == part2.length || part1[index1]<part2[index2]))
+        //        mas[i++] = part1[index1++];
+         //   else  mas[i++] = part2[index2++];
+        //}
+        //return mas;
+    //}
 
     private static double[ ] merge_my(double[ ] part1, double[ ] part2){
         double [] mas = new double[part1.length+part2.length];
