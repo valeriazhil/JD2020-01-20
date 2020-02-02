@@ -3,7 +3,8 @@ package by.it.degtyaryov.jd01_05;
 import java.util.Arrays;
 import java.util.Random;
 
-import static java.lang.Math.*;
+import static java.lang.Math.cbrt;
+import static java.lang.Math.pow;
 
 class TaskC {
 
@@ -16,6 +17,7 @@ class TaskC {
         double[] array = randomArray();
         System.out.println("Массив A[]");
         InOut.printArray(array, "A", 5);
+
         double[] arrayGreater = arrayWithGreaterNums(array, 3.5);
         System.out.println("Массив B[] из элементов массива A > 3.5");
         InOut.printArray(arrayGreater, "B", 5);
@@ -24,10 +26,13 @@ class TaskC {
 
     private static void exerciseSeven() {
         double[] arr = randomArray(31, -103, 450);
-        InOut.printBorderedArrayHorizontal(arr, "M");
+        ArrayPrinter arrayPrinter = new ArrayPrinter(arr, "M", true);
+        arrayPrinter.printBorderedArray();
+
         double[] newArr = arrayWithNumsBiggerIndex(arr);
-        Arrays.sort(arr);
-        InOut.printBorderedArrayVertical(newArr, "B");
+        Arrays.sort(newArr);
+        ArrayPrinter verticalArrayPrinter = new ArrayPrinter(newArr, "B", false);
+        verticalArrayPrinter.printBorderedArray();
     }
 
     /**
