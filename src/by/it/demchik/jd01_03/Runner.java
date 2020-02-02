@@ -1,8 +1,6 @@
 package by.it.demchik.jd01_03;
 
 
-import by.it.demchik.jd01_04.InOut;
-
 import java.util.Scanner;
 
 public class Runner {
@@ -12,9 +10,5 @@ public class Runner {
         double[] array = InOut.getArray(str);
         InOut.printArray(array);
         InOut.printArray(array,"V",3);
-       Helper.findMin(array);
-       Helper.findMax(array);
-
-
     }
 }

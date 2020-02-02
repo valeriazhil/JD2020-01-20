@@ -37,20 +37,12 @@ class TaskC3 {
         int me = scanner.nextInt();
         double mm = getWieght(me);
         System.out.println(mm);
-
     }
 
     private static double getWieght(int me) {
 
 
         double result =(int)((me * 3.86 / 9.81)*100);
-        double mm=result/100;
-
-
-
-
-
-
-        return mm;
+        return result/100;
     }
 }
