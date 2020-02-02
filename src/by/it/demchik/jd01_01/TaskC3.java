@@ -33,21 +33,24 @@ import java.util.Scanner;
 */
 class TaskC3 {
     public static void main(String[] args) {
-    Scanner scanner=new Scanner(System.in);
-    int me=scanner.nextInt();
-    double mm=getWieght(me);
-
-
+        Scanner scanner = new Scanner(System.in);
+        int me = scanner.nextInt();
+        double mm = getWieght(me);
+        System.out.println(mm);
 
     }
 
     private static double getWieght(int me) {
-        double mm=me*3.86/9.81;
-        double mm100=mm*100;
-        double delta=mm100-(int)mm100;
-        if (delta <0.5)
-            return (int) mm100/100.0;
-        else
-            return (((int)mm100+1)/100.0);
+
+
+        double result =(int)((me * 3.86 / 9.81)*100);
+        double mm=result/100;
+
+
+
+
+
+
+        return mm;
     }
 }
