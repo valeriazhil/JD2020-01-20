@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 public class InOut {
 
 
-    static double[] getArray(String line) {
+    public static double[] getArray(String line) {
         line = line.trim();
         String[] strArr = line.split(" ");
         int count = strArr.length;
