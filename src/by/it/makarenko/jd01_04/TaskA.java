@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_04;
+package by.it.makarenko.jd01_04;
 
 import java.util.Arrays;
 import java.util.Scanner;

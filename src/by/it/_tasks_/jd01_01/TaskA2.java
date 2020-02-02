@@ -1,4 +1,5 @@
 package by.it._tasks_.jd01_01;
+
 /*
 напишите тело main программы которая выводит на экран 5 строк
 "Я начинаю изучать Java!"
@@ -8,15 +9,5 @@ package by.it._tasks_.jd01_01;
 */
 
 class TaskA2 {
-    public static void main(String[] args) {
-        System.out.println("Я начинаю изучать Java!");
-        System.out.println("Я начинаю изучать Java!");
-        System.out.println("Я начинаю изучать Java!");
-        System.out.println("Я начинаю изучать Java!");
-        System.out.println("Я начинаю изучать Java!");
 
-
-
-
-    }
 }

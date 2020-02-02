@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_05;
+package by.it.makarenko.jd01_05;
 
 public class TaskA {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_06;
+package by.it.makarenko.jd01_06;
 
 public class TaskB1 {
     private static String [] words = new String[0];

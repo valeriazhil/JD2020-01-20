@@ -1,8 +1,7 @@
-package by.it._tasks_.jd01_03;
+package by.it.makarenko.jd01_03;
 
 
 import java.util.Arrays;
-
 
 
 class Helper {
