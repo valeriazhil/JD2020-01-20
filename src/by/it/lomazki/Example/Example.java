@@ -1,16 +1,25 @@
 package by.it.lomazki.Example;
 
+import java.util.Scanner;
+
 public class Example {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int Weight = scanner.nextInt();
+        System.out.println(getWeight(Weight));
 
-        int s = 0;
-        for(int i = 1; i < 10; i++){
-            int x = (int) (Math.random()*21-10);
-            if(x <= 0)
-                continue;
-            s = s + x;
-        }
-        System.out.println(s);
+    }
+
+    static double getWeight(int y) {
+        double eWeight = 9.81;
+        double mWeight = 3.86;
+        double em = mWeight / eWeight;
+        double getWeight = y;
+        double marsWeight=(getWeight*em);
+
+        System.out.println(marsWeight);
+        return marsWeight;
     }
 }
+
 
