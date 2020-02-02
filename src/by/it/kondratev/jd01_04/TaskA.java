@@ -1,11 +1,18 @@
 package by.it.kondratev.jd01_04;
 
+import by.it.kondratev.jd01_03.Helper;
+import by.it.kondratev.jd01_03.InOut;
+
+import java.util.Scanner;
+
 public class TaskA {
 
     public static void main(String[ ] args){
-        //printMulTable();
-        String  string = "123 99 88 77 66 5 4 3 1 0 2";
-        buildOneDimArray(string);
+        printMulTable();
+        Scanner scanner = new Scanner(System.in);
+        String  str = scanner.nextLine();
+        //String  string = "123 99 88 77 66 5 4 3 1 0 2";
+        buildOneDimArray(str);
 
     }
 
@@ -27,10 +34,14 @@ public class TaskA {
             mas[i] = Double.parseDouble(strArr[i]);        //... скопировано из InOut
         }
 
-        for (int i = 0; i < mas.length ; i++) {
-            //System.out.printf("V["+i+"]=%-5.3d  ",mas[i]);
-            System.out.print(mas[i]+" ");
-            if(i+1==5) System.out.println();
+        InOut.printArray(mas,"V",5);
+        double first = mas[0]; double last = mas[count-1];
+        Helper.sort(mas);
+        System.out.println();
+        InOut.printArray(mas,"V",4);
+        for (int i = 0; i < count; i++) {
+            if (first == mas[i]) System.out.println("Index of first element="+i);
+            if(last==mas[i]) System.out.println("Index of last element="+i);
         }
 
     }
