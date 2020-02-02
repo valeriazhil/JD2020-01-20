@@ -12,12 +12,8 @@ public class TaskA1 {
             int start = matcher.start();
             sb.setCharAt(start+3,'#');
         if (matcher.group().length()>=7){
-            sb.setCharAt(start+6,'#');
-        }
+            sb.setCharAt(start+6,'#'); }
         }
         System.out.println(sb);
-
-
-
     }
 }
