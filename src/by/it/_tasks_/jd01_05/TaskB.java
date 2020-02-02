@@ -3,7 +3,6 @@ package by.it._tasks_.jd01_05;
 
 public class TaskB {
     public static void main(String[] args) {
-        TaskB2();
 
 
         for (double a = 0; a <=2 ; a=a+0.20) {
@@ -14,7 +13,5 @@ public class TaskB {
             }
         }
     }
-    static void TaskB2(){
 
-    }
 }
