@@ -3,7 +3,7 @@ package by.it.gerasimov.jd01_06;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TaskC1 {
+class TaskC1 {
     public static void main(String[] args) {
         StringBuilder text = new StringBuilder(Poem.text);
         String[] rows = Poem.text.split("\n");
