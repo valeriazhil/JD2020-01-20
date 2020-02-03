@@ -1,9 +1,6 @@
 package by.it.degtyaryov.jd01_07;
 
-/**
- * @author DEA
- */
-class Scalar extends Var {
+public class Scalar extends Var {
 
     private double value;
 

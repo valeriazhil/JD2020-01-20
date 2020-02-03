@@ -1,28 +1,46 @@
 package by.it.degtyaryov.jd01_07;
 
-import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-/**
- * @author DEA
- */
 class Vector extends Var {
 
-    private double[] values;
+    private double[] value;
 
-    Vector(double[] values) {
-        this.values = values;
+    Vector(double[] value) {
+        this.value = value;
     }
 
     Vector(Vector vector) {
-        this.values = vector.values;
+        this.value = vector.value;
     }
 
-    /*Vector(String strVector) {
-        this.values = values;
-    }*/
+    Vector(String strVector) {
+        // TODO добавить проверку соответствует ли полученная строка выражению {x.x, x.x, x.x}  - "\\{[-0-9\\. ,]+\\}"
+        Matcher matcher = Pattern.compile("[-0-9]+(\\.[0-9]+)?").matcher(strVector);
+        int countMatches = 0;
+        while (matcher.find()) {
+            countMatches++;
+        }
+        matcher.reset();
+        double[] values = new double[countMatches];
+        for (int i = 0; i < values.length; i++) {
+            matcher.find();
+            values[i] = Double.parseDouble(matcher.group());
+        }
+        this.value = values;
+    }
 
     @Override
     public String toString() {
-        return Arrays.toString(values);
+        StringBuilder strVector = new StringBuilder();
+        String separator = "";
+        strVector.append("{");
+        for (double element : value) {
+            strVector.append(separator).append(element);
+            separator = ", ";
+        }
+        strVector.append("}");
+        return strVector.toString();
     }
 }
