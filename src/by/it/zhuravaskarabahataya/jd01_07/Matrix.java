@@ -2,6 +2,7 @@ package by.it.zhuravaskarabahataya.jd01_07;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+//В конструкторе лучше не вызывать методы,но этот получился монстром каким-то без них
 
 class Matrix extends Var {
     double[][] values;
@@ -15,11 +16,6 @@ class Matrix extends Var {
     }
 
     public Matrix(String strMatrix) {
-        this.values = stringToMatrix(strMatrix);
-
-    }
-
-    private double[][] stringToMatrix(String strMatrix) {
         StringBuilder sb = new StringBuilder(strMatrix);
         sb.deleteCharAt(sb.length() - 1);
         sb.deleteCharAt(0);
@@ -43,11 +39,10 @@ class Matrix extends Var {
             sb2.deleteCharAt(sb2.length() - 1);
             String[] strArr = sb2.toString().split(",");
             for (int a = 0; a < strArr.length; a++) {
-              matrix[i][a] = Double.parseDouble(strArr[a]);
+                matrix[i][a] = Double.parseDouble(strArr[a]);
             }
         }
-
-        return matrix;
+        this.values = matrix;
     }
 
 
@@ -66,7 +61,6 @@ class Matrix extends Var {
             }
             rowsDelimiter = ", ";
             result.append("}");
-
         }
         result.append("}");
         return result.toString();
