@@ -19,16 +19,8 @@ class Scalar extends Var {
     @Override
     public String toString() {
         return Double.toString(value);
-    }
-
-    @Override
-    void toString(double[] massive) {
 
     }
 
-    //@Override
-    //public String toString() {
-     //   return Double.toString(value);
-    //}
 
 }
