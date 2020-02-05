@@ -3,8 +3,8 @@ package by.it.anackij.jd01_07;
 public class Matrix extends Var {
     private String stringValue;
     private Matrix values;
-    private double[][] doublesArrayValue = {{1, 2, 4, 5},
-            {5, 6, 7, 8}};
+    private double[][] doublesArrayValue = {{1, 2},
+            {3,4}};
 
     public Matrix() {
     }
