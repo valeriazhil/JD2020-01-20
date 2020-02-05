@@ -2,9 +2,18 @@ package by.it.anackij.jd01_07;
 
 public class Vector extends Var {
     private double[] values;
+    private double doubleValue;
 
     public Vector(double[] values) {
         this.values = values;
+    }
+
+    public Vector(Vector other) {
+        this.values = other.values;
+    }
+
+    public Vector(String strValue) {
+        this.doubleValue = Double.parseDouble(strValue);
     }
 
     @Override
