@@ -1,24 +1,14 @@
 package by.it.lomazki.Example;
 
-import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Example {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int Weight = scanner.nextInt();
-        System.out.println(getWeight(Weight));
+        StringBuilder sb = new StringBuilder(Poem.text);
+        Pattern pattern = Pattern.compile("[а-яА-ЯЁё]+");
+        Matcher matcher = pattern.matcher(Poem.text);
 
-    }
-
-    static double getWeight(int y) {
-        double eWeight = 9.81;
-        double mWeight = 3.86;
-        double em = mWeight / eWeight;
-        double getWeight = y;
-        double marsWeight=(getWeight*em);
-
-        System.out.println(marsWeight);
-        return marsWeight;
     }
 }
 

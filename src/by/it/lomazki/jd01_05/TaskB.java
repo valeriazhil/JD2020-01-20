@@ -22,7 +22,7 @@ public class TaskB {
     private static void step2() {
         double a;
         double b;
-        for (double x = -5.6; x < 2; x=x+0.5) {
+        for (double x = -5.5; x < 2; x=x+0.5) {
             if (x/2 > -2 && x/2 <=-1) {
                  b = sin(x*x);
                  a = log10(abs(b+2.74));
