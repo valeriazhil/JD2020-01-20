@@ -15,5 +15,17 @@ public class Runner {
         Var vector=new Vector(array);
         System.out.println(vector);
 
+        double[][] doublesArray = {{1,2,3},
+                {5,6,7,8},
+                {9,2,5,1}};
+        Var testVar4 = new Matrix();
+        System.out.println(testVar4);
+
+        Var testVar5 = new Matrix(doublesArray);
+        System.out.println(testVar5);
+
+        Var testVar6 = new Matrix("{{1,2,3}{,4,5,6}}");
+        System.out.println(testVar6);
+
     }
 }
