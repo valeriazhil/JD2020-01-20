@@ -1,66 +1,125 @@
 package by.it.degtyaryov.jd01_08;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Arrays;
 
 class Matrix extends Var {
 
     private double[][] value;
 
     Matrix(double[][] value) {
-        this.value = value;
+        this.value = new double[value.length][0];
+        for (int i = 0; i < this.value.length; i++) {
+            this.value[i] = Arrays.copyOf(value[i], value[i].length);
+        }
     }
 
     Matrix(Matrix matrix) {
-        this.value = matrix.value;
+        this(matrix.value);
     }
 
     Matrix(String strMatrix) {
-        Pattern patternVectors = Pattern.compile("\\{[0-9\\., -]+\\}"); // шаблон для поиска подмассивов {х.х, х.х}
-        Pattern patternNums = Pattern.compile("-?[0-9]+(\\.[0-9]+)?"); // шаблон для поиска чисел в подмассиве х.х х.х
-        Matcher matchVectors = patternVectors.matcher(strMatrix);
-        Matcher matchNums;
-        int countVectors = 0;
-        int countNums = 0;
-        while (matchVectors.find()) {
-            countVectors++;
-            countNums = 0;
-            matchNums = patternNums.matcher(matchVectors.group());
-            while (matchNums.find()) {
-                countNums++;
+        String[] arrays = strMatrix.replace(" ", "").split("},");
+        value = new double[arrays.length][0];
+        for (int i = 0; i < value.length; i++) {
+            String[] numbers = arrays[i].replace("{", "")
+                    .replace("}", "")
+                    .split(",");
+            value[i] = new double[numbers.length];
+            for (int j = 0; j < value[i].length; j++) {
+                value[i][j] = Double.parseDouble(numbers[j]);
             }
         }
-        double[][] value = new double[countVectors][countNums];
-        matchVectors.reset();
-        int indexVector = 0;
-        int indexNum = 0;
-        while (matchVectors.find()) {
-            matchNums = patternNums.matcher(matchVectors.group());
-            while (matchNums.find()) {
-                value[indexVector][indexNum++] = Double.parseDouble(matchNums.group());
-            }
-            indexVector++;
-            indexNum = 0;
-        }
-        this.value = value;
     }
 
     @Override
     public String toString() {
-        StringBuilder strVector = new StringBuilder();
-        String separArrays = "";
-        strVector.append("{");
-        for (double[] array : value) {
-            strVector.append(separArrays).append("{");
-            separArrays = ", ";
-            String separElements = "";
-            for (double element : array) {
-                strVector.append(separElements).append(element);
-                separElements = ", ";
+        return Arrays.deepToString(value).replace('[', '{').replace(']', '}');
+    }
+
+    @Override
+    public Var add(Var other) {
+        return other.add(this);
+    }
+
+    @Override
+    public Var add(Scalar scalar) {
+        double[][] result = new double[value.length][0];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Arrays.copyOf(value[i], value[i].length);
+            for (int j = 0; j < result[i].length; j++) {
+                result[i][j] += scalar.getValue();
             }
-            strVector.append("}");
         }
-        strVector.append("}");
-        return strVector.toString();
+        return new Matrix(result);
+    }
+
+    @Override
+    public Var add(Vector vector) {
+        return null;
+    }
+
+    @Override
+    public Var add(Matrix matrix) {
+        return null;
+    }
+
+    @Override
+    public Var sub(Var other) {
+        return super.sub(other);
+    }
+
+    @Override
+    public Var sub(Scalar scalar) {
+        return null;
+    }
+
+    @Override
+    public Var sub(Vector vector) {
+        return null;
+    }
+
+    @Override
+    public Var sub(Matrix matrix) {
+        return null;
+    }
+
+    @Override
+    public Var mul(Var other) {
+        return super.mul(other);
+    }
+
+    @Override
+    public Var mul(Scalar scalar) {
+        return null;
+    }
+
+    @Override
+    public Var mul(Vector vector) {
+        return null;
+    }
+
+    @Override
+    public Var mul(Matrix matrix) {
+        return null;
+    }
+
+    @Override
+    public Var div(Var other) {
+        return super.div(other);
+    }
+
+    @Override
+    public Var div(Scalar scalar) {
+        return null;
+    }
+
+    @Override
+    public Var div(Vector vector) {
+        return null;
+    }
+
+    @Override
+    public Var div(Matrix matrix) {
+        return null;
     }
 }
