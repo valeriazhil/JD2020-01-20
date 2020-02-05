@@ -17,18 +17,18 @@ class Vector extends Var {
 
     Vector(String strVector) {
         // TODO добавить проверку соответствует ли полученная строка выражению {x.x, x.x, x.x}  - "\\{[-0-9\\. ,]+\\}"
-        Matcher matcher = Pattern.compile("[-0-9]+(\\.[0-9]+)?").matcher(strVector);
-        int countMatches = 0;
-        while (matcher.find()) {
-            countMatches++;
+        Matcher mDoubles = Pattern.compile("-?[0-9]+(\\.[0-9]+)?").matcher(strVector);
+        int countDoubles = 0;
+        while (mDoubles.find()) {
+            countDoubles++;
         }
-        matcher.reset();
-        double[] values = new double[countMatches];
-        for (int i = 0; i < values.length; i++) {
-            matcher.find();
-            values[i] = Double.parseDouble(matcher.group());
+        mDoubles.reset();
+        double[] value = new double[countDoubles];
+        for (int i = 0; i < value.length; i++) {
+            mDoubles.find();
+            value[i] = Double.parseDouble(mDoubles.group());
         }
-        this.value = values;
+        this.value = value;
     }
 
     @Override

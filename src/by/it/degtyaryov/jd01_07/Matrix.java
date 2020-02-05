@@ -15,32 +15,35 @@ class Matrix extends Var {
         this.value = matrix.value;
     }
 
-   /* Matrix(String strMatrix) {
-        Matcher mArrays = Pattern.compile("\\{[-0-9\\. ,]+\\}").matcher(strMatrix);
-        int countArrays = 0;
-        while (mArrays.find()) {
-            countArrays++;
-        }
-        mArrays.reset();
-
-        for (int i = 0; i < countArrays; i++) {
-            mArrays.find();
-            String array = mArrays.group();
-            Matcher mElements = Pattern.compile("[-0-9]+(\\.[0-9]+)?").matcher(array);
-            int countNums = 0;
-            while (mElements.find()) {
+    Matrix(String strMatrix) {
+        Pattern patternVectors = Pattern.compile("\\{[0-9\\., -]+\\}"); // шаблон для поиска подмассивов {х.х, х.х}
+        Pattern patternNums = Pattern.compile("-?[0-9]+(\\.[0-9]+)?"); // шаблон для поиска чисел в подмассиве х.х х.х
+        Matcher matchVectors = patternVectors.matcher(strMatrix);
+        Matcher matchNums;
+        int countVectors = 0;
+        int countNums = 0;
+        while (matchVectors.find()) {
+            countVectors++;
+            countNums = 0;
+            matchNums = patternNums.matcher(matchVectors.group());
+            while (matchNums.find()) {
                 countNums++;
             }
-            mElements.reset();
-            double[][] value = new double[countArrays][countNums];
-            for (int j = 0; j < value[i].length; j++) {
-                matcher.find();
-                value[i][j] = Double.parseDouble(mElements.group());
+        }
+        double[][] value = new double[countVectors][countNums];
+        matchVectors.reset();
+        int indexVector = 0;
+        int indexNum = 0;
+        while (matchVectors.find()) {
+            matchNums = patternNums.matcher(matchVectors.group());
+            while (matchNums.find()) {
+                value[indexVector][indexNum++] = Double.parseDouble(matchNums.group());
             }
-            mArrays.find();
+            indexVector++;
+            indexNum = 0;
         }
         this.value = value;
-    }*/
+    }
 
     @Override
     public String toString() {
