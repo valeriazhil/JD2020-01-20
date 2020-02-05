@@ -4,10 +4,6 @@ import java.util.Arrays;
 
 class Scalar extends Var {
 
-    public double getValue() {
-        return value;
-    }
-
     private double value;
 
     Scalar(double value) {
@@ -20,6 +16,10 @@ class Scalar extends Var {
 
     Scalar(String strScalar) {
         this.value = Double.parseDouble(strScalar);
+    }
+
+    public double getValue() {
+        return value;
     }
 
     @Override
@@ -63,7 +63,14 @@ class Scalar extends Var {
 
     @Override
     public Var sub(Matrix matrix) {
-        return null;
+        double[][] result = new double[matrix.getValue().length][0];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Arrays.copyOf(matrix.getValue()[i], matrix.getValue()[i].length);
+            for (int j = 0; j < result[i].length; j++) {
+                result[i][j] -= value;
+            }
+        }
+        return new Matrix(result);
     }
 
     @Override
@@ -87,7 +94,14 @@ class Scalar extends Var {
 
     @Override
     public Var mul(Matrix matrix) {
-        return null;
+        double[][] result = new double[matrix.getValue().length][0];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Arrays.copyOf(matrix.getValue()[i], matrix.getValue()[i].length);
+            for (int j = 0; j < result[i].length; j++) {
+                result[i][j] *= value;
+            }
+        }
+        return new Matrix(result);
     }
 
     @Override
@@ -102,12 +116,16 @@ class Scalar extends Var {
 
     @Override
     public Var div(Vector vector) {
-        return null;
+        double[] result = Arrays.copyOf(vector.getValue(), vector.getValue().length);
+        for (int i = 0; i < result.length; i++) {
+            result[i] /= value;
+        }
+        return new Vector(result);
     }
 
     @Override
     public Var div(Matrix matrix) {
-        return null;
+        return super.div((Var) matrix);
     }
 
     @Override

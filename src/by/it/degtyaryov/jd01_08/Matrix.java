@@ -31,9 +31,8 @@ class Matrix extends Var {
         }
     }
 
-    @Override
-    public String toString() {
-        return Arrays.deepToString(value).replace('[', '{').replace(']', '}');
+    public double[][] getValue() {
+        return value;
     }
 
     @Override
@@ -55,52 +54,81 @@ class Matrix extends Var {
 
     @Override
     public Var add(Vector vector) {
-        return null;
+        return super.add((Var) vector);
     }
 
     @Override
     public Var add(Matrix matrix) {
-        return null;
+        double[][] result = new double[value.length][0];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Arrays.copyOf(value[i], value[i].length);
+            for (int j = 0; j < result[i].length; j++) {
+                result[i][j] += matrix.value[i][j];
+            }
+        }
+        return new Matrix(result);
     }
 
     @Override
     public Var sub(Var other) {
-        return super.sub(other);
+        return other.sub(this);
     }
 
     @Override
     public Var sub(Scalar scalar) {
-        return null;
+        double[][] result = new double[value.length][0];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Arrays.copyOf(value[i], value[i].length);
+            for (int j = 0; j < result[i].length; j++) {
+                result[i][j] = scalar.getValue() - result[i][j];
+            }
+        }
+        return new Matrix(result);
     }
 
     @Override
     public Var sub(Vector vector) {
-        return null;
+        return super.add((Var) vector);
     }
 
     @Override
     public Var sub(Matrix matrix) {
-        return null;
+        double[][] result = new double[value.length][0];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Arrays.copyOf(value[i], value[i].length);
+            for (int j = 0; j < result[i].length; j++) {
+                result[i][j] = matrix.getValue()[i][j] - result[i][j];
+            }
+        }
+        return new Matrix(result);
     }
 
     @Override
     public Var mul(Var other) {
-        return super.mul(other);
+        return other.mul(this);
     }
 
     @Override
     public Var mul(Scalar scalar) {
-        return null;
+        return scalar.mul(this);
     }
 
     @Override
     public Var mul(Vector vector) {
-        return null;
+        return super.add((Var) vector);
     }
 
     @Override
     public Var mul(Matrix matrix) {
-        return null;
+        double[][] result = new double[matrix.getValue().length][value[0].length];
+        for (int i = 0; i < matrix.getValue().length; i++) {
+            for (int j = 0; j < value[0].length; j++) {
+                for (int k = 0; k < value.length; k++) {
+                    result[i][j] += matrix.getValue()[i][k] * value[k][j];
+                }
+            }
+        }
+        return new Matrix(result);
     }
 
     @Override
@@ -110,16 +138,21 @@ class Matrix extends Var {
 
     @Override
     public Var div(Scalar scalar) {
-        return null;
+        return super.div((Var) scalar);
     }
 
     @Override
     public Var div(Vector vector) {
-        return null;
+        return super.add((Var) vector);
     }
 
     @Override
     public Var div(Matrix matrix) {
-        return null;
+        return super.div((Var) matrix);
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.deepToString(value).replace('[', '{').replace(']', '}');
     }
 }

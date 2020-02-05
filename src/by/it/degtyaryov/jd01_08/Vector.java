@@ -4,10 +4,6 @@ import java.util.Arrays;
 
 class Vector extends Var {
 
-    public double[] getValue() {
-        return value;
-    }
-
     private double[] value;
 
     Vector(double[] value) {
@@ -29,10 +25,8 @@ class Vector extends Var {
         }
     }
 
-    @Override
-    public String toString() {
-        return Arrays.toString(value).replace('[', '{')
-                .replace(']', '}');
+    public double[] getValue() {
+        return value;
     }
 
     @Override
@@ -60,6 +54,8 @@ class Vector extends Var {
 
     @Override
     public Var add(Matrix matrix) {
+        // TODO relize method
+        System.out.println("Суммма матрица+вектор еще не реализовал");
         return null;
     }
 
@@ -70,7 +66,11 @@ class Vector extends Var {
 
     @Override
     public Var sub(Scalar scalar) {
-        return null;
+        double[] result = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < result.length; i++) {
+            result[i] = scalar.getValue() - result[i];
+        }
+        return new Vector(result);
     }
 
     @Override
@@ -84,7 +84,7 @@ class Vector extends Var {
 
     @Override
     public Var sub(Matrix matrix) {
-        return null;
+        return super.sub((Var) matrix);
     }
 
     @Override
@@ -94,7 +94,11 @@ class Vector extends Var {
 
     @Override
     public Var mul(Scalar scalar) {
-        return null;
+        double[] result = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < result.length; i++) {
+            result[i] *= scalar.getValue();
+        }
+        return new Vector(result);
     }
 
     @Override
@@ -108,26 +112,38 @@ class Vector extends Var {
 
     @Override
     public Var mul(Matrix matrix) {
-        return null;
+        double[] result = new double[matrix.getValue().length];
+        for (int i = 0; i < matrix.getValue().length; i++) {
+            for (int j = 0; j < value.length; j++) {
+                result[i] += matrix.getValue()[i][j] * value[j];
+            }
+        }
+        return new Vector(result);
     }
 
     @Override
     public Var div(Var other) {
-        return super.div(other);
+        return other.div(this);
     }
 
     @Override
     public Var div(Scalar scalar) {
-        return null;
+        return super.div((Var) scalar);
     }
 
     @Override
     public Var div(Vector vector) {
-        return null;
+        return super.div((Var) vector);
     }
 
     @Override
     public Var div(Matrix matrix) {
-        return null;
+        return super.div((Var) matrix);
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(value).replace('[', '{')
+                .replace(']', '}');
     }
 }
