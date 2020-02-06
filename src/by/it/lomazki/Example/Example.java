@@ -1,14 +1,22 @@
 package by.it.lomazki.Example;
 
+import java.util.Arrays;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Example {
-    public static void main(String[] args) {
-        StringBuilder sb = new StringBuilder(Poem.text);
-        Pattern pattern = Pattern.compile("[а-яА-ЯЁё]+");
-        Matcher matcher = pattern.matcher(Poem.text);
-
+    Vector vector=new Vector();
+    public void addCharacterandPrint(){
+        vector.add("Weasley");
+        vector.add("Potter");
+        for(int i=0;i<vector.size();i++){
+            System.out.println("The characters are\t"+vector.get(i));
+        }
+    }
+    public static void main(String args[]){
+        Example example=new Example();
+        example.addCharacterandPrint();
     }
 }
 
