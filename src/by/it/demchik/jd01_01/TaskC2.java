@@ -1,5 +1,7 @@
 package by.it.demchik.jd01_01;
 
+import java.util.Scanner;
+
 import static java.lang.Integer.toBinaryString;
 
 /* Нужно написать программу, которая вводит два числа с клавиатуры
@@ -17,8 +19,9 @@ OCT:42+32=74
 */
 class TaskC2 {
     public static void main(String[] args) {
-        int a=34;
-        int b=26;
+        Scanner bn=new Scanner(System.in);
+        int a=bn.nextInt();
+        int b=bn.nextInt();
         int x=a+b;
         System.out.println("DEC:"+a+"+"+b+"="+x);
         System.out.println("BIN:"+ toBinaryString(a)+"+"+ toBinaryString(b)+"="+ toBinaryString(x));
