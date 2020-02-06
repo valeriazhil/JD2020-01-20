@@ -19,7 +19,6 @@ class Matrix extends Var {
     public Matrix(String strMatrix) {
 
 
-
         StringBuilder sb = new StringBuilder(strMatrix);
         sb.deleteCharAt(sb.length() - 1);
         sb.deleteCharAt(0);

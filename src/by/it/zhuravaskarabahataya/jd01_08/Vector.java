@@ -103,6 +103,13 @@ class Vector extends Var implements Operation{
 
     @Override
     public Var div(Var other) {
+        if (other instanceof Scalar){
+            double[] result = Arrays.copyOf(this.values, values.length);
+            for (int i = 0; i < result.length; i++) {
+                result[i] /= ((Scalar) other).getValue();
+            }
+            return new Vector(result);
+        }
         return super.div(other);
     }
 }
