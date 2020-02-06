@@ -1,6 +1,6 @@
 package by.it.zhuravaskarabahataya.jd01_08.oop;
 
-public class PlasticSurgeon extends Surgeon{
+public class Intern extends Surgeon{
 
     private String name;
 
@@ -8,13 +8,14 @@ public class PlasticSurgeon extends Surgeon{
         return name;
     }
 
-    public PlasticSurgeon() {
-        System.out.println("А вот и пластический хирург!");
+    public Intern(String name) {
+        this.name = name;
+        System.out.println("Пришел интерн");
     }
 
     @Override
     void operate() {
-        System.out.println("Выполняю маммопластику.");
+        super.operate();
     }
 
 

@@ -1,12 +1,16 @@
 package by.it.zhuravaskarabahataya.jd01_08;
 //почему copyOF на двумерки не срабатывает
-import java.util.Arrays;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 //В конструкторе лучше не вызывать методы,но этот получился монстром каким-то без них
 
 class Matrix extends Var implements Operation {
     private double[][] values;
+
+    public double[][] getValues() {
+        return values;
+    }
 
     public Matrix(double[][] values) {
         this.values = values;
@@ -46,7 +50,7 @@ class Matrix extends Var implements Operation {
         this.values = matrix;
     }
 
-    private static double[][] copy2dArray(double[][] source){
+    private static double[][] copy2dArray(double[][] source) {
         double[][] resultArray = new double[source.length][source[0].length];
         for (int i = 0; i < resultArray.length; i++) {
             for (int j = 0; j < resultArray[0].length; j++) {
@@ -58,8 +62,8 @@ class Matrix extends Var implements Operation {
 
     @Override
     public Var add(Var other) {
-        double[][] result = copy2dArray(this.values);
         if (other instanceof Scalar) {
+            double[][] result = copy2dArray(this.values);
             double s = ((Scalar) other).getValue();
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
@@ -67,19 +71,53 @@ class Matrix extends Var implements Operation {
                 }
             }
             return new Matrix(result);
+        } else if (other instanceof Matrix) {
+            double[][] first = this.values;
+            double[][] second = ((Matrix) other).getValues();
+            double[][] result = new double[first.length][first.length];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result.length; j++) {
+                    result[i][j] = first[i][j] + second[i][j];
+                }
+            }
+            return new Matrix(result);
         }
 
         return super.add(other);
     }
+    // написала для матрицы и скаляра, матрицы и матрицы. М + В = ??
+
 
     @Override
     public Var sub(Var other) {
+        if (other instanceof Scalar) {
+            double[][] result = copy2dArray(this.values);
+            double s = ((Scalar) other).getValue();
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result.length; j++) {
+                    result[i][j] -= s;
+                }
+            }
+            return new Matrix(result);
+        }
+        if (other instanceof Matrix) {
+            double[][] first = this.values;
+            double[][] second = ((Matrix) other).getValues();
+            double[][] result = new double[first.length][first.length];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result.length; j++) {
+                    result[i][j] = first[i][j] - second[i][j];
+                }
+            }
+            return new Matrix(result);
+        }
         return super.sub(other);
     }
 
+    //написала только М-М
+
     @Override
     public Var mul(Var other) {
-
         if (other instanceof Scalar) {
             double[][] result = copy2dArray(this.values);
             for (int i = 0; i < result.length; i++) {
@@ -88,8 +126,7 @@ class Matrix extends Var implements Operation {
                 }
             }
             return new Matrix(result);
-        }
-        else if (other instanceof Vector){
+        } else if (other instanceof Vector) {
             double[] result = new double[((Vector) other).getValues().length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
@@ -97,9 +134,18 @@ class Matrix extends Var implements Operation {
                 }
             }
             return new Vector(result);
-        }
-
-        else if (other instanceof Matrix){
+        } else if (other instanceof Matrix && this.values.length == ((Matrix) other).getValues()[0].length) {
+            double[][] first = this.values;
+            double[][] second = ((Matrix) other).getValues();
+            double[][] result = new double[this.values.length][((Matrix) other).getValues()[0].length];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[0].length; j++) {
+                    for (int r = 0; r < result.length; r++) {
+                        result[i][r] += first[i][j] * second[j][r];
+                    }
+                }
+            }
+            return new Matrix(result);
 
         }
 

@@ -63,10 +63,22 @@ class Vector extends Var implements Operation{
         return super.add(other);
     }
 
-
-
     @Override
     public Var sub(Var other) {
+        double[] result = Arrays.copyOf(values, values.length);
+        if (other instanceof Scalar){
+            double s = ((Scalar) other).getValue();
+            for (int i = 0; i < result.length; i++) {
+                result[i] -=s;
+            }
+            return new Vector(result);
+        }
+        if (other instanceof Vector){
+            for (int i = 0; i < result.length; i++) {
+                result[i] -= ((Vector) other).values[i];
+            }
+            return new Vector(result);
+        }
         return super.sub(other);
     }
 
@@ -86,7 +98,7 @@ class Vector extends Var implements Operation{
             }
             return new Scalar(res);
         }
-        return other.mul(this);
+        return super.mul(other);
     }
 
     @Override
