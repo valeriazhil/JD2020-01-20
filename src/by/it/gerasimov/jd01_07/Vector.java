@@ -6,11 +6,13 @@ class Vector extends Var {
     private double[] value;
 
     Vector(double[] value) {
-        this.value = value;
+        this.value = new double[value.length];
+        System.arraycopy(value, 0, this.value, 0, value.length);
     }
 
     Vector(Vector vector) {
-        this.value = vector.value;
+        value = new double[vector.getValue().length];
+        System.arraycopy(vector.getValue(), 0, value, 0, vector.getValue().length);
     }
 
     Vector(String strVector) {
@@ -26,7 +28,8 @@ class Vector extends Var {
     }
 
     void setValue(double[] value) {
-        this.value = value;
+        this.value = new double[value.length];
+        System.arraycopy(value, 0, this.value, 0, value.length);
     }
 
     @Override

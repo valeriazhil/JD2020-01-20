@@ -8,11 +8,19 @@ class Matrix extends Var {
     double[][] value;
 
     Matrix(double[][] value) {
-        this.value = value;
+        this.value = new double[value.length][0];
+        for (int i = 0; i < value.length; i++) {
+            this.value[i] = new double[value[i].length];
+            System.arraycopy(value[i], 0, this.value[i], 0, value[i].length);
+        }
     }
 
     Matrix(Matrix matrix) {
-        this.value = matrix.value;
+        value = new double[matrix.getValue().length][0];
+        for (int i = 0; i < matrix.getValue().length; i++) {
+            value[i] = new double[matrix.getValue()[i].length];
+            System.arraycopy(matrix.getValue()[i], 0, value[i], 0, matrix.getValue()[i].length);
+        }
     }
 
     Matrix(String strMatrix) {
@@ -35,7 +43,11 @@ class Matrix extends Var {
     }
 
     void setValue(double[][] value) {
-        this.value = value;
+        this.value = new double[value.length][0];
+        for (int i = 0; i < value.length; i++) {
+            this.value[i] = new double[value[i].length];
+            System.arraycopy(value[i], 0, this.value[i], 0, value[i].length);
+        }
     }
 
     @Override
@@ -43,11 +55,11 @@ class Matrix extends Var {
         StringBuilder out = new StringBuilder();
         out.append('{');
         String delimiter1 = "";
-        for (int i = 0; i < this.value.length; i++) {
+        for (double[] doubles : this.value) {
             out.append(delimiter1).append("{ ");
             String delimiter2 = "";
             for (int j = 0; j < this.value[0].length; j++) {
-                out.append(delimiter2).append(value[i][j]);
+                out.append(delimiter2).append(doubles[j]);
                 delimiter2 = ", ";
             }
             out.append(" }");
