@@ -10,7 +10,10 @@ class Vector extends Var{
     private double[] value;
 
     Vector(double[] value) {
-        this.value = value;
+        this.value=new double[value.length];
+        for (int i = 0; i < this.value.length; i++) {
+                this.value[i] = value[i];
+        }
     }
 
     Vector(Vector vector) {
