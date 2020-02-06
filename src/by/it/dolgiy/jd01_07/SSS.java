@@ -19,6 +19,8 @@ public class SSS {
                 Matcher matcher1 = pattern1.matcher(word);
                 while (matcher1.find()) {
                     String word1 = matcher1.group();
+                    
+
                     for (int j = 0; j < strMatrix1.length; j++) {
                         int lastJ = strMatrix1[j].length;
                         strMatrix1 = Arrays.copyOf(strMatrix1,lastJ+1);
