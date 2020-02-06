@@ -133,7 +133,7 @@ class Matrix extends Var {
 
     @Override
     public Var div(Var other) {
-        return super.div(other);
+        return other.div(this);
     }
 
     @Override

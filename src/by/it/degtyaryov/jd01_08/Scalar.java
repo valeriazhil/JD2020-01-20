@@ -125,7 +125,14 @@ class Scalar extends Var {
 
     @Override
     public Var div(Matrix matrix) {
-        return super.div((Var) matrix);
+        double[][] result = new double[matrix.getValue().length][0];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Arrays.copyOf(matrix.getValue()[i], matrix.getValue()[i].length);
+            for (int j = 0; j < result[i].length; j++) {
+                result[i][j] /= value;
+            }
+        }
+        return new Matrix(result);
     }
 
     @Override
