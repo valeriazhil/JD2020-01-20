@@ -32,8 +32,6 @@ import java.util.Scanner;
 
 */
 class TaskC3 {
-    private static double g_earth = 9.81;
-    private static double g_mars = 3.86;
 
     public static void main(String[] args) {
 
@@ -46,11 +44,12 @@ class TaskC3 {
     }
 public static double getWeight(int weight){
 
-        double d = weight * g_mars/g_earth;
+    double g_earth = 9.81;
+    double g_mars = 3.86;
+    double d = weight * g_mars / g_earth;
         double e = d*100;
         double c = (double) Math.round(e);
-        double k = c/100;
-        return k;
+    return c/100;
     }
 
 }
