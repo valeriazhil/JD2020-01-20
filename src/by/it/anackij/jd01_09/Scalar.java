@@ -1,4 +1,4 @@
-package by.it.anackij.jd01_08;
+package by.it.anackij.jd01_09;
 
 
 class Scalar extends Var {
@@ -23,7 +23,7 @@ class Scalar extends Var {
 
     @Override
     public Var sub(Var other) {
-        if (other instanceof Scalar ){
+        if (other instanceof Scalar){
             double result= this.value-((Scalar)other).value;
             return new Scalar(result);
         }else {
@@ -34,7 +34,7 @@ class Scalar extends Var {
 
     @Override
     public Var mul(Var other) {
-        if (other instanceof Scalar ){
+        if (other instanceof Scalar){
             double result= this.value*((Scalar)other).value;
             return new Scalar(result);
         }
@@ -43,7 +43,7 @@ class Scalar extends Var {
 
     @Override
     public Var div(Var other) {
-        if (other instanceof Scalar ){
+        if (other instanceof Scalar){
             double result= this.value/((Scalar)other).value;
             return new Scalar(result);
         }
@@ -52,7 +52,7 @@ class Scalar extends Var {
 
     @Override
     public Var add(Var other){
-        if (other instanceof Scalar ){
+        if (other instanceof Scalar){
             double result= this.value+((Scalar)other).value;
         return new Scalar(result);
         }
