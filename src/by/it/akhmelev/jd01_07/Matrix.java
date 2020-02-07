@@ -2,42 +2,49 @@ package by.it.akhmelev.jd01_07;
 
 import java.util.Arrays;
 
-public class Matrix extends Var{
+class Matrix extends Var {
 
     private double[][] values;
 
+    public Matrix(double[][] array) {
+        this.values=new double[array.length][0];
+        for (int i = 0; i < array.length; i++) {
 
-    public Matrix(double[][] values) {
-        this.values=new double[values.length][values[0].length];
-        for (int i = 0; i < this.values.length; i++) {
-            for (int j = 0; j < this.values[i].length; j++) {
-                this.values[i][j]=values[i][j];
+            double[] row=array[i];
+
+            this.values[i]=new double[row.length];
+
+            for (int j = 0; j < row.length; j++) {
+                this.values[i][j]=row[j];
             }
         }
     }
 
-    public Matrix(Matrix m) {
-        this(m.values);
+    public Matrix(Matrix someMatrix) {
+        this(someMatrix.values);
     }
 
-    public Matrix(String m) {
-        //{{1,2},{3,4}}
-        String[] rowRaw = m.replace(" ", "").split("},");
-        for (int i = 0; i < rowRaw.length; i++) {
-            rowRaw[i]=rowRaw[i].replace("{","").replace("}","");
+
+    public Matrix(String str) {
+        //{{2,2,2},{3,3,4}}
+        str=str.replace(" ","").trim();
+        String[] strRows = str.split("},");
+        for (int i = 0; i < strRows.length; i++) {
+            strRows[i]=strRows[i].replace("{","").replace("}","");
         }
-        values=new double[rowRaw.length][0];
-        for (int i = 0; i < rowRaw.length; i++) {
-            String[] v = rowRaw[i].split(",");
-            values[i]=new double[v.length];
-            for (int j = 0; j < values[i].length; j++) {
-                values[i][j]=Double.parseDouble(v[j]);
+        values=new double[strRows.length][0];
+        for (int i = 0; i < strRows.length; i++) {
+            String[] oneRow=strRows[i].split(",");
+            values[i]=new double[oneRow.length];
+            for (int j = 0; j < oneRow.length; j++) {
+                values[i][j]=Double.parseDouble(oneRow[j]);
             }
         }
     }
 
     @Override
     public String toString() {
+        //[[1,2],[3,4]]
         return Arrays.deepToString(values)
                 .replace('[','{')
                 .replace(']','}');
