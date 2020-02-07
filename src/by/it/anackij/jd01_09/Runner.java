@@ -1,6 +1,6 @@
 package by.it.anackij.jd01_09;
 
-public class Runner {
+ class Runner {
     private static void print(Var var) {
         System.out.println(var);
     }
