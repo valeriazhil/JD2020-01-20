@@ -48,10 +48,12 @@ class Matrix extends Var{
             return new Matrix(add1);
         }
         else if (other instanceof Matrix) {
-            double[][] add1 = value;
+            double[][] add1 = new double[value.length][value[0].length];
             for (int i = 0; i < this.value.length; i++) {
+//                double[] eee = add1[i];
+//                this.value[i]= new double[eee.length];
                 for (int j = 0; j < this.value[i].length; j++) {
-                    add1[i][j] = add1[i][j] + ((Matrix) other).value[i][j];
+                    add1[i][j] = this.value[i][j] + ((Matrix) other).value[i][j];
                 }
             }
             return new Matrix(add1);

@@ -91,6 +91,7 @@ class Vector extends Var{
             for (int i = 0; i < mul1.length; i++) {
                 mul1[i]=mul1[i]*((Vector) other).value[i];
             }
+//            return new Scalar(mul1);
             return new Vector(mul1);
         }
         else
