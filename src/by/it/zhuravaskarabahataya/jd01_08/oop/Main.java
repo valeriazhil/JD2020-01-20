@@ -1,6 +1,6 @@
 package by.it.zhuravaskarabahataya.jd01_08.oop;
 
-public class Main {
+class Main {
 
     public static void main(String[] args) {
         Surgeon Vladimir = new Neurosurgeon("Vladimir");

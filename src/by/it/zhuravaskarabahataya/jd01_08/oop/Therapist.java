@@ -1,6 +1,6 @@
 package by.it.zhuravaskarabahataya.jd01_08.oop;
 
-public abstract class Therapist implements Doctor {
+abstract class Therapist implements Doctor {
 
     private String name;
 

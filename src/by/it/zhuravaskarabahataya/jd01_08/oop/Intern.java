@@ -1,6 +1,6 @@
 package by.it.zhuravaskarabahataya.jd01_08.oop;
 
-public class Intern extends Surgeon{
+class Intern extends Surgeon{
 
     private String name;
 

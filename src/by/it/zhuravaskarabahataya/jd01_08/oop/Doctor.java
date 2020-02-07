@@ -1,6 +1,6 @@
 package by.it.zhuravaskarabahataya.jd01_08.oop;
 
-public interface Doctor {
+interface Doctor {
    void treat();
 
 }

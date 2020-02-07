@@ -1,6 +1,6 @@
 package by.it.zhuravaskarabahataya.jd01_08.oop;
 
-public class Cardiologist extends Therapist {
+class Cardiologist extends Therapist {
 
     private String name;
 
