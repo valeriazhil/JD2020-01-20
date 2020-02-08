@@ -45,8 +45,6 @@ class Vector extends Var implements Operation {
     }
 
 
-
-
     @Override
     public Var add(Var other) {
         double[] result = Arrays.copyOf(values, values.length);

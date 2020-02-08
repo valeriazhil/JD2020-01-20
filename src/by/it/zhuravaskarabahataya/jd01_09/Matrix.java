@@ -67,29 +67,21 @@ class Matrix extends Var implements Operation {
 //        this.values = matrix;
     }
 
-    private static double[][] copy2dArray(double[][] source) {
-        double[][] resultArray = new double[source.length][source[0].length];
-        for (int i = 0; i < resultArray.length; i++) {
-            System.arraycopy(source[i], 0, resultArray[i], 0, resultArray[0].length);
-        }
-        return resultArray;
-    }
-
-    @Override
+        @Override
     public Var add(Var other) {
         if (other instanceof Scalar) {
-            double[][] result = copy2dArray(this.values);
+            double[][] result = new double[values.length][values[0].length];
             double s = ((Scalar) other).getValue();
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
-                    result[i][j] += s;
+                    result[i][j] = values[i][j] + s;
                 }
             }
             return new Matrix(result);
         } else if (other instanceof Matrix) {
             double[][] first = this.values;
             double[][] second = ((Matrix) other).getValues();
-            double[][] result = new double[first.length][first.length];
+            double[][] result = new double[first.length][first[0].length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
                     result[i][j] = first[i][j] + second[i][j];
@@ -106,11 +98,11 @@ class Matrix extends Var implements Operation {
     @Override
     public Var sub(Var other) {
         if (other instanceof Scalar) {
-            double[][] result = copy2dArray(this.values);
+            double[][] result = new double[values.length][values[0].length];
             double s = ((Scalar) other).getValue();
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
-                    result[i][j] -= s;
+                    result[i][j] = values[i][j] - s;
                 }
             }
             return new Matrix(result);
@@ -118,7 +110,7 @@ class Matrix extends Var implements Operation {
         if (other instanceof Matrix) {
             double[][] first = this.values;
             double[][] second = ((Matrix) other).getValues();
-            double[][] result = new double[first.length][first.length];
+            double[][] result = new double[first.length][first[0].length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
                     result[i][j] = first[i][j] - second[i][j];
@@ -129,12 +121,10 @@ class Matrix extends Var implements Operation {
         return super.sub(other);
     }
 
-    //написала только М-М
-
     @Override
     public Var mul(Var other) {
         if (other instanceof Scalar) {
-            double[][] result = copy2dArray(this.values);
+            double[][] result = new double[values.length][values[0].length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
                     result[i][j] = values[i][j] * ((Scalar) other).getValue();
@@ -161,14 +151,21 @@ class Matrix extends Var implements Operation {
                 }
             }
             return new Matrix(result);
-
         }
-
         return super.mul(other);
     }
 
     @Override
     public Var div(Var other) {
+        if (other instanceof Scalar) {
+            double[][] result = new double[values.length][values[0].length];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result.length; j++) {
+                    result[i][j] = values[i][j] / ((Scalar) other).getValue();
+                }
+            }
+            return new Matrix(result);
+        }
         return super.div(other);
     }
 

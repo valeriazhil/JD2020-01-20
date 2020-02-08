@@ -9,43 +9,31 @@ class Matrix extends Var {
     double[][] values;
 
     public Matrix(double[][] values) {
-        this.values = Arrays.copyOf(values, values.length);
+        this.values = new double[values.length][0];
+        for (int i = 0; i < values.length; i++) {
+            this.values[i] = new double[values[i].length];
+            System.arraycopy(values[i], 0, this.values[i], 0, values[i].length);
+        }
     }
 
     public Matrix(Matrix matrix) {
-        this.values = matrix.values;
+        this(matrix.values);
     }
 
     public Matrix(String strMatrix) {
-
-
-        StringBuilder sb = new StringBuilder(strMatrix);
-        sb.deleteCharAt(sb.length() - 1);
-        sb.deleteCharAt(0);
-        Pattern pattern = Pattern.compile("\\{\\s*[\\d,\\s]+}");
-        Matcher matcher = pattern.matcher(sb);
-        int counter = 0;
-        while (matcher.find()) {
-            counter++;
+        strMatrix = strMatrix.trim().replace(" ", "");
+        String[] rows = strMatrix.split("},");
+        for (int i = 0; i < rows.length; i++) {
+            rows[i] = rows[i].replace("{", "").replace("}", "");
         }
-        double[][] matrix = new double[counter][counter];
-        String[] strArray = new String[counter];
-        Pattern pattern1 = Pattern.compile("\\{\\s*[\\d,\\s]+}");
-        Matcher matcher1 = pattern1.matcher(sb);
-        int index = 0;
-        while (matcher1.find()) {
-            strArray[index++] = matcher1.group();
-        }
-        for (int i = 0; i < strArray.length; i++) {
-            StringBuilder sb2 = new StringBuilder(strArray[i]);
-            sb2.deleteCharAt(0);
-            sb2.deleteCharAt(sb2.length() - 1);
-            String[] strArr = sb2.toString().split(",");
-            for (int a = 0; a < strArr.length; a++) {
-                matrix[i][a] = Double.parseDouble(strArr[a]);
+        values = new double[rows.length][0];
+        for (int i = 0; i < rows.length; i++) {
+            String[] strArray = rows[i].split(",");
+            values[i] = new double[strArray.length];
+            for (int j = 0; j < strArray.length; j++) {
+                values[i][j] = Double.parseDouble(strArray[j]);
             }
         }
-        this.values = matrix;
     }
 
 
