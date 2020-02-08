@@ -1,4 +1,4 @@
-package by.it.zhilenkova.jd01_07;
+package by.it.zhilenkova.jd01.jd01_07;
 @SuppressWarnings("all")
 /**
  * Метод с неопределенным числом формальных параметров Integer... args
