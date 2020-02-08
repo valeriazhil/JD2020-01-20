@@ -1,11 +1,11 @@
-package by.it.dolgiy.jd01_08;
+package by.it.dolgiy.jd01_09;
 
 
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class Vector extends Var{
+class Vector extends Var {
 
     private double[] value;
 

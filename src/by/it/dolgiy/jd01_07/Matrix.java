@@ -5,12 +5,20 @@ class Matrix extends Var{
     private double[][] value;
 
     Matrix(double[][] value) {
-        this.value=new double[value.length][value[0].length];
-        for (int i = 0; i < this.value.length; i++) {
-            for (int j = 0; j < this.value[i].length; j++) {
-                this.value[i][j] = value[i][j];
+        this.value=new double[value.length][0];
+        for (int i = 0; i < value.length; i++) {
+            double[] row=value[i];
+            this.value[i]=new double[row.length];
+            for (int j = 0; j < row.length; j++) {
+                this.value[i][j]=row[j];
             }
         }
+//        this.value=new double[value.length][value[0].length];
+//        for (int i = 0; i < this.value.length; i++) {
+//            for (int j = 0; j < this.value[i].length; j++) {
+//                this.value[i][j] = value[i][j];
+//            }
+//        }
     }
 
     Matrix(Matrix matrix) {

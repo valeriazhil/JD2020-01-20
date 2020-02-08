@@ -1,10 +1,6 @@
-package by.it.dolgiy.jd01_08;
+package by.it.dolgiy.jd01_09;
 
-import org.omg.CORBA.Object;
-
-import java.util.Arrays;
-
-class Matrix extends Var{
+class Matrix extends Var {
 
     private double[][] value;
 
