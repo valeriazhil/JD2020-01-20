@@ -31,4 +31,19 @@ abstract class Var implements Operation {
         return "Var";
     }
 
+    static Var createVar(String str){
+        str = str.trim().replace("\\s+","");
+        if (str.matches(Patterns.SCALAR)){
+            return new Scalar(str);
+        }
+        else if (str.matches(Patterns.VECTOR)){
+            return new Vector(str);
+        }
+        else if (str.matches(Patterns.MATRIX)){
+            return new Matrix(str);
+        }
+        else
+            return null;
+    }
+
 }
