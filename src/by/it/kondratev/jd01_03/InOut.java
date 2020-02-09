@@ -28,6 +28,7 @@ public class InOut {
 
     }
 
+
     public static void printArray(double[ ] arr, String name, int columnCount) {
         for (int i = 0; i < arr.length ; i++) {
             System.out.printf("%s[% -3d]=%-5.2f  ", name,i, arr[i]);
