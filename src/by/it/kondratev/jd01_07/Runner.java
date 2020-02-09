@@ -11,14 +11,11 @@ public class Runner {
         //System.out.println(v1);
         //System.out.println(v2);
         //System.out.println(v3);
-
-        String strVector = "{{1,2,5},{3,4,8},{5,6,9},{7,8,1}}";
-        strVector = strVector.substring(1, strVector.length() - 2);
         //    strVector.(',','n');
         //strVector.replace('}',' ');
         //strVector = strVector.trim();
-        String[] row = strVector.split("},");
-        for (int i = 0; i <row.length ; i++) {
+        //String[] row = strVector.split("},");
+        /*for (int i = 0; i <row.length ; i++) {
             row[i] = row[i].substring(1);
         }
         String [] cols = row[0].split(",");

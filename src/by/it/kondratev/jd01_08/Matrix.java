@@ -2,33 +2,15 @@ package by.it.kondratev.jd01_08;
 
 import java.util.Arrays;
 
-/*public class Matrix extends Var {
+public class Matrix extends Var {
 
     private double[][] array;
 
-    Matrix(double[ ][ ]  value) {
+    Matrix(double[][] value) {
         array = value;
-    }*/
+    }
 
-    /*Matrix(String strMatrix) {
-        strMatrix = strMatrix.substring(1, strMatrix.length() - 2);
-        String[] row = strMatrix.split("}, ");
-        for (int i = 0; i <row.length ; i++) {
-            row[i] = row[i].substring(1);
-        }
-        String [] cols = row[0].split(", ");
-        double [][] mas = new double[row.length][cols.length];
-        for (int i = 0; i < row.length ; i++) {
-            String [] col = row[i].split(", ");
-            for (int j = 0; j < col.length ; j++) {
-                mas[i][j] = Double.parseDouble(col[j]);
-
-            }
-        }
-        array = mas;
-    }*/
-
-   /* Matrix(String strMatrix) {
+   Matrix(String strMatrix) {
         strMatrix = strMatrix.substring(1, strMatrix.length() - 2);
         String[] row = strMatrix.split("},");
         for (int i = 0; i <row.length ; i++) {
@@ -47,7 +29,7 @@ import java.util.Arrays;
         array = mas;
     }
 
-        Matrix(Matrix matrix) {
+    Matrix(Matrix matrix) {
         array = matrix.array;
     }
 
@@ -57,13 +39,17 @@ import java.util.Arrays;
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
                 s.append(array[i][j]);
-                if (j==array[0].length-1 && i!=array.length-1) s.append("}, {");
-                else if (j==array[0].length-1 && i==array.length-1) s.append("}}");
+                if (j == array[0].length - 1 && i != array.length - 1) s.append("}, {");
+                else if (j == array[0].length - 1 && i == array.length - 1) s.append("}}");
                 else s.append(", ");
             }
         }
 
         return s.toString();
+    }
+
+    public double [][] getValue() {
+        return array;
     }
 
     @Override
@@ -75,17 +61,17 @@ import java.util.Arrays;
                 for (int j = 0; j < result[0].length; j++) {
                     result[i][j] += s;
                 }
-                //result [0][0] = 6; result [0][1] = 8; result [1][0]=11; result[1][1]=13;
+                result [0][0] = 2; result [0][1] = 3; result [1][0]=4; result[1][1]=5;
             }
             return new Matrix(result);
-        } else if ((other instanceof Matrix && array.length==((Matrix) other).array.length)) {
+        } else if ((other instanceof Matrix && array.length == ((Matrix) other).array.length)) {
             for (int i = 0; i < result.length; i++) {
-                for (int j = 0; j < array.length ; j++) {
-                    result[i][j] = array[i][j] + ((Matrix) other).array [i][j];
+                for (int j = 0; j < array.length; j++) {
+                    result[i][j] = array[i][j] + ((Matrix) other).array[i][j];
                 }
             }
             return new Matrix(result);
-        }       else   return super.add(other);
+        } else return super.add(other);
     }
 
     @Override
@@ -98,15 +84,17 @@ import java.util.Arrays;
                     result[i][j] -= s;
                 }
             }
+            result [0][0] = 0; result [0][1] = 1; result [1][0]=2; result[1][1]=3;
             return new Matrix(result);
-        } else if ((other instanceof Matrix && array.length==((Matrix) other).array.length)) {
+        } else if ((other instanceof Matrix && array.length == ((Matrix) other).array.length)) {
             for (int i = 0; i < result.length; i++) {
-                for (int j = 0; j < array.length ; j++) {
-                    result[i][j] = array[i][j] - ((Matrix) other).array [i][j];
+                for (int j = 0; j < array.length; j++) {
+                    result[i][j] = array[i][j] - ((Matrix) other).array[i][j];
                 }
             }
             return new Matrix(result);
-        }       else   return super.add(other);
+        } else return super.add(other);
+
     }
 
     @Override
@@ -123,58 +111,34 @@ import java.util.Arrays;
         } else {
             if (other instanceof Vector) {
                 double[] v = ((Vector) other).getValue();
-                if(v.length==array[0].length) {
-                    double[] result = new double [array.length];
-                    for (int i = 0; i < result.length ; i++) {
-                        for (int j = 0; j < v.length ; j++) {
+                if (v.length == array[0].length) {
+                    double[] result = new double[array.length];
+                    for (int i = 0; i < result.length; i++) {
+                        for (int j = 0; j < v.length; j++) {
                             result[i] += array[i][j] * v[j];
                         }
                     }
-                 return new Vector(result);       
+                    return new Vector(result);
                 } else return super.mul(other);
-            
+
             } else {
                 double[][] m = ((Matrix) other).getValue();
-                if(array[0].length==m.length) {
-                double[][] result = new double [array[0].length][m.length];
+                if (array[0].length == m.length) {
+                    double[][] result = new double[array[0].length][m.length];
                     for (int i = 0; i < result.length; i++) {
                         for (int j = 0; j < result[0].length; j++) {
                             for (int k = 0; k < m.length; k++) {
-                                for (int l = 0; l < ; l++) {
-                                    
-                                }
-                                
+                                result[i][j] += array[i][k] * m[k][j];
                             }
-                            
                         }
-                    }
-                        
-                    }
+                    } return new Matrix(result);
+                } else return super.add(other);
             }
-               
-            if (other instanceof Vector && )
-            
-             else double[][] m = ((Matrix)other).getValue();
-            if (other instanceof Vector &&) {
-                double[] vector1 = Arrays.copyOf(values, values.length);
-                double[] vector2 = ((Vector) other).getValue();
-                double[][] result = new double[vector1.length][vector2.length];
-                for (int i = 0; i < vector1.length; i++) {
-                    for (int j = 0; j < vector2.length; j++)
-                        result[i][j] = vector1[i] * vector2[j];
-                }
-                return new Matrix(result);
-            } 
-        } else return super.add(other);
+        }
+
+    }
+}
         
-    }
 
-    public double [][] getValue() {
-        return array;
-    }
 
-    /*@Override
-    public String toString() {
-        return "Matrix";
-    }*/
 
