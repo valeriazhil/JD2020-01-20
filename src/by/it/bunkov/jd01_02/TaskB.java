@@ -32,6 +32,7 @@ public class TaskB {
 
 
         switch (month) {
+
             case 1:
                 System.out.println("январь");
                 break;
