@@ -2,13 +2,13 @@ package by.it.kondratev.jd01_08;
 
 import java.util.Arrays;
 
-public class Matrix extends Var {
+/*public class Matrix extends Var {
 
     private double[][] array;
 
     Matrix(double[ ][ ]  value) {
         array = value;
-    }
+    }*/
 
     /*Matrix(String strMatrix) {
         strMatrix = strMatrix.substring(1, strMatrix.length() - 2);
@@ -28,7 +28,7 @@ public class Matrix extends Var {
         array = mas;
     }*/
 
-    Matrix(String strMatrix) {
+   /* Matrix(String strMatrix) {
         strMatrix = strMatrix.substring(1, strMatrix.length() - 2);
         String[] row = strMatrix.split("},");
         for (int i = 0; i <row.length ; i++) {
@@ -177,4 +177,4 @@ public class Matrix extends Var {
     public String toString() {
         return "Matrix";
     }*/
-}
+
