@@ -1,4 +1,4 @@
-package by.it.akhmelev.jd01_07;
+package by.it.akhmelev.jd01_09;
 
 import java.util.Arrays;
 
@@ -44,7 +44,6 @@ class Matrix extends Var {
 
     @Override
     public String toString() {
-        //[[1,2],[3,4]]
         return Arrays.deepToString(values)
                 .replace('[','{')
                 .replace(']','}');
