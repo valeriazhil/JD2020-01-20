@@ -1,23 +1,40 @@
 package by.it.demchik.jd01_07;
+class Vector extends Var{
 
-import java.util.Arrays;
+    private double[] values;
 
-class Vector extends Var {
-    private double[] value;
-
-
-
-    Vector(double[]value){
-        this.value=value;
+    Vector(double[] values) {
+        this.values = values;
     }
-    Vector(Vector vector){
-        this.value=vector.value;
+
+
+    Vector(Vector someVector) {
+        this(someVector.values);
     }
+
+    public Vector(String str) {
+        String[] strings = str.replace(" ", "")
+                .replace("{", "")
+                .replace("}", "").split(",");
+        values=new double[strings.length];
+        for (int i = 0; i < values.length; i++) {
+            values[i]=Double.parseDouble(strings[i]);
+        }
+    }
+
+
+
 
     @Override
     public String toString() {
-        return "Vector{" +
-                "value=" + Arrays.toString(value) +
-                '}';
+        StringBuilder out = new StringBuilder();
+        out.append('{');
+        String delimiter="";
+        for (double value : values) {
+            out.append(delimiter).append(value);
+            delimiter=", ";
+        }
+        out.append('}');
+        return out.toString();
     }
 }
