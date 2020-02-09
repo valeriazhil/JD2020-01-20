@@ -8,8 +8,8 @@ package by.it.lomazki.jd01_07;
          this.value = value;
      }
 
-     Scalar (String str) {
-         this.value=Double.parseDouble(str);
+     Scalar (String strScalar) {
+         this.value = Double.parseDouble(strScalar);
      }
 
      Scalar (Scalar scalar) {
