@@ -1,71 +1,54 @@
 package by.it.cherkas.jd01_05;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.rmi.activation.ActivationGroup;
-import java.sql.SQLOutput;
+
+
+
 
 import static java.lang.Math.*;
 
 public class TaskB {
+
     public static void main(String[] args) {
-        step1();
-        step2();
+        step4();
+        step5();
     }
 
-    private static void step2() {
-        double b;
-        double a;
-        for (double i = -5.5; i < 2; i += 0.5) {
-            double x = i / 2;
-            if (-2 < x && x <= -1) {
-                b = sin(x * x);
-                a = abs(b + 2.74);
-                a = log10(a);
-                System.out.println("При x/2 = " + x + " a = " + a);
-            } else if (-1 < x && x < 0.2) {
-                b = cos(x * x);
-                a = abs(b + 2.74);
-                a = log10(a);
-                System.out.println("При x/2 = " + x + " a = " + a);
-            } else if (x == 0.2) {
-                b = 1 / (tan(x * x));
-                a = abs(b + 2.74);
-                a = log10(a);
-                System.out.println("При x/2 = " + x + " a = " + a);
-            } else {
-                System.out.println("При x/2 = " + x + " вычисления не определены");
+    private static void step4() {
+
+        for (double a = 0; a <= 2; a = a + 0.2) {
+            double sum = 0;
+
+            for (int x = 1; x <= 6; x = x + 1) {
+
+                sum = sum + (pow(7, a) - cos(x));
+                System.out.printf("При а = %2.1f   x = %d   y = %5.4f\n", a, x, sum);
+
             }
         }
     }
 
 
-    private static void step1() {
+    private static void step5() {
+        double b;
+        for (double x = -6; x < 2; x = x + 0.5) {
+            if (x / 2 > -2 && x / 2 <= -1) {
+                b = sin(x * x);
+            } else if (x / 2 > -1 && x / 2 < 0.2) {
+                b = cos(x * x);
+            } else if (x / 2 == 0.2) {
+                b = 1 / tan((x * x));
+            } else {
+                System.out.printf("При x/2 = %2.2f     x = ^^^\n", x, x);
+                continue;
 
-        double result = 0;
-        double sumxcos = 0;
-        double x = 1;
-
-        double xcos;
-        for (int i = 0; i < 5; i++) {
-
-
-            xcos = cos(toRadians(x));
-            x++;
-            sumxcos += xcos;
+            }
+            double a = log10(abs(b + 2.74));
+            System.out.printf("При x/2 = %2.2f   a = %7.7f\n", x, a);
 
         }
-        for (double a = 0; a <= 2; a += 0.2) {
-            a = a * 1000;
-            int ai = (int) Math.round(a);
-            a = (double) ai / 1000;
-            result = pow(7, a) - sumxcos;
-            result = pow(7, a) - sumxcos;
-            System.out.println("y=" + result + " for a = " + a + " сумма cos " + sumxcos + " 7^= " + pow(7, a));
-        }
+    }
 
-
-
+}
 
 
 
@@ -114,8 +97,8 @@ public class TaskB {
                 System.out.println(result);
             }
         }*/
-    }
-}
+
+
 
 
 

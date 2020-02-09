@@ -38,29 +38,23 @@ import java.util.Scanner;
 class TaskC3 {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int i=sc.nextInt();
 
+        Scanner sc = new Scanner(System.in);
         System.out.println(getWeight(sc.nextInt()));
     }
 
+    public static double getWeight(int me) {
+        double mm100 = me * 3.86 / 9.81 * 100;
+        double delta = mm100 - (int) mm100;
+        if (delta < 0.5)
+            return ((int) mm100) / 100.0;
+        else
+            return ((int) mm100 + 1) / 100.0;
 
-        public static double getWeight ( int x){
-            Scanner sc = new Scanner(System.in);
-            int w = sc.nextInt();
-            double z = 9.81;
-            double y = 3.86;
-            double n = y / z;
-            double q = w;
-            double a = q * n;
-            double c = Math.round(a);
 
-            return x;
-
-        }
     }
 
- //https://javarush.ru/help/706
+}
 
 
 

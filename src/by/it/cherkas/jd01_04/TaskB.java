@@ -7,32 +7,40 @@ public class TaskB {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
-
-        String[] surname = new String[n];
-        for (int i = 0; i < surname.length; i++) {
-            surname[i] = scanner.next();
-        }
-        int[][] salary = new int[n][4];
-        for (int i = 0; i < salary.length; i++) {
-            System.out.println("Введите зарплату для " + surname[i]);
-            for (int j = 0; j < 4; j++) {
-                salary[i][j] = scanner.nextInt();
-
-            }
-        }
-        System.out.println("_____________________________________________________________");
-        System.out.println("Фамиоия Квартал 1  Квартал 2  Квартал 3  Квартал  4");
-        System.out.println("_____________________________________________________________");
+        String[] name = new String[n];
         for (int i = 0; i < n; i++) {
-            System.out.printf("%7s:\n", surname[i]);
-
-        int sumRow=0;
-            for (int j = 0; j < 4; j++) {
-                System.out.printf("%-8d", salary[i][j]);
-            }
-            System.out.printf("%7s", surname[i]);
+            name[i] = scanner.next();
         }
+        int z = 4;
+        int[][] salary = new int[n][z];
+        int[] summSalary = new int[n];
+        int summ = 0;
+        for (int i = 0; i < n; i++) {
+            System.out.println("Введите зарплату для " + name[i]);
+            for (int j = 0; j < z; j++) {
+                salary[i][j] = scanner.nextInt();
+                summSalary[i] += salary[i][j];
+            }
+            summ += summSalary[i];
+        }
+        double average = (double) summ / (n * z);
+        System.out.println("-----------------------------------------------------------------");
+        System.out.printf("%-14s ", "Фамилия");
+        for (int j = 0; j < z; j++) {
+            System.out.printf("Квартал %-3d ", j + 1);
+        }
+        System.out.println("Итого");
+        System.out.println("-----------------------------------------------------------------");
+        for (int i = 0; i < n; i++) {
+            System.out.printf("%-13s: ", name[i]);
+            for (int j = 0; j < z; j++) {
+                System.out.printf("%-11d", salary[i][j]);
+            }
+            System.out.println(summSalary[i]);
+        }
+        System.out.println("-----------------------------------------------------------------");
+        System.out.printf("%-13s %d\n", "Итого", summ);
+        System.out.printf("%-13s %.4f\n", "Средняя", average);
     }
-
 }
 

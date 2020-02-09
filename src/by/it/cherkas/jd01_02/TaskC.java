@@ -4,115 +4,120 @@ package by.it.cherkas.jd01_02;
 import java.util.Scanner;
 
 public class TaskC {
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[][] array = step1(n);
-        step2(array);
-
-    }
-
-    private static int[][] step1(int n) {
-        int[][] arr = new int[n][n];
-
-        int min = -n;
-        int max = n;
-        int m = n + 1;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                //arr[i][j] = (int) Math.round((Math.random() * 2 * n) - n); //(int) ((Math.random() * (2 * n + 1) - (n + 1))); //(int) Math.round((Math.random() * 2*n) - n);
-
-                while (arr[i][j] > min && arr[i][j] < max) {
-
-                    arr[i][j] = (int) Math.round((Math.random() * (2 * m) - m)); //(int) ((Math.random() * (2 * n + 1) - (n + 1))); //(int) Math.round((Math.random() * 2*n) - n);
-                    if (arr[i][j] >= min && arr[i][j] <= max) {
-                        break;
-                        // return arr;
+    static int[][] step1(int n) {
+        int[][] array = new int[n][n];
+        boolean condition = false;
+        while (!condition) {
+            boolean isN = false;
+            boolean isMinusN = false;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    array[i][j] = (int) (Math.random() * (2*n + 1)) - n;
+                    if (array[i][j] == n) {
+                        isN = true;
+                    }
+                    else if (array[i][j] == -n) {
+                        isMinusN = true;
                     }
                 }
             }
+            condition = isN && isMinusN;
         }
-        for (int[] anArr : arr) {
-            for (int anAnArr : anArr) {
-                System.out.print(anAnArr + " ");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(array[i][j] + " ");
             }
             System.out.println();
         }
-        return arr;
+        return array;
     }
 
-    private static int step2(int[][] arr) {
-
-        int generalSum = 0;
-        for (int i = 0; i < 5; i++) {
-            int lineSum = 0;
-            boolean firstNotFound = true;
-            boolean secondNotFound = true;
-            int j = 0;
-            while (secondNotFound && j < 5) {
-                if (arr[i][j] > 0) {
-                    if (firstNotFound) {
-                        firstNotFound = false;
-                    } else {
-                        secondNotFound = false;
+    static int step2 (int[][] array) {
+        int n = array[0].length;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            boolean toCount = false;
+            for (int j = 0; j < n; j++) {
+                if (toCount) {
+                    if (array[i][j] > 0) {
+                        break;
                     }
-                } else if (!firstNotFound) {
-                    lineSum += arr[i][j];
+                    else {
+                        sum += array[i][j];
+                    }
                 }
-                j++;
-            }
-            if (!secondNotFound) {
-                generalSum += lineSum;
-
+                else if (array[i][j] > 0) {
+                    toCount = true;
+                }
             }
         }
-        return generalSum;
+        System.out.println(sum);
+        return sum;
     }
 
+    static int[][] step3 (int[][] array) {
 
-    private static int[][] step3(int[][] array) {
-        int max = Integer.MIN_VALUE;
-        for (int[] row : array) {
-            for (int element : row) {
-                if (element > max)
-                    max = element;
-            }
-        }
-        boolean[] delRows = new boolean[array.length];
-        boolean[] delCols = new boolean[array[0].length];
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                if (max == array[i][j]) {
-                    delRows[i] = true;
-                    delCols[j] = true;
-
+        int n = array[0].length;
+        int max = array[0][0];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (array[i][j] > max) {
+                    max = array[i][j];
                 }
             }
         }
-        int rows = 0;
-        for (boolean element : delRows) if (!element) rows++;
-        int cols = 0;
-        for (boolean element : delCols) if (!element) cols++;
-        int[][] res = new int[rows][cols];
 
-        int ir = 0;
-        for (int i = 0; i < array.length; i++) {
-            if (!delRows[i]) {
-                int jr = 0;
-                for (int j = 0; j < array[i].length; j++) {
-                    if (!delCols[j]) {
-                        res[ir][jr++] = array[i][j];
+        boolean[] rowMin = new boolean[n];
+        boolean[] colMin = new boolean[n];
 
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (array[i][j] == max) {
+                    rowMin[i] = true;
+                    colMin[j] = true;
+                }
+            }
+        }
+
+        int rowCount = 0;
+        int colCount = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (!rowMin[i]) {
+                rowCount++;
+            }
+            if (!colMin[i]) {
+                colCount++;
+            }
+        }
+
+        int[][] arrayNew = new int[rowCount][colCount];
+
+        int i1 = 0;
+        for (int i = 0; i < n; i++) {
+            int j1 = 0;
+            if (!rowMin[i]) {
+                for (int j = 0; j < n; j++) {
+                    if (!colMin[j]) {
+                        arrayNew[i1][j1] = array[i][j];
+                        System.out.print(arrayNew[i1][j1] + " ");
+                        j1++;
                     }
                 }
-                ir++;
+                System.out.println();
+                i1++;
             }
-
         }
-        return res;
 
+        return arrayNew;
+    }
 
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int[][] array = step1(n);
+        step2(array);
+        step3(array);
     }
 }
 
