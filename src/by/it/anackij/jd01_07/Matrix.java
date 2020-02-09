@@ -1,47 +1,58 @@
 package by.it.anackij.jd01_07;
 
 public class Matrix extends Var {
-    private String stringValue;
-    private Matrix values;
-    private double[][] doublesArrayValue = {{1, 2},
-            {3,4}};
+    private double[][] values = {{1, 2},
+            {3, 4}};
 
     public Matrix() {
     }
 
     public Matrix(double[][] value) {
-        this.doublesArrayValue = value;
+        this.values = value;
     }
 
     public Matrix(Matrix values) {
-        this.values = values;
+        this(values.values);
     }
 
 
     public Matrix(String str) {
-        this.stringValue = str;
+        //{{2,3,,2},{3,3,5}}
+        str.replace(" ", "").trim();
+        String[] strRows = str.split("},");
+        for (int i = 0; i < strRows.length; i++) {
+            strRows[i] = strRows[i].replace("{", "").replace("}", "");
+        }
+        values = new double[strRows.length][0];
+        for (int i = 0; i < strRows.length; i++) {
+            String[] oneRow = strRows[i].split(",");
+            values[i] = new double[oneRow.length];
+            for (int j = 0; j < oneRow.length; j++) {
+                values[i][j] = Double.parseDouble(oneRow[j]);
+            }
+        }
     }
 
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();
-        int endRow = doublesArrayValue.length;
+        int endRow = values.length;
         String delimiter = "";
         out.append('{');
-        for (int i = 0; i < doublesArrayValue.length; i++) {
+        for (int i = 0; i < values.length; i++) {
             out.append('{');
-            for (int j = 0; j < doublesArrayValue[0].length; j++) {
+            for (int j = 0; j < values[0].length; j++) {
 
                 delimiter = "";
-                out.append(delimiter).append(doublesArrayValue[i][j]);
-                if (j < doublesArrayValue[0].length - 1) {
+                out.append(delimiter).append(values[i][j]);
+                if (j < values[0].length - 1) {
                     delimiter = ", ";
                     out.append(delimiter);
                 }
             }
             out.append('}');
             out.append(delimiter);
-            if (i < doublesArrayValue.length-1) {
+            if (i < values.length - 1) {
                 delimiter = ", ";
                 out.append(delimiter);
             }
