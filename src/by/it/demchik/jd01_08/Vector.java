@@ -1,42 +1,41 @@
 package by.it.demchik.jd01_08;
 
-import java.util.Arrays;
+class Vector extends Var{
 
-class Vector extends Var {
-    private double[] value;
+    private double[] values;
 
-    public void setValue(double[] value) {
-        this.value = value;
+    Vector(double[] values) {
+        this.values = values;
+    }
+
+
+    Vector(Vector someVector) {
+        this(someVector.values);
+    }
+
+    public Vector(String str) {
+        String[] strings = str.replace(" ", "")
+                .replace("{", "")
+                .replace("}", "").split(",");
+        values=new double[strings.length];
+        for (int i = 0; i < values.length; i++) {
+            values[i]=Double.parseDouble(strings[i]);
+        }
     }
 
 
 
 
     @Override
-    public Var add(Var other) {
-        return super.add(other);
-    }
-
-    @Override
-    public Var sub(Var other) {
-        return super.sub(other);
-    }
-
-    @Override
-    public Var mul(Var other) {
-        return super.mul(other);
-    }
-
-    @Override
-    public Var div(Var other) {
-        return super.div(other);
-    }
-
-    Vector(double[]value){this.value=value;}
-    Vector(Vector vector){this.value=vector.value;}
-
-    @Override
-    public String toString() {return "{" + Arrays.toString(value) +
-                '}';
+    public String toString() {
+        StringBuilder out = new StringBuilder();
+        out.append('{');
+        String delimiter = "";
+        for (double value : values) {
+            out.append(delimiter).append(value);
+            delimiter = ", ";
+        }
+        out.append('}');
+        return out.toString();
     }
 }
