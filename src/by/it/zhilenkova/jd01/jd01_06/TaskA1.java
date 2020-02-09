@@ -1,10 +1,8 @@
 package by.it.zhilenkova.jd01.jd01_06;
-
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class TaskA1 {
-//hi
     public static void main(String[] args) {
         StringBuilder sb = new StringBuilder(Poem.text);
         Pattern pattern = Pattern.compile("[а-яА-яёЁ]{4,}");
@@ -14,7 +12,7 @@ public class TaskA1 {
             int start = matcher.start();
             sb.setCharAt(start + 3, '#');
 
-            if (matcher.end()-matcher.start() >= 7)
+            if (matcher.group().length() >= 7)
                 sb.setCharAt(matcher.start() + 6, '#');
         }
         System.out.println(sb.toString());

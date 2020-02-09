@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 public class TaskA2 {
     private static String [] w = {};
     private static int[] count = {};
-
     private  static  int pos(String word){
 
         for (int i = 0; i < w.length; i++) {
