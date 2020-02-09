@@ -2,18 +2,23 @@ package by.it.anackij.jd01_07;
 
 public class Vector extends Var {
     private double[] values;
-    private double doubleValue;
 
     public Vector(double[] values) {
         this.values = values;
     }
 
     public Vector(Vector other) {
-        this.values = other.values;
+        this(other.values);
     }
 
     public Vector(String strValue) {
-        this.doubleValue = Double.parseDouble(strValue);
+        String[] array;
+        array = strValue.trim().replace("{","").replace("}","").split(",");
+
+        values = new double[array.length];
+        for (int i = 0; i < array.length; i++) {
+            values[i] = Double.parseDouble(array[i]);
+        }
     }
 
     @Override

@@ -9,10 +9,10 @@ import java.util.Scanner;
         Parser parser = new Parser();
         Printer printer = new Printer();
         while (true){
-           String  expesion =scanner.nextLine();
-                    if (expesion.equals("end"))
+           String  expession =scanner.nextLine();
+                    if (expession.equals("end"))
                         break;
-            Var var = parser.calc(expesion);
+            Var var = parser.calc(expession);
             printer.print(var);
 
         }
