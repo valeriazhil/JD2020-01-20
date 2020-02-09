@@ -48,7 +48,7 @@ class Scalar extends Var {
 
 
         }
-        return other.div(other);
+        return super.div(other);
 
     }
     Scalar(String str) {this.value = Double.parseDouble(str);}

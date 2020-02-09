@@ -41,7 +41,8 @@ class TaskC3 {
     static double getWieght(int me) {
 
 
-        double result =(int)((me * 3.86 / 9.81)*100);
-        return result/100;
+        double result1 =(int)((me * 3.86 / 9.81)*100);
+        double result= result1/100;
+     return   result;
     }
 }

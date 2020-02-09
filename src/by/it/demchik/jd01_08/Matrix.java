@@ -3,6 +3,11 @@ import java.util.Arrays;
 class Matrix extends Var{
    private double[][]value;
 
+    public void setValue(double[][] value) {
+        this.value = value;
+
+    }
+
     @Override
     public Var add(Var other) {
         return super.add(other);
