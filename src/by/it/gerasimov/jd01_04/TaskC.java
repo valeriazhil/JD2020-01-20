@@ -1,6 +1,6 @@
 package by.it.gerasimov.jd01_04;
 
-public class TaskC {
+class TaskC {
 
     static void mergeSort(double[] array) {
         mergeSort(array, 0, array.length - 1);

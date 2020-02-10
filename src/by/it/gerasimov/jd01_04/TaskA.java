@@ -3,7 +3,7 @@ package by.it.gerasimov.jd01_04;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class TaskA {
+class TaskA {
 
     static void printMulTable() {
         for (int i = 2; i < 10; i++) {

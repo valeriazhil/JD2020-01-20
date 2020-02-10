@@ -2,7 +2,7 @@ package by.it.gerasimov.jd01_05;
 
 import static java.lang.Math.*;
 
-public class TaskA {
+class TaskA {
 
     public static void main(String[] args) {
 
