@@ -2,7 +2,7 @@ package by.it.gerasimov.jd01_02;
 
 import java.util.Scanner;
 
-public class TaskB {
+class TaskB {
 
     static void step1() {
         int n = 1;

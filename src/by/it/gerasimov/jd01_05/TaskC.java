@@ -1,6 +1,6 @@
 package by.it.gerasimov.jd01_05;
 
-public class TaskC {
+class TaskC {
 
     static void printArray(double[] arr, String name, int colCount) {
         for (int i = 0; i < arr.length; i++) {

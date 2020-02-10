@@ -7,16 +7,11 @@ public class Runner {
     public static void main(String[] args) {
         //Scanner scanner = new Scanner(System.in);
         //String  str = scanner.nextLine();
-        //[] array = InOut.getArray(str);
-        //InOut.printArray(array);
-        //InOut.printArray(array, "N",3);
-        //System.out.println(Helper.findMin(array));
-        //System.out.println(Helper.findMax(array));
-        //Helper.sort(array);
-        double [] mas1 = {3, 4, 7, 43, 56};
-        double [] mas2 = {1, 5, 7, 32, 65};
-        double [] mas3 = merge(mas1,mas2);
-        InOut.printArray(mas3,"V",2);
+        //double [] mas1 = {3, 4, 7, 43, 56};
+        //double [] mas2 = {1, 5, 7, 32, 65};
+        //double [] mas3 = merge(mas1,mas2);
+        //InOut.printArray(mas3,"V",2);
+
     }
 
         private static double[ ] merge(double[ ] part1, double[ ] part2){
