@@ -2,7 +2,7 @@ package by.it.gerasimov.jd01_05;
 
 import static java.lang.Math.*;
 
-public class TaskB {
+class TaskB {
     public static void main(String[] args) {
         double y = 0;
         for (double a = 0; a <= 2; a += 0.2) {

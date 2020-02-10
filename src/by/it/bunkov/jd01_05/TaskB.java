@@ -19,7 +19,6 @@ public class TaskB {
 
                 sum = sum + (pow(7, a) - cos(x));
                 System.out.printf("При а = %2.1f   x = %d   y = %5.4f\n", a, x, sum);
-
             }
         }
     }
