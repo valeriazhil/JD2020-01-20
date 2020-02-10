@@ -8,15 +8,44 @@ class PrintMath {
 
     public static void main(String[] args) {
         Class<Math> math = Math.class;
+        StringBuilder text = new StringBuilder();
+
         for (Field field : math.getDeclaredFields()) {
             if (Modifier.isPublic(field.getModifiers())) {
-                System.out.println(field);
+                text.append("public ");
+                if (Modifier.isStatic(field.getModifiers())) {
+                    text.append("static ");
+                }
+                text.append(field.getType())
+                        .append(' ')
+                        .append(field.getName())
+                        .append("\n");
             }
         }
+
         for (Method method : math.getDeclaredMethods()) {
             if (Modifier.isPublic(method.getModifiers())) {
-                System.out.println(method);
+                text.append("public ");
+                if (Modifier.isStatic(method.getModifiers())) {
+                    text.append("static ");
+                }
+                text.append(method.getReturnType())
+                        .append(' ')
+                        .append(method.getName())
+                        .append("(");
+                Class<?>[] parameterTypes = method.getParameterTypes();
+                for (int i = 0; i < parameterTypes.length; i++) {
+                    if (i != parameterTypes.length - 1) {
+                        text.append(parameterTypes[i].getSimpleName()).append(',');
+                    } else {
+                        text.append(parameterTypes[i].getSimpleName());
+                    }
+                }
+                text.append(')');
             }
+            text.append("\n");
         }
+
+        System.out.println(text);
     }
 }
