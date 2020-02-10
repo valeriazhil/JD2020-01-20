@@ -1,4 +1,4 @@
-package by.it.rybakov.jd01_03;
+package by.it.rybakov.jd01_04;
 
 public class Helper {
     static double findMin(double[ ] arr){
