@@ -17,7 +17,7 @@ public class Runner {
 
         String stringVector= "{1,2,3,5,5,1}";
         Var vector1=new Vector(stringVector);
-        System.out.println(vector);
+        System.out.println(vector1);
 
         double[][] doublesArray = {{1,2,3},
                 {5,6,7,8},
