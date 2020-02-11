@@ -7,6 +7,12 @@ import java.lang.reflect.Modifier;
 class PrintMath {
 
     public static void main(String[] args) {
+        String sb = getPublicFieldMathClass() +
+                getPublicMethodsMathClass();
+        System.out.println(sb);
+    }
+
+    private static String getPublicFieldMathClass() {
         Class<Math> math = Math.class;
         StringBuilder text = new StringBuilder();
 
@@ -22,6 +28,13 @@ class PrintMath {
                         .append("\n");
             }
         }
+
+        return text.toString();
+    }
+
+    private static String getPublicMethodsMathClass() {
+        Class<Math> math = Math.class;
+        StringBuilder text = new StringBuilder();
 
         for (Method method : math.getDeclaredMethods()) {
             if (Modifier.isPublic(method.getModifiers())) {
@@ -45,7 +58,6 @@ class PrintMath {
             }
             text.append("\n");
         }
-
-        System.out.println(text);
+        return text.toString();
     }
 }
