@@ -2,7 +2,7 @@ package by.it.gerasimov.jd01_04;
 
 import java.util.Scanner;
 
-public class TaskB {
+class TaskB {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();

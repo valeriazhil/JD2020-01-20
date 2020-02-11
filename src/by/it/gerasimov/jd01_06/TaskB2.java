@@ -3,7 +3,7 @@ package by.it.gerasimov.jd01_06;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TaskB2 {
+class TaskB2 {
 
     private static void resolveDotsProblem(StringBuilder str) {
         Pattern dots = Pattern.compile("[.]+[ ]*[а-яё]");

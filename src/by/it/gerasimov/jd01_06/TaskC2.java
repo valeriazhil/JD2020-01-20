@@ -2,7 +2,7 @@ package by.it.gerasimov.jd01_06;
 
 import java.util.Random;
 
-public class TaskC2 {
+class TaskC2 {
 
     static String slow(String text) {
         String[] words = text.split("[^а-яА-ЯёЁ]+");

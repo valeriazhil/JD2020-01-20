@@ -2,7 +2,7 @@ package by.it.gerasimov.jd01_02;
 
 import java.util.Scanner;
 
-public class TaskA {
+class TaskA {
     static void step1(int[] array) {
         int min = array[0];
         int max = array[0];

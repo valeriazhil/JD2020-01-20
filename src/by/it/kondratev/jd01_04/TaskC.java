@@ -35,25 +35,29 @@ public class TaskC {
     }
 
     private static void mergeSort(double[ ] array, int l,  int r) {
-        if(l>=r) return;
-        int m = (r+l)/2;
-        double[] part1 = new double[m-l+1];
-        int k=0;
-        for (int i = l; i <=m ; i++) {
-            part1[k]=array[i]; k++;
+        if (l >= r) return;
+        int m = (r + l) / 2;
+        double[] part1 = new double[m - l + 1];
+        int k = 0;
+        for (int i = l; i <= m; i++) {
+            part1[k] = array[i];
+            k++;
         }
-        double[] part2 = new double[r-m];
-        k=0;
-        for (int i = m+1; i <=r ; i++) {
-            part2[k]=array[i]; k++;
+        double[] part2 = new double[r - m];
+        k = 0;
+        for (int i = m + 1; i <= r; i++) {
+            part2[k] = array[i];
+            k++;
         }
         mergeSort(part1);
         mergeSort(part2);
-        double [] massive = merge_my(part1,part2);
-        for (int i = l; i < r ; i++) {
-            array[i] = massive[i-l];
+        double[] massive = merge_my(part1, part2);
+        for (int i = l; i < r; i++) {
+            array[i] = massive[i - l];
         }
     }
+
+
 
     //private static double[ ] merge(double[ ] part1, double[ ] part2){
      //   double [] mas = new double[part1.length+part2.length];

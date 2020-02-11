@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TaskA2 {
+class TaskA2 {
 
     private static String[] words = new String[0];
     private static int[] counts = new int[0];
