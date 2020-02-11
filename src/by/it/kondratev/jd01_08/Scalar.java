@@ -50,7 +50,7 @@ class Scalar extends Var {
             double result=this.value*((Scalar) other).value;
             return new Scalar(result);
         }
-        return other.add(this);
+        return other.mul(this);
     }
 
     @Override

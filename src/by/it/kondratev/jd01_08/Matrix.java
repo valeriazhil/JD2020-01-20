@@ -7,7 +7,10 @@ public class Matrix extends Var {
     private double[][] array;
 
     Matrix(double[][] value) {
-        array = value;
+        array = new double[value.length][0];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = Arrays.copyOf(value[i], value[i].length);
+        }
     }
 
    Matrix(String strMatrix) {
@@ -54,14 +57,16 @@ public class Matrix extends Var {
 
     @Override
     public Var add(Var other) {
-        double[][] result = Arrays.copyOf(array, array.length);
+        double[][] result = new double[array.length][0];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = Arrays.copyOf(array[i], array[0].length);
+        }
         if (other instanceof Scalar) {
             double s = ((Scalar) other).getValue();
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result[0].length; j++) {
                     result[i][j] += s;
                 }
-                result [0][0] = 2; result [0][1] = 3; result [1][0]=4; result[1][1]=5;
             }
             return new Matrix(result);
         } else if ((other instanceof Matrix && array.length == ((Matrix) other).array.length)) {
@@ -76,7 +81,10 @@ public class Matrix extends Var {
 
     @Override
     public Var sub(Var other) {
-        double[][] result = Arrays.copyOf(array, array.length);
+        double[][] result = new double[array.length][0];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = Arrays.copyOf(array[i], array[0].length);
+        }
         if (other instanceof Scalar) {
             double s = ((Scalar) other).getValue();
             for (int i = 0; i < result.length; i++) {
@@ -84,7 +92,7 @@ public class Matrix extends Var {
                     result[i][j] -= s;
                 }
             }
-            result [0][0] = 0; result [0][1] = 1; result [1][0]=2; result[1][1]=3;
+            //result [0][0] = 0; result [0][1] = 1; result [1][0]=2; result[1][1]=3;
             return new Matrix(result);
         } else if ((other instanceof Matrix && array.length == ((Matrix) other).array.length)) {
             for (int i = 0; i < result.length; i++) {
@@ -100,7 +108,10 @@ public class Matrix extends Var {
     @Override
     public Var mul(Var other) {
         if (other instanceof Scalar) {
-            double[][] result = Arrays.copyOf(array, array.length);
+            double[][] result = new double[array.length][0];
+            for (int i = 0; i < array.length; i++) {
+                result[i] = Arrays.copyOf(array[i], array[0].length);
+            }
             double s = ((Scalar) other).getValue();
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result[0].length; j++) {
