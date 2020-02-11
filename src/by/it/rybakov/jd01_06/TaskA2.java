@@ -1,5 +1,6 @@
 package by.it.rybakov.jd01_06;
 
+
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,3 +39,4 @@ public class TaskA2 {
         }
     }
 }
+

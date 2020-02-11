@@ -1,4 +1,8 @@
 package by.it.rybakov.jd01_07;
+class Var {
 
-abstract class Var {
+    @Override
+    public String toString() {
+        return "Это класс AbstactVar";
+    }
 }
