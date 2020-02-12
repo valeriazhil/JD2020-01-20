@@ -1,4 +1,4 @@
-package by.it.kondratev.jd01_08;
+package by.it.kondratev.jd01_09;
 
 import java.util.Arrays;
 
@@ -67,6 +67,7 @@ public class Matrix extends Var {
                 for (int j = 0; j < result[0].length; j++) {
                     result[i][j] += s;
                 }
+                //result [0][0] = 2; result [0][1] = 3; result [1][0]=4; result[1][1]=5;
             }
             return new Matrix(result);
         } else if ((other instanceof Matrix && array.length == ((Matrix) other).array.length)) {

@@ -41,6 +41,7 @@ public class TaskB {
         System.out.printf("%-11s%d%n", "Итого", sumTotal);
         System.out.printf("%-11s%-8.4f%n", "Средняя", ((sumTotal/4.0/salary.length)));
     }
+
 }
 
 
