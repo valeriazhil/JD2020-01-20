@@ -1,7 +1,7 @@
 package by.it.anackij.jd01_08;
 
 
-public class Matrix extends Var {
+public class Matrix extends Var implements Operation {
     private double[][] values;
 
     public Matrix(Matrix someMatrix) {
@@ -33,6 +33,51 @@ public class Matrix extends Var {
                 values[i][j] = Double.parseDouble(oneRow[j]);
             }
         }
+    }
+
+    public double[][] getValues() {
+        return values;
+    }
+
+    @Override
+    public Var add(Var other) {
+        if (other instanceof Scalar) {
+            double[][] result = new double[values.length][];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < values.length; j++) {
+                    result[i][j] += ((Scalar) other).getValue();
+                }
+            }
+            return new Matrix(result);
+
+        } else if (other instanceof Matrix && values.length == ((Matrix) other).getValues().length) {
+            double[][] arrFirst = values;
+            double[][] arrSecond = ((Matrix) other).getValues();
+            double[][] result = new double[values.length][];
+
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[i].length; j++) {
+                        result[i][j] += arrFirst[i][j]+ arrSecond[i][j];
+                    }
+                }
+            return new Matrix(result);
+        }
+        return super.add(other);
+    }
+
+    @Override
+    public Var sub(Var other) {
+        return super.sub(other);
+    }
+
+    @Override
+    public Var mul(Var other) {
+        return super.mul(other);
+    }
+
+    @Override
+    public Var div(Var other) {
+        return super.div(other);
     }
 
     @Override
