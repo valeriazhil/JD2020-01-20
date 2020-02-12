@@ -1,7 +1,5 @@
 package by.it.makarenko.jd01_10;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
