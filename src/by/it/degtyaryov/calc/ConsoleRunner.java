@@ -15,7 +15,10 @@ public class ConsoleRunner {
                 return;
             }
             if (expression.equals("printvar")) {
-                printer.printVariables();
+                printer.printVariables(false);
+            }
+            if (expression.equals("sortvar")) {
+                printer.printVariables(true);
             }
             printer.print(parser.calc(expression));
         }
