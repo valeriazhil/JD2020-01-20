@@ -2,7 +2,7 @@ package by.it.degtyaryov.jd01_11;
 
 import java.util.*;
 
-public class SetC<T> implements Set<T> {
+class SetC<T> implements Set<T> {
 
     private List<T> array = new ListA<>();
 
