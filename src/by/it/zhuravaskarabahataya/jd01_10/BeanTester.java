@@ -14,7 +14,7 @@ class BeanTester {
     public static void main(String[] args) throws Exception {
         Class<Bean> beanClazz = Bean.class;  // объект типа Класс
 
-         Method[] methods = beanClazz.getDeclaredMethods();
+        Method[] methods = beanClazz.getDeclaredMethods();
         Object bean = beanClazz.newInstance();
 
         for (Method method : methods) {
