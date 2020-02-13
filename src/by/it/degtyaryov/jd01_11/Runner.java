@@ -41,8 +41,19 @@ class Runner {
         System.out.println("Размер myList после добавления: "
                 + myList.size());
 
-        System.out.println("Содержимое arrayList: " + arrayList);
-        System.out.println("Содержимое myList: " + myList);
+        ArrayList<String> st = new ArrayList<>();
+        st.add("E");
+        st.add("B");
+        st.add("D");
+
+        System.out.println("Содержимое arrayList до removeAll: " + arrayList);
+        System.out.println("Содержимое myList до removeAll: " + myList);
+
+        arrayList.removeAll(st);
+        myList.removeAll(st);
+
+        System.out.println("Содержимое arrayList после removeAll: " + arrayList);
+        System.out.println("Содержимое myList после removeAll: " + myList);
         System.out.println(arrayList.get(0));
         System.out.println(myList.get(0));
 
@@ -59,15 +70,15 @@ class Runner {
         System.out.println("Содержимое of myList: " + myList);
 
         List<String> removeElements = Arrays.asList("C2", "A2", "AA", "F");
-        System.out.println("Содержимое arrayList до removeAll: "
+        System.out.println("Содержимое arrayList до retainAll: "
                 + arrayList);
-        System.out.println("Содержимое myList до removeAll: "
+        System.out.println("Содержимое myList до retainAll: "
                 + myList);
 
-        arrayList.removeAll(removeElements);
-        myList.removeAll(removeElements);
-        System.out.println("Содержимое arrayList после removeAll: " + arrayList);
-        System.out.println("Содержимое myList после removeAll: " + myList);
+        arrayList.retainAll(removeElements);
+        myList.retainAll(removeElements);
+        System.out.println("Содержимое arrayList после retainAll: " + arrayList);
+        System.out.println("Содержимое myList после retainAll: " + myList);
 
 
         List<String> arrayList2 = Arrays.asList("1", "2");

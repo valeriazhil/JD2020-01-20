@@ -18,6 +18,9 @@ class ListA<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
+        if (index < 0 || index > size) {
+            return;
+        }
         if (size >= values.length) {
             values = Arrays.copyOf(values, values.length * 3 / 2 + 1);
         }
@@ -35,6 +38,9 @@ class ListA<T> implements List<T> {
 
     @Override
     public T remove(int index) {
+        if (index < 0 || index >= size) {
+            return null;
+        }
         T elemToDelete = values[index];
         System.arraycopy(values, index + 1, values, index, --size - index);
         return elemToDelete;
@@ -55,7 +61,7 @@ class ListA<T> implements List<T> {
     public boolean removeAll(Collection<?> c) {
         boolean wasRemoved = false;
         for (Object element : c) {
-            if (!remove(element)) {
+            if (remove(element)) {
                 wasRemoved = true;
             }
         }
@@ -64,6 +70,9 @@ class ListA<T> implements List<T> {
 
     @Override
     public T get(int index) {
+        if (index < 0 || index >= size) {
+            return null;
+        }
         return values[index];
     }
 
@@ -187,8 +196,8 @@ class ListA<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        T[] ts = Arrays.copyOfRange(values, fromIndex, toIndex);
-        return Arrays.asList(ts);
+        T[] array = Arrays.copyOfRange(values, fromIndex, toIndex);
+        return Arrays.asList(array);
     }
 
     @Override
@@ -271,6 +280,13 @@ class ListA<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        boolean wasRemoved = false;
+        for (int i = 0; i < size; i++) {
+            if(!c.contains(values[i])){
+                remove(i);
+                wasRemoved = true;
+            }
+        }
+        return wasRemoved;
     }
 }

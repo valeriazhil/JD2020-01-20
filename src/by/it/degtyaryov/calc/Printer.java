@@ -1,8 +1,6 @@
 package by.it.degtyaryov.calc;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 class Printer {
 
@@ -14,7 +12,14 @@ class Printer {
 
     public void printVariables(boolean needSort) {
         Set<Map.Entry<String, Var>> entries;
+        // при создании TreeMap значения сортируются по ключу
         entries = (needSort) ? new TreeMap<>(Var.getVariables()).entrySet() : Var.getVariables().entrySet();
+
+        // для возможности сортировки как по ключу, так и по значению, необходимо использовать метод Collections.sort
+        // но необходимо реализовать дополнительно компаратор в классе Var
+        /*List<Map.Entry<String, Var>> list = new ArrayList<>(Var.getVariables().entrySet());
+        list.sort(Map.Entry.comparingByKey());
+        System.out.print(list);*/
 
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, Var> element : entries) {
