@@ -4,8 +4,8 @@ package by.it.anackij.jd01_08;
 public class Matrix extends Var implements Operation {
     private double[][] values;
 
-    public Matrix(Matrix someMatrix) {
-        this(someMatrix.values);
+    public double[][] getValues() {
+        return values;
     }
 
     public Matrix(double[][] values) {
@@ -16,6 +16,10 @@ public class Matrix extends Var implements Operation {
                 this.values[i][j] = values[i][j];
             }
         }
+    }
+
+    public Matrix(Matrix someMatrix) {
+        this(someMatrix.values);
     }
 
 
@@ -35,10 +39,6 @@ public class Matrix extends Var implements Operation {
         }
     }
 
-    public double[][] getValues() {
-        return values;
-    }
-
     @Override
     public Var add(Var other) {
         if (other instanceof Scalar) {
@@ -50,16 +50,16 @@ public class Matrix extends Var implements Operation {
             }
             return new Matrix(result);
 
-        } else if (other instanceof Matrix && values.length == ((Matrix) other).getValues().length) {
+        } else if (other instanceof Matrix) {
             double[][] arrFirst = values;
             double[][] arrSecond = ((Matrix) other).getValues();
             double[][] result = new double[values.length][];
 
             for (int i = 0; i < result.length; i++) {
-                for (int j = 0; j < result[i].length; j++) {
-                        result[i][j] += arrFirst[i][j]+ arrSecond[i][j];
-                    }
+                for (int j = 0; j < result[0].length; j++) {
+                    result[i][j] += arrFirst[i][j] + arrSecond[i][j];
                 }
+            }
             return new Matrix(result);
         }
         return super.add(other);
@@ -67,6 +67,27 @@ public class Matrix extends Var implements Operation {
 
     @Override
     public Var sub(Var other) {
+        if (other instanceof Scalar) {
+            double[][] result = new double[values.length][];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < values.length; j++) {
+                    result[i][j] -= ((Scalar) other).getValue();
+                }
+            }
+            return new Matrix(result);
+
+        } else if (other instanceof Matrix && values.length == ((Matrix) other).getValues().length) {
+            double[][] arrFirst = values;
+            double[][] arrSecond = ((Matrix) other).getValues();
+            double[][] result = new double[values.length][];
+
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[i].length; j++) {
+                    result[i][j] += arrFirst[i][j] - arrSecond[i][j];
+                }
+            }
+            return new Matrix(result);
+        }
         return super.sub(other);
     }
 
@@ -77,6 +98,18 @@ public class Matrix extends Var implements Operation {
 
     @Override
     public Var div(Var other) {
+        if (other instanceof Scalar){
+            if(((Scalar) other).getValue()==0){
+                return null;
+            }
+            double[][] result = new double[values.length][];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < values.length; j++) {
+                    result[i][j] += ((Scalar) other).getValue();
+                }
+            }
+            return new Matrix(result);
+        }
         return super.div(other);
     }
 
