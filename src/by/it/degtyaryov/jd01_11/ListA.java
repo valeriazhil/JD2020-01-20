@@ -44,7 +44,7 @@ class ListA<T> implements List<T> {
     public boolean remove(Object o) {
         boolean wasDeleted = false;
         int index = indexOf(o);
-        if (index > 0) {
+        if (index >= 0) {
             remove(index);
             wasDeleted = true;
         }
@@ -55,8 +55,8 @@ class ListA<T> implements List<T> {
     public boolean removeAll(Collection<?> c) {
         boolean wasRemoved = false;
         for (Object element : c) {
-            if (contains(element)) {
-                wasRemoved = wasRemoved || remove(element);
+            if (!remove(element)) {
+                wasRemoved = true;
             }
         }
         return wasRemoved;
@@ -185,27 +185,79 @@ class ListA<T> implements List<T> {
                 Arrays.equals(values, listA.values);
     }
 
-    // not implemented
-
-    @Override
-    public ListIterator<T> listIterator() {
-        return null;
-    }
-
-    @Override
-    public ListIterator<T> listIterator(int index) {
-        return null;
-    }
-
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        return null;
+        T[] ts = Arrays.copyOfRange(values, fromIndex, toIndex);
+        return Arrays.asList(ts);
     }
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return listIterator();
     }
+
+    @Override
+    public ListIterator<T> listIterator() {
+        return listIterator(0);
+    }
+
+    @Override
+    public ListIterator<T> listIterator(int index) {
+        if (index >= size) {
+            return null;
+        }
+        return new ListIterator<T>() {
+
+            int cursor = index;
+
+            @Override
+            public boolean hasNext() {
+                return size - cursor > 1;
+            }
+
+            @Override
+            public T next() {
+                return values[++cursor];
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return cursor > 0;
+            }
+
+            @Override
+            public T previous() {
+                return values[--cursor];
+            }
+
+            @Override
+            public int nextIndex() {
+                return cursor + 1;
+            }
+
+            @Override
+            public int previousIndex() {
+                return cursor - 1;
+            }
+
+            @Override
+            public void remove() {
+                ListA.this.remove(cursor);
+            }
+
+            @Override
+            public void set(T t) {
+                ListA.this.set(cursor, t);
+            }
+
+            @Override
+            public void add(T t) {
+                ListA.this.add(cursor, t);
+            }
+        };
+    }
+
+    // not implemented
 
     @Override
     public <T1> T1[] toArray(T1[] a) {

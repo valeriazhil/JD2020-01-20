@@ -1,13 +1,28 @@
 package by.it.degtyaryov.jd01_11;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class SetC<T> implements Set<T> {
 
     private List<T> array = new ListA<>();
+
+    @Override
+    public boolean add(T t) {
+        if ((contains(t))) return false;
+        array.add(t);
+        return true;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        boolean isAllAdded = true;
+        for (T element : c) {
+            if (!add(element)) {
+                isAllAdded = false;
+            }
+        }
+        return isAllAdded;
+    }
 
     @Override
     public int size() {
@@ -25,30 +40,8 @@ public class SetC<T> implements Set<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return null;
-    }
-
-    @Override
     public Object[] toArray() {
         return array.toArray();
-    }
-
-    @Override
-    public <T1> T1[] toArray(T1[] a) {
-        return null;
-    }
-
-    @Override
-    public boolean add(T t) {
-        if ((contains(t))) return false;
-        array.add(t);
-        return true;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        return array.remove(o);
     }
 
     @Override
@@ -57,12 +50,8 @@ public class SetC<T> implements Set<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
-        boolean isAllAdded = false;
-        for (T element : c) {
-            isAllAdded = isAllAdded || add(element);
-        }
-        return isAllAdded;
+    public boolean remove(Object o) {
+        return array.remove(o);
     }
 
     @Override
@@ -75,7 +64,35 @@ public class SetC<T> implements Set<T> {
         array.clear();
     }
 
+    @Override
+    public String toString() {
+        return array.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SetC<?> setC = (SetC<?>) o;
+        return Objects.equals(array, setC.array);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(array);
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return array.iterator();
+    }
+
     // not implemented
+
+    @Override
+    public <T1> T1[] toArray(T1[] a) {
+        return null;
+    }
 
     @Override
     public boolean retainAll(Collection<?> c) {
