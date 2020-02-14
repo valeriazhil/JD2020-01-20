@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_12;
+package by.it.degtyaryov.jd01_12;
 
 
 import org.junit.Test;
