@@ -77,7 +77,7 @@ class ListB<T> implements List<T> {
         int numNew = a.length;
         if (size== elements.length){
             this.elements =Arrays.copyOf(elements, elements.length*3/2+1);
-            System.arraycopy(elements,size,a,numNew,size+numNew);
+            System.arraycopy(elements,size,a,size+1,size+numNew);
         }
         return numNew != 0;
     }
