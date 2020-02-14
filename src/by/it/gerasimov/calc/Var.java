@@ -1,12 +1,34 @@
 package by.it.gerasimov.calc;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 abstract class Var implements Operation {
 
-    @Override
-    public String toString() {
-        return "X";
+    private static HashMap<String, Var> vars = new HashMap<>();
+    public static void printVars() {
+        for (Map.Entry<String, Var> entry : vars.entrySet()) {
+            System.out.println(entry.getKey() + "=" + entry.getValue());
+        }
     }
-
+    public static void sortVars() {
+        ArrayList<String> keys = new ArrayList<>(vars.keySet());
+        Collections.sort(keys);
+        for (String key : keys) {
+            System.out.println(key + "=" + vars.get(key));
+        }
+    }
+    public static Var getVar(String key) {
+        return vars.get(key);
+    }
+    public static void setVar(String key, String value) {
+        vars.put(key, Var.create(value));
+    }
+    public static void setVar(String key, Var var) {
+        vars.put(key, var);
+    }
     static Var create(String strValue) {
         strValue = strValue.trim().replace(" ", "");
         if (strValue.matches(Patterns.SCALAR)) {
@@ -15,10 +37,16 @@ abstract class Var implements Operation {
             return new Vector(strValue);
         } else if (strValue.matches(Patterns.MATRIX)) {
             return new Matrix(strValue);
+        } else if (strValue.matches(Patterns.VARIABLE)) {
+            return vars.get(strValue);
         } else {
             return null; //stub
             //TODO throw error
         }
+    }
+    @Override
+    public String toString() {
+        return "X";
     }
     public Var operate(Var other, String operator) {
         switch (operator) {
