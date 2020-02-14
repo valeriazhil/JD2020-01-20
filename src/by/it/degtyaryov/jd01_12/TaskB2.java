@@ -1,6 +1,9 @@
 package by.it.degtyaryov.jd01_12;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 class TaskB2 {
 
@@ -12,10 +15,9 @@ class TaskB2 {
     }
 
     private static String process(ArrayList<String> peoples) {
-        List<String> list = new ArrayList<>(peoples);
         boolean needDelete = false;
-        while (list.size() > 1) {
-            Iterator<String> iterator = list.iterator();
+        while (peoples.size() > 1) {
+            Iterator<String> iterator = peoples.iterator();
             while (iterator.hasNext()) {
                 iterator.next();
                 if (needDelete) {
@@ -24,14 +26,13 @@ class TaskB2 {
                 needDelete = !needDelete;
             }
         }
-        return list.get(0);
+        return peoples.get(0);
     }
 
     private static String process(LinkedList<String> peoples) {
-        List<String> list = new LinkedList<>(peoples);
         boolean needDelete = false;
-        while (list.size() > 1) {
-            Iterator<String> iterator = list.iterator();
+        while (peoples.size() > 1) {
+            Iterator<String> iterator = peoples.iterator();
             while (iterator.hasNext()) {
                 iterator.next();
                 if (needDelete) {
@@ -40,6 +41,6 @@ class TaskB2 {
                 needDelete = !needDelete;
             }
         }
-        return list.get(0);
+        return peoples.get(0);
     }
 }
