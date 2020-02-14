@@ -12,10 +12,9 @@ class TaskA2 {
         Set<Integer> b = new TreeSet<>(Arrays.asList(5, 6, 7, 7, 8, 8, 9, 7, 5, 9, 10, 11));
         System.out.println("Множество А: " + a);
         System.out.println("Множество B: " + b);
-        getCross(a, b);
-        getUnion(a, b);
-        System.out.println("Множество А: " + a);
-        System.out.println("Множество B: " + b);
+
+        System.out.println("getCross(a, b): " + getCross(a, b));
+        System.out.println("getUnion(a, b): " + getUnion(a, b));
     }
 
     private static Set<Integer> getUnion(Set<Integer> a, Set<Integer> b) {
