@@ -54,14 +54,31 @@ class TaskA2 {
         }
 
     }
-    public static void main(String[] args) {
-        printMulTable();
+
+
+
+    public static void buildOneDimArray(String line) {
+    final double[] array = InOut.getArray(line);
+    double start =array[0];
+    double stop = array[array.length-1];
+    InOut.printArray(array,"V",5);
+    Helper.sort(array);
+    InOut.printArray(array,"V",4);
+        for (int i = 0; i < array.length; i++) {
+            if(array[i]==start){
+                System.out.println("Index of first element="+i);
+                break;
+            }
+            
+        }
 
     }
-    static void buildOneDimArray(String line){
 
-
-
+    public static void main(String[] args) {
+        printMulTable();
+        Scanner sc=new Scanner(System.in);
+        String s=sc.nextLine();
+        buildOneDimArray(s);
     }
 }
 
