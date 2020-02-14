@@ -7,7 +7,7 @@ public class BeanTester {
 
     public static void main(String[] args) throws Exception{
         Class<Bean> beanClass = Bean.class;
-        Object object = beanClass.newInstance();
+        Object object = beanClass.getConstructor().newInstance();
         Method[] methods = beanClass.getDeclaredMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(Param.class)){
