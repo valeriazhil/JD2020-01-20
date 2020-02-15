@@ -8,9 +8,15 @@ import java.util.Random;
 public class TaskA1 {
 
     private List<Integer> grade;
+
+
     private void clearBad(List<Integer> grades){
         Iterator<Integer> iterator = grades.iterator();
-        while (iterator.hasNext());
+        while (iterator.hasNext()){
+            Integer gradete = iterator.next();
+            if(gradete<4)
+            iterator.remove();
+        }
     }
 
     public static void main(String[] args) {
@@ -20,6 +26,8 @@ public class TaskA1 {
         for (int i = 0; i < 20; i++) {
             taskA1.grade.add(random.nextInt(10)+1);
         }
+        System.out.println(taskA1.grade);
+        taskA1.clearBad(taskA1.grade);
         System.out.println(taskA1.grade);
         
 
