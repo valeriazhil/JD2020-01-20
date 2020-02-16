@@ -48,7 +48,7 @@ class TaskB2 {
     }
 
     public static void main(String[] args) {
-        System.out.println(process((ArrayList<String>) list1));
-        System.out.println(process((LinkedList<String>) list2));
+        process((ArrayList<String>) list1);
+        process((LinkedList<String>) list2);
     }
 }

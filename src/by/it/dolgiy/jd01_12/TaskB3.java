@@ -55,11 +55,13 @@ class TaskB3 {
             list2.add("A"+i);
         }
         Long t= System.nanoTime();
-        System.out.println(process((ArrayList<String>) list1));
+        process((ArrayList<String>) list1);
         Long tA= System.nanoTime()-t;
+
         Long t1= System.nanoTime();
-        System.out.println(process((LinkedList<String>) list2));
+        process((LinkedList<String>) list2);
         Long tA1= System.nanoTime()-t;
+
         System.out.println(tA);
         System.out.println(tA1);
     }
