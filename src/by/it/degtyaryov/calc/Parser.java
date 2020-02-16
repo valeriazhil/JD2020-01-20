@@ -1,4 +1,4 @@
-package by.it.degtyaryov.jd01_09;
+package by.it.degtyaryov.calc;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,9 +11,12 @@ class Parser {
         if (operands.length == 1) {
             return Var.create(expressions);
         }
-
-        Var operOne = Var.create(operands[0]);
+       
         Var operTwo = Var.create(operands[1]);
+        if (expressions.contains("=")) {
+            return Var.saveVariable(operands[0], operTwo);
+        }
+		Var operOne = Var.create(operands[0]);
 
         Matcher operator = Pattern.compile(Patterns.OPERATOR).matcher(expressions);
         String op = "";
