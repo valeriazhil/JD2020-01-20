@@ -1,23 +1,27 @@
 package by.it.dolgiy.jd01_10;
 
-import jdk.internal.dynalink.beans.StaticClass;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 public class BeanTester {
     public static void main(String[] args) throws Exception{
         Class <Bean> beanClass = Bean.class;
-        Bean bean = beanClass.newInstance();
-        Method[] declaredMethods = beanClass.getDeclaredMethods();
-        for (Method declaredMethod : declaredMethods) {
-            if (declaredMethod.isAnnotationPresent(Param.class)){
-                Annotation annotation = declaredMethod.getAnnotation(Param.class);
-                int a = ((Param) annotation).a();
-                int b = ((Param) annotation).b();
-
-                System.out.println(declaredMethod.getName());
-
+        Object object = beanClass.getDeclaredConstructor().newInstance();
+        Method[] methods = beanClass.getDeclaredMethods();
+        for (Method method : methods) {
+            if (method.isAnnotationPresent(Param.class)){
+                Param annotation = method.getAnnotation(Param.class);
+                int a = annotation.a();
+                int b = annotation.b();
+                Object result;
+                if (Modifier.isStatic(method.getModifiers())){
+                    result = method.invoke(null, a, b);
+                }
+                else {
+                    result = method.invoke(object, a, b);
+                }
+                System.out.println(method.getName()+" res="+result);
             }
         }
     }

@@ -1,6 +1,8 @@
 package by.it.dolgiy.Calc;
 
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 class ConsoleRunner {
     public static void main(String[] args) {
@@ -12,8 +14,11 @@ class ConsoleRunner {
             Var result = parser.calc(line);
             printer.print(result);
         }
-        if ((line = scanner.nextLine()).equals("printvar")){
-            System.out.println(Var.getSetVar());
+        while ((line = scanner.nextLine()).equals("printvar")){
+            Set<Map.Entry<String, Var>> entries = Var.getVars().entrySet();
+            for (Map.Entry<String, Var> entry : entries) {
+                System.out.println(entry.getKey()+"="+entry.getValue());
+            }
         }
     }
 }

@@ -8,17 +8,15 @@ abstract class Var implements Operation {
 
     private static Map<String,Var> vars= new HashMap<>();
 
+    public static Map<String, Var> getVars() {
+        return vars;
+    }
+
     static Var saveVar(String name, Var var){
         vars.put(name,var);
         return var;
     }
-/////////////////////////////////////////////////////////////////////////////
-    private static Set<Map.Entry<String,Var>> setVar = vars.entrySet();
 
-    public static Set<Map.Entry<String, Var>> getSetVar() {
-        return setVar;
-    }
-/////////////////////////////////////////////////////////////////////////////
     static Var createVar(String str){
         str = str.trim().replace("\\s+","");
         if (str.matches(Patterns.SCALAR)){
