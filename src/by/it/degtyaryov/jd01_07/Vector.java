@@ -16,7 +16,6 @@ class Vector extends Var {
     }
 
     Vector(String strVector) {
-        // TODO добавить проверку соответствует ли полученная строка выражению {x.x, x.x, x.x}  - "\\{[-0-9\\. ,]+\\}"
         Matcher mDoubles = Pattern.compile("-?[0-9]+(\\.[0-9]+)?").matcher(strVector);
         int countDoubles = 0;
         while (mDoubles.find()) {
