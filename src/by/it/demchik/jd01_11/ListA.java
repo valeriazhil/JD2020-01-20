@@ -3,7 +3,7 @@ package by.it.demchik.jd01_11;
 import java.util.*;
 
 public class ListA<T> implements List<T> {
-    private T[] elements = (T[]) new Object[0];
+    private T[] elements = (T[]) new Object[]{};
     private int size = 0;
 
 
@@ -63,7 +63,7 @@ if (inde>-1) remove(inde);
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
