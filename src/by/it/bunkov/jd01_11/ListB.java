@@ -30,11 +30,6 @@ public class ListB<T> implements List<T> {
     }
 
     @Override
-    public <T1> T1[] toArray(IntFunction<T1[]> generator) {
-        return null;
-    }
-
-    @Override
     public boolean removeIf(Predicate<? super T> filter) {
         return false;
     }
