@@ -34,7 +34,6 @@ class TaskB1 {
             }
         }
         for (Map.Entry<String, Integer> item : words.entrySet()) {
-
             System.out.println(item.getKey() + "=" + item.getValue());
         }
     }

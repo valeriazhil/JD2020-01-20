@@ -6,7 +6,6 @@ package by.it.zhuravaskarabahataya.jd01_12;
 //  Выведите список на консоль методом коллекции toString().
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,7 +26,6 @@ class TaskA3 {
             else if (value<0){
                 numbers.add(value);
             }
-
         }
         System.out.println(numbers);
 
