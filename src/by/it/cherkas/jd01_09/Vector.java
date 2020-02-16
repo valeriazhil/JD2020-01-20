@@ -1,38 +1,53 @@
-package by.it.cherkas.jd01_08;
+package by.it.cherkas.jd01_09;
 
 import java.util.Arrays;
 
 class Vector extends Var implements Operation {
-    private double[] value;
+    private double[] values;
 
-    Vector(double[ ] value) {
-        this.value=value;
+    public double[] getValues() {
+        return values;
     }
 
-
-
-    Vector (Vector vector) {
-        this.value=vector.value;
-    }
-
-    Vector(String str) {
-        //  {1 ,2 ,4, 8}
-        String[] part = str.replace("{", "")
-                .replace("}", "")
-                .replace(" ", "")
-                .split(",");
-
-        value=new double[part.length];
-        for (int i = 0; i < value.length; i++) {
-            value[i]=Double.parseDouble(part[i]);
+    public Vector(double[] values) {
+        this.values = new double[values.length];
+        for (int i = 0; i < values.length; i++) {
+            this.values[i] = values[i];
         }
+    }
 
+    public Vector(Vector vector) {
+        this(vector.values);
+    }
 
+    public Vector(String strVector) {
+        StringBuilder sb = new StringBuilder(strVector);
+        sb.deleteCharAt(sb.length() - 1);
+        sb.deleteCharAt(0);
+        String[] strArray = sb.toString().split(",");
+        double[] doubleArray = new double[strArray.length];
+        for (int i = 0; i < doubleArray.length; i++) {
+            doubleArray[i] = Double.parseDouble(strArray[i]);
+        }
+        this.values = doubleArray;
     }
 
     @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("{");
+        String delimiter = "";
+        for (double d : values) {
+            sb.append(delimiter).append(d);
+            delimiter = ", ";
+        }
+        sb.append('}');
+        return sb.toString();
+    }
+
+
+    @Override
     public Var add(Var other) {
-        double[] result = Arrays.copyOf(value, value.length);
+        double[] result = Arrays.copyOf(values, values.length);
         if (other instanceof Scalar) {
             double s = ((Scalar) other).getValue();
             for (int i = 0; i < result.length; i++) {
@@ -42,7 +57,7 @@ class Vector extends Var implements Operation {
         }
         if (other instanceof Vector) {
             for (int i = 0; i < result.length; i++) {
-                result[i] += ((Vector) other).value[i];
+                result[i] += ((Vector) other).values[i];
             }
             return new Vector(result);
         }
@@ -51,7 +66,7 @@ class Vector extends Var implements Operation {
 
     @Override
     public Var sub(Var other) {
-        double[] result = Arrays.copyOf(value, value.length);
+        double[] result = Arrays.copyOf(values, values.length);
         if (other instanceof Scalar) {
             double s = ((Scalar) other).getValue();
             for (int i = 0; i < result.length; i++) {
@@ -61,7 +76,7 @@ class Vector extends Var implements Operation {
         }
         if (other instanceof Vector) {
             for (int i = 0; i < result.length; i++) {
-                result[i] -= ((Vector) other).value[i];
+                result[i] -= ((Vector) other).values[i];
             }
             return new Vector(result);
         }
@@ -71,15 +86,15 @@ class Vector extends Var implements Operation {
     @Override
     public Var mul(Var other) {
         if (other instanceof Scalar) {
-            double[] result = Arrays.copyOf(this.value, value.length);
+            double[] result = Arrays.copyOf(this.values, values.length);
             for (int i = 0; i < result.length; i++) {
                 result[i] *= ((Scalar) other).getValue();
             }
             return new Vector(result);
         } else if (other instanceof Vector) {
             int res = 0;
-            for (int i = 0; i < value.length; i++) {
-                res += value[i] * ((Vector) other).value[i];
+            for (int i = 0; i < values.length; i++) {
+                res += values[i] * ((Vector) other).getValues()[i];
             }
             return new Scalar(res);
         }
@@ -89,31 +104,12 @@ class Vector extends Var implements Operation {
     @Override
     public Var div(Var other) {
         if (other instanceof Scalar) {
-            double[] result = Arrays.copyOf(this.value, value.length);
+            double[] result = Arrays.copyOf(this.values, values.length);
             for (int i = 0; i < result.length; i++) {
                 result[i] /= ((Scalar) other).getValue();
             }
             return new Vector(result);
         }
         return super.div(other);
-    }
-
-
-
-
-
-
-
-    @Override
-    public String toString() {
-        StringBuilder sb=new StringBuilder("{");
-        String delimiter="";
-        for (double element : value){
-            sb.append(delimiter).append(element);
-            delimiter=", ";
-        }
-        sb.append("}");
-        return  sb.toString();
-
     }
 }
