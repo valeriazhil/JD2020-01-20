@@ -12,5 +12,6 @@ public class PrintString {
                 System.out.println(method.getName());
         }
 
-
-    }}
+    }
+}
+// почему находит лишние данные в выводе format?
