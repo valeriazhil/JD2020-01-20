@@ -11,6 +11,7 @@ class PrintMath {
         Method[] methods = mathClass.getMethods();
         for (Method method : methods) {
             if (Modifier.isPublic(method.getModifiers())) {
+
                 System.out.printf("%s %s %s(", Modifier.toString(method.getModifiers()), method.getReturnType(), method.getName());
                 String delimiter = "";
                 for (Class<?> parameterType : method.getParameterTypes()) {
