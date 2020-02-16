@@ -4,52 +4,55 @@ import java.util.*;
 
 // TaskC3. В консоль вводится строка, состоящая из выражений и символов «(», «)», «[», «]», «{», «}».
 //  Проверьте и выведите в консоль корректность расстановки скобок (true или false) с помощью коллекций.
+
 class TaskC3 {
     public static void main(String[] args) {
-        Map<String, Integer> brackets = new HashMap<>();
         Scanner sc = new Scanner(System.in);
         String words = sc.nextLine();
-        System.out.println(words);
         char[] charArray = words.toCharArray();
-        List<Character> charList = new ArrayList<Character>();
+        ArrayList<Character> bracketsList = new ArrayList<>();
         for (char c : charArray) {
-            if (isOpenBracket(c) || isClosedBracket(c)) {
-                charList.add(c);
+            if (isOpenBracket(c) >= 0 || isClosedBracket(c) >= 0) {
+                bracketsList.add(c);
             }
         }
-        System.out.println(charList);
-        System.out.println(isRight((ArrayList<Character>) charList));
+        System.out.println(bracketsList);
+        System.out.println(isRight(bracketsList));
     }
 
-    static boolean isOpenBracket(Character character) {
-        List<Character> openBrackets = new ArrayList<>();
-        openBrackets.add('{');
-        openBrackets.add('(');
-        openBrackets.add('[');
-        return openBrackets.contains(character);
+    static int isOpenBracket(Character character) {
+        List<Character> openBrackets = new ArrayList<>(Arrays.asList('{', '(', '['));
+        if (openBrackets.contains(character)) {
+            return openBrackets.indexOf(character);
+        } else return -1;
     }
 
-    static boolean isClosedBracket(Character character) {
-        List<Character> closedBrackets = new ArrayList<>();
-        closedBrackets.add('}');
-        closedBrackets.add(')');
-        closedBrackets.add(']');
-        return closedBrackets.contains(character);
+    static int isClosedBracket(Character character) {
+        List<Character> closedBrackets = new ArrayList<>(Arrays.asList('}', ')', ']'));
+        if (closedBrackets.contains(character)) {
+            return closedBrackets.indexOf(character);
+        } else return -1;
     }
 
     static boolean isRight(ArrayList<Character> array) {
         boolean isRight = true;
-
-        Map<Character, Boolean> mapOfOpenBrackets = new HashMap<>();
-
+        List<Character> arrayOfBrackets = new ArrayList<>();
         for (Character character : array) {
-            if (isOpenBracket(character) && !mapOfOpenBrackets.containsKey(character)){
-                mapOfOpenBrackets.put(character, true);
-
+            if (arrayOfBrackets.size() == 0 && isOpenBracket(character) == -1) {
+                return false;
+            } else if (isOpenBracket(character) > -1) {
+                arrayOfBrackets.add(character);
+            } else if (isClosedBracket(character) > -1) {
+                if (isOpenBracket(arrayOfBrackets.get(arrayOfBrackets.size() - 1)) == isClosedBracket(character)) {
+                    arrayOfBrackets.remove(arrayOfBrackets.size() - 1);
+                } else {
+                    return false;
+                }
             }
         }
-
-
+        if (arrayOfBrackets.size() > 0) {
+            return false;
+        }
         return isRight;
 
 
