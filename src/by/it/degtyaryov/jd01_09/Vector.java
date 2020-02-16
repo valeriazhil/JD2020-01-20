@@ -54,7 +54,6 @@ class Vector extends Var {
 
     @Override
     public Var add(Matrix matrix) {
-        // TODO relize method
         System.out.println("Суммма матрица+вектор еще не реализовал");
         return null;
     }

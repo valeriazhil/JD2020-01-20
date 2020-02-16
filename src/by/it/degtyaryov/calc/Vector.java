@@ -1,4 +1,4 @@
-package by.it.degtyaryov.jd01_08;
+package by.it.degtyaryov.calc;
 
 import java.util.Arrays;
 
@@ -54,8 +54,7 @@ class Vector extends Var {
 
     @Override
     public Var add(Matrix matrix) {
-        System.out.println("Суммма матрица+вектор еще не реализовал");
-        return null;
+        return super.add((Var) matrix);
     }
 
     @Override

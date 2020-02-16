@@ -1,4 +1,4 @@
-package by.it.degtyaryov.jd01_09;
+package by.it.degtyaryov.calc;
 
 import java.util.Scanner;
 
@@ -13,6 +13,12 @@ class ConsoleRunner {
             expression = scanner.nextLine();
             if (expression.equals("end")) {
                 return;
+            }
+            if (expression.equals("printvar")) {
+                printer.printVariables(false);
+            }
+            if (expression.equals("sortvar")) {
+                printer.printVariables(true);
             }
             printer.print(parser.calc(expression));
         }
