@@ -31,19 +31,7 @@ public class Runner {
 
 
 
-        list = new ListB<>();
-        list.add("One");
-        list.add("Two");
-        list.add("Three");
-        list.add("Four");
-        System.out.println("My  List     "+list);
-        list.remove(1);
-        System.out.println("My  List     "+list);
-        System.out.println("My  List     "+list.size());
-        System.out.println("------------------------------------");
-
-
-    }
+   }
 
 }
 
