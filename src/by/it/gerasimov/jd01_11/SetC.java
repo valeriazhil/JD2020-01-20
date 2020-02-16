@@ -1,8 +1,7 @@
 package by.it.gerasimov.jd01_11;
 
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
@@ -36,7 +35,7 @@ class SetC<T> implements Set<T> {
         return elements.contains(o);
     }
     @Override
-    public boolean addAll(@NotNull Collection<? extends T> c) {
+    public boolean addAll(Collection<? extends T> c) {
         boolean add = false;
         for (T e : c) {
             if (!elements.contains(e)) {
@@ -49,7 +48,7 @@ class SetC<T> implements Set<T> {
         return add;
     }
     @Override
-    public boolean containsAll(@NotNull Collection<?> c) {
+    public boolean containsAll(Collection<?> c) {
         for (Object o : c) {
             if (!elements.contains(o)) {
                 return false;
@@ -58,7 +57,7 @@ class SetC<T> implements Set<T> {
         return true;
     }
     @Override
-    public boolean removeAll(@NotNull Collection<?> c) {
+    public boolean removeAll(Collection<?> c) {
         boolean removed = false;
         for (Object o : c) {
             if (elements.remove(o)) {
@@ -71,19 +70,19 @@ class SetC<T> implements Set<T> {
     public void clear() {
         elements.clear();
     }
-    @NotNull
+
     @Override
     public Object[] toArray() {
         return elements.toArray();
     }
-    @NotNull
+
     @Override
     public Iterator<T> iterator() {
         return null;
     }
-    @NotNull
+
     @Override
-    public <T1> T1[] toArray(@NotNull T1[] a) {
+    public <T1> T1[] toArray(T1[] a) {
         return null;
     }
     @Override
@@ -91,7 +90,7 @@ class SetC<T> implements Set<T> {
         return false;
     }
     @Override
-    public boolean retainAll(@NotNull Collection<?> c) {
+    public boolean retainAll(Collection<?> c) {
         return false;
     }
 }
