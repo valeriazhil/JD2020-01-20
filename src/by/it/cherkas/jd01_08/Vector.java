@@ -2,7 +2,7 @@ package by.it.cherkas.jd01_08;
 
 import java.util.Arrays;
 
-class Vector extends Var {
+class Vector extends Var implements Operation {
     private double[] value;
 
     Vector(double[ ] value) {

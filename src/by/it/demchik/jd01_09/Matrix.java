@@ -26,7 +26,6 @@ class Matrix extends Var {
 
 
     public Matrix(String str) {
-        //{{2,2,2},{3,3,4}}
         str=str.replace(" ","").trim();
         String[] strRows = str.split("},");
         for (int i = 0; i < strRows.length; i++) {
