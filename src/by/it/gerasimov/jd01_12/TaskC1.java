@@ -2,7 +2,7 @@ package by.it.gerasimov.jd01_12;
 
 import java.util.*;
 
-public class TaskC1 {
+class TaskC1 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         HashMap<Integer, String> names = new HashMap<>();

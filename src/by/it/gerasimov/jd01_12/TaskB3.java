@@ -2,7 +2,7 @@ package by.it.gerasimov.jd01_12;
 
 import java.util.*;
 
-public class TaskB3 {
+class TaskB3 {
 
     static <T> T process(ArrayList<T> people) {
         Iterator<T> it = people.iterator();
