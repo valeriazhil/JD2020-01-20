@@ -3,8 +3,6 @@ package by.it.degtyaryov.jd01_06;
 import java.util.Random;
 
 public class TaskC2 {
-    // TODO уточнить почему, если вынести рандом в члены класса,
-    //  чтобы не создавать экземпляр в каждом методе, то в методах получаются разные слова
 
     public static void main(String[] args) {
         long startTime = System.nanoTime();

@@ -1,9 +1,8 @@
 package by.it.degtyaryov.jd01_08.oop;
 
-public class Test {
+class Test {
 
     public static void main(String[] args) {
-		
         PublicBuilding theater = new Theater(2, "Minsk", "Оперы и балета", 100, 10);
         PublicBuilding cafe = new Cafe(1, "Minsk", "Мята лаунч", 20, new String[]{"Суп", "Картошка"});
 		
