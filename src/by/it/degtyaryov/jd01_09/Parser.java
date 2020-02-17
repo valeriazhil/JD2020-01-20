@@ -7,7 +7,7 @@ class Parser {
 
     public Var calc(String expressions) {
         expressions = expressions.trim().replace(" ", "");
-        String[] operands = expressions.split(Patterns.OPERATOR);
+        String[] operands = expressions.split(Patterns.OPERATOR, 2);
         if (operands.length == 1) {
             return Var.create(expressions);
         }
