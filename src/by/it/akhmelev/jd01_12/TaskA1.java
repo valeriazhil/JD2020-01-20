@@ -13,8 +13,9 @@ public class TaskA1 {
         Iterator<Integer> iterator = localName.iterator();
         while (iterator.hasNext()){
             Integer grade = iterator.next();
-            if (grade<4)
+            if (grade<4){
                 iterator.remove();
+            }
         }
 
     }
