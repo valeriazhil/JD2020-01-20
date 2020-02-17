@@ -1,6 +1,5 @@
 package by.it.zhuravaskarabahataya.jd01_12;
 
-
 import java.util.*;
 
 //Потому что LinkedList не надо переписыать весь массив, а только ссылки у соседей.
