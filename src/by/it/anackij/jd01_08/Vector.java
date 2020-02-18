@@ -24,12 +24,12 @@ public class Vector extends Var implements Operation {
         double[] result = Arrays.copyOf(values, values.length);
         if (other instanceof Scalar) {
             for (int i = 0; i < result.length; i++) {
-                result[i]+= ((Scalar) other).getValue();
+                result[i] += ((Scalar) other).getValue();
             }
             return new Vector(result);
         } else if (other instanceof Vector) {
             for (int i = 0; i < values.length; i++) {
-                result[i]+=((Vector) other).getValues()[i];
+                result[i] += ((Vector) other).getValues()[i];
             }
             return new Vector(result);
         }
@@ -41,12 +41,12 @@ public class Vector extends Var implements Operation {
         double[] result = Arrays.copyOf(values, values.length);
         if (other instanceof Scalar) {
             for (int i = 0; i < result.length; i++) {
-                result[i]-= ((Scalar) other).getValue();
+                result[i] -= ((Scalar) other).getValue();
             }
             return new Vector(result);
         } else if (other instanceof Vector) {
             for (int i = 0; i < values.length; i++) {
-                result[i]-=((Vector) other).getValues()[i];
+                result[i] -= ((Vector) other).getValues()[i];
             }
             return new Vector(result);
         }
@@ -64,7 +64,7 @@ public class Vector extends Var implements Operation {
         } else if (other instanceof Vector) {
             int resInt = 0;
             for (int i = 0; i < values.length; i++) {
-                resInt+= values[i]* ((Vector) other).getValues()[i];
+                resInt += values[i] * ((Vector) other).getValues()[i];
             }
             return new Scalar(resInt);
         }
@@ -75,13 +75,25 @@ public class Vector extends Var implements Operation {
     public Var div(Var other) {
         double[] result = Arrays.copyOf(values, values.length);
         if (other instanceof Scalar) {
+            if (((Scalar) other).getValue() == 0) {
+                return null;
+            }
             for (int i = 0; i < result.length; i++) {
-                result[i]/= ((Scalar) other).getValue();
+                result[i] /= ((Scalar) other).getValue();
             }
             return new Vector(result);
         } else if (other instanceof Vector) {
+
+            if (result.length != ((Vector) other).getValues().length) {
+                return null;
+            }
+            for (double value : ((Vector) other).getValues()) {
+                if (value == 0) ;
+                return null;
+            }
+
             for (int i = 0; i < values.length; i++) {
-                result[i]/=((Vector) other).getValues()[i];
+                result[i] /= ((Vector) other).getValues()[i];
             }
             return new Vector(result);
         }
