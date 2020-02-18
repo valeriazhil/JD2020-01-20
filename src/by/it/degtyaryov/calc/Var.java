@@ -32,7 +32,7 @@ abstract class Var implements Operation {
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException("Невозможно выполнить операцию " + other + " + " + this);
+        throw new CalcException("operation " + other + " + " + this + " is impossible");
     }
 
     public abstract Var add(Scalar scalar) throws CalcException;
@@ -43,7 +43,7 @@ abstract class Var implements Operation {
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException("Невозможно выполнить операцию " + other + " - " + this);
+        throw new CalcException("operation " + other + " - " + this + " is impossible");
     }
 
     public abstract Var sub(Scalar scalar) throws CalcException;
@@ -54,7 +54,7 @@ abstract class Var implements Operation {
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("Невозможно выполнить операцию " + other + " * " + this);
+        throw new CalcException("operation " + other + " * " + this + " is impossible");
     }
 
     public abstract Var mul(Scalar scalar) throws CalcException;
@@ -65,7 +65,7 @@ abstract class Var implements Operation {
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("Невозможно выполнить операцию " + other + " / " + this);
+        throw new CalcException("operation " + other + " / " + this + " is impossible");
     }
 
     public abstract Var div(Scalar scalar) throws CalcException;
