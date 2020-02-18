@@ -15,9 +15,11 @@ class TaskC {
     public static void main(String[] args) throws InterruptedException {
         ArrayList<Double> values = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
+        int counter = 0;
         while (true){
             try {
-                double value = scanner.nextDouble();
+                String text = scanner.next();
+                double value = Double.parseDouble(text);
                 values.add(0,value);
             }
             catch (Exception e){
@@ -25,6 +27,11 @@ class TaskC {
                 for (Double value1 : values) {
                     System.out.print(value1);
                 }
+                counter++;
+            }
+            if (counter==5){
+                System.out.println();
+                throw new InterruptedException();
             }
         }
     }
