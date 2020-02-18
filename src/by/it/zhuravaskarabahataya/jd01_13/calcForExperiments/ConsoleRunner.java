@@ -1,4 +1,4 @@
-package by.it.zhuravaskarabahataya.calc;
+package by.it.zhuravaskarabahataya.jd01_13.calcForExperiments;
 
 import java.util.Scanner;
 

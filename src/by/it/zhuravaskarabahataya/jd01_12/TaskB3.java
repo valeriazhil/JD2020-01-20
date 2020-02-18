@@ -48,7 +48,7 @@ class TaskB3 {
 
     static String processWithQueue(LinkedList<String> peoples) {
         long start = System.currentTimeMillis();
-        Deque<String> queue = new ArrayDeque<>(peoples);
+        LinkedList<String> queue = new LinkedList<>(peoples);
         int counter = 1;
         while (queue.size() > 1) {
             if (counter == 1) {

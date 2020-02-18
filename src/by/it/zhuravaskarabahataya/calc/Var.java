@@ -6,19 +6,19 @@ abstract class Var implements Operation {
 
     private static Map<String, Var> vars = new HashMap<>();
 
-    static Var saveVar (String varName, Var var){
+    static Var saveVar(String varName, Var var) {
         vars.put(varName, var);
         return var;
     }
 
-    static void printvar (){
+    static void printvar() {
         List<String> keys = new ArrayList<>(vars.keySet());
         for (String key : keys) {
             System.out.println(key + "=" + vars.get(key));
         }
     }
 
-    static void sortVar (){
+    static void sortVar() {
         List<String> keys = new ArrayList<>(vars.keySet());
         Collections.sort(keys);
         for (String key : keys) {
@@ -31,46 +31,48 @@ abstract class Var implements Operation {
         return "abstract Var";
     }
 
-    @Override
-    public Var add(Var other) {
-        System.out.println("Операция " + this + " + " + other + " невозможна");
-        return null;
+    public Var addVar(Var var){
+        System.out.println("Вызвали addVar Var");
+        return var;
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.println("Операция " + this + " - " + other + " невозможна");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Операция " + this + " + " + other + " невозможна");
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.println("Операция " + this + " * " + other + " невозможна");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Операция " + this + " - " + other + " невозможна");
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.println("Операция " + this + " / " + other + " невозможна");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Операция " + this + " * " + other + " невозможна");
     }
 
-    static Var create(String strVar){
+    @Override
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("Операция " + this + " / " + other + " невозможна");
+    }
+
+    static Var create(String strVar) throws CalcException {
         strVar = strVar.trim().replace(" ", "");
-        if (strVar.matches(Patterns.SCALAR)){
+        if (strVar.matches(Patterns.SCALAR)) {
             return new Scalar(strVar);
-        }
-        else if (strVar.matches(Patterns.VECTOR)){
+        } else if (strVar.matches(Patterns.VECTOR)) {
             return new Vector(strVar);
-        }
-        else if (strVar.matches(Patterns.MATRIX)){
+        } else if (strVar.matches(Patterns.MATRIX)) {
             return new Matrix((strVar));
-        }
-        else if (vars.containsKey(strVar)){
+        } else if (vars.containsKey(strVar)) {
             return vars.get(strVar);
-        }
-        else {
-            return null; //stub
+        } else {
+            Var var = vars.get(strVar);
+            if (var == null) {
+                throw new CalcException("Переменная не найдена " + strVar);
+            } else {
+                return var;
+            }
         }
 
 

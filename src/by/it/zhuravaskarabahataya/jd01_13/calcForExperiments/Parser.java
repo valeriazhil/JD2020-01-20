@@ -1,4 +1,4 @@
-package by.it.zhuravaskarabahataya.calc;
+package by.it.zhuravaskarabahataya.jd01_13.calcForExperiments;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +16,7 @@ class Parser {
             return Var.saveVar(parts[0], right);
         }
         Var left = Var.create(parts[0]);
+        String r = right.getClass().getSimpleName();
         Pattern p = Pattern.compile(Patterns.OPERATION);
         Matcher m = p.matcher(expression);
         if (m.find()){
