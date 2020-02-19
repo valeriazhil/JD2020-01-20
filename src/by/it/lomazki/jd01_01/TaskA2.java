@@ -8,7 +8,6 @@ package by.it.lomazki.jd01_01;
 Для автоматической проверки откройте и запустите класс Testing
 */
 
-import org.w3c.dom.ls.LSOutput;
 
 class TaskA2 {
     public static void main(String[] args) {
