@@ -1,6 +1,6 @@
-package by.it.rybakov.jd01_07;
+package by.it.rybakov.jd01_08;
 
-class Vector {
+class Vector extends Var {
 
     private double[] value;
 

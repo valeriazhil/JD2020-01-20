@@ -1,6 +1,6 @@
 package by.it.rybakov.jd01_07;
 
-class Scalar extends Var {
+class Scalar {
 
     private double value;
 
