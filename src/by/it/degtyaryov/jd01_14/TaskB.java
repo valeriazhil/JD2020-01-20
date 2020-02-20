@@ -15,14 +15,14 @@ class TaskB {
     }
 
     private static void printToConsole(int wordsCount, int signsCount) {
-        System.out.println("words=" + wordsCount + ", punctuation marks=" + signsCount);
+        System.out.printf("words=%d, punctuation marks=%d%n", wordsCount, signsCount);
     }
 
     private static void printToFile(int wordsCount, int signsCount) {
-        try (PrintWriter printWriter = new PrintWriter(
-                new FileWriter(Helper.getPath(TaskA.class, "resultTaskB.txt")))
+        try (PrintWriter writer = new PrintWriter(
+                new FileWriter(Helper.getPath(TaskB.class, "resultTaskB.txt")))
         ) {
-            printWriter.println("words=" + wordsCount + ", punctuation marks=" + signsCount);
+            writer.printf("words=%d, punctuation marks=%d%n", wordsCount, signsCount);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,8 +32,9 @@ class TaskB {
         int wordsCount = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(pathToFile))) {
             String line;
+			Pattern pattern = Pattern.compile("[а-яА-ЯёЁ']+");
             while ((line = reader.readLine()) != null) {
-                Matcher matchWord = Pattern.compile("[а-яА-ЯёЁ']+").matcher(line);
+                Matcher matchWord = pattern.matcher(line);
                 while (matchWord.find()) {
                     wordsCount++;
                 }
@@ -48,11 +49,12 @@ class TaskB {
         int signCount = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(pathToFile))) {
             String line;
+			Pattern pattern = Pattern.compile("[-.,!?:]");
             while ((line = reader.readLine()) != null) {
                 if (line.contains("...")) {
                     line = line.replace("...", ".");
                 }
-                Matcher matchSign = Pattern.compile("[-.,!?:]").matcher(line);
+                Matcher matchSign = pattern.matcher(line);
                 while (matchSign.find()) {
                     signCount++;
                 }

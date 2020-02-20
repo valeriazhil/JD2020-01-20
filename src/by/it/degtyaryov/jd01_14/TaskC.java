@@ -14,7 +14,7 @@ class TaskC {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(getFiles(path));
+        System.out.print(getFiles(path));
     }
 
     private static String getFiles(String path) {

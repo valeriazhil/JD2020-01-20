@@ -24,9 +24,9 @@ class TaskA {
         }
     }
 
-    private static List<Integer> readFile(String pathToFile) {
+    private static List<Integer> readFile(String path) {
         List<Integer> list = new ArrayList<>();
-        try (DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(pathToFile)))) {
+        try (DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(path)))) {
             while (in.available() > 0) {
                 list.add(in.readInt());
             }
