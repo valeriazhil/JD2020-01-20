@@ -1,6 +1,6 @@
 package by.it.dolgiy.jd01_05;
 
-public class TaskB {
+class TaskB {
     public static void main(String[] args) {
         control_task_4();
         control_task_5();

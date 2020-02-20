@@ -1,6 +1,6 @@
 package by.it.dolgiy.jd01_04;
 
-public class Helper {
+class Helper {
 
     static double findMin(double[ ] arr){
         if (0==arr.length){
