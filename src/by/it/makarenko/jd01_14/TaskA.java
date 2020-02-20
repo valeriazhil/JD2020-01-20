@@ -5,23 +5,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class TaskA {
+
     public static void main(String[] args) {
-        String dateFileName = Helper.getPath("dataTaskA.bin");
+        String dateFileName = Helper.getPath(TaskA.class,"dataTaskA.bin");
+        writeInt(dateFileName);
+        List<Integer> list = readInt(dateFileName);
+        printToFile(list);
+        printToConsole(list);
+
+    }
+
+    private static void printToConsole(List<Integer> list){
+        double sum= 0;
+        for(Integer integer:list){
+            System.out.printf("%d ", integer);
+            sum+=integer;
+        }
+        System.out.printf("\navg=%f\n",sum/list.size());
+    }
+
+
+
+    private static void printToFile(List<Integer> list) {
+        try (
+                PrintWriter writer = new PrintWriter(
+                    Helper.getPath(TaskA.class, "resultTaskA.txt")
+        )) {
+            double sum2 = 0;
+            for (Integer integer : list) {
+                System.out.printf("%d ", integer);
+                sum2 += integer;
+            }
+            writer.printf("\navg=%.2f\n", sum2 / list.size());
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void writeInt(String dateFileName) {
         try(
             DataOutputStream dos = new DataOutputStream(
                     new BufferedOutputStream(
-                            new FileOutputStream(dateFileName)))
-
+                            new FileOutputStream(dateFileName)
+                    )
+            )
         ) {
-            for (int i = 0; i <20 ; i++) {
+            for (int i = 0; i < 20; i++) {
                 dos.writeInt((int) (Math.random() * 1000));
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException e) {
             System.err.println("lul");
         }
-        List<Integer> list = new ArrayList<Integer>();
+    }
+
+    private static List<Integer> readInt(String dateFileName) {
+        List<Integer> list = new ArrayList<>();
         try(DataInputStream dis = new DataInputStream(
                 new BufferedInputStream(
                         new FileInputStream(dateFileName)))){
@@ -30,20 +70,9 @@ public class TaskA {
             }
         }
         catch (IOException e){
-            System.err.println("lol");
+            System.err.println("lol2");
         }
-        double sum= 0;
-        for(Integer integer:list){
-            System.out.printf("%d", integer);
-            sum+=integer;
-        }
-        System.out.printf("\navg=%f\n",sum/list.size());
-
-        try {
-            PrintWriter writer = new PrintWriter(Helper.getPath("resultTaskA.txt\n"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        return list;
     }
 }
 

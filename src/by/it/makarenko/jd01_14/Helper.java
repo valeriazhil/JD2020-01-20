@@ -5,10 +5,12 @@ import java.io.File;
 public class Helper {
     private static final String root = System.getProperty("user.dir");
 
-    static String getPath(String fileName) {
-        String name = TaskA.class.getName();
-        String path = name.replace(TaskA.class.getSimpleName(), "")
+    static String getPath(Class<?> aClass, String fileName) {
+        String name = aClass.getName();
+        String path = name
+                .replace(aClass.getSimpleName(), "")
                 .replace(".", File.separator);
-        return path = root + File.separator + "src" + File.separator + path + fileName;
+        return root + File.separator + "src" + File.separator + path + fileName;
     }
+
 }
