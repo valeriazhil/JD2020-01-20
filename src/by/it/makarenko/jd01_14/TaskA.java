@@ -9,6 +9,7 @@ import java.util.Locale;
 public class TaskA {
 
     public static void main(String[] args) {
+        Locale.setDefault(Locale.ENGLISH);
         String dateFileName = Helper.getPath(TaskA.class,"dataTaskA.bin");
         writeInt(dateFileName);
         List<Integer> list = readInt(dateFileName);
@@ -23,7 +24,7 @@ public class TaskA {
             System.out.printf("%d ", integer);
             sum+=integer;
         }
-        System.out.printf(Locale.ENGLISH,"\navg=%f\n",sum/list.size());
+        System.out.printf("\navg=%.2f\n",sum/list.size());
     }
 
 
