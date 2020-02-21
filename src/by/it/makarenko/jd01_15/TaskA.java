@@ -1,6 +1,5 @@
 package by.it.makarenko.jd01_15;
 
-import by.it.makarenko.jd01_09.Parser;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -77,7 +76,6 @@ public class TaskA {
             }
         } catch (FileNotFoundException e) {
             System.err.println(e);
-            ;
         }
     }
 }
