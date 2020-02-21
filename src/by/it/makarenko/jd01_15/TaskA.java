@@ -15,8 +15,8 @@ public class TaskA {
 
     private static int[][] generate(int rows, int cols) {
         int [][] result = new int [rows][cols];
-        boolean maxOk = false;
-        boolean minOk = false;
+        boolean maxOk;
+        boolean minOk;
         do {
             maxOk = false;
             minOk = false;
