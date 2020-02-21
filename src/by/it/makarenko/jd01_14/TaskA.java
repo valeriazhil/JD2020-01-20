@@ -3,7 +3,7 @@ package by.it.makarenko.jd01_14;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Locale;
 
 
 public class TaskA {
@@ -23,7 +23,7 @@ public class TaskA {
             System.out.printf("%d ", integer);
             sum+=integer;
         }
-        System.out.printf("\navg=%f\n",sum/list.size());
+        System.out.printf(Locale.ENGLISH,"\navg=%f\n",sum/list.size());
     }
 
 
