@@ -19,13 +19,15 @@ class TaskB2 {
             }
             System.out.println(list1);
         }
-        return String.valueOf(list1);
+        return list1.get(0);
     }
 
     static String process(LinkedList<String> peoples){
         LinkedList<String> list2 = new LinkedList<>(peoples);
         System.out.println(list2);
-        while (list2.size()!=1){
+        while (list2.size()>1){
+            peoples.addLast(peoples.removeLast());
+            peoples.removeFirst();
             Iterator<String> iterator = list2.iterator();
             while (iterator.hasNext()) {
                 iterator.next();
@@ -34,7 +36,7 @@ class TaskB2 {
             }
             System.out.println(list2);
         }
-        return String.valueOf(list2);
+        return list2.get(0);
     }
 
     public static void main(String[] args) {
