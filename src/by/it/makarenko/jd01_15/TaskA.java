@@ -74,8 +74,8 @@ public class TaskA {
                     printWriter.println();
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.err.println(e);
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex);
         }
     }
 }
