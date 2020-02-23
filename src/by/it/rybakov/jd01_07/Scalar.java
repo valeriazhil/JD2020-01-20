@@ -1,24 +1,21 @@
 package by.it.rybakov.jd01_07;
 
-class Scalar {
+ class Scalar extends Var {
+     private double value;
 
-    private double value;
+     Scalar(double value) {
+         this.value = value;
+     }
 
-    Scalar(double value) {
-        this.value = value;
-    }
+     Scalar (String str){
+         this.value=Double.parseDouble(str);
+     }
+     Scalar(Scalar scalar){
+         this.value=scalar.value;
+     }
 
-    Scalar(Scalar scalar) {
-        this.value = scalar.value;
-    }
-
-    Scalar(String strScalar) {
-        this.value = Double.parseDouble(strScalar);
-    }
-
-    @Override
-    public String toString() {
-        return Double.toString(value);
-    }
-}
-
+     @Override
+     public String toString() {
+         return Double.toString(value);
+     }
+ }

@@ -1,10 +1,8 @@
-package by.it.rybakov.jd01_08;
+package by.it.rybakov.jd01_09;
 
 class Scalar extends Var {
 
     private double value;
-    public double getValue() {return value;} {
-    }
 
     Scalar(double value) {
         this.value = value;
@@ -62,7 +60,5 @@ class Scalar extends Var {
     public String toString() {
         return Double.toString(value);
     }
-
-
 }
 

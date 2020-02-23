@@ -1,45 +1,34 @@
 package by.it.rybakov.jd01_07;
 
-class Vector {
 
-    private double[] value;
+public class Vector extends Var {
+    private double[] values;
 
-    Vector(double[ ] value) {
-        this.value=value;
-    }
+   public Vector(double[] values){this.values=values;}
+   public Vector(Vector other) {this(other.values);}
 
+   public Vector(String strValue){
+        String[] array;
+        array= strValue.trim().replace("{","").replace("}", "").split(" ,");
 
+        values=new double[array.length];
+         for (int i = 0; i < array.length; i++) {
+             values[i]=Double.parseDouble(array[i]);
 
-    Vector (Vector vector) {
-        this.value=vector.value;
-    }
-
-    Vector(String str) {
-        //  {1 ,2 ,4, 8}
-        String[] part = str.replace("{", "")
-                .replace("}", "")
-                .replace(" ", "")
-                .split(",");
-
-        value=new double[part.length];
-        for (int i = 0; i < value.length; i++) {
-            value[i]=Double.parseDouble(part[i]);
-        }
-
-
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb=new StringBuilder("{");
+         }
+     }
+     @Override
+     public String toString() {
+        StringBuilder out=new StringBuilder();
+        out.append('{');
         String delimiter="";
-        for (double element : value){
-            sb.append(delimiter).append(element);
+        for (double value:values) {
+            out.append(delimiter).append(value);
             delimiter=", ";
-        }
-        sb.append("}");
-        return  sb.toString();
 
+        }
+        out.append('}');
+        return out.toString();
     }
 }
 
