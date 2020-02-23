@@ -2,7 +2,6 @@ package by.it.dolgiy.Calc;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 abstract class Var implements Operation {
 
@@ -17,7 +16,7 @@ abstract class Var implements Operation {
         return var;
     }
 
-    static Var createVar(String str){
+    static Var createVar(String str) throws CalcException{
         str = str.trim().replace("\\s+","");
         if (str.matches(Patterns.SCALAR)){
             return new Scalar(str);
@@ -31,31 +30,27 @@ abstract class Var implements Operation {
         else if (vars.containsKey(str)) {
             return vars.get(str);
         }
-        return null;
+        throw new CalcException("Невозможно создать "+str);
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.println("Операция сложения "+this+" + "+other+" невозможна");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Операция сложения "+this+" + "+other+" невозможна");
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.println("Операция вычитания "+this+" - "+other+" невозможна");
-        return null;
+    public Var sub(Var other) throws CalcException{
+        throw new CalcException("Операция вычитания "+this+" - "+other+" невозможна");
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.println("Операция умножения "+this+" * "+other+" невозможна");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Операция умножения "+this+" * "+other+" невозможна");
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.println("Операция деления "+this+" / "+other+" невозможна");
-        return null;
+    public Var div(Var other) throws CalcException{
+        throw new CalcException("Операция деления "+this+" / "+other+" невозможна");
     }
 
     @Override

@@ -4,51 +4,54 @@ import java.util.*;
 
 class TaskB2 {
 
-    private static List<String> list1 = new ArrayList<>(Arrays.asList("A","B","C","D","E","F","G","I"));
-    private static List<String> list2 = new LinkedList<>(Arrays.asList("A","B","C","D","E","F","G","I"));
+    private static List<String> list1 = new ArrayList<>(Arrays.asList("A","B","C","D","E","F","G","I","h"));
+    private static List<String> list2 = new LinkedList<>(Arrays.asList("A","B","C","D","E","F","G","I","h"));
 
     static String process(ArrayList<String> peoples){
         ArrayList<String> list1 = new ArrayList<>(peoples);
-        Iterator<String> iterator = list1.iterator();
         System.out.println(list1);
-        while (iterator.hasNext()){
-            while (list1.size() > (list1.size()/2) && list1.size()!=1){
-                int a = list1.size()/2;
-                for (int i = 0; i < a; i++) {
-                    iterator.next();
+        while (list1.size()!=1){
+            Iterator<String> iterator = list1.iterator();
+            int count = 1;
+            while (iterator.hasNext()) {
+                iterator.next();
+                if (count==2){
                     iterator.remove();
+                    count--;
                 }
-                System.out.println(list1);
+                else {
+                    count++;
+                }
             }
-            if (list1.size()==1) {
-                break;
-            }
+            System.out.println(list1);
         }
-        return String.valueOf(list1);
+        return list1.get(0);
     }
 
     static String process(LinkedList<String> peoples){
         LinkedList<String> list2 = new LinkedList<>(peoples);
-        Iterator<String> iterator = list2.iterator();
         System.out.println(list2);
-        while (iterator.hasNext()){
-            while (list2.size() > (list2.size()/2) && list2.size()!=1){
-                int a = list2.size()/2;
-                for (int i = 0; i < a; i++) {
-                    iterator.next();
+        while (list2.size()>1){
+            Iterator<String> iterator = list2.iterator();
+            int count = 1;
+            while (iterator.hasNext()) {
+                iterator.next();
+                if (count==2){
                     iterator.remove();
+                    count--;
                 }
-                System.out.println(list2);
+                else {
+                    count++;
+                }
             }
-            if (list2.size()==1) {
-                break;
-            }
+            System.out.println(list2);
         }
-        return String.valueOf(list2);
+        return list2.get(0);
     }
 
     public static void main(String[] args) {
         process((ArrayList<String>) list1);
+        System.out.println();
         process((LinkedList<String>) list2);
     }
 }
