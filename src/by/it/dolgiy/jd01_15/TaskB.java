@@ -28,6 +28,7 @@ class TaskB {
         try {
             List<String> list = Files.readAllLines(pathReade);
 
+
             for (String s : list) {
                 sb.append(s).append('\n');
             }
