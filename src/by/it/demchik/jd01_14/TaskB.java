@@ -3,34 +3,31 @@ package by.it.demchik.jd01_14;
 import java.io.*;
 
 public class TaskB {
-    private static String dir(Class<?> cl) {
-        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
-        String clDir = cl.getName().replace(cl.getSimpleName(), "").replace(".", File.separator);
+    public static void main(String[] args) {
+        String path = System.getProperty("user.dir") + File.separator + "src/by/it/demchik/jd01_14/";
 
-        return path + clDir;
+
+        String filename = path + "text.txt";
+        File f = new File(filename);
+        int b, count = 0;
+        FileReader is = null;
+        try {
+            is = new FileReader(f);
+            while ((b = is.read()) != -1) {
+                count++;
+            }
+            System.out.println("число слов= " + count);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
-
-
-   public static void main(String[] args) {
-        FileInputStream did=null;
-        try{
-            FileInputStream is=new FileInputStream(dir(TaskB.class)+"text.txt");
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-       System.out.println(did);
-   }
 }
-
-//        InputStreamReader reader = null;
-//        try {
-//            reader = new InputStreamReader(new BufferedInputStream(new FileReader(dir(TaskB.class) + "text.txt")));
-//
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//}
