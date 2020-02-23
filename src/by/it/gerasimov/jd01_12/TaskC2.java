@@ -2,7 +2,7 @@ package by.it.gerasimov.jd01_12;
 
 import java.util.*;
 
-public class TaskC2 {
+class TaskC2 {
 
     @SafeVarargs
     static Set<Number> getCross(Set<? extends Number>... args) {

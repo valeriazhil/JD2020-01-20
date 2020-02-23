@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 class Parser {
 
-    Var calc(String strValue) {
+    Var calc(String strValue) throws CalcException {
         strValue = strValue.trim().replace(" ", "");
         if (strValue.matches(Patterns.ASSIGNMENT)) {
             String[] map = strValue.split(Patterns.ASSIGNMENT_OPERATORS);
@@ -17,7 +17,7 @@ class Parser {
         }
     }
 
-    private Var calcLine(String str, int priority) {
+    private Var calcLine(String str, int priority) throws CalcException {
         if (priority == Patterns.OPERATIONS.length) {
             return Var.create(str);
         }

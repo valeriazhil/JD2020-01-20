@@ -56,7 +56,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.reverseAdd(this);
     }
     public Vector add(Scalar other) {
@@ -66,24 +66,28 @@ class Vector extends Var {
         }
         return new Vector(result);
     }
-    public Vector add(Vector other) {
-        double[] result = new double[other.value.length];
-        for (int i = 0; i < other.value.length; i++) {
-            result[i] = this.value[i] + other.value[i];
+    public Vector add(Vector other) throws CalcException {
+        if (other.value.length == this.value.length) {
+            double[] result = new double[other.value.length];
+            for (int i = 0; i < other.value.length; i++) {
+                result[i] = this.value[i] + other.value[i];
+            }
+            return new Vector(result);
+        } else {
+            throw new CalcException("Длины векторов не совпадают");
         }
-        return new Vector(result);
     }
     @Override
     protected Var reverseAdd(Scalar other) {
         return other.add(this);
     }
     @Override
-    protected Var reverseAdd(Vector other) {
+    protected Var reverseAdd(Vector other) throws CalcException {
         return other.add(this);
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.reverseSub(this);
     }
     public Vector sub(Scalar other) {
@@ -93,24 +97,28 @@ class Vector extends Var {
         }
         return new Vector(result);
     }
-    public Vector sub(Vector other) {
-        double[] result = new double[other.value.length];
-        for (int i = 0; i < other.value.length; i++) {
-            result[i] = this.value[i] - other.value[i];
+    public Vector sub(Vector other) throws CalcException {
+        if (other.value.length == this.value.length) {
+            double[] result = new double[other.value.length];
+            for (int i = 0; i < other.value.length; i++) {
+                result[i] = this.value[i] - other.value[i];
+            }
+            return new Vector(result);
+        } else {
+            throw new CalcException("Длины векторов не совпадают");
         }
-        return new Vector(result);
     }
     @Override
     protected Var reverseSub(Scalar other) {
         return other.sub(this);
     }
     @Override
-    protected Var reverseSub(Vector other) {
+    protected Var reverseSub(Vector other) throws CalcException {
         return other.sub(this);
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.reverseMul(this);
     }
     public Vector mul(Scalar other) {
@@ -120,42 +128,54 @@ class Vector extends Var {
         }
         return new Vector(result);
     }
-    public Scalar mul(Vector other) {
-        double result = 0;
-        for (int i = 0; i < this.value.length; i++) {
-            result += this.value[i] * other.value[i];
-        }
-        return new Scalar(result);
-    }
-    public Vector mul(Matrix other) {
-        double[] result = new double[other.getValue()[0].length];
-        for (int i = 0; i < other.getValue()[0].length; i++) {
-            for (int j = 0; j < value.length; j++) {
-                result[i] += value[j] * other.getValue()[j][i];
+    public Scalar mul(Vector other) throws CalcException {
+        if (other.value.length == this.value.length) {
+            double result = 0;
+            for (int i = 0; i < this.value.length; i++) {
+                result += this.value[i] * other.value[i];
             }
+            return new Scalar(result);
+        } else {
+            throw new CalcException("Длины векторов не совпадают");
         }
-        return new Vector(result);
+    }
+    public Vector mul(Matrix other) throws CalcException {
+        if (this.value.length == other.getValue().length) {
+            double[] result = new double[other.getValue()[0].length];
+            for (int i = 0; i < other.getValue()[0].length; i++) {
+                for (int j = 0; j < value.length; j++) {
+                    result[i] += value[j] * other.getValue()[j][i];
+                }
+            }
+            return new Vector(result);
+        } else {
+            throw new CalcException("Длина вектора не равна кол-ву строк матрицы");
+        }
     }
     @Override
     protected Var reverseMul(Scalar other) {
         return other.mul(this);
     }
     @Override
-    protected Var reverseMul(Vector other) {
+    protected Var reverseMul(Vector other) throws CalcException {
         return other.mul(this);
     }
     @Override
-    protected Var reverseMul(Matrix other) {
+    protected Var reverseMul(Matrix other) throws CalcException {
         return other.mul(this);
     }
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.reverseDiv(this);
     }
-    public Vector div(Scalar other) {
+    public Vector div(Scalar other) throws CalcException {
         double[] result = new double[value.length];
         for (int i = 0; i < value.length; i++) {
-            result[i] = value[i] / other.getValue();
+            if (other.getValue() != 0) {
+                result[i] = value[i] / other.getValue();
+            } else {
+                throw new CalcException("Деление на 0");
+            }
         }
         return new Vector(result);
     }
