@@ -1,4 +1,5 @@
 package by.it.zhuravaskarabahataya.jd01_05;
+
 import static java.lang.Math.*;
 
 public class TaskA {
