@@ -3,6 +3,7 @@ package by.it.zhuravaskarabahataya.calc;
 class CalcException extends Exception {
     public CalcException(String message) {
         super("ERROR:" + message);
+        Helper.exceptionToFile(Helper.getPath("log.txt", Helper.class), message);
     }
 
     public CalcException() {

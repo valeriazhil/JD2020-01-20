@@ -2,7 +2,11 @@ package by.it.zhuravaskarabahataya.calc;
 
 import java.util.Scanner;
 
+
 class ConsoleRunner {
+
+    private static String varsFile = Helper.getPath("vars.txt", Var.class);
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
@@ -21,7 +25,8 @@ class ConsoleRunner {
                 System.out.println(e.getMessage());
             }
         }
-        Var.printvar();
+
+       // Var.printvar();
         Var.sortVar();
     }
 }

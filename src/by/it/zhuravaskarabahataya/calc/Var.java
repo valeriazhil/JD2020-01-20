@@ -1,13 +1,18 @@
 package by.it.zhuravaskarabahataya.calc;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 abstract class Var implements Operation {
 
-    private static Map<String, Var> vars = new HashMap<>();
+    private static String varsFile = Helper.getPath("vars.txt", Var.class);
+    private static Map<String, Var> vars = Helper.getMapFromFile(varsFile);
+
 
     static Var saveVar(String varName, Var var) {
         vars.put(varName, var);
+        Helper.varToFile(varName, var, varsFile);
         return var;
     }
 
@@ -74,7 +79,7 @@ abstract class Var implements Operation {
                 return var;
             }
         }
-
-
     }
+
+
 }
