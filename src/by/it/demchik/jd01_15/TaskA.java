@@ -10,7 +10,7 @@ public class TaskA {
     private static final Random rnd = new Random();
 
     public static void main(String[] args) {
-        String fileName = Helper.getPath(TaskA.class, "matrix");
+        String fileName = Helper.getPath(TaskA.class, "matrix.txt");
         int[][] array = generate(6, 4);
         System.out.println(Arrays.deepToString(array));
         saveArray(array, fileName);
@@ -55,7 +55,7 @@ public class TaskA {
                     PrintWriter printWriter = new PrintWriter(fileName)) {
                 for (int[] row : array) {
                     for (int e : row) {
-                        printWriter.printf("%3d ", e);
+                        printWriter.printf("%5d ", e);
                     }
                     printWriter.println();
                 }
