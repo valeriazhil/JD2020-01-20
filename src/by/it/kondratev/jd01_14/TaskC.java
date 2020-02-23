@@ -7,36 +7,46 @@ import java.io.IOException;
 
 public class TaskC {
 
-    public static void main(String[] args) {
+    private static StringBuilder sb = new StringBuilder();
+
+    public static void main(String[] args)  {
 
         String pathname = Helper.getPath(TaskC.class, "TaskC");
         pathname = pathname.replace("\\jd01_14\\TaskC", "");
+        StringBuilder stringBuilder = print_to_console(pathname);
+        System.out.println(stringBuilder);
+        write_in_txt(stringBuilder);
+        }
+
+    private static StringBuilder print_to_console(String pathname) {
         File file = new File(pathname);
         File[] elements = file.listFiles();
         for (File elem : elements) {
-            if (elem.isFile())
+            if (elem.isFile()) {
+                sb.append("file:").append(elem.getName()).append("\n");
                 System.out.println("file:" + elem.getName());
-            else System.out.println("dir:" + elem.getName());
-        }
-        write_in_txt(elements);
-    }
-
-        static void write_in_txt(File[] files) {
-            String file_name = Helper.getPath(TaskC.class, "resultTaskC.txt");
-            String str;
-            try (BufferedWriter bw = new BufferedWriter(
-                    new FileWriter(file_name))
-            ) {
-                for (File elem : files) {
-                    if (elem.isFile())
-                        str = "file:" + elem.getName();
-                    else str = "dir:" + elem.getName();
-                    bw.write(str+"\n");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            }
+            else {
+                sb.append("dir:").append(elem.getName()).append("\n");
+                System.out.println("dir:" + elem.getName());
+                print_to_console(pathname + File.separator + elem.getName());
             }
         }
+        return sb;
+    }
 
+    static void write_in_txt(StringBuilder sb) {
+        String resultTaskC = Helper.getPath(TaskC.class, "resultTaskC.txt");
+                    try (BufferedWriter bw = new BufferedWriter(
+                    new FileWriter(resultTaskC))
+            ) {
+
+                        bw.write(sb.toString());
+                } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+    }
 }
+
+
 
