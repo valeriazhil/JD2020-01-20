@@ -21,7 +21,7 @@ class TaskC {
                     }
                     counter++;
                 }
-                if (counter==5){
+                if (counter==6){
                     System.out.println();
                     throw new InterruptedException();
                 }

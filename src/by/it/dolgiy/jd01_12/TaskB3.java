@@ -12,29 +12,41 @@ class TaskB3 {
         System.out.println(list1);
         while (list1.size()!=1){
             Iterator<String> iterator = list1.iterator();
+            int count = 0;
             while (iterator.hasNext()) {
                 iterator.next();
-                iterator.next();
-                iterator.remove();
+                if (count==1){
+                    iterator.remove();
+                    count--;
+                }
+                else {
+                    count++;
+                }
             }
             System.out.println(list1);
         }
-        return String.valueOf(list1);
+        return list1.get(0);
     }
 
     static String process(LinkedList<String> peoples){
         LinkedList<String> list2 = new LinkedList<>(peoples);
         System.out.println(list2);
-        while (list2.size()!=1){
+        while (list2.size()>1){
             Iterator<String> iterator = list2.iterator();
+            int count = 0;
             while (iterator.hasNext()) {
                 iterator.next();
-                iterator.next();
-                iterator.remove();
+                if (count==1){
+                    iterator.remove();
+                    count--;
+                }
+                else {
+                    count++;
+                }
             }
             System.out.println(list2);
         }
-        return String.valueOf(list2);
+        return list2.get(0);
     }
 
     public static void main(String[] args) {
