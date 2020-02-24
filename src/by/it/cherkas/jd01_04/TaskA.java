@@ -2,7 +2,7 @@ package by.it.cherkas.jd01_04;
 
 import java.util.Scanner;
 
-public class TaskA {
+ class TaskA {
     private static void printMulTable() {
         for (int i = 2; i <= 9; i++) {
             for (int j = 2; j <= 9; j++) {

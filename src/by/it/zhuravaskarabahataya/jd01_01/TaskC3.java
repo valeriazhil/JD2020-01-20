@@ -1,8 +1,5 @@
 package by.it.zhuravaskarabahataya.jd01_01;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.Scanner;
 
 /*

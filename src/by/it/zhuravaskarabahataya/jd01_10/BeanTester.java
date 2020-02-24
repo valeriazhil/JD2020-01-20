@@ -1,6 +1,5 @@
 package by.it.zhuravaskarabahataya.jd01_10;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 

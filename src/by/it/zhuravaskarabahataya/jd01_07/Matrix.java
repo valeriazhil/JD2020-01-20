@@ -1,8 +1,5 @@
 package by.it.zhuravaskarabahataya.jd01_07;
 
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 //В конструкторе лучше не вызывать методы,но этот получился монстром каким-то без них
 
 class Matrix extends Var {

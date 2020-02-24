@@ -1,6 +1,5 @@
 package by.it.zhuravaskarabahataya.jd01_02;
 
-import com.sun.deploy.ui.AboutDialog;
 
 import java.util.Scanner;
 
