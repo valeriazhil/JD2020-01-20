@@ -18,11 +18,7 @@ class TaskC1 {
         int a=nt.nextInt();
         int c=nt.nextInt();
         int result=c+a;
-        System.out.print("Sum");
-        System.out.print(" ");
-        System.out.print("=");
-        System.out.print(" ");
-        System.out.println(result);
+        System.out.println("Sum = "+result);
 
     }
 
