@@ -41,7 +41,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.reverseAdd(this);
     }
     public Scalar add(Scalar other) {
@@ -67,7 +67,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.reverseSub(this);
     }
     public Scalar sub(Scalar other) {
@@ -102,7 +102,7 @@ class Scalar extends Var {
         return other.sub(this);
     }
 
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.reverseMul(this);
     }
     public Scalar mul(Scalar other) {
@@ -128,22 +128,26 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.reverseDiv(this);
     }
-    public Scalar div(Scalar other) {
-        return new Scalar(this.value / other.value);
+    public Scalar div(Scalar other) throws CalcException {
+        if (other.value != 0) {
+            return new Scalar(this.value / other.value);
+        } else {
+            throw new CalcException("Деление на 0");
+        }
     }
     @Override
-    protected Var reverseDiv(Scalar other) {
+    protected Var reverseDiv(Scalar other) throws CalcException {
         return other.div(this);
     }
     @Override
-    protected Var reverseDiv(Vector other) {
+    protected Var reverseDiv(Vector other) throws CalcException {
         return other.div(this);
     }
     @Override
-    protected Var reverseDiv(Matrix other) {
+    protected Var reverseDiv(Matrix other) throws CalcException {
         return other.div(this);
     }
 }

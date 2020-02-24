@@ -1,6 +1,6 @@
 package by.it.cherkas.jd01_03;
 
-public class Helper {
+ class Helper {
     static double findMin(double[] arr) {
         if (arr.length == 0) {
             return Double.MIN_VALUE;

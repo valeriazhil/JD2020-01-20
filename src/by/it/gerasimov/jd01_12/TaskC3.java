@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TaskC3 {
+class TaskC3 {
 
     private static Map<Character, Character> brackets = new HashMap<>();
 
