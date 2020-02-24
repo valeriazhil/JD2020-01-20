@@ -3,7 +3,7 @@ package by.it.zhuravaskarabahataya.jd01_12;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+//переделать!!!!!!!!!!!!
 //TaskC1. Нужно ввести с консоли текст до строки end.
 // Во входном тексте  хранятся наименования некоторых объектов, по одному в строке.
 // Строки иногда повторяются.

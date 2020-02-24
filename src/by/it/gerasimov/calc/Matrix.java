@@ -50,8 +50,12 @@ class Matrix extends Var {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Matrix)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Matrix)) {
+            return false;
+        }
         Matrix matrix = (Matrix) o;
         return this.toString().equals(matrix.toString());
     }
@@ -79,7 +83,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.reverseAdd(this);
     }
     public Matrix add(Scalar other) {
@@ -91,26 +95,30 @@ class Matrix extends Var {
         }
         return new Matrix(result);
     }
-    public Matrix add(Matrix other) {
-        double[][] result = new double[this.value.length][this.value[0].length];
-        for (int i = 0; i < this.value.length; i++) {
-            for (int j = 0; j < this.value[0].length; j++) {
-                result[i][j] = this.value[i][j] + other.value[i][j];
+    public Matrix add(Matrix other) throws CalcException {
+        if (other.value.length == this.value.length && other.value[0].length == this.value[0].length) {
+            double[][] result = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < this.value.length; i++) {
+                for (int j = 0; j < this.value[0].length; j++) {
+                    result[i][j] = this.value[i][j] + other.value[i][j];
+                }
             }
+            return new Matrix(result);
+        } else {
+            throw new CalcException("Размеры матриц не совпадают");
         }
-        return new Matrix(result);
     }
     @Override
     protected Var reverseAdd(Scalar scalar) {
         return scalar.add(this);
     }
     @Override
-    protected Var reverseAdd(Matrix other) {
+    protected Var reverseAdd(Matrix other) throws CalcException {
         return other.add(this);
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.reverseSub(this);
     }
     public Matrix sub(Scalar other) {
@@ -122,26 +130,30 @@ class Matrix extends Var {
         }
         return new Matrix(result);
     }
-    public Matrix sub(Matrix other) {
-        double[][] result = new double[this.value.length][this.value[0].length];
-        for (int i = 0; i < this.value.length; i++) {
-            for (int j = 0; j < this.value[0].length; j++) {
-                result[i][j] = this.value[i][j] - other.value[i][j];
+    public Matrix sub(Matrix other) throws CalcException {
+        if (other.value.length == this.value.length && other.value[0].length == this.value[0].length) {
+            double[][] result = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < this.value.length; i++) {
+                for (int j = 0; j < this.value[0].length; j++) {
+                    result[i][j] = this.value[i][j] - other.value[i][j];
+                }
             }
+            return new Matrix(result);
+        } else {
+            throw new CalcException("Размеры матриц не совпадают");
         }
-        return new Matrix(result);
     }
     @Override
     protected Var reverseSub(Scalar scalar) {
         return scalar.sub(this);
     }
     @Override
-    protected Var reverseSub(Matrix other) {
+    protected Var reverseSub(Matrix other) throws CalcException {
         return other.sub(this);
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.reverseMul(this);
     }
     public Matrix mul(Scalar other) {
@@ -153,48 +165,60 @@ class Matrix extends Var {
         }
         return new Matrix(result);
     }
-    public Vector mul(Vector other) {
-        double[] result = new double[this.value.length];
-        for (int i = 0; i < other.getValue().length; i++) {
-            for (int j = 0; j < this.value.length; j++) {
-                result[i] += this.value[i][j] * other.getValue()[j];
-            }
-        }
-        return new Vector(result);
-    }
-    public Matrix mul(Matrix other) {
-        double[][] result = new double[this.value.length][other.value[0].length];
-        for (int i = 0; i < this.value.length; i++) {
-            for (int j = 0; j < other.value[i].length; j++) {
-                for (int k = 0; k < other.value.length; k++) {
-                    result[i][j] += this.value[i][k] * other.value[k][j];
+    public Vector mul(Vector other) throws CalcException {
+        if (this.value[0].length == other.getValue().length) {
+            double[] result = new double[this.value.length];
+            for (int i = 0; i < other.getValue().length; i++) {
+                for (int j = 0; j < this.value.length; j++) {
+                    result[i] += this.value[i][j] * other.getValue()[j];
                 }
             }
+            return new Vector(result);
+        } else {
+            throw new CalcException("Длина вектора не равна кол-ву столбцов матрицы");
         }
-        return new Matrix(result);
+    }
+    public Matrix mul(Matrix other) throws CalcException {
+        if (this.value[0].length == other.value.length) {
+            double[][] result = new double[this.value.length][other.value[0].length];
+            for (int i = 0; i < this.value.length; i++) {
+                for (int j = 0; j < other.value[i].length; j++) {
+                    for (int k = 0; k < other.value.length; k++) {
+                        result[i][j] += this.value[i][k] * other.value[k][j];
+                    }
+                }
+            }
+            return new Matrix(result);
+        } else {
+            throw new CalcException("Кол-во строк матрицы не совпадает с кол-вом столбцов другой матрицы");
+        }
     }
     @Override
     protected Var reverseMul(Scalar other) {
         return other.mul(this);
     }
     @Override
-    protected Var reverseMul(Vector other) {
+    protected Var reverseMul(Vector other) throws CalcException {
         return other.mul(this);
     }
     @Override
-    protected Var reverseMul(Matrix other) {
+    protected Var reverseMul(Matrix other) throws CalcException {
         return other.mul(this);
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.reverseDiv(this);
     }
-    public Matrix div(Scalar other) {
+    public Matrix div(Scalar other) throws CalcException {
         double[][] result = new double[value.length][value[0].length];
         for (int i = 0; i < value.length; i++) {
             for (int j = 0; j < value[i].length; j++) {
-                result[i][j] = value[i][j] / other.getValue();
+                if (other.getValue() != 0) {
+                    result[i][j] = value[i][j] / other.getValue();
+                } else {
+                    throw new CalcException("Деление на 0");
+                }
             }
         }
         return new Matrix(result);

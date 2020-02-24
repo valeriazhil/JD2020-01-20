@@ -1,6 +1,6 @@
 package by.it.cherkas.jd01_03;
 
-public class InOut {
+ class InOut {
     static double[] getArray(String line) {
         // 1 2 3 4 5
         String[] strArr = line.split(" ");

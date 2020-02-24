@@ -23,5 +23,6 @@ public class TaskA1 {
            sb.setCharAt(start,'#');
         }
         System.out.println(sb);
+
     }
 }

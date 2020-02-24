@@ -9,42 +9,44 @@ class TaskB3 {
 
     static String process(ArrayList<String> peoples){
         ArrayList<String> list1 = new ArrayList<>(peoples);
-        Iterator<String> iterator = list1.iterator();
         System.out.println(list1);
-        while (iterator.hasNext()){
-            while (list1.size() > (list1.size()/2) && list1.size()!=1){
-                int a = list1.size()/2;
-                for (int i = 0; i < a; i++) {
-                    iterator.next();
+        while (list1.size()!=1){
+            Iterator<String> iterator = list1.iterator();
+            int count = 0;
+            while (iterator.hasNext()) {
+                iterator.next();
+                if (count==1){
                     iterator.remove();
+                    count--;
                 }
-                System.out.println(list1);
+                else {
+                    count++;
+                }
             }
-            if (list1.size()==1) {
-                break;
-            }
+            System.out.println(list1);
         }
-        return String.valueOf(list1);
+        return list1.get(0);
     }
 
     static String process(LinkedList<String> peoples){
         LinkedList<String> list2 = new LinkedList<>(peoples);
-        Iterator<String> iterator = list2.iterator();
         System.out.println(list2);
-        while (iterator.hasNext()){
-            while (list2.size() > (list2.size()/2) && list2.size()!=1){
-                int a = list2.size()/2;
-                for (int i = 0; i < a; i++) {
-                    iterator.next();
+        while (list2.size()>1){
+            Iterator<String> iterator = list2.iterator();
+            int count = 0;
+            while (iterator.hasNext()) {
+                iterator.next();
+                if (count==1){
                     iterator.remove();
+                    count--;
                 }
-                System.out.println(list2);
+                else {
+                    count++;
+                }
             }
-            if (list2.size()==1) {
-                break;
-            }
+            System.out.println(list2);
         }
-        return String.valueOf(list2);
+        return list2.get(0);
     }
 
     public static void main(String[] args) {
