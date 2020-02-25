@@ -21,4 +21,8 @@ class Helper {
     static int getRandom(int max) {
         return getRandom(0, max);
     }
+
+    static Good getRandomGood() {
+        return Good.ALL_GOODS.get(getRandom(Good.ALL_GOODS.size() - 1));
+    }
 }

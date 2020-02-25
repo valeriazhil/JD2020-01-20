@@ -1,6 +1,10 @@
 package by.it.degtyaryov.jd02_01;
 
-class Buyer extends Thread implements IBuyer {
+class Buyer extends Thread implements IBuyer, IUseBacket {
+
+    private Backet backet = new Backet();
+    private Good chosenGood;
+
 
     Buyer(int number) {
         super("Buyer №" + number);
@@ -9,7 +13,12 @@ class Buyer extends Thread implements IBuyer {
     @Override
     public void run() {
         enterToMarket();
-        chooseGoods();
+        takeBacket();
+        int goodToBuy = Helper.getRandom(1, 4);
+        for (int i = 0; i < goodToBuy; i++) {
+            chooseGoods();
+            putGoodsToBacket();
+        }
         goOut();
     }
 
@@ -22,12 +31,29 @@ class Buyer extends Thread implements IBuyer {
     public void chooseGoods() {
         System.out.println(this + " start choosing goods.");
         Helper.sleep(Helper.getRandom(500, 2000));
-        System.out.println(this + " end choosing goods.");
+        chosenGood = Helper.getRandomGood();
+        System.out.println(this + " choose " + chosenGood);
     }
 
     @Override
     public void goOut() {
         System.out.println(this + " go out from the market.");
+    }
+
+    @Override
+    public void takeBacket() {
+        System.out.println(this + " start take backet.");
+        Helper.sleep(Helper.getRandom(500, 2000));
+        System.out.println(this + " take backet.");
+    }
+
+    @Override
+    public void putGoodsToBacket() {
+        System.out.println(this + " start put good in backet.");
+        Helper.sleep(Helper.getRandom(500, 2000));
+        backet.putInBacket(chosenGood);
+        System.out.println(this + " put in backet " + chosenGood + ".");
+        chosenGood = null;
     }
 
     @Override
