@@ -2,12 +2,16 @@ package by.it.degtyaryov.jd02_01;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
-    private Backet backet = new Backet();
+    private Backet backet;
     private Good chosenGood;
+    private boolean pensioner;
+    private final double speedFactor;
 
-
-    Buyer(int number) {
+    Buyer(int number, boolean pensioner) {
         super("Buyer №" + number);
+        this.backet = new Backet();
+        this.pensioner = pensioner;
+        this.speedFactor = (pensioner) ? 1.5 : 1;
     }
 
     @Override
@@ -32,7 +36,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void chooseGoods() {
         System.out.println(this + " start choosing goods.");
-        Helper.sleep(Helper.getRandom(500, 2000));
+        Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
         chosenGood = Helper.getRandomGood();
         System.out.println(this + " choose " + chosenGood.getName().toLowerCase());
     }
@@ -45,21 +49,26 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void takeBacket() {
         System.out.println(this + " start take backet.");
-        Helper.sleep(Helper.getRandom(500, 2000));
+        Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
         System.out.println(this + " take backet.");
     }
 
     @Override
     public void putGoodsToBacket() {
         System.out.println(this + " start put good in backet.");
-        Helper.sleep(Helper.getRandom(500, 2000));
+        Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
         backet.putInBacket(chosenGood);
         System.out.println(this + " put in backet " + chosenGood.getName().toLowerCase() + ".");
         chosenGood = null;
     }
 
+    public boolean isPensioner() {
+        return pensioner;
+    }
+
     @Override
     public String toString() {
-        return this.getName();
+        String age = (pensioner) ? "Pensioner " : "";
+        return age + this.getName();
     }
 }
