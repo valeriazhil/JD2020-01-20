@@ -3,7 +3,7 @@ package by.it.cherkas.jd01_02;
 import java.util.Scanner;
 
 
-public class TaskA {
+ class TaskA {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int[] array = new int[10];

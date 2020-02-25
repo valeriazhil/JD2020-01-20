@@ -49,7 +49,7 @@ public class Helper {
      * @param arr массив типа double
      */
     static void sort(double[ ] arr){
-        boolean swap = false;
+        boolean swap;
         do {
             swap = false;
             for (int i = 0; i < arr.length-1; i++) {

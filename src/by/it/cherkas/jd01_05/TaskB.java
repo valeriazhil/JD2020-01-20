@@ -6,7 +6,7 @@ package by.it.cherkas.jd01_05;
 
 import static java.lang.Math.*;
 
-public class TaskB {
+ class TaskB {
 
     public static void main(String[] args) {
         step4();

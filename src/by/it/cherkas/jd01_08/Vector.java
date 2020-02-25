@@ -3,117 +3,146 @@ package by.it.cherkas.jd01_08;
 import java.util.Arrays;
 
 class Vector extends Var implements Operation {
+
     private double[] value;
 
-    Vector(double[ ] value) {
-        this.value=value;
+    Vector(double[] value) {
+        this.value = Arrays.copyOf(value, value.length);
     }
 
-
-
-    Vector (Vector vector) {
-        this.value=vector.value;
+    Vector(Vector vector) {
+        this(vector.value);
     }
 
-    Vector(String str) {
-        //  {1 ,2 ,4, 8}
-        String[] part = str.replace("{", "")
+    Vector(String strVector) {
+        String[] strValues = strVector.replace(" ", "")
+                .replace("{", "")
                 .replace("}", "")
-                .replace(" ", "")
                 .split(",");
-
-        value=new double[part.length];
+        this.value = new double[strValues.length];
         for (int i = 0; i < value.length; i++) {
-            value[i]=Double.parseDouble(part[i]);
+            value[i] = Double.parseDouble(strValues[i]);
         }
+    }
 
-
+    public double[] getValue() {
+        return value;
     }
 
     @Override
     public Var add(Var other) {
+        return other.add(this);
+    }
+
+    @Override
+    public Var add(Scalar scalar) {
         double[] result = Arrays.copyOf(value, value.length);
-        if (other instanceof Scalar) {
-            double s = ((Scalar) other).getValue();
-            for (int i = 0; i < result.length; i++) {
-                result[i] += s;
-            }
-            return new Vector(result);
+        for (int i = 0; i < result.length; i++) {
+            result[i] += scalar.getValue();
         }
-        if (other instanceof Vector) {
-            for (int i = 0; i < result.length; i++) {
-                result[i] += ((Vector) other).value[i];
-            }
-            return new Vector(result);
+        return new Vector(result);
+    }
+
+    @Override
+    public Var add(Vector vector) {
+        double[] result = Arrays.copyOf(vector.value, vector.value.length);
+        for (int i = 0; i < result.length; i++) {
+            result[i] += value[i];
         }
-        return super.add(other);
+        return new Vector(result);
+    }
+
+    @Override
+    public Var add(Matrix matrix) {
+        System.out.println("Суммма матрица+вектор еще не реализовал");
+        return null;
     }
 
     @Override
     public Var sub(Var other) {
+        return other.sub(this);
+    }
+
+    @Override
+    public Var sub(Scalar scalar) {
         double[] result = Arrays.copyOf(value, value.length);
-        if (other instanceof Scalar) {
-            double s = ((Scalar) other).getValue();
-            for (int i = 0; i < result.length; i++) {
-                result[i] -= s;
-            }
-            return new Vector(result);
+        for (int i = 0; i < result.length; i++) {
+            result[i] = scalar.getValue() - result[i];
         }
-        if (other instanceof Vector) {
-            for (int i = 0; i < result.length; i++) {
-                result[i] -= ((Vector) other).value[i];
-            }
-            return new Vector(result);
+        return new Vector(result);
+    }
+
+    @Override
+    public Var sub(Vector vector) {
+        double[] result = Arrays.copyOf(vector.value, vector.value.length);
+        for (int i = 0; i < result.length; i++) {
+            result[i] -= value[i];
         }
-        return super.sub(other);
+        return new Vector(result);
+    }
+
+    @Override
+    public Var sub(Matrix matrix) {
+        return super.sub((Var) matrix);
     }
 
     @Override
     public Var mul(Var other) {
-        if (other instanceof Scalar) {
-            double[] result = Arrays.copyOf(this.value, value.length);
-            for (int i = 0; i < result.length; i++) {
-                result[i] *= ((Scalar) other).getValue();
-            }
-            return new Vector(result);
-        } else if (other instanceof Vector) {
-            int res = 0;
-            for (int i = 0; i < value.length; i++) {
-                res += value[i] * ((Vector) other).value[i];
-            }
-            return new Scalar(res);
+        return other.mul(this);
+    }
+
+    @Override
+    public Var mul(Scalar scalar) {
+        double[] result = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < result.length; i++) {
+            result[i] *= scalar.getValue();
         }
-        return super.mul(other);
+        return new Vector(result);
+    }
+
+    @Override
+    public Var mul(Vector vector) {
+        double result = 0;
+        for (int i = 0; i < value.length; i++) {
+            result += value[i] * vector.value[i];
+        }
+        return new Scalar(result);
+    }
+
+    @Override
+    public Var mul(Matrix matrix) {
+        double[] result = new double[matrix.getValue().length];
+        for (int i = 0; i < matrix.getValue().length; i++) {
+            for (int j = 0; j < value.length; j++) {
+                result[i] += matrix.getValue()[i][j] * value[j];
+            }
+        }
+        return new Vector(result);
     }
 
     @Override
     public Var div(Var other) {
-        if (other instanceof Scalar) {
-            double[] result = Arrays.copyOf(this.value, value.length);
-            for (int i = 0; i < result.length; i++) {
-                result[i] /= ((Scalar) other).getValue();
-            }
-            return new Vector(result);
-        }
-        return super.div(other);
+        return other.div(this);
     }
 
+    @Override
+    public Var div(Scalar scalar) {
+        return super.div((Var) scalar);
+    }
 
+    @Override
+    public Var div(Vector vector) {
+        return super.div((Var) vector);
+    }
 
-
-
-
+    @Override
+    public Var div(Matrix matrix) {
+        return super.div((Var) matrix);
+    }
 
     @Override
     public String toString() {
-        StringBuilder sb=new StringBuilder("{");
-        String delimiter="";
-        for (double element : value){
-            sb.append(delimiter).append(element);
-            delimiter=", ";
-        }
-        sb.append("}");
-        return  sb.toString();
-
+        return Arrays.toString(value).replace('[', '{')
+                .replace(']', '}');
     }
 }

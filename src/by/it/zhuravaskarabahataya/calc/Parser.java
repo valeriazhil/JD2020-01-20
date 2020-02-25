@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 class Parser {
 
-    Var calc(String expression){
+    Var calc(String expression) throws CalcException{
         expression = expression.trim().replace(" ", "");
         String[] parts = expression.split(Patterns.OPERATION, 2);
         if (parts.length == 1){
@@ -21,7 +21,8 @@ class Parser {
         if (m.find()){
             String operation = m.group();
             switch (operation){
-                case "+": return left.add(right);
+                case "+": {return left.add(right);
+                }
                 case "-": return left.sub(right);
                 case "*": return left.mul(right);
                 case "/": return left.div(right);

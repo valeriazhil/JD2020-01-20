@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
-    Var calc(String exp){
+    Var calc(String exp) throws CalcException{
         exp = exp.trim().replace("\\s+","");
         String[] part = exp.split(Patterns.OPERATION,2);
         if (part.length==1){
