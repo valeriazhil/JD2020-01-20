@@ -30,7 +30,6 @@ import java.util.Scanner;
 Вывод:
 29.51
 
-
 */
 class TaskC3 {
 
@@ -46,5 +45,4 @@ class TaskC3 {
         BigDecimal weightOnMoon = new BigDecimal(weight / 9.81 * 3.86).setScale(2, RoundingMode.HALF_EVEN);
         return weightOnMoon.doubleValue();
     }
-
 }

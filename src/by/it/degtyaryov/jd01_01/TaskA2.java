@@ -11,11 +11,7 @@ package by.it.degtyaryov.jd01_01;
 class TaskA2 {
 
     public static void main(String[] args) {
-        System.out.println("Я начинаю изучать Java!\n" +
-                "Я начинаю изучать Java!\n" +
-                "Я начинаю изучать Java!\n" +
-                "Я начинаю изучать Java!\n" +
-                "Я начинаю изучать Java!");
+        String text = "Я начинаю изучать Java!";
+        System.out.printf("%s\n%s\n%s\n%s\n%s\n", text, text, text, text, text);
     }
-
 }
