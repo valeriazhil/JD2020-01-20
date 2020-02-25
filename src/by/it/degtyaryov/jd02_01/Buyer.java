@@ -43,6 +43,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void goOut() {
+		Market.buyerInMarket--;
         System.out.println(this + " go out from the market.");
     }
 
