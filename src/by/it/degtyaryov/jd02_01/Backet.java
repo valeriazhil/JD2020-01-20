@@ -10,4 +10,14 @@ class Backet {
     public void putInBacket(Good item) {
         goods.add(item);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder backet = new StringBuilder();
+        for (Good item : goods) {
+            backet.append(item);
+            backet.append("; ");
+        }
+        return backet.toString();
+    }
 }

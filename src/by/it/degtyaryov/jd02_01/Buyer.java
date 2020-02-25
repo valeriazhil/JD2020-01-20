@@ -19,6 +19,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             chooseGoods();
             putGoodsToBacket();
         }
+        System.out.printf("%s end choosing of %d goods and his basket contains: %s%n",
+                this, goodToBuy, backet.toString().toLowerCase());
         goOut();
     }
 
@@ -32,7 +34,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         System.out.println(this + " start choosing goods.");
         Helper.sleep(Helper.getRandom(500, 2000));
         chosenGood = Helper.getRandomGood();
-        System.out.println(this + " choose " + chosenGood);
+        System.out.println(this + " choose " + chosenGood.getName().toLowerCase());
     }
 
     @Override
@@ -52,7 +54,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         System.out.println(this + " start put good in backet.");
         Helper.sleep(Helper.getRandom(500, 2000));
         backet.putInBacket(chosenGood);
-        System.out.println(this + " put in backet " + chosenGood + ".");
+        System.out.println(this + " put in backet " + chosenGood.getName().toLowerCase() + ".");
         chosenGood = null;
     }
 
