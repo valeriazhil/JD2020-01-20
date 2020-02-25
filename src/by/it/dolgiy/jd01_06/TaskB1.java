@@ -4,7 +4,7 @@ package by.it.dolgiy.jd01_06;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TaskB1 {
+class TaskB1 {
 
     private static char[] gl = {'а', 'у', 'о', 'ы', 'и', 'э', 'я', 'ю', 'ё', 'е', 'А', 'У', 'О', 'Ы', 'И', 'Э', 'Я',
             'Ю', 'Ё', 'Е'};

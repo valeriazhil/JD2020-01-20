@@ -5,18 +5,18 @@ import java.util.regex.Pattern;
 
 class Parser {
 
-    public Var calc(String expressions) {
+    public Var calc(String expressions) throws CalcException {
         expressions = expressions.trim().replace(" ", "");
         String[] operands = expressions.split(Patterns.OPERATOR, 2);
         if (operands.length == 1) {
             return Var.create(expressions);
         }
-       
+
         Var operTwo = Var.create(operands[1]);
         if (expressions.contains("=")) {
             return Var.saveVariable(operands[0], operTwo);
         }
-		Var operOne = Var.create(operands[0]);
+        Var operOne = Var.create(operands[0]);
 
         Matcher operator = Pattern.compile(Patterns.OPERATOR).matcher(expressions);
         String op = "";
@@ -33,7 +33,7 @@ class Parser {
             case "/":
                 return operOne.div(operTwo);
             default:
-                return null;
+                throw new CalcException("unknown operation" + op);
         }
     }
 }

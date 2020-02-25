@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class TaskA2 {
+class TaskA2 {
 
     static Set<Integer> getCross(Set<Integer> a, Set<Integer> b) {
         HashSet<Integer> hashSet = new HashSet<>(a);
