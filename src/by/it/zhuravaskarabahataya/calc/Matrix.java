@@ -4,6 +4,8 @@ package by.it.zhuravaskarabahataya.calc;
 
 //В конструкторе лучше не вызывать методы,но этот получился монстром каким-то без них
 
+import by.it._examples_.jd01_11.Generics.Demo;
+
 class Matrix extends Var implements Operation {
     private double[][] values;
 
@@ -68,7 +70,7 @@ class Matrix extends Var implements Operation {
     }
 
         @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] result = new double[values.length][values[0].length];
             double s = ((Scalar) other).getValue();
@@ -79,6 +81,9 @@ class Matrix extends Var implements Operation {
             }
             return new Matrix(result);
         } else if (other instanceof Matrix) {
+            if (this.values.length != ((Matrix) other).values.length){
+                throw new CalcException("Разные размеры матриц");
+            }
             double[][] first = this.values;
             double[][] second = ((Matrix) other).getValues();
             double[][] result = new double[first.length][first[0].length];
@@ -96,7 +101,7 @@ class Matrix extends Var implements Operation {
 
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] result = new double[values.length][values[0].length];
             double s = ((Scalar) other).getValue();
@@ -108,6 +113,9 @@ class Matrix extends Var implements Operation {
             return new Matrix(result);
         }
         if (other instanceof Matrix) {
+            if (this.values.length != ((Matrix) other).values.length || this.values[0].length != ((Matrix) other).values[0].length){
+                throw new CalcException("Разные размеры матриц");
+            }
             double[][] first = this.values;
             double[][] second = ((Matrix) other).getValues();
             double[][] result = new double[first.length][first[0].length];
@@ -122,7 +130,7 @@ class Matrix extends Var implements Operation {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] result = new double[values.length][values[0].length];
             for (int i = 0; i < result.length; i++) {
@@ -132,6 +140,9 @@ class Matrix extends Var implements Operation {
             }
             return new Matrix(result);
         } else if (other instanceof Vector) {
+            if (((Vector) other).getValues().length!=this.values[0].length){
+                throw new CalcException("Неподходящие размеры");
+            }
             double[] result = new double[((Vector) other).getValues().length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
@@ -139,7 +150,10 @@ class Matrix extends Var implements Operation {
                 }
             }
             return new Vector(result);
-        } else if (other instanceof Matrix && this.values.length == ((Matrix) other).getValues()[0].length) {
+        } else if (other instanceof Matrix) {
+            if (this.values[0].length != ((Matrix) other).getValues().length){
+                throw new CalcException("Разные размеры матриц");
+            }
             double[][] first = this.values;
             double[][] second = ((Matrix) other).getValues();
             double[][] result = new double[this.values.length][((Matrix) other).getValues()[0].length];
@@ -156,8 +170,11 @@ class Matrix extends Var implements Operation {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException{
         if (other instanceof Scalar) {
+            if (((Scalar) other).getValue() == 0) {
+                throw new CalcException("Деление на ноль");
+            }
             double[][] result = new double[values.length][values[0].length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {

@@ -20,7 +20,11 @@ class ConsoleRunner {
             if (expression.equals("sortvar")) {
                 printer.printVariables(true);
             }
-            printer.print(parser.calc(expression));
+            try {
+                printer.print(parser.calc(expression));
+            } catch (CalcException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

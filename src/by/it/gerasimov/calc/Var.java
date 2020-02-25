@@ -23,13 +23,14 @@ abstract class Var implements Operation {
     public static Var getVar(String key) {
         return vars.get(key);
     }
-    public static void setVar(String key, String value) {
+    public static void setVar(String key, String value) throws CalcException {
         vars.put(key, Var.create(value));
     }
     public static void setVar(String key, Var var) {
         vars.put(key, var);
     }
-    static Var create(String strValue) {
+
+    static Var create(String strValue) throws CalcException {
         strValue = strValue.trim().replace(" ", "");
         if (strValue.matches(Patterns.SCALAR)) {
             return new Scalar(strValue);
@@ -38,17 +39,20 @@ abstract class Var implements Operation {
         } else if (strValue.matches(Patterns.MATRIX)) {
             return new Matrix(strValue);
         } else if (strValue.matches(Patterns.VARIABLE)) {
-            return vars.get(strValue);
+            if (vars.containsKey(strValue)) {
+                return vars.get(strValue);
+            } else {
+                throw new CalcException("Не найдена переменная " + strValue);
+            }
         } else {
-            return null; //stub
-            //TODO throw error
+            throw new CalcException("Неверный формат ввода");
         }
     }
     @Override
     public String toString() {
         return "X";
     }
-    public Var operate(Var other, String operator) {
+    public Var operate(Var other, String operator) throws CalcException {
         switch (operator) {
             case "+":
                 return this.add(other);
@@ -64,72 +68,56 @@ abstract class Var implements Operation {
     }
 
     @Override
-    public Var add(Var other) {
-//        System.out.println("Операция " + this + " + " + other + " невозможна");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Операция " + this + " + " + other + " невозможна");
     }
     @Override
-    public Var sub(Var other) {
-//        System.out.println("Операция " + this + " - " + other + " невозможна");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Операция " + this + " - " + other + " невозможна");
     }
     @Override
-    public Var mul(Var other) {
-//        System.out.println("Операция " + this + " * " + other + " невозможна");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Операция " + this + " * " + other + " невозможна");
     }
     @Override
-    public Var div(Var other) {
-//        System.out.println("Операция " + this + " / " + other + " невозможна");
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("Операция " + this + " / " + other + " невозможна");
     }
 
-    protected Var reverseAdd(Scalar other) {
-//        System.out.println("Операция " + other + " + " + this + " невозможна");
-        return null;
+    protected Var reverseAdd(Scalar other) throws CalcException {
+        throw new CalcException("Операция " + other + " + " + other + " невозможна");
     }
-    protected Var reverseAdd(Vector other) {
-//        System.out.println("Операция " + other + " + " + this + " невозможна");
-        return null;
+    protected Var reverseAdd(Vector other) throws CalcException {
+        throw new CalcException("Операция " + other + " + " + other + " невозможна");
     }
-    protected Var reverseAdd(Matrix other) {
-//        System.out.println("Операция " + other + " + " + this + " невозможна");
-        return null;
+    protected Var reverseAdd(Matrix other) throws CalcException {
+        throw new CalcException("Операция " + other + " + " + other + " невозможна");
     }
-    protected Var reverseSub(Scalar other) {
-//        System.out.println("Операция " + other + " - " + this + " невозможна");
-        return null;
+    protected Var reverseSub(Scalar other) throws CalcException {
+        throw new CalcException("Операция " + other + " - " + other + " невозможна");
     }
-    protected Var reverseSub(Vector other) {
-//        System.out.println("Операция " + other + " - " + this + " невозможна");
-        return null;
+    protected Var reverseSub(Vector other) throws CalcException {
+        throw new CalcException("Операция " + other + " - " + other + " невозможна");
     }
-    protected Var reverseSub(Matrix other) {
-//        System.out.println("Операция " + other + " - " + this + " невозможна");
-        return null;
+    protected Var reverseSub(Matrix other) throws CalcException {
+        throw new CalcException("Операция " + other + " - " + other + " невозможна");
     }
-    protected Var reverseMul(Scalar other) {
-//        System.out.println("Операция " + other + " * " + this + " невозможна");
-        return null;
+    protected Var reverseMul(Scalar other) throws CalcException {
+        throw new CalcException("Операция " + other + " * " + other + " невозможна");
     }
-    protected Var reverseMul(Vector other) {
-//        System.out.println("Операция " + other + " * " + this + " невозможна");
-        return null;
+    protected Var reverseMul(Vector other) throws CalcException {
+        throw new CalcException("Операция " + other + " * " + other + " невозможна");
     }
-    protected Var reverseMul(Matrix other) {
-//        System.out.println("Операция " + other + " * " + this + " невозможна");
-        return null;
+    protected Var reverseMul(Matrix other) throws CalcException {
+        throw new CalcException("Операция " + other + " * " + other + " невозможна");
     }
-    protected Var reverseDiv(Scalar other) {
-//        System.out.println("Операция " + other + " / " + this + " невозможна");
-        return null;
+    protected Var reverseDiv(Scalar other) throws CalcException {
+        throw new CalcException("Операция " + other + " / " + other + " невозможна");
     }
-    protected Var reverseDiv(Vector other) {
-//        System.out.println("Операция " + vector + " / " + this + " невозможна");
-        return null;
+    protected Var reverseDiv(Vector other) throws CalcException {
+        throw new CalcException("Операция " + other + " / " + other + " невозможна");
     }
-    protected Var reverseDiv(Matrix other) {
-//        System.out.println("Операция " + vector + " / " + this + " невозможна");
-        return null;
+    protected Var reverseDiv(Matrix other) throws CalcException {
+        throw new CalcException("Операция " + other + " / " + other + " невозможна");
     }
 }
