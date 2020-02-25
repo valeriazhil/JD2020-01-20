@@ -2,7 +2,7 @@ package by.it.dolgiy.jd01_02;
 
 import java.util.Scanner;
 
-public class TaskB {
+class TaskB {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 

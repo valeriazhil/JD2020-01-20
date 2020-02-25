@@ -2,7 +2,7 @@ package by.it.cherkas.jd01_04;
 
 import java.util.Scanner;
 
-public class TaskC {
+ class TaskC {
     public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);

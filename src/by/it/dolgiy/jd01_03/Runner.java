@@ -3,7 +3,7 @@ package by.it.dolgiy.jd01_03;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Runner {
+class Runner {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

@@ -3,7 +3,7 @@ package by.it.cherkas.jd01_02;
 
 import java.util.Scanner;
 
-public class TaskC {
+ class TaskC {
     static int[][] step1(int n) {
         int[][] array = new int[n][n];
         boolean condition = false;

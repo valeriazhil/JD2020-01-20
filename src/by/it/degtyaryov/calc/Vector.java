@@ -30,12 +30,12 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         return other.add(this);
     }
 
     @Override
-    public Var add(Scalar scalar) {
+    public Var add(Scalar scalar) throws CalcException {
         double[] result = Arrays.copyOf(value, value.length);
         for (int i = 0; i < result.length; i++) {
             result[i] += scalar.getValue();
@@ -44,7 +44,10 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Vector vector) {
+    public Var add(Vector vector) throws CalcException {
+        if (this.value.length != vector.value.length) {
+            throw new CalcException("different size of vectors");
+        }
         double[] result = Arrays.copyOf(vector.value, vector.value.length);
         for (int i = 0; i < result.length; i++) {
             result[i] += value[i];
@@ -53,17 +56,17 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Matrix matrix) {
+    public Var add(Matrix matrix) throws CalcException {
         return super.add((Var) matrix);
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         return other.sub(this);
     }
 
     @Override
-    public Var sub(Scalar scalar) {
+    public Var sub(Scalar scalar) throws CalcException {
         double[] result = Arrays.copyOf(value, value.length);
         for (int i = 0; i < result.length; i++) {
             result[i] = scalar.getValue() - result[i];
@@ -72,7 +75,10 @@ class Vector extends Var {
     }
 
     @Override
-    public Var sub(Vector vector) {
+    public Var sub(Vector vector) throws CalcException {
+        if (this.value.length != vector.value.length) {
+            throw new CalcException("different size of vectors");
+        }
         double[] result = Arrays.copyOf(vector.value, vector.value.length);
         for (int i = 0; i < result.length; i++) {
             result[i] -= value[i];
@@ -81,17 +87,17 @@ class Vector extends Var {
     }
 
     @Override
-    public Var sub(Matrix matrix) {
+    public Var sub(Matrix matrix) throws CalcException {
         return super.sub((Var) matrix);
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         return other.mul(this);
     }
 
     @Override
-    public Var mul(Scalar scalar) {
+    public Var mul(Scalar scalar) throws CalcException {
         double[] result = Arrays.copyOf(value, value.length);
         for (int i = 0; i < result.length; i++) {
             result[i] *= scalar.getValue();
@@ -100,7 +106,10 @@ class Vector extends Var {
     }
 
     @Override
-    public Var mul(Vector vector) {
+    public Var mul(Vector vector) throws CalcException {
+        if (this.value.length != vector.value.length) {
+            throw new CalcException("different size of vectors");
+        }
         double result = 0;
         for (int i = 0; i < value.length; i++) {
             result += value[i] * vector.value[i];
@@ -109,7 +118,10 @@ class Vector extends Var {
     }
 
     @Override
-    public Var mul(Matrix matrix) {
+    public Var mul(Matrix matrix) throws CalcException {
+        if (this.value.length != matrix.getValue().length) {
+            throw new CalcException("different size matrix and vector");
+        }
         double[] result = new double[matrix.getValue().length];
         for (int i = 0; i < matrix.getValue().length; i++) {
             for (int j = 0; j < value.length; j++) {
@@ -120,22 +132,22 @@ class Vector extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return other.div(this);
     }
 
     @Override
-    public Var div(Scalar scalar) {
+    public Var div(Scalar scalar) throws CalcException {
         return super.div((Var) scalar);
     }
 
     @Override
-    public Var div(Vector vector) {
+    public Var div(Vector vector) throws CalcException {
         return super.div((Var) vector);
     }
 
     @Override
-    public Var div(Matrix matrix) {
+    public Var div(Matrix matrix) throws CalcException {
         return super.div((Var) matrix);
     }
 

@@ -1,6 +1,6 @@
 package by.it.dolgiy.jd01_03;
 
-public class InOut {
+class InOut {
 
     static double[] getArray(String line){
         String[] string1 = line.split(" ");

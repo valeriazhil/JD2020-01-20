@@ -7,15 +7,15 @@ abstract class Var implements Operation {
 
     private static Map<String, Var> variables = new HashMap<>();
 
-	public static Var saveVariable(String key, Var value) {
-		return variables.put(key, value);
-	}
+    public static Var saveVariable(String key, Var value) {
+        return variables.put(key, value);
+    }
 
     public static Map<String, Var> getVariables() {
         return variables;
     }
 
-    public static Var create(String operand) {
+    public static Var create(String operand) throws CalcException {
         operand = operand.trim().replace(" ", "");
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
@@ -26,55 +26,51 @@ abstract class Var implements Operation {
         } else if (variables.containsKey(operand)) {
             return variables.get(operand);
         } else {
-            return null;
+            throw new CalcException("unknown variables " + operand);
         }
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.println("Невозможно выполнить операцию " + this + " + " + other);
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("operation " + other + " + " + this + " is impossible");
     }
 
-    public abstract Var add(Scalar scalar);
+    public abstract Var add(Scalar scalar) throws CalcException;
 
-    public abstract Var add(Vector vector);
+    public abstract Var add(Vector vector) throws CalcException;
 
-    public abstract Var add(Matrix matrix);
+    public abstract Var add(Matrix matrix) throws CalcException;
 
     @Override
-    public Var sub(Var other) {
-        System.out.println("Невозможно выполнить операцию " + this + " - " + other);
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("operation " + other + " - " + this + " is impossible");
     }
 
-    public abstract Var sub(Scalar scalar);
+    public abstract Var sub(Scalar scalar) throws CalcException;
 
-    public abstract Var sub(Vector vector);
+    public abstract Var sub(Vector vector) throws CalcException;
 
-    public abstract Var sub(Matrix matrix);
+    public abstract Var sub(Matrix matrix) throws CalcException;
 
     @Override
-    public Var mul(Var other) {
-        System.out.println("Невозможно выполнить операцию " + this + " * " + other);
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("operation " + other + " * " + this + " is impossible");
     }
 
-    public abstract Var mul(Scalar scalar);
+    public abstract Var mul(Scalar scalar) throws CalcException;
 
-    public abstract Var mul(Vector vector);
+    public abstract Var mul(Vector vector) throws CalcException;
 
-    public abstract Var mul(Matrix matrix);
+    public abstract Var mul(Matrix matrix) throws CalcException;
 
     @Override
-    public Var div(Var other) {
-        System.out.println("Невозможно выполнить операцию " + this + " / " + other);
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("operation " + other + " / " + this + " is impossible");
     }
 
-    public abstract Var div(Scalar scalar);
+    public abstract Var div(Scalar scalar) throws CalcException;
 
-    public abstract Var div(Vector vector);
+    public abstract Var div(Vector vector) throws CalcException;
 
-    public abstract Var div(Matrix matrix);
+    public abstract Var div(Matrix matrix) throws CalcException;
 }

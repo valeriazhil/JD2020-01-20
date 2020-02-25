@@ -1,6 +1,6 @@
 package by.it.dolgiy.jd01_05;
 
-public class TaskC {
+class TaskC {
     public static void main(String[] args) {
         double[] mas = new double[(int) (Math.random() * 20+20)];
         for (int i = 0; i < mas.length; i++) {
