@@ -6,8 +6,8 @@ import java.util.Set;
 
 class Buyer extends Thread implements IBuyer, IUseBasket{
 
-    Buyer(int number){
-        super("Buyer № " + number);
+    Buyer(int number,String buyer){
+        super("Buyer № " + number + buyer);
     }
 
     @Override
@@ -33,26 +33,39 @@ class Buyer extends Thread implements IBuyer, IUseBasket{
     public void chooseGoods() {
         System.out.println(this+" started choosing goods");
         int timeout = Helper.random(500,2000);
+        if (Runner.pensioner){
+            timeout = (int) (timeout*1.5);
+        }
         Helper.sleep(timeout);
         System.out.println(this+" finished choosing goods");
     }
 
     @Override
     public void putGoodsToBasket() {
-        Set<Map.Entry<String, Integer>> goods = Helper.shoppingList().entrySet();
-        Iterator<Map.Entry<String, Integer>> iterator = goods.iterator();
+        Set<Map.Entry<String, Integer>> basket = Helper.shoppingList().entrySet();
+        Iterator<Map.Entry<String, Integer>> iterator = basket.iterator();
+        StringBuffer shopL = new StringBuffer(this+" basket :: ");
         int countProducts = Helper.random(1,4);
         for (int i = 0; i < countProducts; i++) {
             int timeout = Helper.random(500,2000);
+            if (Runner.pensioner){
+                timeout = (int) (timeout*1.5);
+            }
             Helper.sleep(timeout);
+            //еще больше рандома
+            int choice = Helper.random(1);
+            for (int ch = 0; ch < choice; ch++) {
+                iterator.next();
+            }
             Map.Entry<String, Integer> next = iterator.next();
-            System.out.println(this+" shopping list:: "+next.getKey()+":"+next.getValue()+" ");
+            shopL.append(next.getKey()).append(':').append(next.getValue()).append(';');
         }
-
+        System.out.println(shopL);
     }
 
     @Override
     public void goOut() {
+        Runner.countOut++;
         System.out.println(this+" leave the Market");
     }
 

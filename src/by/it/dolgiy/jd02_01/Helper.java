@@ -23,24 +23,21 @@ class Helper {
         return random(0, max);
     }
 
-//    static HashMap<String, Integer> shoppingList = new HashMap<String, Integer>(){
-//        {
-//            shoppingList.put("sausage",30);
-//            shoppingList.put("cheese",20);
-//            shoppingList.put("milk",10);
-//            shoppingList.put("eggs",25);
-//            shoppingList.put("beer",15);
-//        }
-//    };
+    static boolean random(){
+        return rnd.nextBoolean();
+    }
 
     static HashMap<String, Integer> shoppingList() {
-        HashMap<String,Integer> shoppingList = new HashMap<>();
-        shoppingList.put("sausage",30);
-        shoppingList.put("cheese",20);
-        shoppingList.put("milk",10);
-        shoppingList.put("eggs",25);
-        shoppingList.put("beer",15);
-        return shoppingList;
+        HashMap<String,Integer> shoppingList1 = new HashMap<>();
+        shoppingList1.put("sausage",30);
+        shoppingList1.put("cheese",20);
+        shoppingList1.put("milk",10);
+        shoppingList1.put("eggs",25);
+        shoppingList1.put("beer",15);
+        shoppingList1.put("crisps",10);
+        shoppingList1.put("fish",30);
+        shoppingList1.put("meat",40);
+        return shoppingList1;
     }
-//захешилось по приколу сыр = 5.
+
 }
