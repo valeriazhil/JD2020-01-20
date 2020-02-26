@@ -3,8 +3,8 @@ package by.it.dolgiy.jd02_01;
 class Runner {
 
     static boolean pensioner;
-    static int countOut = 1;
     static int countBuyers = 1;
+    static int countOut = 1;
 
     public static void main(String[] args) {
         System.out.println("The market opened");
