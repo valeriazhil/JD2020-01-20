@@ -3,21 +3,20 @@ package by.it.degtyaryov.jd02_01;
 import java.util.ArrayList;
 import java.util.List;
 
-class Backet {
-
+class Basket {
     private List<Good> goods = new ArrayList<>();
 
-    public void putInBacket(Good item) {
+    public void put(Good item) {
         goods.add(item);
     }
 
     @Override
     public String toString() {
-        StringBuilder backet = new StringBuilder();
+        StringBuilder basket = new StringBuilder();
         for (Good item : goods) {
-            backet.append(item);
-            backet.append("; ");
+            basket.append(item);
+            basket.append("; ");
         }
-        return backet.toString();
+        return basket.toString();
     }
 }

@@ -2,74 +2,71 @@ package by.it.degtyaryov.jd02_01;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
-    private Backet backet;
+    private Basket basket;
     private Good chosenGood;
-    private boolean pensioner;
+    private final boolean isPensioner;
     private final double speedFactor;
 
-    Buyer(int number, boolean pensioner) {
+    Buyer(int number, boolean isPensioner) {
         super("Buyer №" + number);
-        this.backet = new Backet();
-        this.pensioner = pensioner;
-        this.speedFactor = (pensioner) ? 1.5 : 1;
+        this.basket = new Basket();
+        this.isPensioner = isPensioner;
+        this.speedFactor = (isPensioner) ? 1.5 : 1;
     }
 
     @Override
     public void run() {
         enterToMarket();
-        takeBacket();
-        int goodToBuy = Helper.getRandom(1, 4);
-        for (int i = 0; i < goodToBuy; i++) {
+        takeBasket();
+        int goodsToBuy = Helper.getRandom(1, 4);
+        for (int i = 0; i < goodsToBuy; i++) {
             chooseGoods();
-            putGoodsToBacket();
+            putGoodsToBasket();
         }
         System.out.printf("%s end choosing of %d goods and his basket contains: %s%n",
-                this, goodToBuy, backet.toString().toLowerCase());
+                this, goodsToBuy, basket.toString().toLowerCase());
         goOut();
     }
 
     @Override
     public void enterToMarket() {
-        System.out.println(this + " enter to the market.");
+        Dispatcher.buyerInMarket++;
+        System.out.printf("%s enter to the market.%n", this);
     }
 
     @Override
     public void chooseGoods() {
-        System.out.println(this + " start choosing goods.");
+        System.out.printf("%s is choosing goods.%n", this);
         Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
         chosenGood = Helper.getRandomGood();
-        System.out.println(this + " choose " + chosenGood.getName().toLowerCase());
+        System.out.printf("%s has chosen %s.%n", this, chosenGood.getName().toLowerCase());
     }
 
     @Override
     public void goOut() {
-		Market.buyerInMarket--;
-        System.out.println(this + " go out from the market.");
+        Dispatcher.buyerInMarket--;
+        System.out.printf("%s go out from the market.%n", this);
     }
 
     @Override
-    public void takeBacket() {
-        System.out.println(this + " start take backet.");
+    public void takeBasket() {
+        System.out.printf("%s is taking basket.%n", this);
         Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
-        System.out.println(this + " take backet.");
+        System.out.printf("%s has taken basket.%n", this);
     }
 
     @Override
-    public void putGoodsToBacket() {
-        System.out.println(this + " start put good in backet.");
+    public void putGoodsToBasket() {
+        System.out.printf("%s start put good in basket.%n", this);
         Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
-        backet.putInBacket(chosenGood);
-        System.out.println(this + " put in backet " + chosenGood.getName().toLowerCase() + ".");
+        basket.put(chosenGood);
+        System.out.printf("%s put in basket %s.%n", this, chosenGood.getName().toLowerCase());
         chosenGood = null;
-    }
-
-    public boolean isPensioner() {
-        return pensioner;
     }
 
     @Override
     public String toString() {
-        String age = (pensioner) ? "Pensioner " : "";
+        String age = (isPensioner) ? "Pensioner " : "";
         return age + this.getName();
     }
 }
