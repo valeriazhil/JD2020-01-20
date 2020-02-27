@@ -2,37 +2,38 @@ package by.it.lomazki.jd01_15;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
+
 
 public class TaskA {
 
     public static final Random rnd = new Random();
 
     public static void main(String[] args) {
-        String fileName = Helper.getPath(TaskA.class, "matrix");
+        String fileName = Helper.getPath(TaskA.class, "matrix.txt");
         int[][] array = generate(6, 4);
-        System.out.println(Arrays.deepToString(array));
-        saveArray(array,fileName);
+        saveArray(array, fileName);
         array = loadArray(fileName);
-        System.out.println(Arrays.deepToString(array));
+        print(array);
     }
 
     private static int[][] loadArray(String fileName) {
         int[][] array = new int[0][0];
+
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(fileName));
-        ){
+        ) {
             ArrayList<String> list = new ArrayList<>();
-            while (true){
+            while (true) {
                 String line = reader.readLine();
-                if (line==null) break;
+                if (line == null) break;
                 list.add(line);
             }
+
             array = new int[list.size()][0];
             for (int i = 0; i < list.size(); i++) {
                 String s = list.get(i);
-                String[] m = s.trim().split("//s+");
+                String[] m = s.trim().split("\\s+");
                 array[i] = new int[m.length];
                 for (int j = 0; j < array[i].length; j++) {
                     array[i][j] = Integer.parseInt(m[j]);
@@ -45,10 +46,10 @@ public class TaskA {
         return array;
     }
 
-    private static void saveArray(int[][] array,String fileName) {
+    private static void saveArray(int[][] array, String fileName) {
         try {
             try (
-            PrintWriter printWriter = new PrintWriter(fileName)) {
+                    PrintWriter printWriter = new PrintWriter(fileName)) {
                 for (int[] row : array) {
                     for (int e : row) {
                         printWriter.printf("%3d ", e);
@@ -57,7 +58,16 @@ public class TaskA {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.err.println();
+            System.err.println(e);
+        }
+    }
+
+    private static void print(int[][] array) {
+        for (int[] row : array) {
+            for (int e : row) {
+                System.out.printf("%3d ", e);
+            }
+            System.out.println();
         }
     }
 
@@ -75,11 +85,8 @@ public class TaskA {
                     if (row[i] == -15) minOk = true;
                 }
             }
-
-
         } while (!maxOk || !minOk);
         return res;
-
     }
 
 }

@@ -1,4 +1,4 @@
-package by.it.lomazki.jd01_08;
+package by.it.lomazki.Example.jd01_08;
 
 public class Runner {
     private static void print(Var var) {System.out.println(var);}

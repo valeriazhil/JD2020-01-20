@@ -1,4 +1,4 @@
-package by.it.lomazki.jd01_08;
+package by.it.lomazki.Example.jd01_08;
 
 import java.util.Arrays;
 
@@ -24,17 +24,6 @@ class Vector extends Var {
     }
 
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("{");
-        String delimiter = "";
-        for (int i = 0; i < value.length; i++) {
-            sb.append(delimiter).append(value[i]);
-            delimiter = ", ";
-        }
-        sb.append("}");
-        return sb.toString();
-    }
 
     @Override
     public Var add(Var other) {
@@ -90,7 +79,7 @@ class Vector extends Var {
             }
             return new Vector(res);
         }
-        else if (other instanceof Vector){
+        else if (other instanceof  Vector){
             double[] res = Arrays.copyOf(value, value.length);
             double s=0;
             for (int i = 0; i < res.length; i++) {
@@ -112,5 +101,17 @@ class Vector extends Var {
             return new Vector(res);
         }
         return super.div(other);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("{");
+        String delimiter = "";
+        for (int i = 0; i < value.length; i++) {
+            sb.append(delimiter).append(value[i]);
+            delimiter = ", ";
+        }
+        sb.append("}");
+        return sb.toString();
     }
 }
