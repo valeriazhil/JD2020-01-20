@@ -34,6 +34,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void run() {
         enterToMarket();
+        takeBasket();
         chooseGoods();
         goOut();
     }
