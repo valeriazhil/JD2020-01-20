@@ -2,22 +2,21 @@ package by.it.degtyaryov.jd01_02;
 
 import java.util.Scanner;
 
-public class TaskA {
+class TaskA {
 
     public static void main(String[] args) {
         int[] mas = new int[10];
         Scanner scanner = new Scanner(System.in);
-
         for (int i = 0; i < 10; i++) {
             mas[i] = scanner.nextInt();
         }
-
+        scanner.close();
         step1(mas);
         step2(mas);
         step3(mas);
     }
 
-    static void step1(int[] mas) {
+    private static void step1(int[] mas) {
         int min = mas[0];
         int max = mas[0];
 
@@ -25,12 +24,10 @@ public class TaskA {
             min = Math.min(i, min);
             max = Math.max(i, max);
         }
-
         System.out.println(min + " " + max);
-
     }
 
-    static void step2(int[] mas) {
+    private static void step2(int[] mas) {
         double average;
         int sum = 0;
 
@@ -47,7 +44,7 @@ public class TaskA {
         }
     }
 
-    static void step3(int[] mas) {
+    private static void step3(int[] mas) {
         int min = mas[0];
         for (int i : mas) {
             min = Math.min(i, min);
@@ -58,5 +55,4 @@ public class TaskA {
             }
         }
     }
-
 }

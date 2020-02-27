@@ -23,5 +23,4 @@ class TaskC1 {
 
         System.out.println("Sum = " + (one + two));
     }
-
 }

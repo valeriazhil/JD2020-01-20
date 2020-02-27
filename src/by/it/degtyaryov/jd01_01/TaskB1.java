@@ -31,5 +31,4 @@ class TaskB1 {
 
         System.out.println(number * number);
     }
-
 }
