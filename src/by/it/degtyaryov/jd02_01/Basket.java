@@ -6,7 +6,7 @@ import java.util.List;
 class Basket {
     private List<Good> goods = new ArrayList<>();
 
-    public void put(Good item) {
+    public void add(Good item) {
         goods.add(item);
     }
 

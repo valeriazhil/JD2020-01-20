@@ -1,6 +1,6 @@
 package by.it.degtyaryov.jd02_01;
 
-class Buyer extends Thread implements IBuyer, IUseBacket {
+class Buyer extends Thread implements IBuyer, IUseBasket {
 
     private Basket basket;
     private Good chosenGood;
@@ -59,7 +59,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void putGoodsToBasket() {
         System.out.printf("%s start put good in basket.%n", this);
         Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
-        basket.put(chosenGood);
+        basket.add(chosenGood);
         System.out.printf("%s put in basket %s.%n", this, chosenGood.getName().toLowerCase());
         chosenGood = null;
     }
