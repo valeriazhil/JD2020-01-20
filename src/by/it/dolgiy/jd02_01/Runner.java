@@ -8,15 +8,14 @@ class Runner {
 
     public static void main(String[] args) {
         System.out.println("The market opened");
-//        int countBuyers = 1;
         String buyerStr;
         for (int time = 0; time < 120; time++) {
             int currentCount = getCurrentCount(time);
-            for (int i = 0; i < currentCount; i++) {
-                buyerStr = typeOfBuyer(countBuyers);
-                Buyer buyer = new Buyer(countBuyers++,buyerStr);
-                buyer.start();
-            }
+                for (int i = 0; i < currentCount; i++) {
+                    buyerStr = typeOfBuyer(countBuyers);
+                    Buyer buyer = new Buyer(countBuyers++,buyerStr);
+                    buyer.start();
+                }
             Helper.sleep(10);
         }
         Helper.sleep(10000);

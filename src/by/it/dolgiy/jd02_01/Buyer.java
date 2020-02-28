@@ -52,7 +52,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket{
                 timeout = (int) (timeout*1.5);
             }
             Helper.sleep(timeout);
-            //еще больше рандома
+            /////////////////
             int choice = Helper.random(1);
             for (int ch = 0; ch < choice; ch++) {
                 iterator.next();
@@ -65,8 +65,8 @@ class Buyer extends Thread implements IBuyer, IUseBasket{
 
     @Override
     public void goOut() {
-        Runner.countOut++;
         System.out.println(this+" leave the Market");
+        Runner.countOut++;
     }
 
     @Override
