@@ -4,7 +4,7 @@ import java.util.Random;
 
 class Helper {
 
-    private static final Random generator = new Random(11);
+    private static final Random GENERATOR = new Random(11);
 
     static void sleep(int millis) {
         try {
@@ -15,10 +15,14 @@ class Helper {
     }
 
     static int getRandom(int min, int max) {
-        return generator.nextInt(max - min + 1) + min;
+        return GENERATOR.nextInt(max - min + 1) + min;
     }
 
     static int getRandom(int max) {
         return getRandom(0, max);
+    }
+
+    static Good getRandomGood() {
+        return Good.ALL_GOODS.get(getRandom(Good.ALL_GOODS.size() - 1));
     }
 }
