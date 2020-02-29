@@ -46,7 +46,7 @@ class TaskB {
                     while (sb.charAt(i)!='\n'){
                         sb.deleteCharAt(i);
                     }
-                    sb.deleteCharAt(i);
+//                    sb.deleteCharAt(i);
                     i--;
                 }
                 if (sb.charAt(i+1)=='*'){
@@ -55,7 +55,7 @@ class TaskB {
                     }
                     sb.deleteCharAt(i+1);
                     sb.deleteCharAt(i);
-                    sb.deleteCharAt(i);
+//                    sb.deleteCharAt(i);
                     i--;
                 }
             }
