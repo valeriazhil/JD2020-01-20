@@ -1,6 +1,7 @@
 package by.it.demchik.jd01_02;
 
 
+
 import java.util.Scanner;
 
 public class TaskC {
@@ -8,12 +9,15 @@ public class TaskC {
     public static void main(String[] args) {
         Scanner tv = new Scanner(System.in);
         int n = tv.nextInt();
-        int [][]mas=step1(n);
+        int[][] mas = step1(n);
+        step2(mas);
 
 
     }
 
-    private static int[][] step1(int n) {
+
+
+    static int[][] step1(int n) {
 
         int[][] mas = new int[n][n];
         boolean max = false;
@@ -33,13 +37,30 @@ public class TaskC {
             }
 
         }
-        while (!max||!min);
-        for (int i = 0; i <n; i++) {
-            for (int j = 0; j <n; j++) {
-                System.out.println(mas[i][j]+" ");
+        while (!max || !min);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.println(mas[i][j] + " ");
 
             }
 
-        }return mas;
+                   }
+        return mas;
     }
+
+    static int step2 (int[][] mas) {
+        int n = mas [0].length;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+
+                sum = -mas[i][j];
+            }
+        }return sum;
+    }
+
+
 }
+
+
+
