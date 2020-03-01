@@ -26,8 +26,7 @@ class Market {
             int buyersToEnter = (Dispatcher.buyerInMarket > mustBeInMarket) ?
                     0 : mustBeInMarket - Dispatcher.buyerInMarket;
             for (int i = 0; i < buyersToEnter; i++) {
-                boolean isPensioner = Helper.getRandom(1, 4) % 4 == 0;
-                Buyer buyer = new Buyer(++entered, isPensioner);
+                Buyer buyer = new Buyer(++entered, Helper.getRandomIsPensioner());
                 buyers.add(buyer);
                 buyer.start();
             }

@@ -25,4 +25,8 @@ class Helper {
     static Good getRandomGood() {
         return Market.ALL_GOODS.get(getRandom(Market.ALL_GOODS.size() - 1));
     }
+
+    static boolean getRandomIsPensioner() {
+        return Helper.getRandom(1, 4) % 4 == 0;
+    }
 }
