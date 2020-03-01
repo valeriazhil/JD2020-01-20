@@ -1,36 +1,87 @@
 package by.it.dolgiy.Calc;
 
-import java.util.HashMap;
-import java.util.Map;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 abstract class Var implements Operation {
 
     private static Map<String,Var> vars= new HashMap<>();
-
-    public static Map<String, Var> getVars() {
-        return vars;
-    }
+    private static String fileVarPath = TaskH.getPath(Var.class,"Vars.txt");
 
     static Var saveVar(String name, Var var){
         vars.put(name,var);
+        try (final PrintWriter printWriter = new PrintWriter(fileVarPath)){
+            Set<Map.Entry<String, Var>> entries = vars.entrySet();
+            for (Map.Entry<String, Var> entry : entries) {
+                printWriter.println(entry.getKey()+"="+entry.getValue());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return var;
     }
 
-    static Var createVar(String str) throws CalcException{
-        str = str.trim().replace("\\s+","");
-        if (str.matches(Patterns.SCALAR)){
-            return new Scalar(str);
+    static void loadVars() {
+        Parser parser = new Parser();
+        try {
+            Files
+                    .lines(Paths.get(fileVarPath))
+                    .forEach(s -> {
+                        try {
+                            parser.calc(s);
+                        } catch (CalcException e) {
+                            throw new RuntimeException();
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else if (str.matches(Patterns.VECTOR)){
-            return new Vector(str);
+    }
+
+    static void printVar() {
+        Set<Map.Entry<String, Var>> entries = vars.entrySet();
+        for (Map.Entry<String, Var> entry : entries) {
+            System.out.println(entry.getKey()+"="+entry.getValue());
         }
-        else if (str.matches(Patterns.MATRIX)){
-            return new Matrix(str);
+    }
+
+    static void sortVar() {
+        List<String> keys = new ArrayList<>(vars.keySet());
+        Collections.sort(keys);
+        for (String key : keys) {
+            System.out.println(key + "=" + vars.get(key));
         }
-        else if (vars.containsKey(str)) {
-            return vars.get(str);
+    }
+
+    static Var createVar(String strVar) throws CalcException{
+        strVar = strVar.trim().replace("\\s+","");
+        if (strVar.matches(Patterns.SCALAR)){
+            return new Scalar(strVar);
         }
-        throw new CalcException("Невозможно создать "+str);
+        else if (strVar.matches(Patterns.VECTOR)){
+            return new Vector(strVar);
+        }
+        else if (strVar.matches(Patterns.MATRIX)){
+            return new Matrix(strVar);
+        }
+        else if (vars.containsKey(strVar)) {
+            return vars.get(strVar);
+        }
+        throw new CalcException("Невозможно создать "+strVar);
+//        else {
+//            Var var = vars.get(strVar);
+//            if (var!=null){
+//                return var;
+//            }
+//            else {
+//                throw new CalcException("Невозможно создать "+strVar);
+//            }
+//        }
     }
 
     @Override

@@ -33,5 +33,17 @@ import java.util.Scanner;
 */
 class TaskC3 {
 
+    static double getWeight (int weight) {
+        double MARS = 3.86;
+        double EARTH = 9.81;
+        return Math.round(weight * MARS * 100.0 / EARTH)/100.0;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int i = scanner.nextInt();
+        System.out.println(getWeight(i));
+    }
+
 
 }
