@@ -94,7 +94,7 @@ class TaskC {
                 }
             }
         } catch (NullPointerException e) {
-            System.out.println("Список пуст");
+            System.out.println("Список пустой");
         } catch (IOException e) {
             e.printStackTrace();
         }
