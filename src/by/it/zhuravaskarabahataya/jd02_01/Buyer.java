@@ -1,7 +1,5 @@
 package by.it.zhuravaskarabahataya.jd02_01;
 
-
-import java.util.HashMap;
 import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {

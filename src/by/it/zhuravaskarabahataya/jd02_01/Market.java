@@ -8,7 +8,6 @@ class Market {
     public static void main(String[] args) {
         System.out.println("Market is open!");
         Warehouse warehouse = new Warehouse();
-
         List<Buyer> buyers = new ArrayList<>(128);
         int countBuyer = 0;
         for (int minutes = 0; minutes < 2; minutes++) {
@@ -21,8 +20,8 @@ class Market {
                         buyer.start();
                     }
                 }
-                //System.out.println("Second " + seconds);
-               // System.out.println("In the market " + Dispatcher.buyersInMarket + " buyers.");
+                System.out.println("Second " + seconds);
+                System.out.println("In the market " + Dispatcher.buyersInMarket + " buyers.");
                 TimingHelper.sleep(1000);
             }
             for (int seconds = 31; seconds < 60; seconds++) {
@@ -34,8 +33,8 @@ class Market {
                         buyer.start();
                     }
                 }
-              //  System.out.println("Second " + seconds);
-               // System.out.println("In the market " + Dispatcher.buyersInMarket + " buyers.");
+              System.out.println("Second " + seconds);
+                System.out.println("In the market " + Dispatcher.buyersInMarket + " buyers.");
                 TimingHelper.sleep(1000);
             }
         }
