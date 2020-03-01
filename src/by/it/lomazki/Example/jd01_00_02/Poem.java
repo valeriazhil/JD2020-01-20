@@ -1,4 +1,4 @@
-package by.it.lomazki.Example;
+package by.it.lomazki.Example.jd01_00_02;
 
 class Poem {
     static final String text=

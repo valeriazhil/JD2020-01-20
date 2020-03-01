@@ -1,4 +1,4 @@
-package by.it.lomazki.jd01_08;
+package by.it.lomazki.Example.jd01_08;
 
 abstract class Var implements Operation {
 
