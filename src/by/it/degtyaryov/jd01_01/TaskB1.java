@@ -28,8 +28,6 @@ class TaskB1 {
         Scanner scanner = new Scanner(System.in);
         number = scanner.nextInt();
         scanner.close();
-
-        System.out.println(number * number);
+        System.out.print(number * number);
     }
-
 }

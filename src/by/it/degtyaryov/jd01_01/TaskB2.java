@@ -16,15 +16,13 @@ package by.it.degtyaryov.jd01_01;
 
  */
 class TaskB2 {
-    private static int a = 1;
-    private static int b = 3;
-    private static int c = 9;
-    private static int d = 27;
 
     public static void main(String[] args) {
-
+        int a = 1;
+        int b = 3;
+        int c = 9;
+        int d = 27;
         int result = -a + b - c + d;
-
         System.out.println(result);
     }
 }
