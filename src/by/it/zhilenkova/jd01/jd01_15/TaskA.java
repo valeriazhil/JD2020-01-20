@@ -1,80 +1,87 @@
 package by.it.zhilenkova.jd01.jd01_15;
 
+//Создайте матрицу 6 строк на 4 столбца из целых случайных чисел от -15 до 15 включительно.
+// Выведите матрицу в текстовый файл matrix.txt, расположенный в папке задания jd01_15.
+// При выводе для
+//каждого числа нужно предусмотреть для него три знакоместа, после чисел – один пробел.
+// Прочитайте файл и покажите его в консоли. Класс Scanner использовать нельзя.
+
+
+//Что тут произошло?
+
 import java.io.*;
+import java.util.Random;
 
-public class TaskA {
+class TaskA {
 
-
-    private static String getPath(Class<?> clazz, String filename) {
-        String path = clazz.getName();
-        path = path.replace(clazz.getSimpleName(), "");
-        path = path.replace(".", File.separator);
-        path = System.getProperty("user.dir")
-                + File.separator + "src" + File.separator + path;
-        return path + filename;
-    }
+    private static final Random random = new Random();
+    private static String fileName = Helper.getPath( "matrix.txt", TaskA.class);
 
     public static void main(String[] args) {
-        String filename = getPath(TaskA.class, "matrix.txt");
-        int[][] arr = new int[6][4];
-        generate(arr);
-        printTxt(arr, filename);
-        readTxt(arr, filename);
-        showArray(arr);
+        int [][] matrix = createMatrix (6,4);
+        printMatrix(matrix);
+        matrixToFile(matrix);
+        System.out.println();
+        readFileToConsole(fileName);
     }
 
-    private static void showArray(int[][] arr) {
-        for (int[] row : arr) {
-            for (int element : row) {
-                System.out.printf("%3d ", element);
-            }
-            System.out.println();
+    private static void readFileToConsole(String fileName) {
+        try (FileReader fr = new FileReader(fileName))
+        {
+        while (fr.ready()) {
+            int data = fr.read();
+            System.out.printf("%c",(char) data);
         }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    private static void readTxt(int[][] arr, String filename) {
-        try (BufferedReader in =
-                     new BufferedReader(
-                             new FileReader(filename)
-                     )
-        ) {
-            int i = 0;
-            for (; ; ) {
-                String line = in.readLine();
-                if (line == null) break;
-                String[] sRow = line.trim().split("\\s+");
-                for (int j = 0; j < sRow.length; j++) {
-                    arr[i][j] = Integer.parseInt(sRow[j]);
+    private static void matrixToFile(int[][] matrix) {
+        File file = new File(fileName);
+        try (PrintWriter pw = new PrintWriter(file)){
+            for (int[] ints : matrix) {
+                for (int j = 0; j < matrix[0].length; j++) {
+                    pw.printf("%3d ", ints[j]);
                 }
-                i++;
+                pw.printf("\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void printTxt(int[][] arr, String filename) {
-        try (PrintWriter out =
-                     new PrintWriter(
-                             new FileWriter(filename)
-                     )
-        ) {
-            for (int[] row : arr) {
-                for (int element : row) {
-                    out.printf("%3d ", element);
-                }
-                out.println();
+    private static void printMatrix(int[][] matrix) {
+        for (int[] ints : matrix) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print(ints[j] + " ");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    private static void generate(int[][] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[i].length; j++) {
-                arr[i][j] = -15 + (int) (31 * Math.random());
+
+    private static int[][] createMatrix(int rows, int cols) {
+        boolean max = false;
+        boolean min = false;
+        int[][] result = new int[rows][cols];
+        while (!max || !min) {
+            max = false;
+            min = false;
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[0].length; j++) {
+                    int rand = random.nextInt(31) - 15;
+                    if (rand == 15){
+                        max = true;
+                    }
+                    else if(rand == -15){
+                        min = true;
+                    }
+                    result[i][j] = rand;
+                }
             }
         }
+        return result;
     }
+
 }

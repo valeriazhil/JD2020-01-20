@@ -1,70 +1,103 @@
 package by.it.zhilenkova.jd01.jd01_15;
 
-
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class TaskC {
-    public static void main(String[] args) throws IOException {
-        String catalog = Help.getPath("");
-        Scanner scanner = new Scanner(System.in);
-        String line;
-        File file = new File(catalog);
-        while (!(line = scanner.nextLine()).equalsIgnoreCase("end")) {
-            Matcher mcd = Pattern.compile("^cd[ ]+.+").matcher(line);
-            if (mcd.find()) {
-                if (line.substring(3).equals("..")) {
-                    file = file.getParentFile();
-                    System.out.println(file.getPath());
-                } else {
-                    file = new File(file.getPath() + "/" + line.substring(3));
-                    System.out.println(file.getPath());
-                }
-            }
-            if (line.equals("cd")) {
-                System.out.println(file.getPath());
-            }
-            if (line.equals("dir")) {
-                getAtributs(file);
+class TaskC {
+
+    private static String startingPoint = Helper.getPath("TaskC.java", TaskC.class);
+    private static Path myPoint = Paths.get(startingPoint).getParent();
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Вы находитесь здесь:" + myPoint);
+        String s;
+        while (true) {
+            s = sc.nextLine();
+            if (s == null || s.equals("end")) {
+                break;
+            } else {
+                process(s);
             }
         }
     }
 
-
-    private static void getAtributs(File file) throws IOException {
-        File[] files = file.listFiles();
-        int foldersNumber = 0;
-        int filesNumber = 0;
-        long filesSize = 0;
-        long foldersSizeAvailable = 0;
-        System.out.println("          Содержимое папки " + file.getPath() + "\n");
-        if (files != null) {
-            for (File file1 : files) {
-                if (file1.isFile()) {
-                    Path p = Paths.get(file1.getPath());
-                    Object creationTime = Files.getAttribute(p, "creationTime", LinkOption.NOFOLLOW_LINKS);
-                    System.out.printf("%s         %8d %s\n", creationTime, file1.length(), p.getFileName());
-                    filesSize += file1.length();
-                    filesNumber++;
+    private static void process(String s) {
+        switch (s) {
+            case "cd ..": {
+                System.out.println("Вы вышли из папки");
+                myPoint = myPoint.getParent();
+                startingPoint = myPoint.toString();
+                System.out.println(myPoint);
+                break;
+            }
+            case "dir": {
+                printDir();
+                break;
+            }
+            case "end": {
+                break;
+            }
+            default: {
+                if (s.matches("cd [-_a-zA-Zа-яА-ЯёЁ0-9]+")) {
+                    chooseCatalog(s);
                 } else {
-                    if (file1.isDirectory()) {
-                        Path p = Paths.get(file1.getPath());
-                        Object creationTime = Files.getAttribute(p, "creationTime", LinkOption.NOFOLLOW_LINKS);
-                        System.out.printf("%s    <DIR>         %s\n", creationTime, file1.getName());
-                        foldersSizeAvailable += file1.getFreeSpace();
-                        foldersNumber++;
-                    }
+                    System.out.println("Команда не найдено:(");
+                    break;
                 }
             }
         }
-        System.out.printf("                  %d файлов %10d байт\n", filesNumber, filesSize);
-        System.out.printf("                  %d папок%12d байт свободно\n", foldersNumber, foldersSizeAvailable);
+    }
+
+    private static void printDir (){
+        File file = new File(myPoint.toString());
+        if (file.isDirectory()) {
+            System.out.println("Это папка " + file);
+            System.out.println("Список файлов:");
+
+        } else {
+            System.out.println("Это не папка");
+        }
+        File[] files = file.listFiles();
+        getFiles(files);
+    }
+
+    private static void chooseCatalog(String s) {
+        String newFolder = s
+                .replace(" ", "")
+                .substring(2, s.length() - 1);
+        System.out.println("Выбран католог " + newFolder);
+        startingPoint = startingPoint + File.separator + newFolder;
+        myPoint = Paths.get(startingPoint);
+        System.out.println(myPoint);
+    }
+
+    private static void getFiles(File[] directory) {
+        try {
+            for (File file : directory) {
+                if (file.isDirectory()) {
+                    String path = file.getPath();
+                    Object date = Files.getAttribute(Paths.get(path), "basic:creationTime");
+                    String d = date.toString();
+                    String di = "<DIR>";
+                    System.out.printf("%-28s %9s %-20s\n", d, di, file.getName());
+                    getFiles(file.listFiles());
+                } else {
+                    String path = file.getPath();
+                    Object date = Files.getAttribute(Paths.get(path), "basic:creationTime");
+                    String d = date.toString();
+
+                    System.out.printf("%-28s           %-20s\n", d, file.getName());
+
+                }
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Список пуст");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
+
