@@ -25,21 +25,25 @@ class ConsoleRunner {
 
         while (true) {
             expression = scanner.nextLine();
-            if (expression.equals("end")) {
-                return;
-            } else if (expression.equals("printvar")) {
-                printer.printVariables(false);
-            } else if (expression.equals("sortvar")) {
-                printer.printVariables(true);
-            } else {
-                try {
-                    Var result = parser.calc(expression);
-                    printer.print(result);
-                    Logger.logger.log(String.format("expression: %s, result: %s", expression, result));
-                } catch (CalcException e) {
-                    System.out.println(e.getMessage());
-                    Logger.logger.log(e.getMessage());
-                }
+            switch (expression) {
+                case "end":
+                    return;
+                case "printvar":
+                    printer.printVariables(false);
+                    break;
+                case "sortvar":
+                    printer.printVariables(true);
+                    break;
+                default:
+                    try {
+                        Var result = parser.calc(expression);
+                        printer.print(result);
+                        Logger.logger.log(String.format("expression: %s, result: %s", expression, result));
+                    } catch (CalcException e) {
+                        System.out.println(e.getMessage());
+                        Logger.logger.log(e.getMessage());
+                    }
+                    break;
             }
         }
     }

@@ -23,6 +23,6 @@ class Helper {
     }
 
     static Good getRandomGood() {
-        return Good.ALL_GOODS.get(getRandom(Good.ALL_GOODS.size() - 1));
+        return Market.ALL_GOODS.get(getRandom(Market.ALL_GOODS.size() - 1));
     }
 }

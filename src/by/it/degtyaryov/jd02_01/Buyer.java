@@ -2,16 +2,16 @@ package by.it.degtyaryov.jd02_01;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
 
+    private final boolean pensioner;
+    private final double speedFactor;
     private Basket basket;
     private Good chosenGood;
-    private final boolean isPensioner;
-    private final double speedFactor;
 
-    Buyer(int number, boolean isPensioner) {
+    Buyer(int number, boolean pensioner) {
         super("Buyer №" + number);
+        this.pensioner = pensioner;
+        this.speedFactor = (pensioner) ? 1.5 : 1;
         this.basket = new Basket();
-        this.isPensioner = isPensioner;
-        this.speedFactor = (isPensioner) ? 1.5 : 1;
     }
 
     @Override
@@ -57,7 +57,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void putGoodsToBasket() {
-        System.out.printf("%s start put good in basket.%n", this);
+        System.out.printf("%s start put %s in basket.%n", this, chosenGood.getName().toLowerCase());
         Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
         basket.add(chosenGood);
         System.out.printf("%s put in basket %s.%n", this, chosenGood.getName().toLowerCase());
@@ -66,7 +66,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public String toString() {
-        String age = (isPensioner) ? "Pensioner " : "";
+        String age = (pensioner) ? "Pensioner " : "";
         return age + this.getName();
     }
 }

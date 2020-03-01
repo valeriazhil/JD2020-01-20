@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Basket {
+
     private List<Good> goods = new ArrayList<>();
 
     public void add(Good item) {
