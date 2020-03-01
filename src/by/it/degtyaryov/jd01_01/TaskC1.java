@@ -20,8 +20,6 @@ class TaskC1 {
         one = scanner.nextInt();
         two = scanner.nextInt();
         scanner.close();
-
-        System.out.println("Sum = " + (one + two));
+        System.out.printf("Sum = %d\n", (one + two));
     }
-
 }

@@ -1,6 +1,6 @@
 package by.it.lomazki.jd01_08;
 
-abstract class Var implements Operation{
+abstract class Var implements Operation {
 
     @Override
     public Var add(Var other) {
@@ -10,7 +10,7 @@ abstract class Var implements Operation{
 
     @Override
     public Var sub(Var other) {
-        System.out.println("Операция вычитания " + this + "-" + other + " невозможна");
+        System.out.println("Операция вычетания " + this + "-" + other + " невозможна");
         return null;
     }
 

@@ -1,14 +1,38 @@
 package by.it.degtyaryov.calc;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 abstract class Var implements Operation {
 
+    private static final String VARS_FILE = Helper.getPath(Var.class, "var.txt");
     private static Map<String, Var> variables = new HashMap<>();
 
     public static Var saveVariable(String key, Var value) {
-        return variables.put(key, value);
+        Var var = variables.put(key, value);
+        saveVars();
+        return var;
+    }
+
+    public static void loadVars() throws IOException, CalcException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(VARS_FILE))) {
+            String var;
+            while ((var = reader.readLine()) != null) {
+                String[] split = var.trim().split("=");
+                variables.put(split[0], create(split[1]));
+            }
+        }
+    }
+
+    private static void saveVars() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(VARS_FILE))) {
+            for (Map.Entry<String, Var> entry : variables.entrySet()) {
+                writer.printf("%s=%s%n", entry.getKey(), entry.getValue());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Map<String, Var> getVariables() {

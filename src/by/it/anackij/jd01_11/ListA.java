@@ -1,57 +1,88 @@
 package by.it.anackij.jd01_11;
 
 import java.util.*;
+import java.util.function.UnaryOperator;
 
-public class ListA<T> implements List<T> {
-    private T[] elements = (T[]) new Object[0];
-    private int size;
+class ListA<T> implements List<T> {
+    private T[] elems = (T[]) new Object[]{};
+    private int size = 0;
 
     @Override
     public boolean add(T t) {
-        if (size == elements.length) {
-            elements= Arrays.copyOf(elements,elements.length*3/2+1);
+        if (size == elems.length) {
+            elems = Arrays.copyOf(elems, size * 3 / 2 + 1);
         }
-        elements[size++]=t;
+        elems[size++] = t;
         return true;
     }
 
     @Override
-    public void add(int i, T t) {
+    public void add(int index, T element) {
+        if (size == elems.length) {
+            elems = Arrays.copyOf(elems, size * 3 / 2 + 1);
+        }
+       System.arraycopy(elems, index, elems, index + 1, size - index);
+        elems[index] = element;
+        size++;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+       int index = indexOf(o);
+       if (index>-1) {
+           remove(index);
+       }
+        return (index>-1);
     }
 
     @Override
     public T remove(int index) {
-        // 1 2 3 4
-        T element = elements[index];
-        System.arraycopy(elements,index+1,element,index,size-index-1);
-
-        return element;
-    }
-
-    @Override
-    public T get(int i) {
-        return elements[i];
-    }
-
-    @Override
-    public int size() {
-        return size;
+        T deletable = elems[index];
+        System.arraycopy(elems, index+1, elems, index, size-1-index);
+        size--;
+        return deletable;
     }
 
     @Override
     public String toString() {
-        StringBuilder out = new StringBuilder("[");
+        StringBuilder sb = new StringBuilder("[");
+        String delimiter = "";
         for (int i = 0; i < size; i++) {
-            out.append(elements[i]);
-            if (i<size-1) out.append(", ");
+            sb.append(delimiter).append(elems[i]);
+            delimiter = ", ";
         }
-        out.append(']');
-        return out.toString();
+       sb.append("]");
+        return sb.toString();
+    }
+
+    @Override
+    public T get(int index) {
+        return elems[index];
+    }
+
+    @Override
+    public void replaceAll(UnaryOperator<T> operator) {
+
+    }
+
+    @Override
+    public void sort(Comparator<? super T> c) {
+
+    }
+
+    @Override
+    public Spliterator<T> spliterator() {
+        return null;
+    }
+
+    @Override
+    public int size() {
+        return 0;
     }
 
     @Override
     public boolean isEmpty() {
-        return size ==0;
+        return false;
     }
 
     @Override
@@ -70,37 +101,32 @@ public class ListA<T> implements List<T> {
     }
 
     @Override
-    public <T1> T1[] toArray(T1[] t1s) {
+    public <T1> T1[] toArray(T1[] a) {
         return null;
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean containsAll(Collection<?> c) {
         return false;
     }
 
     @Override
-    public boolean containsAll(Collection<?> collection) {
+    public boolean addAll(Collection<? extends T> c) {
         return false;
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> collection) {
+    public boolean addAll(int index, Collection<? extends T> c) {
         return false;
     }
 
     @Override
-    public boolean addAll(int i, Collection<? extends T> collection) {
+    public boolean removeAll(Collection<?> c) {
         return false;
     }
 
     @Override
-    public boolean removeAll(Collection<?> collection) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> collection) {
+    public boolean retainAll(Collection<?> c) {
         return false;
     }
 
@@ -110,13 +136,28 @@ public class ListA<T> implements List<T> {
     }
 
     @Override
-    public T set(int i, T t) {
+    public T set(int index, T element) {
         return null;
     }
 
+
     @Override
     public int indexOf(Object o) {
-        return 0;
+        if (o==null){
+            for (int i = 0; i < elems.length; i++) {
+                if (elems[i] == null){
+                    return i;
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < elems.length; i++) {
+                if (elems[i].equals(o)){
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -130,12 +171,12 @@ public class ListA<T> implements List<T> {
     }
 
     @Override
-    public ListIterator<T> listIterator(int i) {
+    public ListIterator<T> listIterator(int index) {
         return null;
     }
 
     @Override
-    public List<T> subList(int i, int i1) {
+    public List<T> subList(int fromIndex, int toIndex) {
         return null;
     }
 }
