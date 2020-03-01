@@ -44,7 +44,7 @@ class TaskC {
                 if (s.matches("cd [-_a-zA-Zа-яА-ЯёЁ0-9]+")) {
                     chooseCatalog(s);
                 } else {
-                    System.out.println("Команда не найдено:(");
+                    System.out.println("Команда не найдена:(");
                     break;
                 }
             }
