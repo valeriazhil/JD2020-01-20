@@ -15,42 +15,36 @@ import java.util.Scanner;
 
 class TaskC {
 
-    private static String startingPoint = Helper.getPath("TaskC.java", TaskC.class);
-    private static Path myPoint = Paths.get(startingPoint).getParent();
+    private static String myPointName = Helper.getPath("TaskC.java", TaskC.class);
+    private static Path myPointPath = Paths.get(myPointName).getParent();
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Вы находитесь здесь:" + myPoint);
-        String s;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Вы находитесь здесь:" + myPointPath);
+        String scannedText;
         while (true) {
-            s = sc.nextLine();
-            if (s == null || s.equals("end")) {
+            scannedText = scanner.nextLine();
+            if (scannedText == null || scannedText.equals("end")) {
                 break;
             } else {
-                process(s);
+                proceed(scannedText);
             }
         }
     }
 
-    private static void process(String s) {
-        switch (s) {
+    private static void proceed(String scannedText) {
+        switch (scannedText) {
             case "cd ..": {
-                System.out.println("Вы вышли из папки");
-                myPoint = myPoint.getParent();
-                startingPoint = myPoint.toString();
-                System.out.println(myPoint);
+                goBackFromFolder();
                 break;
             }
             case "dir": {
-                printDir();
-                break;
-            }
-            case "end": {
+                printDirectionContent();
                 break;
             }
             default: {
-                if (s.matches("cd [-_a-zA-Zа-яА-ЯёЁ0-9]+")) {
-                    chooseCatalog(s);
+                if (scannedText.matches("cd [-_a-zA-Zа-яА-ЯёЁ0-9]+")) {
+                    chooseCatalog(scannedText);
                 } else {
                     System.out.println("Такой команды не найдено:(");
                     break;
@@ -59,17 +53,23 @@ class TaskC {
         }
     }
 
-    private static void printDir (){
-        File file = new File(myPoint.toString());
+    private static void goBackFromFolder() {
+        System.out.println("Вы вышли из папки");
+        myPointPath = myPointPath.getParent();
+        myPointName = myPointPath.toString();
+        System.out.println(myPointPath);
+    }
+
+    private static void printDirectionContent() {
+        File file = new File(myPointPath.toString());
         if (file.isDirectory()) {
             System.out.println("Это папка " + file);
             System.out.println("Список файлов:");
-
         } else {
             System.out.println("Это не папка");
         }
         File[] files = file.listFiles();
-        getFiles(files);
+        printFilesAndCatalogs(files);
     }
 
     private static void chooseCatalog(String s) {
@@ -77,28 +77,26 @@ class TaskC {
                 .replace(" ", "")
                 .substring(2, s.length() - 1);
         System.out.println("Выбран католог " + newFolder);
-        startingPoint = startingPoint + File.separator + newFolder;
-        myPoint = Paths.get(startingPoint);
-        System.out.println(myPoint);
+        myPointName = myPointName + File.separator + newFolder;
+        myPointPath = Paths.get(myPointName);
+        System.out.println(myPointPath);
     }
 
-    private static void getFiles(File[] directory) {
+    private static void printFilesAndCatalogs(File[] directory) {
         try {
             for (File file : directory) {
                 if (file.isDirectory()) {
                     String path = file.getPath();
                     Object date = Files.getAttribute(Paths.get(path), "basic:creationTime");
-                    String d = date.toString();
-                    String di = "<DIR>";
-                    System.out.printf("%-28s %9s %-20s\n", d, di, file.getName());
-                    getFiles(file.listFiles());
+                    String dateOfCreation = date.toString();
+                    String dir = "<DIR>";
+                    System.out.printf("%-28s %9s %-20s\n", dateOfCreation, dir, file.getName());
+                    printFilesAndCatalogs(file.listFiles());
                 } else {
                     String path = file.getPath();
                     Object date = Files.getAttribute(Paths.get(path), "basic:creationTime");
                     String d = date.toString();
-
                     System.out.printf("%-28s           %-20s\n", d, file.getName());
-
                 }
             }
         } catch (NullPointerException e) {
