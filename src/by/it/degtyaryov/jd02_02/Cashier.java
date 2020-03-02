@@ -18,10 +18,8 @@ class Cashier extends Thread {
                 synchronized (buyer) {
                     buyer.notify();
                 }
-
             } else {
-                // TODO: 02.03.2020 подумать как сделать, чтобы он не ждал а засыпал и его потом будили
-                Helper.sleep(100);
+                Helper.sleep(1);
             }
         }
         System.out.printf("%s end working.%n", this);

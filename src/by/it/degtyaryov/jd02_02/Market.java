@@ -21,13 +21,17 @@ class Market {
         startCashier(2);
         while (Dispatcher.marketIsOpened()) {
             int buyersToEnter = Dispatcher.getBuyerToEnterByTime(timer++);
-            for (int i = 0; i < buyersToEnter && Dispatcher.marketIsOpened(); i++) {
-                Buyer buyer = new Buyer(Dispatcher.getBuyersCounter(), Helper.getRandomIsPensioner());
-                threads.add(buyer);
-                buyer.start();
-            }
+            runBuyers(buyersToEnter);
             System.out.printf("Time: %d. Now in market: %d buyers.%n", timer, Dispatcher.getBuyersInMarket());
             Helper.sleep(1000);
+        }
+    }
+
+    private void runBuyers(int buyersToEnter) {
+        for (int i = 0; i < buyersToEnter && Dispatcher.marketIsOpened(); i++) {
+            Buyer buyer = new Buyer(Dispatcher.getBuyersCounter(), Helper.getRandomIsPensioner());
+            threads.add(buyer);
+            buyer.start();
         }
     }
 

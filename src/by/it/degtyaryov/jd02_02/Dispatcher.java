@@ -2,6 +2,8 @@ package by.it.degtyaryov.jd02_02;
 
 class Dispatcher {
 
+    public static final int K_SPEED = 100;
+
     private static final int BUYERS_BEGIN_MINUTE = 10;
     private static final int BUYERS_MIDDLE_MINUTE = 40;
     private static final int PLAN = 100;
@@ -34,6 +36,14 @@ class Dispatcher {
                 0 : mustBeInMarket - Dispatcher.getBuyersInMarket();
     }
 
+    public static boolean marketIsOpened() {
+        return buyersInMarket + buyersComplete < PLAN;
+    }
+
+    public static boolean marketIsClosed() {
+        return buyersComplete == PLAN;
+    }
+
     private static int getCountMustBeInMarket(int time) {
         int count;
         time %= 60; // для привязки к секунде без учета минуты
@@ -42,13 +52,5 @@ class Dispatcher {
         else
             count = BUYERS_MIDDLE_MINUTE + (30 - time);
         return count;
-    }
-
-    public static boolean marketIsOpened() {
-        return buyersInMarket + buyersComplete < PLAN;
-    }
-
-    public static boolean marketIsClosed() {
-        return buyersComplete == PLAN;
     }
 }

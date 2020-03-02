@@ -8,7 +8,7 @@ class Helper {
 
     public static void sleep(int millis) {
         try {
-            Thread.sleep(millis);
+            Thread.sleep(millis / Dispatcher.K_SPEED);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
