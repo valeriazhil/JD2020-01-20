@@ -1,6 +1,6 @@
 package by.it.akhmelev.jd02_02;
 
-public class Cashier implements Runnable {
+class Cashier implements Runnable {
 
     private String name;
 
