@@ -10,13 +10,13 @@ class Runner {
         System.out.println("The market opened");
         String buyerStr;
         for (int minute = 0; minute < 2; minute++) {
-            for (int time = 0; time < 60; time++) {
+            for (int second = 0; second < 60; second++) {
                 int currentCount = Helper.random(3);
-                for (int i = 0; i < currentCount; i++) {
+                for (int count = 0; count < currentCount; count++) {
                     buyerStr = typeOfBuyer(countBuyers);
                     Buyer buyer = new Buyer(countBuyers++,buyerStr);
                     buyer.start();
-                    buyerInMarket(time, buyer);
+                    buyerInMarket(second, buyer);
                 }
                 Helper.sleep(10);
             }
