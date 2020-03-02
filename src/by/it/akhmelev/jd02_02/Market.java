@@ -39,7 +39,7 @@ class Market {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                System.err.println("Something stupid");
+                System.err.println(e.getMessage());
             }
         }
 

@@ -18,7 +18,7 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void enterToMarket() {
-        System.out.println(this+" enter to the Market");
+        System.out.println(this+" enter the Market");
     }
 
     @Override
@@ -31,7 +31,7 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void goToQueue() {
-        System.out.println(this+" go to queue");
+        System.out.println(this+" queued");
         synchronized (this){
             try {
                 QueueBuyers.add(this);
