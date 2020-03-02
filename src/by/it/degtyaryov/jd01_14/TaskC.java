@@ -8,19 +8,20 @@ import java.io.PrintWriter;
 class TaskC {
 
     public static void main(String[] args) {
-        String path = Helper.getPath(TaskC.class, "") + "..";
-        try (PrintWriter writer = new PrintWriter(new FileWriter(Helper.getPath(TaskC.class, "resultTaskC.txt")))) {
-            writer.print(getFiles(path));
+        String rootPath = Helper.getPath(TaskC.class, "") + "..";
+        String outFile = Helper.getPath(TaskC.class, "resultTaskC.txt");
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(outFile))) {
+            writer.print(getFiles(rootPath));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.print(getFiles(path));
+        System.out.print(getFiles(rootPath));
     }
 
     private static String getFiles(String path) {
         StringBuilder sb = new StringBuilder();
-        File root = new File(path);
-        File[] files = root.listFiles();
+        File[] files = new File(path).listFiles();
         if (files == null) {
             return "";
         }
@@ -29,7 +30,7 @@ class TaskC {
                 sb.append("dir:").append(file.getName()).append("\n");
                 sb.append(getFiles(file.getAbsolutePath()));
             } else {
-                sb.append("    file:").append(file.getName()).append("\n");
+                sb.append("\tfile:").append(file.getName()).append("\n");
             }
         }
         return sb.toString();
