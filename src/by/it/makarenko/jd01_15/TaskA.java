@@ -8,14 +8,14 @@ import java.util.Random;
 
 public class TaskA {
     private static final Random rnd = new Random();
+   private static String fileName = Helper.getPath(TaskA.class, "matrix.txt");
 
     public static void main(String[] args) {
-        String fileName = Helper.getPath(TaskA.class, "matrix.txt");
         int[][] array = generate(6, 4);
         System.out.println(Arrays.deepToString(array));
         saveArray(array, fileName);
         array = loadArray(fileName);
-        System.out.println(Arrays.deepToString(array));
+        System.out.printf(Arrays.deepToString(array));
 
     }
 
@@ -51,7 +51,7 @@ public class TaskA {
             array = new int[list.size()][0];
             for (int i = 0; i < list.size(); i++) {
                 String s = list.get(i);
-                String[] m = s.trim().replace(",","").split("\\s+");
+                String[] m = s.trim().split("\\s+");
                 array[i] = new int[m.length];
                 for (int j = 0; j < array[i].length; j++) {
                     array[i][j] = Integer.parseInt(m[j]);

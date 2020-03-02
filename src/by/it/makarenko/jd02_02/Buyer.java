@@ -1,17 +1,20 @@
-package by.it.makarenko.jd02_01;
+package by.it.makarenko.jd02_02;
 
 public class Buyer extends Thread implements IBuyer {
     int number;
 
     Buyer(int number){
         super("Buyer number "+number);
+        Dispatcher.newBuyer();
         this.number = number;
+
     }
 
     @Override
     public void run(){
         enterToMarket();
         chooseGoods();
+        goToQueue();
         goOut();
 
     }
@@ -30,11 +33,23 @@ public class Buyer extends Thread implements IBuyer {
         System.out.println(this + " stoped chooising goods");
 
     }
+    @Override
+    public void goToQueue(){
+        System.out.println(this+" go to queue");
+        synchronized (this){
+            try {
+                QueueBuyer.add(this);
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public void goOut() {
         System.out.println(this + " Go away");
-        Dispatcher.completeBuyer++;
+        Dispatcher.buyerLeaveInMarket();
     }
 
 
