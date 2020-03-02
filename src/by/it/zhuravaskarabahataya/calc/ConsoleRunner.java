@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 class ConsoleRunner {
 
-    private static String varsFile = Helper.getPath("vars.txt", Var.class);
+    private static String varsFile = FileHelper.getFilePath("vars.txt", Var.class);
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -20,7 +20,6 @@ class ConsoleRunner {
             try {
                 var = parser.calc(expr);
                 printer.print(var);
-
             } catch (CalcException e) {
                 System.out.println(e.getMessage());
             }

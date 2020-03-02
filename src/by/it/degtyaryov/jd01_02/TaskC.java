@@ -3,7 +3,7 @@ package by.it.degtyaryov.jd01_02;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class TaskC {
+class TaskC {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

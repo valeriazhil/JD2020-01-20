@@ -1,8 +1,12 @@
 package by.it.lomazki.jd01_08;
 
-class Scalar extends by.it.lomazki.jd01_08.Var {
+class Scalar extends Var {
 
     private double value;
+
+    public double getValue() {
+        return value;
+    }
 
     Scalar(double value) {
         this.value = value;
@@ -15,17 +19,17 @@ class Scalar extends by.it.lomazki.jd01_08.Var {
             return new Scalar(sum);
         }
         else
-            return  other.add(this);
+            return other.add(this);
     }
 
     @Override
     public Var sub(Var other) {
         if (other instanceof Scalar) {
-            double sub = this.value - ((Scalar) other).value;
-            return new Scalar(sub);
-        }
-        else
-            return  new Scalar(-1).mul(other).add(this);
+        double sub = this.value - ((Scalar) other).value;
+        return new Scalar(sub);
+    }
+    else
+        return new Scalar(-1).mul(other).add(this);
     }
 
     @Override
@@ -33,18 +37,23 @@ class Scalar extends by.it.lomazki.jd01_08.Var {
         if (other instanceof Scalar) {
             double mul = this.value * ((Scalar) other).value;
             return new Scalar(mul);
-        } else
+        }
+        else
             return other.mul(this);
     }
 
     @Override
-    public Var div (Var other) {
+    public Var div(Var other) {
         if (other instanceof Scalar) {
             double div = this.value / ((Scalar) other).value;
             return new Scalar(div);
-        } else
+        }
+        else
             return super.div(other);
     }
+
+
+
 
     Scalar(String str) {
         this.value = Double.parseDouble(str);
@@ -55,9 +64,8 @@ class Scalar extends by.it.lomazki.jd01_08.Var {
     }
 
     @Override
-    public String toString () {
+    public String toString() {
         return Double.toString(value);
     }
 
 }
-

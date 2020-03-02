@@ -53,8 +53,7 @@ class Matrix extends Var {
         }
         else if (other instanceof Matrix) {
             double[][] add1=new double[value.length][value[0].length];
-            if (this.value.length!=(((Matrix) other).value.length)) {
-/////////////////////////////////////////////
+            if (this.value.length!=((Matrix) other).value.length || this.value[0].length!=((Matrix) other).value[0].length) {
                 throw new CalcException("Некорректная длина выражения");
             }
             for (int i = 0; i < this.value.length; i++) {
@@ -81,8 +80,7 @@ class Matrix extends Var {
         }
         else if (other instanceof Matrix) {
             double[][] sub1 = new double[value.length][value[0].length];
-            if (this.value.length!=((Matrix) other).value.length){
-////////////////////////////////////
+            if (this.value.length!=((Matrix) other).value.length || this.value[0].length!=((Matrix) other).value[0].length){
                 throw new CalcException("Некорректная длина выражения");
             }
             for (int i = 0; i < this.value.length; i++) {
@@ -109,7 +107,9 @@ class Matrix extends Var {
         else if (other instanceof Vector){
             double[][] mul1=new double[value.length][value[0].length];
             double[] mul2=new double[value.length];
-//////////////////////
+            if (this.value[0].length!=((Vector) other).getValue().length){
+                throw new CalcException("Некорректная длина выражения");
+            }
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[0].length; j++) {
                     mul1[i][j] = this.value[i][j] * ((Vector) other).getValue()[j];
@@ -120,7 +120,9 @@ class Matrix extends Var {
         }
         else if (other instanceof Matrix){
             double[][] mul1=new double[value.length][value[0].length];
-/////////////////////
+            if (this.value.length!=((Matrix) other).value.length || this.value[0].length!=((Matrix) other).value[0].length){
+                throw new CalcException("Некорректная длина выражения");
+            }
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[0].length; j++) {
                     for (int k = 0; k < this.value.length; k++) {
