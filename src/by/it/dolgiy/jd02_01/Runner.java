@@ -10,7 +10,7 @@ class Runner {
         System.out.println("The market opened");
         String buyerStr;
         for (int time = 0; time < 120; time++) {
-            int currentCount = Helper.random(3)/*getCurrentCount(time)*/;
+            int currentCount = 40-(30-time) /*Helper.random(1)*//*getCurrentCount(time)*/;
                 for (int i = 0; i < currentCount; i++) {
                     buyerStr = typeOfBuyer(countBuyers);
                     Buyer buyer = new Buyer(countBuyers++,buyerStr);
