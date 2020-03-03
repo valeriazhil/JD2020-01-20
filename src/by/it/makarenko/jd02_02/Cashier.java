@@ -22,7 +22,8 @@ public class Cashier implements Runnable{
                     buyer.notify();
                 }
             }else{
-                HelperTime.sleep(1); //подумать, по поводу того, что будить нужно продовца
+                HelperTime.sleep(1);
+                //Не придумал...
             }
         }
 
