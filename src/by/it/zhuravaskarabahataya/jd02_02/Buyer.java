@@ -1,4 +1,4 @@
-package by.it.zhuravaskarabahataya.jd02_01;
+package by.it.zhuravaskarabahataya.jd02_02;
 
 import java.util.Map;
 
@@ -6,10 +6,11 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     int number;
     boolean pensioner;
-    Basket personalBusket;
+    Basket personalBasket;
 
     Buyer(int number) {
         super("Buyer №" + number);
+        Dispatcher.newBuyerEnterToMarket();
         this.number = number;
         this.pensioner = isPensioner();
     }
@@ -30,32 +31,48 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         enterToMarket();
         takeBacket();
         chooseGoods();
-       // payForGoods();
+        goToQueue();
+        // payForGoods();
         goOut();
     }
 
     @Override
     public void enterToMarket() {
-        System.out.println(this + " enter the market.");
-        Dispatcher.buyersInMarket ++;
-        if (this.pensioner){
+       ScreenPrinter.printEnterTheMarket(this);
+        if (this.pensioner) {
             System.out.println("And he is a pensioner.");
         }
     }
 
+    @Override
+    public void goToQueue() {
+        ScreenPrinter.printGoToQueue(this);
+        synchronized (this) {
+            try {
+                if (this.pensioner) {
+                    QueuePens.add(this);
+                } else {
+                    QueueBuyers.add(this);
+                }
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public void takeBacket() {
-        int timeout = (int)(TimingHelper.random(500, 2000) * pensionerSlowdown());
+        int timeout = (int) (TimingHelper.random(500, 2000) * pensionerSlowdown());
         TimingHelper.sleep(timeout);
-        personalBusket = new Basket();
+        personalBasket = new Basket();
         System.out.println("Buyer №" + this.number + " took a basket.");
     }
 
     @Override
     public void chooseGoods() {
         System.out.println(this + " started choosing goods.");
-        int timeout = (int)(TimingHelper.random(500, 2000) * pensionerSlowdown());
+        int timeout = (int) (TimingHelper.random(500, 2000) * pensionerSlowdown());
         putGoodsToBacket();
         TimingHelper.sleep(timeout);
         System.out.println(this + " finished choosing goods.");
@@ -71,26 +88,26 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void putGoodsToBacket() {
-        int timeout = (int)(TimingHelper.random(500, 2000) * pensionerSlowdown());
-        for (int i = 0; i < this.personalBusket.capacity; i++) {
+        int timeout = (int) (TimingHelper.random(500, 2000) * pensionerSlowdown());
+        for (int i = 0; i < this.personalBasket.capacity; i++) {
             putOneProductToBasket(timeout);
         }
     }
 
-    void putOneProductToBasket(int timeout){
-            TimingHelper.sleep(timeout);
-            Good takenGood = Good.takeGood();
-            int price = takenGood.getPrice();
-            Map thisBusket = this.personalBusket.basketGoods;
-            if (thisBusket.containsKey(takenGood)){
-                int newPrice = (int) thisBusket.get(takenGood) + price;
-                thisBusket.replace(takenGood, newPrice);
-            }
-            else {
-                this.personalBusket.basketGoods.put(takenGood, price);
-            }
-            this.personalBusket.totalPrice += price;
-            System.out.println("Buyer №" + this.number + " put " + takenGood.getName() + " into a basket.");
+    void putOneProductToBasket(int timeout) {
+        TimingHelper.sleep(timeout);
+        Good takenGood = Good.takeGood();
+        int price = takenGood.getPrice();
+        Map thisBusket = this.personalBasket.basketGoods;
+        if (thisBusket.containsKey(takenGood)) {
+            int newPrice = (int) thisBusket.get(takenGood) + price;
+            thisBusket.replace(takenGood, newPrice);
+        } else {
+            this.personalBasket.basketGoods.put(takenGood, price);
+        }
+        this.personalBasket.totalPrice += price;
+        System.out.println("Buyer №" + this.number + " put "
+                + takenGood.getName() + "(" + takenGood.getPrice() + " coins) into a basket.");
     }
 
 //    @Override
@@ -103,7 +120,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goOut() {
         System.out.println(this + " go out.");
-        Dispatcher.buyersInMarket --;
-        Dispatcher.completeBuyer++;
+        Dispatcher.buyerLeaveToMarket();
     }
 }

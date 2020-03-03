@@ -45,6 +45,19 @@ class Main {
 //        System.out.println("/*jnk*/");
 //        System.out.println("///jnk///");
 //        System.out.println("/jnk/");
+
+        for (int i = 0; i < 5; i++) {
+
+        }
+
+
+    }
+}
+
+class MyThread implements Runnable{
+    @Override
+    public void run() {
+        System.out.println("Thread created");
     }
 }
 
