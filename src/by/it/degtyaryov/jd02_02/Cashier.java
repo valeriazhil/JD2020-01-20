@@ -8,7 +8,7 @@ class Cashier extends Thread {
 
     public Cashier(int number) {
         super("\tCashier №" + number);
-        CashierDispatcher.cashierInPause(this);
+        CashierManager.cashierInPause(this);
         open = false;
     }
 

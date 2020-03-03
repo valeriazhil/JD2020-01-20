@@ -3,7 +3,7 @@ package by.it.degtyaryov.jd02_02;
 import java.util.Deque;
 import java.util.LinkedList;
 
-class CashierDispatcher {
+class CashierManager {
 
     private static final int BUYERS_PER_CASHIER = 5;
 

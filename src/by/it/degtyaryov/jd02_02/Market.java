@@ -23,7 +23,7 @@ class Market {
         //while (Dispatcher.marketIsOpened()) {
         while (!Dispatcher.allBuyersComplete()) {
             runBuyers(timer++);
-            CashierDispatcher.checkStatus();
+            CashierManager.checkStatus();
             System.out.printf("Time: %d. Now in market: %d buyers.%n", timer, Dispatcher.getBuyersInMarket());
             Helper.sleep(1000);
         }
