@@ -17,6 +17,7 @@ class Market {
     private List<Thread> threads = new ArrayList<>(1000);
 
     public void start() {
+        System.out.println("Market is opened.");
         int timer = 0;
         startCashier(2);
         while (Dispatcher.marketIsOpened()) {
@@ -51,5 +52,6 @@ class Market {
                 e.printStackTrace();
             }
         }
+        System.out.println("Marked is closed.");
     }
 }

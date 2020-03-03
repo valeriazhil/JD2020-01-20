@@ -24,12 +24,14 @@ class Cashier extends Thread {
 
     private void calculateBuyer(Buyer buyer) {
         System.out.printf("%s start calculating %s.%n", this, buyer);
+        double sum = 0;
         List<Good> buyerGoods = buyer.getBasket().getGoods();
         for (Good good : buyerGoods) {
             System.out.printf("%s is calculating %s.%n", this, good);
+            sum += good.getPrice();
         }
         Helper.sleep(Helper.getRandom(2000, 5000));
-        System.out.printf("%s end calculating %s.%n", this, buyer);
+        System.out.printf("%s end calculating %s. His total sum is %.2f.%n", this, buyer, sum);
         synchronized (buyer) {
             buyer.notify();
         }
