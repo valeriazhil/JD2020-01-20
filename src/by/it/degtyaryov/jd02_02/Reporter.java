@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 class Reporter {
 
-    private static final String TITLE_FORMAT = "|%15s|%15s|%15s|%15s|%15s|%15s|%15s|%n";
-    private static final String BODY_FORMAT = "|%-15s|%-15s|%-15s|%-15s|%-15s|%15s|%15s|%n";
-    private static final String TOTAL_FORMAT = "|%15s|%15s|%15s|%15s|%15s|%15s|%15.2f|%n";
+    private static final String TITLE_FORMAT = "|%20s|%20s|%20s|%20s|%20s|%20s|%20s|%n";
+    private static final String BODY_FORMAT = "|%-20s|%-20s|%-20s|%-20s|%-20s|%20s|%20s|%n";
+    private static final String TOTAL_FORMAT = "|%20s|%20s|%20s|%20s|%20s|%20s|%20.2f|%n";
 
     private static PrintWriter printWriter = new PrintWriter(System.out);
     private static String[] paper;
