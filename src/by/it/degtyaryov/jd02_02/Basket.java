@@ -5,10 +5,14 @@ import java.util.List;
 
 class Basket {
 
-    private List<Good> goods = new ArrayList<>();
+    private final List<Good> goods = new ArrayList<>();
 
     public void add(Good item) {
         goods.add(item);
+    }
+
+    public List<Good> getGoods() {
+        return goods;
     }
 
     @Override

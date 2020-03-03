@@ -1,5 +1,7 @@
 package by.it.degtyaryov.jd02_02;
 
+import java.util.List;
+
 class Cashier extends Thread {
 
     public Cashier(int number) {
@@ -9,22 +11,28 @@ class Cashier extends Thread {
     @Override
     public void run() {
         System.out.printf("%s start working.%n", this);
-        while (!Dispatcher.marketIsClosed()) {
+        while (!Dispatcher.allBuyersComplete()) {
             Buyer buyer = Queue.get();
             if (buyer != null) {
-                System.out.printf("Start calculating %s.%n", buyer);
-                Helper.sleep(Helper.getRandom(2000, 5000));
-                System.out.printf("End calculating %s.%n", buyer);
-                synchronized (buyer) {
-                    buyer.notify();
-                }
-
+                calculateBuyer(buyer);
             } else {
-                // TODO: 02.03.2020 подумать как сделать, чтобы он не ждал а засыпал и его потом будили
                 Helper.sleep(100);
             }
         }
         System.out.printf("%s end working.%n", this);
+    }
+
+    private void calculateBuyer(Buyer buyer) {
+        System.out.printf("%s start calculating %s.%n", this, buyer);
+        List<Good> buyerGoods = buyer.getBasket().getGoods();
+        for (Good good : buyerGoods) {
+            System.out.printf("%s is calculating %s.%n", this, good);
+        }
+        Helper.sleep(Helper.getRandom(2000, 5000));
+        System.out.printf("%s end calculating %s.%n", this, buyer);
+        synchronized (buyer) {
+            buyer.notify();
+        }
     }
 
     @Override

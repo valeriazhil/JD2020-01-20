@@ -20,14 +20,18 @@ class Market {
         int timer = 0;
         startCashier(2);
         while (Dispatcher.marketIsOpened()) {
-            int buyersToEnter = Dispatcher.getBuyerToEnterByTime(timer++);
-            for (int i = 0; i < buyersToEnter && Dispatcher.marketIsOpened(); i++) {
-                Buyer buyer = new Buyer(Dispatcher.getBuyersCounter(), Helper.getRandomIsPensioner());
-                threads.add(buyer);
-                buyer.start();
-            }
+            runBuyers(timer++);
             System.out.printf("Time: %d. Now in market: %d buyers.%n", timer, Dispatcher.getBuyersInMarket());
             Helper.sleep(1000);
+        }
+    }
+
+    private void runBuyers(int timer) {
+        int buyersToEnter = Dispatcher.getBuyerToEnterByTime(timer);
+        for (int i = 0; i < buyersToEnter && Dispatcher.marketIsOpened(); i++) {
+            Buyer buyer = new Buyer(Dispatcher.getBuyersCounter(), Helper.getRandomIsPensioner());
+            threads.add(buyer);
+            buyer.start();
         }
     }
 
