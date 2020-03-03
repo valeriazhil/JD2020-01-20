@@ -48,6 +48,7 @@ class Cashier extends Thread {
         }
         Helper.sleep(Helper.getRandom(2000, 5000));
         System.out.printf("%s end calculating %s. His total sum is %.2f.%n", this, buyer, check.getSum());
+        CashierManager.addToTotalIncome(check.getSum());
         Reporter.printReport(this.number, check);
         synchronized (buyer) {
             buyer.notify();

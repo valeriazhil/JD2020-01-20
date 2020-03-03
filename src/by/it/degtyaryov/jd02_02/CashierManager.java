@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 class CashierManager {
 
+    public static volatile double TOTAL_INCOME = 0;
+
     public static final int MAX_CASHIER = 5;
     private static final int BUYERS_PER_CASHIER = 5;
 
@@ -16,7 +18,6 @@ class CashierManager {
         int queueSize = Queue.size();
         int mustBeOpenCashier = getCashiersMustBeOpened(queueSize);
         System.out.printf("DISPATCHER: now in queue %d buyers, working cashiers - %d.%n", Queue.size(), workCashiers);
-        /*Queue.printQueue();*/
         if (mustBeOpenCashier > workCashiers) {
             if (workCashiers < 5) {
                 System.out.printf("DISPATCHER: need to open one more cashier.%n");
@@ -52,5 +53,13 @@ class CashierManager {
 
     private static int getCashiersMustBeOpened(int queueSize) {
         return (queueSize / BUYERS_PER_CASHIER) + 1;
+    }
+
+    public static synchronized void addToTotalIncome(double sum) {
+        TOTAL_INCOME += sum;
+    }
+
+    public static synchronized double getTotalIncome() {
+        return TOTAL_INCOME;
     }
 }
