@@ -6,11 +6,12 @@ import java.util.Random;
 
 class Shop {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Helper.setSpeed(100);
+        Helper.generatePriceList();
         List<Buyer> buyers = new ArrayList<>();
         for (int i = 0; i < Helper.getSteps(); i++) {
-            for (int j = 0; j < Helper.getBuyersCountByStep(); j++) {
+            for (int j = 0; j < Helper.getBuyersCountByStep(i); j++) {
                 Buyer buyer = new Buyer(i, j);
                 if (new Random().nextDouble() <= 0.25) {
                     buyer.setPensioner(true);
@@ -18,6 +19,7 @@ class Shop {
                 buyers.add(buyer);
                 buyer.start();
             }
+            Thread.sleep(1000 / Helper.getSpeed());
         }
         for (Buyer buyer : buyers) {
             try {
