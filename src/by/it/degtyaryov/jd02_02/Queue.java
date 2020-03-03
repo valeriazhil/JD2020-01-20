@@ -14,4 +14,8 @@ class Queue {
     public static synchronized Buyer get() {
         return queue.pollFirst();
     }
+
+    public static synchronized int size() {
+        return queue.size();
+    }
 }

@@ -19,9 +19,11 @@ class Market {
     public void start() {
         System.out.println("Market is opened.");
         int timer = 0;
-        startCashier(2);
-        while (Dispatcher.marketIsOpened()) {
+        startCashier(5);
+        //while (Dispatcher.marketIsOpened()) {
+        while (!Dispatcher.allBuyersComplete()) {
             runBuyers(timer++);
+            CashierDispatcher.checkStatus();
             System.out.printf("Time: %d. Now in market: %d buyers.%n", timer, Dispatcher.getBuyersInMarket());
             Helper.sleep(1000);
         }
