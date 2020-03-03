@@ -7,12 +7,7 @@ import java.util.List;
 
 public class Market {
 
- //  public static void main(String[] args) {
- //      for (int i = 0; i < 1000; i++) {
- //          Dispatcher.completeBuyer = 0;
- //          main2(args);
- //      }
- //  }
+
             public static void main (String[]args){
 
                 System.out.println("Open market");

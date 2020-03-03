@@ -1,6 +1,5 @@
 package by.it.makarenko.jd02_02;
 
-import by.it.makarenko.jd01_15.Helper;
 
 public class Cashier implements Runnable{
     private String name;
@@ -12,7 +11,7 @@ public class Cashier implements Runnable{
     @Override
     public void run() {
         System.out.println(this+"Open");
-        while (Dispatcher.marketIsClosed()){
+        while (Dispatcher.marketIsOpend()){
             Buyer buyer = QueueBuyer.extract();
             if (buyer!=null){
                 System.out.println(this+"start to service "+buyer);
