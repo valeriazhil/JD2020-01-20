@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 class CashierManager {
 
+    public static final int MAX_CASHIER = 5;
     private static final int BUYERS_PER_CASHIER = 5;
 
     private static volatile int workCashiers = 0;

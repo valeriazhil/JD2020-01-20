@@ -5,11 +5,13 @@ import java.util.List;
 class Cashier extends Thread {
 
     private boolean open;
+    private int number;
 
     public Cashier(int number) {
         super("\tCashier №" + number);
         CashierManager.cashierInPause(this);
         open = false;
+        this.number = number;
     }
 
     @Override
@@ -24,17 +26,6 @@ class Cashier extends Thread {
             }
         }
         System.out.printf("%s end working day.%n", this);
-
-        /*System.out.printf("%s start working.%n", this);
-        while (!Dispatcher.allBuyersComplete()) {
-            Buyer buyer = Queue.get();
-            if (buyer != null) {
-                calculateBuyer(buyer);
-            } else {
-                Helper.sleep(100);
-            }
-        }
-        System.out.printf("%s end working.%n", this);*/
     }
 
     public void openCash() {
@@ -48,15 +39,16 @@ class Cashier extends Thread {
     }
 
     private void calculateBuyer(Buyer buyer) {
-        double sum = 0;
+        Check check = new Check();
         List<Good> buyerGoods = buyer.getBasket().getGoods();
         System.out.printf("%s start calculating %s.%n", this, buyer);
         for (Good good : buyerGoods) {
             System.out.printf("%s is calculating %s.%n", this, good);
-            sum += good.getPrice();
+            check.add(good);
         }
         Helper.sleep(Helper.getRandom(2000, 5000));
-        System.out.printf("%s end calculating %s. His total sum is %.2f.%n", this, buyer, sum);
+        System.out.printf("%s end calculating %s. His total sum is %.2f.%n", this, buyer, check.getSum());
+        Reporter.printReport(this.number, check);
         synchronized (buyer) {
             buyer.notify();
         }

@@ -19,7 +19,7 @@ class Market {
     public void start() {
         System.out.println("Market is opened.");
         int timer = 0;
-        startCashier(5);
+        startCashier(CashierManager.MAX_CASHIER);
         //while (Dispatcher.marketIsOpened()) {
         while (!Dispatcher.allBuyersComplete()) {
             runBuyers(timer++);
