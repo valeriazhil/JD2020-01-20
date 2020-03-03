@@ -15,6 +15,7 @@ class CashierManager {
         int queueSize = Queue.size();
         int mustBeOpenCashier = getCashiersMustBeOpened(queueSize);
         System.out.printf("DISPATCHER: now in queue %d buyers, working cashiers - %d.%n", Queue.size(), workCashiers);
+        /*Queue.printQueue();*/
         if (mustBeOpenCashier > workCashiers) {
             if (workCashiers < 5) {
                 System.out.printf("DISPATCHER: need to open one more cashier.%n");
