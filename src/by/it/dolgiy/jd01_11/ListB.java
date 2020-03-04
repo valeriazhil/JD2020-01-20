@@ -73,13 +73,10 @@ class ListB<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        T[] a = this.elements;
-        int numNew = a.length;
-        if (size== elements.length){
-            this.elements =Arrays.copyOf(elements, elements.length*3/2+1);
-            System.arraycopy(elements,size,a,size+1,size+numNew);
-        }
-        return numNew != 0;
+        elements = Arrays.copyOf(elements,size+c.size());
+        System.arraycopy(c.toArray(),0,elements,size,c.size());
+        size+=c.size();
+        return true;
     }
     //B
 

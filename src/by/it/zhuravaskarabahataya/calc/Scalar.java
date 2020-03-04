@@ -2,7 +2,6 @@ package by.it.zhuravaskarabahataya.calc;
 
 class Scalar extends Var implements Operation {
 
-
     private double value;
 
     public double getValue() {
@@ -26,16 +25,27 @@ class Scalar extends Var implements Operation {
         return Double.toString(value);
     }
 
-
     @Override
     public Var add(Var other) throws CalcException {
-        if (other instanceof Scalar) {
-            double result = this.value + ((Scalar) other).value;
-            return new Scalar(result);
-        }
         return other.add(this);
     }
 
+    @Override
+    public Var add(Scalar other) throws CalcException {
+        double result = this.value + ((Scalar) other).getValue();
+        Log.writeExpressionToLogFile(other.toString(), this.toString());
+        return new Scalar(result);
+    }
+
+    @Override
+    public Var add(Vector other) throws CalcException {
+        return other.add(this);
+    }
+
+    @Override
+    public Var add(Matrix other) throws CalcException {
+        return other.add(this);
+    }
 
     @Override
     public Var sub(Var other) throws CalcException {

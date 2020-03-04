@@ -13,13 +13,16 @@ import java.util.Scanner;
 // если невозможно извлечь корень, то обработка аналогична, но тип ошибки - ArithmeticException
 
 class TaskB {
+    static double summ = 0;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String str;
+        String scannedText;
         double sum = 0;
-        while (!(str = sc.nextLine()).equals("END")) {
+        while (!(scannedText = sc.nextLine()).equals("END")) {
+          // parseTextToDouble(scannedText);
             try {
-                double num = Double.parseDouble(str);
+                double num = Double.parseDouble(scannedText);
                 System.out.println(num);
                 sum += num;
             } catch (NumberFormatException e) {

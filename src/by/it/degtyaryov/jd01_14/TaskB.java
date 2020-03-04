@@ -7,11 +7,47 @@ import java.util.regex.Pattern;
 class TaskB {
 
     public static void main(String[] args) {
-        String pathToFile = Helper.getPath(TaskB.class, "text.txt");
-        int wordsCount = getWordsCount(pathToFile);
-        int signsCount = getSignsCount(pathToFile);
+        String filePath = Helper.getPath(TaskB.class, "text.txt");
+        String fileContent = getTextFromFile(filePath);
+        int wordsCount = getWordsCount(fileContent);
+        int signsCount = getSignsCount(fileContent);
         printToConsole(wordsCount, signsCount);
         printToFile(wordsCount, signsCount);
+    }
+
+    private static String getTextFromFile(String pathToFile) {
+        StringBuilder text = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(pathToFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                text.append(line);
+                text.append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return text.toString();
+    }
+
+    private static int getWordsCount(String text) {
+        Pattern patternWord = Pattern.compile("[а-яА-ЯёЁ']+");
+        Matcher word = patternWord.matcher(text);
+        int count = 0;
+        while (word.find()) {
+            count++;
+        }
+        return count;
+    }
+
+    private static int getSignsCount(String text) {
+        text = text.replace("...", ".");
+        Pattern patternSign = Pattern.compile("[-.,!?:]");
+        Matcher sign = patternSign.matcher(text);
+        int count = 0;
+        while (sign.find()) {
+            count++;
+        }
+        return count;
     }
 
     private static void printToConsole(int wordsCount, int signsCount) {
@@ -26,42 +62,5 @@ class TaskB {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private static int getWordsCount(String pathToFile) {
-        int wordsCount = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(pathToFile))) {
-            String line;
-			Pattern pattern = Pattern.compile("[а-яА-ЯёЁ']+");
-            while ((line = reader.readLine()) != null) {
-                Matcher matchWord = pattern.matcher(line);
-                while (matchWord.find()) {
-                    wordsCount++;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return wordsCount;
-    }
-
-    private static int getSignsCount(String pathToFile) {
-        int signCount = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(pathToFile))) {
-            String line;
-			Pattern pattern = Pattern.compile("[-.,!?:]");
-            while ((line = reader.readLine()) != null) {
-                if (line.contains("...")) {
-                    line = line.replace("...", ".");
-                }
-                Matcher matchSign = pattern.matcher(line);
-                while (matchSign.find()) {
-                    signCount++;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return signCount;
     }
 }

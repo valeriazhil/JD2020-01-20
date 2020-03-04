@@ -1,28 +1,36 @@
 package by.it.dolgiy.jd01_02;
 
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 class TaskC {
+
+    private static Random rnd = new Random();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
-        int[][] mas= new int[n][n];
-        System.out.println(step1(n));
-
+        int[][] mas= step1(n);
+        System.out.println(Arrays.deepToString(mas));
 
     }
-    private static int[ ][ ] step1 (int n) {
-        int[][] mas = new int[n][n];
-        for (int i = 0; i < mas.length; i++) {
-            for (int j = 0; j < mas[i].length; j++) {
-                mas[i][j] = (int) ((Math.random() * (2 * n + 2)) - n - 1);
-                if (mas[i][j] == n && mas[i][j] == -n)
-                    return mas;
-                    System.out.printf("% -3d",mas[i][j]);
+
+    private static int[][] step1(int n) {
+        int[][] res = new int[n][n];
+        boolean maxOk;
+        boolean minOk;
+        do {
+            maxOk = false;
+            minOk = false;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    res[i][j]=rnd.nextInt(2*n+1)-n;
+                    if (res[i][j] == n) maxOk = true;
+                    if (res[i][j] ==-n) minOk = true;
+                }
             }
-            System.out.println();
-        }
-        return mas;
+        } while (!maxOk || !minOk);
+        return res;
     }
 
 

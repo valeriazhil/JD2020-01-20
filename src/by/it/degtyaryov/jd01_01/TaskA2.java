@@ -12,10 +12,9 @@ class TaskA2 {
 
     public static void main(String[] args) {
         System.out.println("Я начинаю изучать Java!\n" +
-                "Я начинаю изучать Java!\n" +
-                "Я начинаю изучать Java!\n" +
-                "Я начинаю изучать Java!\n" +
-                "Я начинаю изучать Java!");
+                            "Я начинаю изучать Java!\n" +
+                            "Я начинаю изучать Java!\n" +
+                            "Я начинаю изучать Java!\n" +
+                            "Я начинаю изучать Java!");
     }
-
 }

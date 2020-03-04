@@ -1,18 +1,14 @@
 package by.it.zhuravaskarabahataya.calc;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 abstract class Var implements Operation {
 
-    private static String varsFile = Helper.getPath("vars.txt", Var.class);
-    private static Map<String, Var> vars = Helper.getMapFromFile(varsFile);
-
+    private static Map<String, Var> vars = FileHelper.getVarsMapFromFile(FileHelper.varsFile);
 
     static Var saveVar(String varName, Var var) {
         vars.put(varName, var);
-        Helper.varToFile(varName, var, varsFile);
+        FileHelper.writeVarToFile(varName, var, FileHelper.varsFile);
         return var;
     }
 
@@ -36,13 +32,21 @@ abstract class Var implements Operation {
         return "abstract Var";
     }
 
-    public Var addVar(Var var){
-        System.out.println("Вызвали addVar Var");
-        return var;
-    }
 
     @Override
     public Var add(Var other) throws CalcException {
+        throw new CalcException("Операция " + this + " + " + other + " невозможна");
+    }
+
+    public Var add(Scalar other) throws CalcException {
+        throw new CalcException("Операция " + this + " + " + other + " невозможна");
+    }
+
+    public Var add(Vector other) throws CalcException {
+        throw new CalcException("Операция " + this + " + " + other + " невозможна");
+    }
+
+    public Var add(Matrix other) throws CalcException {
         throw new CalcException("Операция " + this + " + " + other + " невозможна");
     }
 
