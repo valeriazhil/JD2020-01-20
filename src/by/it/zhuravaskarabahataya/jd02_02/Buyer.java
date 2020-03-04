@@ -38,10 +38,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void enterToMarket() {
-       ScreenPrinter.printEnterTheMarket(this);
-        if (this.pensioner) {
-            System.out.println("And he is a pensioner.");
-        }
+       ScreenPrinter.printEnterTheMarket(this, this.pensioner);
     }
 
     @Override
@@ -66,16 +63,16 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         int timeout = (int) (TimingHelper.random(500, 2000) * pensionerSlowdown());
         TimingHelper.sleep(timeout);
         personalBasket = new Basket();
-        System.out.println("Buyer №" + this.number + " took a basket.");
+        ScreenPrinter.printTakeBasket(this);
     }
 
     @Override
     public void chooseGoods() {
-        System.out.println(this + " started choosing goods.");
+        ScreenPrinter.printSmth(this, " started choosing goods.");
         int timeout = (int) (TimingHelper.random(500, 2000) * pensionerSlowdown());
         putGoodsToBacket();
         TimingHelper.sleep(timeout);
-        System.out.println(this + " finished choosing goods.");
+        ScreenPrinter.printSmth(this, " finished choosing goods.");
     }
 
     private double pensionerSlowdown() {
@@ -106,6 +103,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             this.personalBasket.basketGoods.put(takenGood, price);
         }
         this.personalBasket.totalPrice += price;
+
         System.out.println("Buyer №" + this.number + " put "
                 + takenGood.getName() + "(" + takenGood.getPrice() + " coins) into a basket.");
     }

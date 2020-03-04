@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 class Log {
     static String logFile = FileHelper.getFilePath("log.txt", FileHelper.class);
-    static String temporarylogFile = FileHelper.getFilePath("tempLog.txt", FileHelper.class);
 
     static void writeExceptionToLogFile(String exceptionMessage) {
         try (FileWriter pw = new FileWriter(logFile, true)) {
@@ -16,7 +15,7 @@ class Log {
         }
     }
 
-    public static void writeExpressionWithoutResultToLogFile(String expression) {
+    static void writeExpressionWithoutResultToLogFile(String expression) {
         try (FileWriter pw = new FileWriter(logFile, true)) {
             checkLogLineCount();
             pw.write(expression + "\n");
@@ -24,7 +23,6 @@ class Log {
             e.printStackTrace();
         }
     }
-
 
     static void writeResultToLogFile(String expression, String result) {
         try (FileWriter pw = new FileWriter(logFile, true)) {
@@ -37,7 +35,6 @@ class Log {
 
     static void checkLogLineCount() {
         int lineNumber = countLines();
-        System.out.println(lineNumber);
         if (lineNumber > 49) {
             deleteFirtsLineFromLog();
         }
@@ -58,15 +55,11 @@ class Log {
     }
 
     private static void deleteFirtsLineFromLog() {
-        System.out.println("Удаляем первую строку");
         String[] dataFromLogFile = readDataFromLogFile();
         String[] dataFromLogFileWithoutFirst = new String[dataFromLogFile.length - 1];
         System.arraycopy(dataFromLogFile, 1, dataFromLogFileWithoutFirst,
                 0, dataFromLogFileWithoutFirst.length);
-        for (String s : dataFromLogFileWithoutFirst) {
-            System.out.println(s);
-        }
-        clearLogFile(logFile);
+        clearLogFile();
         writeNewLog(dataFromLogFileWithoutFirst);
     }
 
@@ -78,18 +71,11 @@ class Log {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        File log = new File(logFile);
-        File notNeeded = new File(FileHelper.getFilePath("notNeeded.txt", FileHelper.class));
-        File tempLog = new File(temporarylogFile);
-        //clearLogFile(logFile);
-
-        tempLog.renameTo(log);
-        clearLogFile(temporarylogFile);
     }
 
-    private static void clearLogFile(String fileName) {
+    private static void clearLogFile() {
         try {
-            FileWriter fileWriter = new FileWriter(fileName, false);
+            FileWriter fileWriter = new FileWriter(logFile, false);
             fileWriter.write("");
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,9 +94,6 @@ class Log {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-//        for (String s : stringArray) {
-//            System.out.println(s);
-//        }
         return stringArray;
     }
 

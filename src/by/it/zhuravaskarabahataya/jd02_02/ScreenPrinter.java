@@ -54,9 +54,24 @@ class ScreenPrinter {
         }
     }
 
-    public static void printEnterTheMarket(Buyer buyer) {
+    public static void printEnterTheMarket(Buyer buyer, boolean isPens) {
         synchronized (PRINTER_MONITOR){
             System.out.println(buyer + " enter the market.");
+            if (isPens){
+                System.out.println("And he is a pensioner...");
+            }
+        }
+    }
+
+    public static void printTakeBasket(Buyer buyer) {
+        synchronized (PRINTER_MONITOR){
+            System.out.println("Buyer №" + buyer.number + " took a basket.");
+        }
+    }
+
+    public static void printSmth(Buyer buyer, String s) {
+        synchronized (PRINTER_MONITOR){
+            System.out.println(buyer.getName() + s);
         }
     }
 }

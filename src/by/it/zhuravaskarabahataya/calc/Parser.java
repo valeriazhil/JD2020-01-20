@@ -7,7 +7,6 @@ class Parser {
 
     Var calc(String expression) throws CalcException {
         expression = expression.trim().replace(" ", "");
-
         String[] parts = expression.split(Patterns.OPERATION, 2);
         if (parts.length == 1) {
             return Var.create(expression);
