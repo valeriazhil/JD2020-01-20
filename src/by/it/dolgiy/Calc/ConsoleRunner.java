@@ -1,27 +1,26 @@
 package by.it.dolgiy.Calc;
 
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 class ConsoleRunner {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
+        Var.loadVars();
         String line;
         while (!(line = scanner.nextLine()).equals("end")){
             try {
+                if (line.equals("printvar")){
+                    Var.printVar();
+                }
+                if (line.equals("sortvar")){
+                    Var.sortVar();
+                }
                 Var result = parser.calc(line);
                 printer.print(result);
             } catch (CalcException e) {
                 System.out.println(e.getMessage());
-            }
-        }
-        while ((line = scanner.nextLine()).equals("printvar")){
-            Set<Map.Entry<String, Var>> entries = Var.getVars().entrySet();
-            for (Map.Entry<String, Var> entry : entries) {
-                System.out.println(entry.getKey()+"="+entry.getValue());
             }
         }
     }

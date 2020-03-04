@@ -30,21 +30,19 @@ import java.util.Scanner;
 Вывод:
 29.51
 
-
 */
 class TaskC3 {
 
     public static void main(String[] args) {
-        int weight;
+        int earthWeight;
         Scanner scanner = new Scanner(System.in);
-        weight = scanner.nextInt();
+        earthWeight = scanner.nextInt();
         scanner.close();
-        System.out.println(getWeight(weight));
+        System.out.println(getWeight(earthWeight));
     }
 
     public static double getWeight(int weight) {
-        BigDecimal weightOnMoon = new BigDecimal(weight / 9.81 * 3.86).setScale(2, RoundingMode.HALF_EVEN);
-        return weightOnMoon.doubleValue();
+        BigDecimal moonWeight = new BigDecimal(weight / 9.81 * 3.86).setScale(2, RoundingMode.HALF_EVEN);
+        return moonWeight.doubleValue();
     }
-
 }

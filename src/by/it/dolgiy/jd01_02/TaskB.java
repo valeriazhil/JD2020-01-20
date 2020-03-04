@@ -48,7 +48,9 @@ class TaskB {
 
     private static void step3(double a, double b, double c) {
         double dis = b * b - 4 * a * c;
-        if (dis < 0) System.out.println("кортей нет");
+        if (dis < 0){
+            System.out.println("корней нет");
+        }
         else if (dis == 0) {
             double x = -b / (2 * a);
             System.out.println(x);

@@ -2,7 +2,6 @@ package by.it.dolgiy.jd01_15;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 class TaskA {
@@ -12,7 +11,6 @@ class TaskA {
     public static void main(String[] args) {
         String fileName = TaskH.getPath(TaskA.class,"matrix.txt");
         int[][] matrix = matrix(6,4);
-//        System.out.println(Arrays.deepToString(matrix));
         writeMatrix(fileName, matrix);
         matrix = readMatrix(fileName);
         for (int[] rows : matrix) {
@@ -21,8 +19,6 @@ class TaskA {
             }
             System.out.println();
         }
-//        System.out.println(Arrays.deepToString(matrix));
-
     }
 
     private static int[][] readMatrix(String fileName) {
