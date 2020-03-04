@@ -1,7 +1,7 @@
 package by.it.zhuravaskarabahataya.jd02_02;
 
 class Dispatcher {
-    static int numberBuyers = 0;
+    volatile static int numberBuyers = 0;
     volatile static int completedBuyers = 0;
     volatile static int buyersInMarket = 0;
     private static final int PLANNED_BUYERS = 100;
@@ -33,11 +33,7 @@ class Dispatcher {
         buyersInMarket--;
     }
 
-    static boolean marketIsClosed(){
-        return completedBuyers == PLANNED_BUYERS;
-    }
-
-    static boolean marketIsOpened(){
+    synchronized static boolean marketIsOpened(){
         return (completedBuyers + buyersInMarket ) < PLANNED_BUYERS;
     }
 

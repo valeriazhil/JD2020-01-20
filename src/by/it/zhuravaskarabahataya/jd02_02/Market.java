@@ -4,71 +4,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Market {
-    static List<Thread> threads = new ArrayList<>(128);
-    static int cashierNeeded;
+    static List<Buyer> buyers = new ArrayList<>(128);
 
     public static void main(String[] args) {
         System.out.println("Market is open!");
-        Warehouse warehouse = new Warehouse();
-        System.out.println("closed?" + Dispatcher.marketIsClosed());
-        System.out.println("opened?" + Dispatcher.marketIsOpened());
-        CashierManager.createCashiers();
-
+        new Warehouse();
+        CashierManager managerPetrovich = new CashierManager();
+        managerPetrovich.start();
         int seconds = 0;
         while (Dispatcher.marketIsOpened()) {
-
-            System.out.println();
-            System.out.println("\t\tSECOND " + seconds++);
-            System.out.println("closed?" + Dispatcher.marketIsClosed());
-            System.out.println("opened?" + Dispatcher.marketIsOpened());
-            System.out.println();
-            System.out.println("buyersInMarket " + Dispatcher.buyersInMarket);
-            System.out.println("NumberBuyers " + Dispatcher.numberBuyers);
-            System.out.println("CompletedBuyers " + Dispatcher.completedBuyers);
+            ScreenPrinter.printThis("-----------------------------------------------------------\n");
+            ScreenPrinter.printThis("\t\tSECOND " + seconds++ + "\n");
+            ScreenPrinter.printThis("Buyers In Market " + Dispatcher.buyersInMarket);
+            ScreenPrinter.printThis("Completed Buyers " + Dispatcher.completedBuyers);
             if (seconds < 30) {
                 QueueBuyers.print();
                 QueuePens.print();
-                for (int i = 0; i < 2; i++) {
-                    if (Dispatcher.buyersInMarket < seconds+10){
+                for (int i = 0; i < 5; i++) {
+                    if (Dispatcher.buyersInMarket < seconds + 10 && Dispatcher.marketIsOpened()) {
                         Buyer buyer = new Buyer(Dispatcher.numberBuyers + 1);
                         buyer.start();
-                        threads.add(buyer);
+                        buyers.add(buyer);
                     }
                 }
 
             } else if (seconds <= 59) {
                 QueueBuyers.print();
                 QueuePens.print();
-                if (Dispatcher.buyersInMarket < (70-seconds)){
-                Buyer buyer = new Buyer(Dispatcher.numberBuyers + 1);
-                buyer.start();
-                threads.add(buyer);}
+                if (Dispatcher.buyersInMarket < (70 - seconds)) {
+                    Buyer buyer = new Buyer(Dispatcher.numberBuyers + 1);
+                    buyer.start();
+                    buyers.add(buyer);
+                }
             }
             if (seconds == 59) {
                 seconds = 0;
             }
-
-
             TimingHelper.sleep(1000);
         }
-
-        for (Thread thread : threads) {
+        for (Buyer buyer : buyers) {
             try {
-                thread.join();
+                buyer.join();
             } catch (InterruptedException e) {
                 System.err.println("Something happened.");
             }
         }
-       // CashierManager.close();
-        System.out.println(Dispatcher.buyersInMarket);
-        System.out.println(Dispatcher.completedBuyers);
-        System.out.println(Dispatcher.marketIsClosed());
-        System.out.println(Dispatcher.marketIsOpened());
-        System.out.println();
-        System.out.println("buyersInMarket " + Dispatcher.buyersInMarket);
-        System.out.println("NumberBuyers " + Dispatcher.numberBuyers);
-        System.out.println("CompletedBuyers " + Dispatcher.completedBuyers);
-        System.out.println("Earning today is " + Dispatcher.getRevenue() + ".");
-        System.out.println("Market is closed...");
+        try {
+            managerPetrovich.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ScreenPrinter.printThis("CompletedBuyers " + Dispatcher.completedBuyers + ".");
+        ScreenPrinter.printThis("Earning today is " + Dispatcher.getRevenue() + " coins.");
+        ScreenPrinter.printThis("Market is closed...");
     }
 }

@@ -1,6 +1,5 @@
-package by.it.zhuravaskarabahataya.jd02_02;
+package by.it.zhuravaskarabahataya.jd02_03;
 
-import java.io.PrintWriter;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,7 +20,7 @@ class ScreenPrinter {
             System.out.printf("%-20s\n", " ____________________");
             for (int i = 0; i < 7; i++) {
                 if (columnsToRigth == i) {
-                    System.out.printf("|%-18s|", cashier.getName());
+                    System.out.printf("|%-18s|", cashier.toString());
                 } else if (i == 5) {
                     System.out.printf("%8s %-5d", "IN QUEUE", Dispatcher.getBuyersInQueue());
                 } else if (i == 6) {
@@ -63,23 +62,15 @@ class ScreenPrinter {
         }
     }
 
+    public static void printTakeBasket(Buyer buyer) {
+        synchronized (PRINTER_MONITOR){
+            System.out.println("Buyer №" + buyer.number + " took a basket.");
+        }
+    }
+
     public static void printSmth(Buyer buyer, String s) {
         synchronized (PRINTER_MONITOR){
             System.out.println(buyer.getName() + s);
-        }
-    }
-
-    public static void printSmthCashier(Cashier cashier, String s) {
-        synchronized (PRINTER_MONITOR){
-            System.out.println(cashier.getName() + s);
-        }
-    }
-
-
-
-    public static void printThis(String s){
-        synchronized (PRINTER_MONITOR){
-            System.out.println(s);
         }
     }
 }
