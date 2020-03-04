@@ -10,13 +10,15 @@ class Helper {
 
     private static final Random RANDOM = new Random();
     private static int speed = 1;
-    private static int steps = 120;
-    private static int minTimeToChoose = 500;
-    private static int maxTimeToChoose = 2000;
-    private static int goOutTime = 500;
-    private static int minGoods = 1;
-    private static int maxGoods = 4;
-    private static double pensionerDecelerationRate = 1.5;
+    private static final int STEPS = 120;
+    private static final int MIN_TIME_TO_CHOOSE = 500;
+    private static final int MAX_TIME_TO_CHOOSE = 2000;
+    private static final int GO_OUT_TIME = 500;
+    private static final int MIN_GOODS = 1;
+    private static final int MAX_GOODS = 4;
+    private static final double PENSIONER_DECELERATION_RATE = 1.5;
+    private static final int MIN_TIME_OF_CASHIER_SERVICE = 2000;
+    private static final int MAX_TIME_OF_CASHIER_SERVICE = 5000;
     private static List<Good> goods = new ArrayList<>();
     private static Map<Good, Double> priceList = new HashMap<>();
 
@@ -41,15 +43,18 @@ class Helper {
     }
 
     public static int getTimeToChoose() {
-        return random(minTimeToChoose, maxTimeToChoose) / speed;
+        return random(MIN_TIME_TO_CHOOSE, MAX_TIME_TO_CHOOSE) / speed;
     }
 
     public static int getGoodsCount() {
-        return random(minGoods, maxGoods);
+        return random(MIN_GOODS, MAX_GOODS);
     }
 
+    public static int getTimeOfCashierService() {
+        return random(MIN_TIME_OF_CASHIER_SERVICE, MAX_TIME_OF_CASHIER_SERVICE) / speed;
+    }
     public static double getPensionerDecelerationRate() {
-        return pensionerDecelerationRate;
+        return PENSIONER_DECELERATION_RATE;
     }
 
     public static int getSpeed() {
@@ -61,10 +66,10 @@ class Helper {
     }
 
     public static int getSteps() {
-        return steps;
+        return STEPS;
     }
 
     public static int getGoOutTime() {
-        return goOutTime / speed;
+        return GO_OUT_TIME / speed;
     }
 }

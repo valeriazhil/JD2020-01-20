@@ -1,5 +1,7 @@
 package by.it.gerasimov.jd02_02;
 
+import java.util.Random;
+
 class Buyer extends Thread implements IBuyer, IUseBasket {
 
     private int number;
@@ -7,12 +9,24 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     private Basket basket;
     private Good chosenGood;
 
-    public Buyer(int number1, int number2) {
-        super("Buyer #" + (number1 + 1) + "." + (number2 + 1));
-        this.number = number1;// * Helper.getMaxBuyersByStep() + number2;
-        synchronized (Helper.BUYERS_COUNT_MONITOR) {
-            Helper.buyersCount++;
-        }
+    public Buyer() {
+        this(Dispatcher.getTotalBuyersCount() + 1);
+    }
+
+    public Buyer(int number) {
+        this(number, new Random().nextDouble() <= 0.25);
+    }
+
+    public Buyer(int number, boolean pensioner) {
+        super((pensioner ? "Pensioner" : "Buyer") + " #" + number);
+        this.number = number;
+        this.pensioner = pensioner;
+        Dispatcher.increaseBuyersCount();
+    }
+
+    @Override
+    public String toString() {
+        return this.getName();
     }
 
     private double getSpeedRate() {
@@ -21,15 +35,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     public boolean isPensioner() {
         return pensioner;
-    }
-
-    public void setPensioner(boolean pensioner) {
-        if (pensioner && !isPensioner()) {
-            setName(getName().replaceFirst("Buyer", "Pensioner"));
-        } else if (!pensioner && isPensioner()) {
-            setName(getName().replaceFirst("Pensioner", "Buyer"));
-        }
-        this.pensioner = pensioner;
     }
 
     public int getNumber() {
@@ -45,6 +50,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         enterToMarket();
         takeBasket();
         chooseGoods();
+        goToQueue();
         goOut();
     }
 
@@ -84,9 +90,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void goOut() {
         sleepGoOut();
         printToConsole(" left the shop");
-        synchronized (Helper.BUYERS_COUNT_MONITOR) {
-            Helper.buyersCount--;
-        }
+        Dispatcher.decreaseCurrentBuyersCount();
     }
 
     private void sleepGoOut() {
@@ -106,6 +110,18 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void putGoodsToBasket() {
         basket.addGood(chosenGood);
-        printToConsole(" put " + chosenGood.getName() + " for " + chosenGood.getPrice() + " into the basket");
+        printToConsole(
+            " put " + chosenGood.getName() + " for " + chosenGood.getPrice() + " into the basket");
+    }
+
+    @Override
+    synchronized public void goToQueue() {
+        printToConsole(" go to the queue");
+        try {
+            BuyerQueue.add(this);
+            this.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -48,11 +48,12 @@ class Helper {
     }
 
     public static int getBuyersCountByStep(int step) {
+        int count = buyersCount;
         step %= 60;
-        if (step < 30 && buyersCount < step) {
-            return random(0, 40 - buyersCount);
-        } else if (buyersCount < 40 + (30 - step)) {
-            return random(0, 2);
+        if (step <= 30 && count < step + 10) {
+            return Helper.random(0, step + 10 - count);
+        } else if (step > 30 && count < 70 - step) {
+            return Helper.random(0, 70 - step - count);
         } else {
             return 0;
         }
