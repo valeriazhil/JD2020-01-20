@@ -18,7 +18,7 @@ class BuyerQueue {
         }
         if (BuyerQueue.getQueueSize() > 0 &&
             BuyerQueue.getQueueSize() / 5 >= Dispatcher.getCashierCount() &&
-            Dispatcher.getCashierCount() < 5) {
+            Dispatcher.getCashierCount() < Dispatcher.getCashiers().size()) {
             synchronized (Dispatcher.OPEN_CASHIER_MONITOR) {
                 Dispatcher.OPEN_CASHIER_MONITOR.notify();
             }
