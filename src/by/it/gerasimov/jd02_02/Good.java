@@ -19,4 +19,9 @@ class Good {
     public double getPrice() {
         return Helper.getPriceList().get(this);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

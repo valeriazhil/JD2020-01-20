@@ -12,10 +12,24 @@ class Dispatcher {
     private volatile static int totalBuyersCount = 0;
     private volatile static int servedBuyersCount = 0;
     private volatile static int cashierCount = 0;
+    private volatile static double income = 0;
 
     private static List<Buyer> buyers = new ArrayList<>();
-    private static List<Thread> cashiers = new ArrayList<>();
+    private static List<Cashier> cashiers = new ArrayList<>();
+    private static List<Thread> cashierThreads = new ArrayList<>();
     private static List<Integer> count = new LinkedList<>();
+
+    synchronized public static void addIncome(double sum) {
+        income += sum;
+    }
+
+    public static double getIncome() {
+        return income;
+    }
+
+    public static List<Cashier> getCashiers() {
+        return cashiers;
+    }
 
     synchronized public static int getCashierCount() {
         return cashierCount;
@@ -86,8 +100,9 @@ class Dispatcher {
     public static void generateCashiers() {
         for (int i = 1; i <= 5; i++) {
             Cashier cashier = new Cashier(i);
+            cashiers.add(cashier);
             Thread thread = new Thread(cashier);
-            cashiers.add(thread);
+            cashierThreads.add(thread);
             thread.start();
         }
     }
@@ -110,7 +125,7 @@ class Dispatcher {
     }
 
     public static void joinAll() {
-        for (Thread cashier : cashiers) {
+        for (Thread cashier : cashierThreads) {
             try {
                 cashier.join();
             } catch (InterruptedException e) {

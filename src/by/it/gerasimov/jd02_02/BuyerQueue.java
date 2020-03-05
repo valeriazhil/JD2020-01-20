@@ -6,10 +6,15 @@ import java.util.LinkedList;
 class BuyerQueue {
 
     private static final Deque<Buyer> QUEUE = new LinkedList<>();
+    private static final Deque<Buyer> PENSIONER_QUEUE = new LinkedList<>();
 
     static void add(Buyer buyer) {
         synchronized (QUEUE) {
-            QUEUE.addLast(buyer);
+            if (buyer.isPensioner()) {
+                PENSIONER_QUEUE.addLast(buyer);
+            } else {
+                QUEUE.addLast(buyer);
+            }
         }
         if (BuyerQueue.getQueueSize() > 0 &&
             BuyerQueue.getQueueSize() / 5 >= Dispatcher.getCashierCount() &&
@@ -22,11 +27,15 @@ class BuyerQueue {
 
     static Buyer extract() {
         synchronized (QUEUE) {
-            return QUEUE.pollFirst();
+            if (!PENSIONER_QUEUE.isEmpty()) {
+                return PENSIONER_QUEUE.pollFirst();
+            } else {
+                return QUEUE.pollFirst();
+            }
         }
     }
 
     synchronized static int getQueueSize() {
-        return QUEUE.size();
+        return QUEUE.size() + PENSIONER_QUEUE.size();
     }
 }
