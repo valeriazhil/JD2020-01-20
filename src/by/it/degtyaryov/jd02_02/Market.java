@@ -38,7 +38,7 @@ class Market {
         }
     }
 
-    private void startCashier(int count) {
+    private void startCashier(@SuppressWarnings("SameParameterValue") int count) {
         for (int i = 0; i < count; i++) {
             Cashier cashier = new Cashier(i);
             threads.add(cashier);

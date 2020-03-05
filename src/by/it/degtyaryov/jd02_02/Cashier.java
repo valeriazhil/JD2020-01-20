@@ -39,17 +39,16 @@ class Cashier extends Thread {
     }
 
     private void calculateBuyer(Buyer buyer) {
-        Check check = new Check();
-        List<Good> buyerGoods = buyer.getBasket().getGoods();
+        Basket basket = buyer.getBasket();
+        List<Good> buyerGoods = basket.getGoods();
         System.out.printf("%s start calculating %s.%n", this, buyer);
         for (Good good : buyerGoods) {
             System.out.printf("%s is calculating %s.%n", this, good);
-            check.add(good);
         }
         Helper.sleep(Helper.getRandom(2000, 5000));
-        System.out.printf("%s end calculating %s. His total sum is %.2f.%n", this, buyer, check.getSum());
-        CashierManager.addToTotalIncome(check.getSum());
-        Reporter.printReport(this.number, check);
+        System.out.printf("%s end calculating %s. His total sum is %.2f.%n", this, buyer, basket.getSum());
+        CashierManager.addToTotalIncome(basket.getSum());
+        Reporter.printReport(this.number, basket);
         synchronized (buyer) {
             buyer.notify();
         }

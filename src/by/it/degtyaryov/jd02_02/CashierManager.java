@@ -14,7 +14,7 @@ class CashierManager {
     private static Deque<Cashier> PAUSE_CASHIERS = new LinkedList<>();
     private static Deque<Cashier> OPENED_CASHIERS = new LinkedList<>();
 
-    public static synchronized void checkStatus() {
+    public static void checkStatus() {
         int queueSize = Queue.size();
         int mustBeOpenCashier = getCashiersMustBeOpened(queueSize);
         System.out.printf("DISPATCHER: now in queue %d buyers, working cashiers - %d.%n", Queue.size(), workCashiers);

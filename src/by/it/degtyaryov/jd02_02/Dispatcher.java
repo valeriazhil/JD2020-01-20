@@ -50,6 +50,7 @@ class Dispatcher {
         return buyersInMarket + buyersComplete < PLAN;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean allBuyersComplete() {
         return buyersComplete == PLAN;
     }

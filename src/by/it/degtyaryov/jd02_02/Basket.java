@@ -15,6 +15,14 @@ class Basket {
         return goods;
     }
 
+    public double getSum() {
+        double sum = 0;
+        for (Good good : goods) {
+            sum += good.getPrice();
+        }
+        return sum;
+    }
+
     @Override
     public String toString() {
         StringBuilder basket = new StringBuilder();

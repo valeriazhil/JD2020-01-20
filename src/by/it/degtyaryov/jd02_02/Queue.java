@@ -18,11 +18,11 @@ class Queue {
         return queue.pollFirst();
     }
 
-    public static synchronized int size() {
+    public static int size() {
         return queue.size();
     }
 
-    private static synchronized Buyer getFirstPensioner() {
+    private static Buyer getFirstPensioner() {
         for (Buyer buyer : queue) {
             if (buyer.isPensioner()) {
                 queue.remove(buyer);
@@ -32,7 +32,7 @@ class Queue {
         return null;
     }
 
-    private static synchronized boolean hasPensioner() {
+    private static boolean hasPensioner() {
         for (Buyer buyer : queue) {
             if (buyer.isPensioner()) {
                 return true;
@@ -40,12 +40,4 @@ class Queue {
         }
         return false;
     }
-
-/*    public static synchronized void printQueue() {
-        System.out.print("In queue: ");
-        for (Buyer buyer : queue) {
-            System.out.print(buyer + " ");
-        }
-        System.out.println();
-    }*/
 }
