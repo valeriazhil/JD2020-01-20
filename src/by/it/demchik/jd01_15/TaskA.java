@@ -2,8 +2,8 @@ package by.it.demchik.jd01_15;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
+
 
 public class TaskA {
 
@@ -12,14 +12,11 @@ public class TaskA {
     public static void main(String[] args) {
         String fileName = Helper.getPath(TaskA.class, "matrix.txt");
         int[][] array = generate(6, 4);
-        System.out.println(Arrays.deepToString(array));
         saveArray(array, fileName);
-
         array=loadArray(fileName);
-        System.out.println(Arrays.deepToString(array));
-
-
+        print(array);
     }
+
 
     private static int[][] loadArray(String fileName) {
         int[][] array=new int[0][0];
@@ -55,7 +52,7 @@ public class TaskA {
                     PrintWriter printWriter = new PrintWriter(fileName)) {
                 for (int[] row : array) {
                     for (int e : row) {
-                        printWriter.printf("%5d ", e);
+                        printWriter.printf("%3d ", e);
                     }
                     printWriter.println();
                 }
@@ -63,6 +60,15 @@ public class TaskA {
         } catch (FileNotFoundException e) {
             System.err.println(e);
         }
+    }
+
+    private static void print(int[][] array) {
+                for (int[] row : array) {
+                    for (int e : row) {
+                        System.out.printf("%3d ", e);
+                    }
+                    System.out.println();
+                }
     }
 
     private static int[][] generate(int rows, int cols) {
