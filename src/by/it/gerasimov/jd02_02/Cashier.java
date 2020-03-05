@@ -16,13 +16,17 @@ class Cashier implements Runnable {
 
     private void serve(Buyer buyer) {
         System.out.println(name + " started serving " + buyer);
-        Dispatcher.increaseServedBuyersCount();
+        double sum = 0;
+        for (Good good : buyer.getBasket().getGoods()) {
+            sum += Helper.getPriceList().get(good);
+        }
         try {
             Thread.sleep(Helper.getTimeOfCashierService());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(name + " ended serving " + buyer);
+        Dispatcher.increaseServedBuyersCount();
+        System.out.printf("%s ended serving %s with sum: %.2f\n", name, buyer, sum);
     }
 
     @Override
@@ -36,13 +40,22 @@ class Cashier implements Runnable {
                     buyer.notify();
                 }
             } else {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                synchronized (Dispatcher.OPEN_CASHIER_MONITOR) {
+                    try {
+                        System.out.println(name + " temporary closed");
+                        Dispatcher.decreaseCashierCount();
+                        Dispatcher.OPEN_CASHIER_MONITOR.wait();
+                        Dispatcher.increaseCashierCount();
+                        System.out.println(name + " temporary opened");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
         System.out.println(name + " closed");
+        synchronized (Dispatcher.OPEN_CASHIER_MONITOR) {
+            Dispatcher.OPEN_CASHIER_MONITOR.notifyAll();
+        }
     }
 }
