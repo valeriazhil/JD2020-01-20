@@ -73,9 +73,9 @@ class Cashier implements Runnable {
         while (!Dispatcher.shopIsClosed()) {
             Buyer buyer = BuyerQueue.extract();
             if (buyer != null) {
-                synchronized (buyer) {
+                synchronized (buyer.getQueueMonitor()) {
                     serve(buyer);
-                    buyer.notify();
+                    buyer.getQueueMonitor().notify();
                 }
             } else {
                 synchronized (Dispatcher.OPEN_CASHIER_MONITOR) {

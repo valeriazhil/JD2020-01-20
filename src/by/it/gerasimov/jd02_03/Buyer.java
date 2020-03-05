@@ -10,6 +10,11 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     private boolean pensioner;
     private Basket basket;
     private Good chosenGood;
+    private final Object QUEUE_MONITOR = new Object();
+
+    public Object getQueueMonitor() {
+        return QUEUE_MONITOR;
+    }
 
     public Buyer() {
         this(Dispatcher.getTotalBuyersCount() + 1);
@@ -131,10 +136,10 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void goToQueue() {
         printToConsole(" go to the queue");
-        synchronized (this) {
+        synchronized (QUEUE_MONITOR) {
             try {
                 BuyerQueue.add(this);
-                this.wait();
+                QUEUE_MONITOR.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
