@@ -19,7 +19,6 @@ OCT:42+32=74
 class TaskC2 {
 
     public static void main(String[] args) {
-
         int one, two, result;
         Scanner scanner = new Scanner(System.in);
         one = scanner.nextInt();
@@ -27,11 +26,9 @@ class TaskC2 {
         scanner.close();
         result = one + two;
 
-
-        System.out.println("DEC:" + one + "+" + two + "=" + result + "\n" +
-                "BIN:" + Integer.toString(one, 2) + "+" + Integer.toString(two, 2) + "=" + Integer.toString(result, 2) + "\n" +
-                "HEX:" + Integer.toString(one, 16) + "+" + Integer.toString(two, 16) + "=" + Integer.toString(result, 16) + "\n" +
-                "OCT:" + Integer.toString(one, 8) + "+" + Integer.toString(two, 8) + "=" + Integer.toString(result, 8));
+        System.out.printf("DEC:%d+%d=%d%n", one, two, result);
+        System.out.printf("BIN:%s+%s=%s%n", Integer.toBinaryString(one), Integer.toBinaryString(two), Integer.toBinaryString(result));
+        System.out.printf("HEX:%s+%s=%s%n", Integer.toHexString(one), Integer.toHexString(two), Integer.toHexString(result));
+        System.out.printf("OCT:%s+%s=%s%n", Integer.toOctalString(one), Integer.toOctalString(two), Integer.toOctalString(result));
     }
-
 }

@@ -5,7 +5,7 @@ class Parent {
 
     String parentNonStfticWord;
 
-    public Parent(String word){
+    public Parent(String word) {
         System.out.println("Parent's constructor");
         System.out.println(parentNonStfticWord);
 
@@ -13,7 +13,11 @@ class Parent {
         System.out.println(parentNonStfticWord);
     }
 
-    public void work(){
+    public static void go() {
+        System.out.println("GO parent");
+    }
+
+    public void work() {
         System.out.println("parent is working");
     }
 

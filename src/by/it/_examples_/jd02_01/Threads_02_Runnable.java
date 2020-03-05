@@ -13,7 +13,7 @@ class Threads_02_Runnable {
 
 
         public void run() {
-            for (int i = 0; i < 10000; i++) {
+            for (int i = 0; i < 100; i++) {
                 System.out.println(name+" is run. loop:"+i);
                 try {
                     //методы sleep и yield из предыдущего примера у запускаемого

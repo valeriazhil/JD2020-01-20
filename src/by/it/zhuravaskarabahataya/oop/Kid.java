@@ -1,11 +1,11 @@
 package by.it.zhuravaskarabahataya.oop;
 
-class Kid extends Parent{
+class Kid extends Parent {
     static String kidsWord = null;
 
-    String kidNonStfticWord = null;
+    String kidNonStfticWord = "nonstat";
 
-    public Kid(String word){
+    public Kid(String word) {
         super(word);
         System.out.println("Kid's constructor");
         System.out.println(kidNonStfticWord);
@@ -14,12 +14,17 @@ class Kid extends Parent{
         System.out.println(kidNonStfticWord);
     }
 
-    public void play(){
+    public static void go() {
+        System.out.println("GO KID");
+    }
+
+    public void play() {
         System.out.println("kid is working");
     }
 
     @Override
     public void work() {
+        super.work();
         System.out.println("i'm just a kid, i can't work");
     }
 }

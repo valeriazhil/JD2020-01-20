@@ -1,95 +1,75 @@
 package by.it.zhilenkova.jd01.jd01_15;
 
-import java.io.*;
-import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-class Path {
-
-    private Path() {
-    }
-
-    static String getPath(Class<?> clazz) {
-        String simpleName = clazz.getSimpleName();
-        String path = clazz.getName().replace(simpleName, "");
-        path = path.replace(".", File.separator);
-        String root = System.getProperty("user.dir");
-        String result = root + File.separator + "src" + File.separator + path;
-        return result;
-    }
-
-    static String getPath() {
-        return getPath(Path.class);
-    }
-
-    static String getPath(String filename) {
-        return getPath() + filename;
-    }
-}
-
-
-///=======================
-//;,l;l,;l,
-/*
-;l,;l,6588p;l,;
-., k
- */
-
-
-public class TaskB {
-
+class TaskB {
+    private static String fileName = Helper.getPath("TaskB.java", TaskB.class);
+    private static String resultFileName = Helper.getPath("TaskB.txt", TaskB.class);
 
     public static void main(String[] args) {
-        StringBuilder finsb = new StringBuilder();
-        try (BufferedReader rd = new BufferedReader(new FileReader(Path.getPath("TaskB.java")))) {
-            while (rd.ready()) {//0 dscscomment ;l,;l,;
-                // oneeeescd comment
-                char temp = (char) rd.read();
-                if (temp == '/') {
-                    char a = (char) rd.read();
-                    switch (a) {
-                        case '/':
-                            while (rd.ready()) {
-                                char b = (char) rd.read();
-                                if (b == '\n') {
-                                    break;
-                                }
-                            }
-                            finsb.append("\n");
-                            break;
-                        case '*':
-                            //2cbxfbxfomment
-                            while (rd.ready()) {
-                                if (((char) rd.read()) == '*' && ((char) rd.read()) == '/') {
-                                    break;
-                                }
-                                /*
-                                3 hthfhtfhfhfg
-                                 */
-                            }
-                            break;
-                        default:
-                            finsb.append(temp);
-                            finsb.append(a);
-                            break;
-                        /*
-                        4 comment
-                         */
+        String text = codeToFile(fileName);
+        StringBuilder sbb = new StringBuilder(text);
+        deleteComments(sbb);
+        System.out.println(sbb);
+        stringBToFile(sbb, resultFileName);
+    }
+
+    private static void stringBToFile(StringBuilder sbb, String fileName) {
+        try (PrintWriter pw = new PrintWriter(fileName)
+        ) {
+            pw.print(sbb.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void deleteComments(StringBuilder sbb) {
+        for (int i = 0; i < sbb.length() - 2; i++) {
+            if (sbb.charAt(i) == '/') {
+                switch (sbb.charAt(i + 1)) {
+                    case '/': {
+                        while (sbb.charAt(i + 2) != '\n') {
+                            sbb.deleteCharAt(i + 2);
+                        }
+                        sbb.deleteCharAt(i + 1);
+                        sbb.deleteCharAt(i--);
+                        break;
                     }
-                    continue;
+                    case '*': {
+                        if (sbb.charAt(i + 2) == '*') {
+                            if (sbb.charAt(i + 3) == '/') {
+                                sbb.deleteCharAt(i + 2);
+                                sbb.deleteCharAt(i + 2);
+                                sbb.deleteCharAt(i);
+                                sbb.deleteCharAt(i);
+                                sbb.deleteCharAt(i);
+                                break;
+                            } else {
+                                sbb.deleteCharAt(i + 2);
+                            }
+                        }
+                        sbb.deleteCharAt(i + 2);
+                        i--;
+                        break;
+                    }
                 }
-                /**
-                 * JavaDoc
-                 */
-                finsb.append(temp);
+            }
+        }
+    }
+
+    private static String codeToFile(String fileName) {
+        StringBuilder sb = new StringBuilder();
+        try (FileReader fr = new FileReader(fileName)) {
+            int c;
+            while ((c = fr.read()) != -1) {
+                sb.append((char) c);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try (BufferedWriter out = new BufferedWriter(new FileWriter(Path.getPath("TaskB.txt")))) {
-            out.write(finsb.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(finsb.toString());
+        return sb.toString();
     }
 }

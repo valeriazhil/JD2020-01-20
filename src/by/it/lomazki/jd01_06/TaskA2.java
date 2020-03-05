@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class TaskA2 {
 
     private static String[] w = new String[0];
-    private static int[] count = {}; // или count = new int [0];
+    private static int[] count = {};                // или count = new int [0];
 
     private static int pos (String word) {
         for (int i = 0; i < w.length; i++) {
