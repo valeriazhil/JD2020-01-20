@@ -26,6 +26,7 @@ class Cashier implements Runnable {
         System.out.println(this + "opened");
         while (!Dispatcher.marketClosed()){
             Buyer buyer = QueueBuyers.extract();
+//            Thread.currentThread().isInterrupted();
             if (buyer!=null){
                 System.out.println(this + "started service for " + buyer);
                 shoppingList(buyer);

@@ -53,6 +53,11 @@ class Runner {
             Thread thread = new Thread(cashier);
             threads.add(thread);
             thread.start();
+//            if (QueueBuyers.QUEUE.size()<threads.size()*5 && threads.size()>1){
+//                Helper.sleep(1000);
+//                thread.interrupt();
+//                threads.remove(1);
+//            }
         }
     }
 
