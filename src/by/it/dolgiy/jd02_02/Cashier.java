@@ -7,13 +7,12 @@ import java.util.Set;
 class Cashier implements Runnable {
 
     private String name;
+    private int numberCash;
+    private int cash;
 
     Cashier (int number){
-//        String strT = "";
-//        for (int i = 0; i < number; i++) {
-//            strT += "\t\t\t";
-//        }
-        name = /*strT + */"\tCashier № " + number + " ";
+        name = "\tCashier № " + number + " ";
+        numberCash=number;
     }
 
     @Override
@@ -26,16 +25,26 @@ class Cashier implements Runnable {
         System.out.println(this + "opened");
         while (!Dispatcher.marketClosed()){
             Buyer buyer = QueueBuyers.extract();
-//            Thread.currentThread().isInterrupted();
             if (buyer!=null){
-                System.out.println(this + "started service for " + buyer);
-                shoppingList(buyer);
-                int timeout = Helper.random(2000,5000);
-                Helper.sleep(timeout);
-                System.out.println(this + "finished service for " + buyer);
-                synchronized (buyer){
-                    buyer.notify();
-                }
+//                if (!Thread.currentThread().isInterrupted()){
+                    System.out.println(this + "started service for " + buyer);
+                    shoppingList(buyer);
+                    System.out.println("\t\tbuyer in queue "+ QueueBuyers.QUEUE.size());
+                    System.out.println(this + "Cash " +cash + " RUB");
+                    int timeout = Helper.random(2000,5000);
+                    Helper.sleep(timeout);
+                    System.out.println(this + "finished service for " + buyer);
+                    synchronized (buyer){
+                        buyer.notify();
+                    }
+//                }
+//                else {
+//                    System.out.println(this + "closed");
+//                    synchronized (buyer){
+//                        buyer.goToQueue();
+//                    }
+//                    break;
+//                }
             }
             else {
                 Helper.sleep(1);
@@ -48,7 +57,11 @@ class Cashier implements Runnable {
         Set<Map.Entry<String, Integer>> basket = Helper.shoppingList.entrySet();
         Iterator<Map.Entry<String, Integer>> iterator = basket.iterator();
         StringBuffer shopList = new StringBuffer(this  +"basket :: " + buyer + " ");
-        StringBuffer sum = new StringBuffer(this  +"check sum :: " + buyer + " ");
+        StringBuffer sum = new StringBuffer(this  +"check  :: " + buyer + " ");
+        for (int i = 0; i < numberCash; i++) {
+            shopList.append("\t\t\t||| ");
+            sum.append("\t\t\t||| ");
+        }
         int countProducts = Helper.random(1,4);
         int getSum = 0;
         for (int i = 0; i < countProducts; i++) {
@@ -65,6 +78,7 @@ class Cashier implements Runnable {
             shopList.append(next.getKey()).append(':').append(next.getValue()).append("; ");
             getSum +=next.getValue();
         }
+        cash+=getSum;
         sum.append(getSum).append(" RUB");
         System.out.println(shopList);
         System.out.println(sum);
