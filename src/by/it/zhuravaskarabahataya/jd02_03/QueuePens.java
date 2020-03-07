@@ -1,10 +1,10 @@
 package by.it.zhuravaskarabahataya.jd02_03;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
 class QueuePens {
-    private static final Deque<Buyer> QUEUE_PENSIONERS = new LinkedList<>();
+    private static final BlockingDeque<Buyer> QUEUE_PENSIONERS = new LinkedBlockingDeque<>();
 
     static void add(Buyer buyer){
         synchronized (QUEUE_PENSIONERS) {

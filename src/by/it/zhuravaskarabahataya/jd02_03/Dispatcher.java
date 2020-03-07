@@ -6,7 +6,7 @@ class Dispatcher {
     static final AtomicInteger numberBuyers = new AtomicInteger(0);
     static final AtomicInteger completedBuyers = new AtomicInteger(0);
     static final AtomicInteger buyersInMarket = new AtomicInteger(0);
-    private static final int PLANNED_BUYERS = 10;
+    private static final int PLANNED_BUYERS = 100;
     static final int K_SPEED = 1;
     private static int todayEarning = 0;
     private static final Integer EARNING_MONITOR = 1;
@@ -25,24 +25,19 @@ class Dispatcher {
         return todayEarning;
     }
 
-    static void newBuyerEnterToMarket(){
+    synchronized static void newBuyerEnterToMarket(){
         numberBuyers.getAndIncrement();
         buyersInMarket.getAndIncrement();
-
     }
 
-    static void buyerLeaveTheMarket(){
+    synchronized static void buyerLeaveToMarket(){
         completedBuyers.getAndIncrement();
         buyersInMarket.getAndDecrement();
     }
 
-    static boolean marketIsClosed(){
-        return completedBuyers.get() == PLANNED_BUYERS;
-    }
-
-    static boolean marketIsOpened(){
-        return (completedBuyers.get() + buyersInMarket.get() )
-                < PLANNED_BUYERS;
+    synchronized static boolean marketIsOpened(){
+        return (completedBuyers.get()
+                + buyersInMarket.get() ) < PLANNED_BUYERS;
     }
 
 }

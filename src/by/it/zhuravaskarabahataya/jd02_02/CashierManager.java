@@ -7,21 +7,7 @@ class CashierManager extends Thread {
     private static Deque<Cashier> cashiersCreated = new LinkedList<>();
     private static Deque<Cashier> cashiersWorking = new LinkedList<>();
 
-    static void printCashCreated(){
-        for (Cashier cashier : cashiersCreated) {
-            System.out.print(cashier + " ");
-        }
-        System.out.println();
-    }
-
-    static void printCashWorking(){
-        for (Cashier cashier : cashiersWorking) {
-            System.out.print(cashier + " ");
-        }
-        System.out.println();
-    }
-
-    private static int cashiersOpened = 0;
+    static int cashiersOpened = 0;
 
     private static void closeACashier() {
         Cashier closableCashier = cashiersWorking.pollFirst();
