@@ -11,19 +11,19 @@ class BuyerManager {
     private static final int BUYERS_BEGIN_MINUTE = 10;
     private static final int BUYERS_MIDDLE_MINUTE = 40;
 
-    private static BlockingQueue<Basket> baskets = new ArrayBlockingQueue<>(MAX_BASKET);
+    private BlockingQueue<Basket> baskets = new ArrayBlockingQueue<>(MAX_BASKET);
     private final AtomicInteger buyersInMarket = new AtomicInteger();
     private final AtomicInteger buyersComplete = new AtomicInteger();
     private final Market market;
 
     public BuyerManager(Market market) {
-        initializeBaskets();
+        createBaskets();
         this.market = market;
     }
 
     public void check(int time) {
         if (canEnterBuyer()) {
-            int buyersToEnter = getBuyerToEnterByTime(time);
+            int buyersToEnter = getCountBuyerToEnter(time);
             for (int i = 0; i < buyersToEnter && canEnterBuyer(); i++) {
                 Buyer buyer = new Buyer(Helper.getRandomIsPensioner(), this);
                 new Thread(buyer).start();
@@ -54,7 +54,7 @@ class BuyerManager {
         return count;
     }
 
-    private int getBuyerToEnterByTime(int time) {
+    private int getCountBuyerToEnter(int time) {
         int mustBeInMarket = getCountMustBeInMarket(time);
         return (getBuyersInMarket() > mustBeInMarket) ? 0 : mustBeInMarket - getBuyersInMarket();
     }
@@ -68,7 +68,7 @@ class BuyerManager {
         return buyersComplete.get() == PLAN;
     }
 
-    private void initializeBaskets() {
+    private void createBaskets() {
         for (int i = 1; i <= MAX_BASKET; i++) {
             Basket basket = new Basket();
             try {

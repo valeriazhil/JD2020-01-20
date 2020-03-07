@@ -7,14 +7,16 @@ class Cashier implements Runnable {
     private static int counter = 0;
     private final int id = counter++;
 
-    private final CashierManager manager;
-    private final Reporter reporter = new Reporter();
     private final String name;
+    private final CashierManager manager;
+    private final Reporter reporter;
     private boolean worked;
 
     public Cashier(CashierManager manager) {
         this.name = "\tCashier №" + id;
         this.manager = manager;
+        this.reporter = new Reporter();
+        this.worked = false;
     }
 
     @Override
@@ -62,6 +64,6 @@ class Cashier implements Runnable {
 
     @Override
     public String toString() {
-        return this.name;
+        return name;
     }
 }

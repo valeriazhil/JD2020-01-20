@@ -11,12 +11,12 @@ class Basket {
         goods.add(item);
     }
 
-    public List<Good> getGoods() {
-        return goods;
-    }
-
     public void clear() {
         goods.clear();
+    }
+
+    public List<Good> getGoods() {
+        return goods;
     }
 
     public double getSum() {

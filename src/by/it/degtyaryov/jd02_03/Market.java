@@ -17,29 +17,28 @@ class Market {
 
     private volatile double TOTAL_INCOME = 0;
 
+    private Queue queue = new Queue();
     private BuyerManager buyerManager = new BuyerManager(this);
     private CashierManager cashierManager = new CashierManager(this);
-
-    private Queue queue = new Queue();
 
     public void start() {
         System.out.println("Market is opened.");
         int timer = 0;
-        cashierManager.launchCashiers();
+        cashierManager.createCashiers();
         while (!buyerManager.allBuyersComplete()) {
             buyerManager.check(++timer);
             cashierManager.check();
             Helper.sleep(1000);
             System.out.printf("Time: %d. Now in market: %d buyers.%n", timer, buyerManager.getBuyersInMarket());
         }
-        awaitTerminationCashier();
+        awaitTerminationCashiers();
         System.out.println("Market is closed.");
     }
 
-    private void awaitTerminationCashier() {
+    private void awaitTerminationCashiers() {
         try {
             while (!cashierManager.getExecutor().awaitTermination(120, TimeUnit.SECONDS))
-                System.out.println("long waiting...");
+                System.out.println("Waiting for closing cashiers.");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

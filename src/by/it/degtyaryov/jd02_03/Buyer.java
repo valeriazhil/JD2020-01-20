@@ -24,7 +24,7 @@ class Buyer implements Runnable, IBuyer, IUseBasket {
         this.pensioner = pensioner;
         this.speedFactor = (pensioner) ? 1.5 : 1;
         this.manager = manager;
-        manager.markBuyerEnter();
+        this.manager.markBuyerEnter();
     }
 
     @Override
@@ -58,11 +58,11 @@ class Buyer implements Runnable, IBuyer, IUseBasket {
         System.out.printf("%s has chosen %s.%n", this, chosenGood.getName().toLowerCase());
     }
 
-    private void chooseAndTakeGoods(int countGoods) {
+    private void chooseAndTakeGoods(int goods) {
         try {
             semaphore.acquire();
-            System.out.printf("%s start choosing of %d goods.", this, countGoods);
-            for (int i = 0; i < countGoods; i++) {
+            System.out.printf("%s start choosing of %d goods.", this, goods);
+            for (int i = 0; i < goods; i++) {
                 chooseGoods();
                 putGoodsToBasket();
             }
