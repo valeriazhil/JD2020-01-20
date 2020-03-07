@@ -2,20 +2,20 @@ package by.it.degtyaryov.jd02_03;
 
 class Good {
 
-    private String name;
     private double price;
+    private String name;
 
     public Good(String name, double price) {
-        this.name = name;
         this.price = price;
-    }
-
-    public String getName() {
-        return name;
+        this.name = name;
     }
 
     public double getPrice() {
         return price;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

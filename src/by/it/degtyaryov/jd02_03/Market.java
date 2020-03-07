@@ -15,19 +15,12 @@ class Market {
             new Good("Eggs", 2.0),
             new Good("Water", 1.0)));
 
-    // TODO: сделать общую выручку не статической, а для каждого магазина отдельно
-    private static volatile double TOTAL_INCOME = 0;
+    private volatile double TOTAL_INCOME = 0;
 
-    private BuyerManager buyerManager = new BuyerManager();
+    private BuyerManager buyerManager = new BuyerManager(this);
     private CashierManager cashierManager = new CashierManager(this);
 
-    public static synchronized void addToTotalIncome(double sum) {
-        TOTAL_INCOME += sum;
-    }
-
-    public static synchronized double getTotalIncome() {
-        return TOTAL_INCOME;
-    }
+    private Queue queue = new Queue();
 
     public void start() {
         System.out.println("Market is opened.");
@@ -51,6 +44,18 @@ class Market {
             e.printStackTrace();
         }
         System.out.println("All cashiers are closed successfully.");
+    }
+
+    public synchronized void addToTotalIncome(double sum) {
+        TOTAL_INCOME += sum;
+    }
+
+    public synchronized double getTotalIncome() {
+        return TOTAL_INCOME;
+    }
+
+    public Queue getQueue() {
+        return queue;
     }
 
     public boolean isOpened() {

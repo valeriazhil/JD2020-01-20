@@ -11,11 +11,12 @@ class CashierManager {
     public static final int MAX_CASHIER = 5;
     private static final int BUYERS_PER_CASHIER = 5;
 
-    private final BlockingDeque<Cashier> PAUSED_CASHIERS = new LinkedBlockingDeque<>(MAX_CASHIER);
-    private final BlockingDeque<Cashier> OPENED_CASHIERS = new LinkedBlockingDeque<>(MAX_CASHIER);
-
+    private final BlockingDeque<Cashier> pausedCashiers = new LinkedBlockingDeque<>(MAX_CASHIER);
+    private final BlockingDeque<Cashier> workedCashiers = new LinkedBlockingDeque<>(MAX_CASHIER);
     private final ExecutorService executor = Executors.newFixedThreadPool(MAX_CASHIER);
-    private final AtomicInteger workCashierCount = new AtomicInteger(0);
+    // TODO: убрать переменную "кол-во кассиров в работе", а определять это значнение по размеру OPENED_CASHIERS.size()
+    private final AtomicInteger workCashierCount = new AtomicInteger();
+
     private final Market market;
 
     public CashierManager(Market market) {
@@ -26,16 +27,16 @@ class CashierManager {
         for (int i = 0; i < MAX_CASHIER; i++) {
             Cashier cashier = new Cashier(this);
             executor.submit(cashier);
-            PAUSED_CASHIERS.offerLast(cashier);
+            pausedCashiers.offerLast(cashier);
         }
         executor.shutdown();
     }
 
     public void check() {
-        int mustBeOpenCashier = getCashiersMustBeOpened(Queue.size());
-        System.out.printf("DISPATCHER: now in queue %d buyers, working cashiers - %d.%n", Queue.size(), workCashierCount.get());
+        int mustBeOpenCashier = getCashiersMustBeOpened(market.getQueue().size());
+        System.out.printf("DISPATCHER: now in queue %d buyers, working cashiers - %d.%n", market.getQueue().size(), workCashierCount.get());
         if (mustBeOpenCashier > workCashierCount.get()) {
-            if (workCashierCount.get() < 5) {
+            if (workCashierCount.get() < MAX_CASHIER) {
                 System.out.printf("DISPATCHER: need to open one more cashier.%n");
                 startCashier();
             }
@@ -51,18 +52,18 @@ class CashierManager {
 
     private void startCashier() {
         workCashierCount.getAndIncrement();
-        Cashier cashier = PAUSED_CASHIERS.pollFirst();
+        Cashier cashier = pausedCashiers.pollFirst();
         if (cashier != null) {
-            OPENED_CASHIERS.offerLast(cashier);
+            workedCashiers.offerLast(cashier);
             cashier.resume();
         }
     }
 
     private void stopCashier() {
         workCashierCount.getAndDecrement();
-        Cashier cashier = OPENED_CASHIERS.pollFirst();
+        Cashier cashier = workedCashiers.pollLast();
         if (cashier != null) {
-            PAUSED_CASHIERS.offerFirst(cashier);
+            pausedCashiers.offerFirst(cashier);
             cashier.pause();
         }
     }
@@ -71,7 +72,7 @@ class CashierManager {
         return executor;
     }
 
-    public boolean marketIsOpen() {
-        return market.isOpened();
+    public Market getMarket() {
+        return market;
     }
 }

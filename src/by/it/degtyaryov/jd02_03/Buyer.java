@@ -4,7 +4,8 @@ import java.util.concurrent.Semaphore;
 
 class Buyer implements Runnable, IBuyer, IUseBasket {
 
-    private static Semaphore semaphore = new Semaphore(20);
+    public static final int MAX_BUYERS_CHOOSING_GOODS = 20;
+    private static Semaphore semaphore = new Semaphore(MAX_BUYERS_CHOOSING_GOODS);
 
     private static int counter = 0;
     private final int id = counter++;
@@ -26,14 +27,6 @@ class Buyer implements Runnable, IBuyer, IUseBasket {
         manager.markBuyerEnter();
     }
 
-    public Basket getBasket() {
-        return basket;
-    }
-
-    public boolean isPensioner() {
-        return pensioner;
-    }
-
     @Override
     public void run() {
         enterToMarket();
@@ -42,21 +35,6 @@ class Buyer implements Runnable, IBuyer, IUseBasket {
         chooseAndTakeGoods(countGoods);
         goToQueue();
         goOut();
-    }
-
-    private void chooseAndTakeGoods(int countGoods) {
-        try {
-            semaphore.acquire();
-            System.out.printf("%s start choosing of %d goods.", this, countGoods);
-            for (int i = 0; i < countGoods; i++) {
-                chooseGoods();
-                putGoodsToBasket();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            semaphore.release();
-        }
     }
 
     @Override
@@ -80,6 +58,21 @@ class Buyer implements Runnable, IBuyer, IUseBasket {
         System.out.printf("%s has chosen %s.%n", this, chosenGood.getName().toLowerCase());
     }
 
+    private void chooseAndTakeGoods(int countGoods) {
+        try {
+            semaphore.acquire();
+            System.out.printf("%s start choosing of %d goods.", this, countGoods);
+            for (int i = 0; i < countGoods; i++) {
+                chooseGoods();
+                putGoodsToBasket();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            semaphore.release();
+        }
+    }
+
     @Override
     public void putGoodsToBasket() {
         System.out.printf("%s start put %s in basket.%n", this, chosenGood.getName().toLowerCase());
@@ -94,7 +87,7 @@ class Buyer implements Runnable, IBuyer, IUseBasket {
         System.out.printf("%s stand in queue.%n", this);
         synchronized (this) {
             try {
-                Queue.add(this);
+                manager.getMarket().getQueue().add(this);
                 waiting = true;
                 while (waiting) {
                     this.wait();
@@ -113,13 +106,21 @@ class Buyer implements Runnable, IBuyer, IUseBasket {
         System.out.printf("%s go out from the market.%n", this);
     }
 
-    @Override
-    public String toString() {
-        String age = (pensioner) ? "Pensioner " : "";
-        return age + this.name;
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public boolean isPensioner() {
+        return pensioner;
     }
 
     public void endWaiting() {
         this.waiting = false;
+    }
+
+    @Override
+    public String toString() {
+        String age = (pensioner) ? "Pensioner " : "";
+        return age + this.name;
     }
 }

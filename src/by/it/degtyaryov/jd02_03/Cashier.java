@@ -10,7 +10,7 @@ class Cashier implements Runnable {
     private final CashierManager manager;
     private final Reporter reporter = new Reporter();
     private final String name;
-    private boolean isWorked;
+    private boolean worked;
 
     public Cashier(CashierManager manager) {
         this.name = "\tCashier №" + id;
@@ -20,9 +20,9 @@ class Cashier implements Runnable {
     @Override
     public void run() {
         System.out.printf("%s start working day.%n", this);
-        while (manager.marketIsOpen()) {
-            if (isWorked) {
-                Buyer buyer = Queue.get();
+        while (manager.getMarket().isOpened()) {
+            if (worked) {
+                Buyer buyer = manager.getMarket().getQueue().get();
                 if (buyer != null) {
                     calculateBuyer(buyer);
                 }
@@ -35,12 +35,12 @@ class Cashier implements Runnable {
 
     public void resume() {
         System.out.printf("%s resume work.%n", this);
-        isWorked = true;
+        worked = true;
     }
 
     public void pause() {
         System.out.printf("%s pause work.%n", this);
-        isWorked = false;
+        worked = false;
     }
 
     private void calculateBuyer(Buyer buyer) {
@@ -52,8 +52,8 @@ class Cashier implements Runnable {
         }
         Helper.sleep(Helper.getRandom(2000, 5000));
         System.out.printf("%s end calculating %s. His total sum is %.2f.%n", this, buyer, basket.getSum());
-        Market.addToTotalIncome(basket.getSum());
-        reporter.printReport(id, basket);
+        manager.getMarket().addToTotalIncome(basket.getSum());
+        reporter.printReport(id, basket, manager.getMarket());
         synchronized (buyer) {
             buyer.endWaiting();
             buyer.notify();

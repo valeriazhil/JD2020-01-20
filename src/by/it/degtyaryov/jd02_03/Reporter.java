@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 class Reporter {
 
+    // TODO: пересмотреть и оптимизировать весь класс
+
     private static final String TITLE_FORMAT = "|%20s|%20s|%20s|%20s|%20s|%20s|%20s|%n";
     private static final String BODY_FORMAT = "|%-20s|%-20s|%-20s|%-20s|%-20s|%20s|%20s|%n";
     private static final String TOTAL_FORMAT = "|%20s|%20s|%20s|%20s|%20s|%20s|%20.2f|%n";
@@ -12,10 +14,10 @@ class Reporter {
     private PrintWriter printWriter = new PrintWriter(System.out);
     private String[] columns;
 
-    public synchronized void printReport(int cashierNumber, Basket basket) {
+    public void printReport(int cashierNumber, Basket basket, Market market) {
         String sb = getTitle() +
-                getBody(cashierNumber, basket) +
-                getTotal(cashierNumber, basket.getSum());
+                    getBody(cashierNumber, basket) +
+                    getTotal(cashierNumber, basket.getSum(), market);
         printWriter.printf(sb).flush();
     }
 
@@ -40,9 +42,9 @@ class Reporter {
         return string.toString();
     }
 
-    private String getTotal(int cashierNumber, double sum) {
+    private String getTotal(int cashierNumber, double sum, Market market) {
         String sumLineFormat = String.format("TOTAL: %.2f", sum);
         initializeValues(cashierNumber, sumLineFormat);
-        return String.format(TOTAL_FORMAT, columns[0], columns[1], columns[2], columns[3], columns[4], Queue.size(), Market.getTotalIncome());
+        return String.format(TOTAL_FORMAT, columns[0], columns[1], columns[2], columns[3], columns[4], market.getQueue().size(), market.getTotalIncome());
     }
 }
