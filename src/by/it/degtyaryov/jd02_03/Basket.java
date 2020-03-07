@@ -1,4 +1,4 @@
-package by.it.degtyaryov.jd02_02;
+package by.it.degtyaryov.jd02_03;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,10 @@ class Basket {
 
     public List<Good> getGoods() {
         return goods;
+    }
+
+    public void clear() {
+        goods.clear();
     }
 
     public double getSum() {

@@ -36,14 +36,6 @@ class Dispatcher {
                 0 : mustBeInMarket - Dispatcher.getBuyersInMarket();
     }
 
-    public static boolean marketIsOpened() {
-        return buyersInMarket + buyersComplete < PLAN;
-    }
-
-    public static boolean marketIsClosed() {
-        return buyersComplete == PLAN;
-    }
-
     private static int getCountMustBeInMarket(int time) {
         int count;
         time %= 60; // для привязки к секунде без учета минуты
@@ -52,5 +44,14 @@ class Dispatcher {
         else
             count = BUYERS_MIDDLE_MINUTE + (30 - time);
         return count;
+    }
+
+    public static boolean marketIsOpened() {
+        return buyersInMarket + buyersComplete < PLAN;
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean allBuyersComplete() {
+        return buyersComplete == PLAN;
     }
 }

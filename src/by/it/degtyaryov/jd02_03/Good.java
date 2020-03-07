@@ -1,4 +1,4 @@
-package by.it.degtyaryov.jd02_02;
+package by.it.degtyaryov.jd02_03;
 
 class Good {
 

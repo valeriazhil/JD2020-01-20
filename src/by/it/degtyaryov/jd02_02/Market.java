@@ -17,17 +17,20 @@ class Market {
     private List<Thread> threads = new ArrayList<>(1000);
 
     public void start() {
+        System.out.println("Market is opened.");
         int timer = 0;
-        startCashier(2);
-        while (Dispatcher.marketIsOpened()) {
-            int buyersToEnter = Dispatcher.getBuyerToEnterByTime(timer++);
-            runBuyers(buyersToEnter);
+        startCashier(CashierManager.MAX_CASHIER);
+        //while (Dispatcher.marketIsOpened()) {
+        while (!Dispatcher.allBuyersComplete()) {
+            runBuyers(timer++);
+            CashierManager.checkStatus();
             System.out.printf("Time: %d. Now in market: %d buyers.%n", timer, Dispatcher.getBuyersInMarket());
             Helper.sleep(1000);
         }
     }
 
-    private void runBuyers(int buyersToEnter) {
+    private void runBuyers(int timer) {
+        int buyersToEnter = Dispatcher.getBuyerToEnterByTime(timer);
         for (int i = 0; i < buyersToEnter && Dispatcher.marketIsOpened(); i++) {
             Buyer buyer = new Buyer(Dispatcher.getBuyersCounter(), Helper.getRandomIsPensioner());
             threads.add(buyer);
@@ -35,7 +38,7 @@ class Market {
         }
     }
 
-    private void startCashier(int count) {
+    private void startCashier(@SuppressWarnings("SameParameterValue") int count) {
         for (int i = 0; i < count; i++) {
             Cashier cashier = new Cashier(i);
             threads.add(cashier);
@@ -51,5 +54,6 @@ class Market {
                 e.printStackTrace();
             }
         }
+        System.out.println("Marked is closed.");
     }
 }

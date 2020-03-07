@@ -4,6 +4,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     private final boolean PENSIONER;
     private final double SPEED_FACTOR;
+
     private Basket basket;
     private Good chosenGood;
 
@@ -13,6 +14,14 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         this.SPEED_FACTOR = (pensioner) ? 1.5 : 1;
         this.basket = new Basket();
         Dispatcher.newBuyerInMarket();
+    }
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public boolean isPensioner() {
+        return PENSIONER;
     }
 
     @Override

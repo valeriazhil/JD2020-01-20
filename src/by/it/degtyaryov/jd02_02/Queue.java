@@ -12,6 +12,32 @@ class Queue {
     }
 
     public static synchronized Buyer get() {
+        if (hasPensioner()) {
+            return getFirstPensioner();
+        }
         return queue.pollFirst();
+    }
+
+    public static int size() {
+        return queue.size();
+    }
+
+    private static Buyer getFirstPensioner() {
+        for (Buyer buyer : queue) {
+            if (buyer.isPensioner()) {
+                queue.remove(buyer);
+                return buyer;
+            }
+        }
+        return null;
+    }
+
+    private static boolean hasPensioner() {
+        for (Buyer buyer : queue) {
+            if (buyer.isPensioner()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
