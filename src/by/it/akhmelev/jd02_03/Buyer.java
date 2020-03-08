@@ -4,6 +4,7 @@ class Buyer extends Thread implements IBuyer {
 
     private boolean waitingState = false;
 
+
     void endWait() {
         this.waitingState = false;
     }
