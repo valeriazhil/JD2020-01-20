@@ -3,23 +3,31 @@ package by.it.pkochubei.jd01_09;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Parcer {
-
-    Var calc(String expression){
-        String[]operand=expression.split(Patterns.OPERATION);
-        Var one = Var.createVar(operand[0]);
-        Var two = Var.createVar(operand[1]);
-        if (one==null||two==null)
-            return null;
-        Pattern p = Pattern.compile(Patterns.OPERATION);
-        Matcher m = p.matcher(expression);
-        if (m.find()){
-            String operation = m.group();
+class Parser {
+    Var calc(String expression) {
+        expression = expression.trim().replace(" ", "");
+        String[] part=expression.split(Patterns.OPERATION,2);
+        if (part.length==1)
+            return Var.create(expression);
+        Var left = Var.create(part[0]);
+        Var right = Var.create(part[1]);
+        Pattern compile=Pattern.compile(Patterns.OPERATION);
+        Matcher matcher = compile.matcher(expression);
+        if (matcher.find()){
+            String operation=matcher.group();
             switch (operation){
-                case "+":return one.add(two);
-                case "-":return one.sub(two);
-                case "*":return one.mul(two);
-                case "/":return one.div(two);
+                case "+":
+                    assert left != null;
+                    return left.add(right);
+                case "-":
+                    assert left != null;
+                    return left.sub(right);
+                case "*":
+                    assert left != null;
+                    return left.mul(right);
+                case "/":
+                    assert left != null;
+                    return left.div(right);
             }
         }
         return null;

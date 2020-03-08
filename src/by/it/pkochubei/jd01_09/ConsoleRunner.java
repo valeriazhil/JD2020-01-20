@@ -2,15 +2,17 @@ package by.it.pkochubei.jd01_09;
 
 import java.util.Scanner;
 
-public class ConsoleRunner {
+class ConsoleRunner {
     public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
-        String line;
-        Parcer parcer = new Parcer();
+        Scanner scanner = new Scanner(System.in);
+        Parser parser = new Parser();
         Printer printer = new Printer();
-        while (!(line = scn.nextLine()).equals("end")){
-            Var result = parcer.calc(line);
-            printer.print(result);
+        while (true){
+            String  expession =scanner.nextLine();
+            if (expession.equals("end"))
+                break;
+            Var var = parser.calc(expession);
+            printer.print(var);
         }
     }
 }

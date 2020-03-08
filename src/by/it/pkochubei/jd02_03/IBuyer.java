@@ -1,7 +1,12 @@
-package by.it.pkochubei.jd02_01;
+package by.it.pkochubei.jd02_03;
 
 interface IBuyer {
+
     void enterToMarket();
+
     void chooseGoods();
+
+    void goToQueue();
+
     void goOut();
 }
