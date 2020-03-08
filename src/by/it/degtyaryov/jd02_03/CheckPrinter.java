@@ -3,9 +3,7 @@ package by.it.degtyaryov.jd02_03;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
-class Reporter {
-
-    // TODO: пересмотреть и оптимизировать весь класс
+class CheckPrinter {
 
     private static final String TITLE_FORMAT = "|%20s|%20s|%20s|%20s|%20s|%20s|%20s|%n";
     private static final String BODY_FORMAT = "|%-20s|%-20s|%-20s|%-20s|%-20s|%20s|%20s|%n";
@@ -14,17 +12,11 @@ class Reporter {
     private PrintWriter printWriter = new PrintWriter(System.out);
     private String[] columns;
 
-    public void printReport(int cashierNumber, Basket basket, Market market) {
-        String sb = getTitle() +
-                    getBody(cashierNumber, basket) +
-                    getTotal(cashierNumber, basket.getSum(), market);
-        printWriter.printf(sb).flush();
-    }
-
-    private void initializeValues(int cashierNumber, String line) {
-        columns = new String[CashierManager.MAX_CASHIER];
-        Arrays.fill(columns, "");
-        columns[cashierNumber] = line;
+    public synchronized void print(int cashierNumber, Basket basket, Market market) {
+        String checkText = getTitle() +
+                getBody(cashierNumber, basket) +
+                getTotal(cashierNumber, basket.getSum(), market);
+        printWriter.printf(checkText).flush();
     }
 
     private String getTitle() {
@@ -32,19 +24,25 @@ class Reporter {
     }
 
     private String getBody(int cashierNumber, Basket basket) {
-        StringBuilder string = new StringBuilder();
+        StringBuilder bodyText = new StringBuilder();
         for (Good good : basket.getGoods()) {
             String goodFormat = String.format("%s +%.2f", good.getName(), good.getPrice());
             initializeValues(cashierNumber, goodFormat);
             String line = String.format(BODY_FORMAT, columns[0], columns[1], columns[2], columns[3], columns[4], "", "");
-            string.append(line);
+            bodyText.append(line);
         }
-        return string.toString();
+        return bodyText.toString();
     }
 
     private String getTotal(int cashierNumber, double sum, Market market) {
         String sumLineFormat = String.format("TOTAL: %.2f", sum);
         initializeValues(cashierNumber, sumLineFormat);
         return String.format(TOTAL_FORMAT, columns[0], columns[1], columns[2], columns[3], columns[4], market.getQueue().size(), market.getTotalIncome());
+    }
+
+    private void initializeValues(int cashierNumber, String line) {
+        columns = new String[CashierManager.MAX_CASHIER];
+        Arrays.fill(columns, "");
+        columns[cashierNumber] = line;
     }
 }

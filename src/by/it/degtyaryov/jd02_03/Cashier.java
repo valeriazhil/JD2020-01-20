@@ -1,21 +1,19 @@
 package by.it.degtyaryov.jd02_03;
 
-import java.util.List;
-
 class Cashier implements Runnable {
+
+    private static final CheckPrinter printer = new CheckPrinter();
 
     private static int counter = 0;
     private final int id = counter++;
 
     private final String name;
     private final CashierManager manager;
-    private final Reporter reporter;
     private boolean worked;
 
     public Cashier(CashierManager manager) {
         this.name = "\tCashier №" + id;
         this.manager = manager;
-        this.reporter = new Reporter();
         this.worked = false;
     }
 
@@ -35,6 +33,22 @@ class Cashier implements Runnable {
         System.out.printf("%s end working day.%n", this);
     }
 
+    private void calculateBuyer(Buyer buyer) {
+        System.out.printf("%s start calculating %s.%n", this, buyer);
+        Basket basket = buyer.getBasket();
+        for (Good good : basket.getGoods()) {
+            System.out.printf("%s is calculating %s.%n", this, good);
+        }
+        Helper.sleep(Helper.getRandom(2000, 5000));
+        System.out.printf("%s end calculating %s. His total sum is %.2f.%n", this, buyer, basket.getSum());
+        manager.getMarket().addToTotalIncome(basket.getSum());
+        printer.print(id, basket, manager.getMarket());
+        synchronized (buyer) {
+            buyer.endWaiting();
+            buyer.notify();
+        }
+    }
+
     public void resume() {
         System.out.printf("%s resume work.%n", this);
         worked = true;
@@ -43,23 +57,6 @@ class Cashier implements Runnable {
     public void pause() {
         System.out.printf("%s pause work.%n", this);
         worked = false;
-    }
-
-    private void calculateBuyer(Buyer buyer) {
-        Basket basket = buyer.getBasket();
-        List<Good> buyerGoods = basket.getGoods();
-        System.out.printf("%s start calculating %s.%n", this, buyer);
-        for (Good good : buyerGoods) {
-            System.out.printf("%s is calculating %s.%n", this, good);
-        }
-        Helper.sleep(Helper.getRandom(2000, 5000));
-        System.out.printf("%s end calculating %s. His total sum is %.2f.%n", this, buyer, basket.getSum());
-        manager.getMarket().addToTotalIncome(basket.getSum());
-        reporter.printReport(id, basket, manager.getMarket());
-        synchronized (buyer) {
-            buyer.endWaiting();
-            buyer.notify();
-        }
     }
 
     @Override
