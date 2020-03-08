@@ -26,7 +26,7 @@ class Market {
                 buyer.start();
                 if (buyersCounter == 10) break;
             }
-            Helper.sleep(1000);
+            Helper.sleep(1000 / Dispatcher.SPEED) ;
         }
     }
 

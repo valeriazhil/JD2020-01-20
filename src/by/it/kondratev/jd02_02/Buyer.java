@@ -1,8 +1,5 @@
 package by.it.kondratev.jd02_02;
 
-import java.util.LinkedList;
-import java.util.List;
-
 class Buyer extends Thread implements IBuyer, IuseBacket {
 
     Basket basket;

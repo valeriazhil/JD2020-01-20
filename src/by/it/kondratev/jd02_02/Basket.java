@@ -9,7 +9,7 @@ class Basket {
     String basketsName;
 
     Basket (String byersName) {
-        list = new ArrayList<String>();
+        list = new ArrayList<>();
         this.basketsName = "Корзина " + byersName;
     }
 

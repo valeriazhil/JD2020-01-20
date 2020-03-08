@@ -20,7 +20,7 @@ class Cashier extends Thread {
             freeBuyer = false;
             synchronized (Market.MONITOR) {
                 if (!Market.queue.isEmpty()) {
-                    this.buyer = Market.queue.removeLast();
+                    this.buyer = Market.queue.removeFirst();
                     System.out.println(this.buyer.getName() + " обслуживается в " + getName());
                     freeBuyer = true;
                 }
@@ -37,6 +37,7 @@ class Cashier extends Thread {
         int sum = 0;
         String goodsName;
         StringBuilder sb = new StringBuilder("Чек  для " + buyer.getName() + ":\n");
+        Helper.sleep(Helper.random(2000,5000) / Dispatcher.SPEED);
 
         for (int i = 0; i < buyer.basket.list.size(); i++) {
             goodsName = buyer.basket.list.get(i);
