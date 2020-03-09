@@ -9,9 +9,7 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void run() {
-        enterToMarket();
-        chooseGoods();
-        goOut();
+
     }
 
     @Override

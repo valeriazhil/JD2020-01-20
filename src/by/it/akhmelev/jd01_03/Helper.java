@@ -9,7 +9,6 @@ class Helper {
     }
 
     static double[ ] mul(double[ ][ ] matrix, double[ ] vector){
-        //dkjhndkjshfdsfkjh
         return null;
     }
 

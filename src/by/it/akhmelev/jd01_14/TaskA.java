@@ -11,8 +11,8 @@ public class TaskA {
         String datFileName = Helper.getPath(TaskA.class, "dataTaskA.bin");
         writeInt(datFileName);
         List<Integer> list = readInt(datFileName);
-        printToConsole(list);
         printToFile(list);
+        printToConsole(list);
 
     }
 
