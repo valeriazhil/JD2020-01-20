@@ -1,39 +1,79 @@
 package by.it.degtyaryov.calc;
 
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
 
+    private static final Map<String, Integer> OPERATION_PRIORITY = new HashMap<>();
+
+    static {
+        OPERATION_PRIORITY.put("=", 0);
+        OPERATION_PRIORITY.put("+", 1);
+        OPERATION_PRIORITY.put("-", 1);
+        OPERATION_PRIORITY.put("*", 2);
+        OPERATION_PRIORITY.put("/", 2);
+    }
+
     public Var calc(String expressions) throws CalcException {
         expressions = expressions.trim().replace(" ", "");
-        String[] operands = expressions.split(Patterns.OPERATOR, 2);
-        if (operands.length == 1) {
+        String[] strOperands = expressions.split(Patterns.OPERATOR);
+        List<String> operands = new ArrayList<>(Arrays.asList(strOperands));
+        if (operands.size() == 1) {
             return Var.create(expressions);
         }
 
-        Var operTwo = Var.create(operands[1]);
-        if (expressions.contains("=")) {
-            return Var.saveVariable(operands[0], operTwo);
-        }
-        Var operOne = Var.create(operands[0]);
-
+        List<String> operators = new ArrayList<>();
         Matcher operator = Pattern.compile(Patterns.OPERATOR).matcher(expressions);
-        String op = "";
-        if (operator.find()) {
-            op = operator.group();
+        while (operator.find()) {
+            operators.add(operator.group());
         }
-        switch (op) {
+
+        while (!operators.isEmpty()) {
+            int index = getOperationIndex(operators);
+            String op = operators.remove(index);
+            String left = operands.remove(index);
+            String right = operands.remove(index);
+            Var result = calcOneOperation(left, op, right);
+            operands.add(index, result.toString());
+        }
+        return Var.create(operands.get(0));
+    }
+
+    private int getOperationIndex(List<String> operations) {
+        int index = -1;
+        int current = -1;
+
+        for (int i = 0; i < operations.size(); i++) {
+            String s = operations.get(i);
+            if (OPERATION_PRIORITY.get(s) > current) {
+                index = i;
+                current = OPERATION_PRIORITY.get(s);
+            }
+        }
+        return index;
+    }
+
+    private Var calcOneOperation(String strLeft, String operator, String strRight) throws CalcException {
+        Var varRight = Var.create(strRight);
+        if (operator.equals("=")) {
+            Var.saveVariable(strLeft, varRight);
+            return varRight;
+        }
+        Var varLeft = Var.create(strLeft);
+
+        switch (operator) {
             case "+":
-                return operOne.add(operTwo);
+                return varLeft.add(varRight);
             case "-":
-                return operOne.sub(operTwo);
+                return varLeft.sub(varRight);
             case "*":
-                return operOne.mul(operTwo);
+                return varLeft.mul(varRight);
             case "/":
-                return operOne.div(operTwo);
+                return varLeft.div(varRight);
             default:
-                throw new CalcException("unknown operation" + op);
+                throw new CalcException("unknown operation" + operator);
         }
     }
 }

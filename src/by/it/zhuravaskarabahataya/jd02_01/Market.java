@@ -45,7 +45,6 @@ class Market {
                 System.err.println("Something happened.");
             }
         }
-        System.out.println("Earning today is " + Dispatcher.earning + ".");
         System.out.println("Market is closed...");
     }
 }
