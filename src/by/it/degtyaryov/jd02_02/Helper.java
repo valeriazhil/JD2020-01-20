@@ -1,4 +1,4 @@
-package by.it.degtyaryov.jd02_01;
+package by.it.degtyaryov.jd02_02;
 
 import java.util.Random;
 
@@ -8,7 +8,7 @@ class Helper {
 
     public static void sleep(int millis) {
         try {
-            Thread.sleep(millis);
+            Thread.sleep(millis / Dispatcher.K_SPEED);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

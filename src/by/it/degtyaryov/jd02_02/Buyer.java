@@ -1,9 +1,10 @@
-package by.it.degtyaryov.jd02_01;
+package by.it.degtyaryov.jd02_02;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
 
     private final boolean PENSIONER;
     private final double SPEED_FACTOR;
+
     private Basket basket;
     private Good chosenGood;
 
@@ -13,6 +14,14 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         this.SPEED_FACTOR = (pensioner) ? 1.5 : 1;
         this.basket = new Basket();
         Dispatcher.newBuyerInMarket();
+    }
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public boolean isPensioner() {
+        return PENSIONER;
     }
 
     @Override
@@ -26,6 +35,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         }
         System.out.printf("%s end choosing of %d goods and his basket contains: %s%n",
                 this, countGoods, basket.toString().toLowerCase());
+        goToQueue();
         goOut();
     }
 
@@ -40,6 +50,19 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         Helper.sleep((int) (Helper.getRandom(500, 2000) * SPEED_FACTOR));
         chosenGood = Helper.getRandomGood();
         System.out.printf("%s has chosen %s.%n", this, chosenGood.getName().toLowerCase());
+    }
+
+    @Override
+    public void goToQueue() {
+        System.out.printf("%s stand in queue.%n", this);
+        synchronized (this) {
+            Queue.add(this);
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

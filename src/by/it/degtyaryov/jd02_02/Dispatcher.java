@@ -1,26 +1,31 @@
-package by.it.degtyaryov.jd02_01;
+package by.it.degtyaryov.jd02_02;
 
 class Dispatcher {
 
+    public static final int K_SPEED = 100;
+
     private static final int BUYERS_BEGIN_MINUTE = 10;
     private static final int BUYERS_MIDDLE_MINUTE = 40;
+    private static final int PLAN = 100;
 
-    private static int buyersCounter;
-    private static int buyersInMarket;
+    private static volatile int buyersCounter;
+    private static volatile int buyersInMarket;
+    private static volatile int buyersComplete;
 
     public static synchronized void newBuyerInMarket() {
-		buyersCounter++;
+        buyersCounter++;
         buyersInMarket++;
     }
 
     public static synchronized void buyerLeaveMarket() {
+        buyersComplete++;
         buyersInMarket--;
     }
 
-	public static int getBuyersCounter() {
+    public static int getBuyersCounter() {
         return buyersCounter;
     }
-	
+
     public static int getBuyersInMarket() {
         return buyersInMarket;
     }
@@ -39,5 +44,14 @@ class Dispatcher {
         else
             count = BUYERS_MIDDLE_MINUTE + (30 - time);
         return count;
+    }
+
+    public static boolean marketIsOpened() {
+        return buyersInMarket + buyersComplete < PLAN;
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean allBuyersComplete() {
+        return buyersComplete == PLAN;
     }
 }

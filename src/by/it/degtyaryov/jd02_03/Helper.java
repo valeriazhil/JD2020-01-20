@@ -1,14 +1,15 @@
-package by.it.degtyaryov.jd02_01;
+package by.it.degtyaryov.jd02_03;
 
 import java.util.Random;
 
 class Helper {
 
+    public static final int K_SPEED = 100;
     private static final Random GENERATOR = new Random(11);
 
     public static void sleep(int millis) {
         try {
-            Thread.sleep(millis);
+            Thread.sleep(millis / K_SPEED);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
