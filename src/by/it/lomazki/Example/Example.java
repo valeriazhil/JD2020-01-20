@@ -1,14 +1,35 @@
 package by.it.lomazki.Example;
 
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
 public class Example {
     public static void main(String[] args) {
-        int[][] m = new int[5][5];
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m[i].length; j++) {
-                m[i][j] = 1;
-                System.out.print(m[i][j] + " ");
-            }
-            System.out.println();
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        Random rnd = new Random();
+        int[] mas = new int[n];
+        for (int i = 0; i < mas.length; i++) {
+            mas[i] =n - rnd.nextInt(n+n+1);
         }
+        System.out.println(Arrays.toString(mas));
+        int posOne = 0;
+        int sum = 0;
+        for (int i = 0; i < mas.length; i++) {
+            if (mas[i]>=0) {
+                posOne = i;
+            }
+        }
+        for (int i = posOne; i < mas.length; i++) {
+            do{
+                sum += mas[i];
+            }while (mas[i]<0);
+        }
+        System.out.println(sum);
+
+
+
+
     }
 }
