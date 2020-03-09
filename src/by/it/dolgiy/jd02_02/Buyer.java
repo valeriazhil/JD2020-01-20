@@ -1,10 +1,7 @@
-package by.it.dolgiy.jd02_01;
+package by.it.dolgiy.jd02_02;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
-class Buyer extends Thread implements IBuyer, IUseBasket{
+class Buyer extends Thread implements IBuyer, IUseBasket {
 
     Buyer(int number,String buyer){
         super("Buyer № " + number + buyer);
@@ -16,12 +13,14 @@ class Buyer extends Thread implements IBuyer, IUseBasket{
         takeBasket();
         chooseGoods();
         putGoodsToBasket();
+        goToQueue();
         goOut();
     }
 
     @Override
     public void enterToMarket() {
         System.out.println(this+" enter to the Market");
+        Dispatcher.newBuyer();
     }
 
     @Override
@@ -42,31 +41,26 @@ class Buyer extends Thread implements IBuyer, IUseBasket{
 
     @Override
     public void putGoodsToBasket() {
-        Set<Map.Entry<String, Integer>> basket = Helper.shoppingList.entrySet();
-        Iterator<Map.Entry<String, Integer>> iterator = basket.iterator();
-        StringBuffer shopL = new StringBuffer(this+" basket :: ");
-        int countProducts = Helper.random(1,4);
-        for (int i = 0; i < countProducts; i++) {
-            int timeout = Helper.random(500,2000);
-            if (Runner.pensioner){
-                timeout = (int) (timeout*1.5);
+        System.out.println(this + " put products to basket");
+    }
+
+    @Override
+    public void goToQueue() {
+        System.out.println(this+" queued");
+        synchronized (this){
+            QueueBuyers.add(this);
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                System.err.println("Error:"+e);
             }
-            Helper.sleep(timeout);
-            /////////////////
-            int choice = Helper.random(1);
-            for (int ch = 0; ch < choice; ch++) {
-                iterator.next();
-            }
-            Map.Entry<String, Integer> next = iterator.next();
-            shopL.append(next.getKey()).append(':').append(next.getValue()).append(';');
         }
-        System.out.println(shopL);
     }
 
     @Override
     public void goOut() {
         System.out.println(this+" leave the Market");
-        Runner.countOut++;
+        Dispatcher.buyerLeaveTheMarket();
     }
 
     @Override
