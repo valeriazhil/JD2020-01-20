@@ -33,7 +33,7 @@ class Scalar extends Var implements Operation {
     @Override
     public Var add(Scalar other) throws CalcException {
         double result = this.value + ((Scalar) other).getValue();
-        Log.writeExpressionToLogFile(other.toString(), this.toString());
+        String strResult = Double.toString(result);
         return new Scalar(result);
     }
 

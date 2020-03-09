@@ -10,3 +10,6 @@ interface IBuyer {
     void goOut(); //отправился на выход(мгновенно)
 
 }
+
+
+
