@@ -101,11 +101,11 @@ class Matrix extends Var {
                 || this.value[0].length != matrix.value[0].length) {
             throw new CalcException("different size of matrix");
         }
-        double[][] result = new double[value.length][0];
+        double[][] result = new double[matrix.getValue().length][0];
         for (int i = 0; i < result.length; i++) {
-            result[i] = Arrays.copyOf(value[i], value[i].length);
+            result[i] = Arrays.copyOf(matrix.getValue()[i], matrix.getValue()[i].length);
             for (int j = 0; j < result[i].length; j++) {
-                result[i][j] = matrix.getValue()[i][j] - result[i][j];
+                result[i][j] = matrix.getValue()[i][j] - value[i][j];
             }
         }
         return new Matrix(result);
@@ -166,5 +166,23 @@ class Matrix extends Var {
     @Override
     public String toString() {
         return Arrays.deepToString(value).replace('[', '{').replace(']', '}');
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Matrix matrix = (Matrix) o;
+        for (int i = 0; i < value.length; i++) {
+            if (!Arrays.equals(value[i], matrix.value[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(value);
     }
 }
