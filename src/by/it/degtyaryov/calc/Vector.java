@@ -156,4 +156,17 @@ class Vector extends Var {
         return Arrays.toString(value).replace('[', '{')
                 .replace(']', '}');
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector vector = (Vector) o;
+        return Arrays.equals(value, vector.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(value);
+    }
 }
