@@ -1,0 +1,3 @@
+message.welcome=Сардэчна запрашаем!
+user.first_name=Яўген
+user.last_name=Доўгі
