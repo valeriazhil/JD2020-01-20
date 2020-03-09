@@ -63,4 +63,11 @@ public class VectorTest {
         String expression = "{10, 2, -6.99} / {4}";
         parser.calc(expression);
     }
+
+    @Test
+    public void stringToVector() {
+        String expression = "{1234.01, 0.0, -2.0}";
+        Var actualResult = new Vector(expression);
+        assertEquals(expression, actualResult.toString());
+    }
 }

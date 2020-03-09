@@ -61,4 +61,11 @@ public class MatrixTest {
         String expression = "{{0, 0.99}, {-3.5, 4}} / {{6, 5.01}}";
         parser.calc(expression);
     }
+
+    @Test
+    public void stringToMatrix() {
+        String expression = "{{1234.01, 0.0, -2.0}, {1.2, 1.1, 2.9}, {1.2, 0.0, -1.1}}";
+        Var actualResult = new Matrix(expression);
+        assertEquals(expression, actualResult.toString());
+    }
 }

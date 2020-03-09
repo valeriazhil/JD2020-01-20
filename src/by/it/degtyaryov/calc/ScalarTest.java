@@ -50,4 +50,11 @@ public class ScalarTest {
         String expression = "1 / 0";
         parser.calc(expression);
     }
+
+    @Test
+    public void stringToScalar() {
+        String expression = "1234.01";
+        Var actualResult = new Scalar(expression);
+        assertEquals(expression, actualResult.toString());
+    }
 }
