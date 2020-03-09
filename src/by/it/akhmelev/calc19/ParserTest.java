@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ParserTest {
+class ParserTest {
     @Test
     public void calc() throws Exception {
         double expected = 7.3;

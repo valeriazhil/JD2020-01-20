@@ -1,6 +1,6 @@
 package by.it.akhmelev.calc19;
 
-public class CalcException extends Exception {
+class CalcException extends Exception {
     public CalcException() {
     }
 
