@@ -20,12 +20,7 @@ class TaskA1 {
         System.out.println(taskA1.grades);
     }
     private void clearBad(List<Integer> localName) {
-        Iterator<Integer> iterator = localName.iterator();
-        while (iterator.hasNext()) {
-            Integer grade = iterator.next();
-            if (grade < 4)
-                iterator.remove();
-        }
+        localName.removeIf(grade -> grade < 4);
 
     }
 }

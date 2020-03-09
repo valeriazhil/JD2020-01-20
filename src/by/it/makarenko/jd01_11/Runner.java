@@ -27,6 +27,6 @@ public class Runner {
         System.out.println(list);
         System.out.println(list.size());
         System.out.println(list.get(3));
-        
+
     }
 }

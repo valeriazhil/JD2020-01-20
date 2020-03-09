@@ -1,14 +1,18 @@
 package by.it.pkochubei.jd01_09;
 
-abstract class Var implements Operation {
+class Var implements Operation {
 
-    static Var createVar (String operand){
-        operand=operand.trim().replace("\\s+","");
-        if (operand.matches(Patterns.SCALAR))
-            return new Scalar(operand);
-        if (operand.matches(Patterns.VECTOR))
-            return new Vector(operand);
-        return null;
+    static Var create(String strVar) {
+        strVar = strVar.trim().replace(" ", "");
+        if (strVar.matches(Patterns.SCALAR))
+            return new Scalar(strVar);
+        else if (strVar.matches(Patterns.VECTOR))
+            return new Vector(strVar);
+        else if (strVar.matches(Patterns.MATRIX))
+            return new Matrix(strVar);
+        else
+            return null;
+
     }
 
     @Override

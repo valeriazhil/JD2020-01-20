@@ -42,7 +42,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket{
 
     @Override
     public void putGoodsToBasket() {
-        Set<Map.Entry<String, Integer>> basket = Helper.shoppingList().entrySet();
+        Set<Map.Entry<String, Integer>> basket = Helper.shoppingList.entrySet();
         Iterator<Map.Entry<String, Integer>> iterator = basket.iterator();
         StringBuffer shopL = new StringBuffer(this+" basket :: ");
         int countProducts = Helper.random(1,4);

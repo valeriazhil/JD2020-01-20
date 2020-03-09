@@ -1,9 +1,10 @@
 package by.it.gerasimov.calc;
 
 interface Patterns {
-    String OPERATORS = "[-+*/]";
-    String PRIMARY_OPERATORS = "[*/]";
-    String SECONDARY_OPERATORS = "[-+]";
+
+    String OPERATORS = "(?<=[^-+*/={,])[-+*/]";
+    String PRIMARY_OPERATORS = "(?<=[^-+*/={,])[*/]";
+    String SECONDARY_OPERATORS = "(?<=[^-+*/={,])[-+]";
     String ASSIGNMENT_OPERATORS = "=";
     String[] OPERATIONS = {SECONDARY_OPERATORS, PRIMARY_OPERATORS};
     String SCALAR = "-?[0-9]+(\\.[0-9]+)?";

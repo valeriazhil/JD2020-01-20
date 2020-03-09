@@ -1,9 +1,16 @@
-package by.it.pkochubei.jd02_01;
+package by.it.demchik.jd02_01;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class Market {
+
+//    public static void main(String[] args) {
+//        for (int i = 0; i < 1000; i++) {
+//            Dispatcher.completeBuyer=0;
+//            main2(args);
+//        }
+//    }
 
     public static void main(String[] args) {
 
@@ -28,6 +35,10 @@ class Market {
                 System.err.println("Something stupid");
             }
         }
+
+//        bad solution
+//        while (countBuyers>Dispatcher.completeBuyer)
+//            Helper.sleep(1);
 
         System.out.println("The market closed");
     }

@@ -16,7 +16,7 @@ class ConsoleRunner {
             if (expr.equals("end")){
                 break;
             }
-            Var var = null;
+            Var var;
             try {
                 var = parser.calc(expr);
                 printer.print(var);

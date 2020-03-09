@@ -5,7 +5,6 @@ class Scalar extends Var {
     private double value;
 
     void test() {
-        ///
     }
     Scalar(String strValue) {
         this.value = Double.parseDouble(strValue);
