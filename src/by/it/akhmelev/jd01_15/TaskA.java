@@ -30,6 +30,7 @@ public class TaskA {
                 if (line == null) break;
                 list.add(line);
             }
+
             array = new int[list.size()][0];
             for (int i = 0; i < list.size(); i++) {
                 String s = list.get(i);
