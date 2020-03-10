@@ -1,0 +1,4 @@
+message.welcome = Прывітанне!
+message.question = Як сам?
+user.firstname = Аляксандр
+user.lastname = Макаранка
