@@ -10,9 +10,6 @@ import java.util.Scanner;
 class ConsoleRunner {
     public static void main(String[] args) {
         ResMan man = ResMan.INSTANCE;
-//        Locale.setDefault(Locale.US);
-//        Locale locale = Locale.getDefault();
-
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
@@ -40,9 +37,11 @@ class ConsoleRunner {
                 }
                 if (line.equals("printvar")){
                     Var.printVar();
+                    continue;
                 }
                 if (line.equals("sortvar")){
                     Var.sortVar();
+                    continue;
                 }
                 Var result = parser.calc(line);
                 printer.print(result);
