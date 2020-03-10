@@ -50,14 +50,6 @@ class Buyer implements Runnable, IBuyer, IUseBasket {
         System.out.printf("%s has taken basket.%n", this);
     }
 
-    @Override
-    public void chooseGoods() {
-        System.out.printf("%s is choosing goods.%n", this);
-        Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
-        chosenGood = Helper.getRandomGood();
-        System.out.printf("%s has chosen %s.%n", this, chosenGood.getName().toLowerCase());
-    }
-
     private void chooseAndTakeGoods(int goods) {
         try {
             semaphore.acquire();
@@ -71,6 +63,14 @@ class Buyer implements Runnable, IBuyer, IUseBasket {
         } finally {
             semaphore.release();
         }
+    }
+
+    @Override
+    public void chooseGoods() {
+        System.out.printf("%s is choosing goods.%n", this);
+        Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
+        chosenGood = Helper.getRandomGood();
+        System.out.printf("%s has chosen %s.%n", this, chosenGood.getName().toLowerCase());
     }
 
     @Override

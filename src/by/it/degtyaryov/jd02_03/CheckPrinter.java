@@ -13,17 +13,17 @@ class CheckPrinter {
     private String[] columns;
 
     public synchronized void print(int cashierNumber, Basket basket, Market market) {
-        String checkText = getTitle() +
-                getBody(cashierNumber, basket) +
-                getTotal(cashierNumber, basket.getSum(), market);
+        String checkText = generateTitle() +
+                generateBody(cashierNumber, basket) +
+                generateFooter(cashierNumber, basket.getSum(), market);
         printWriter.printf(checkText).flush();
     }
 
-    private String getTitle() {
+    private String generateTitle() {
         return String.format(TITLE_FORMAT, "Cashier №0", "Cashier №1", "Cashier №2", "Cashier №3", "Cashier №4", "In queue", "Market's income");
     }
 
-    private String getBody(int cashierNumber, Basket basket) {
+    private String generateBody(int cashierNumber, Basket basket) {
         StringBuilder bodyText = new StringBuilder();
         for (Good good : basket.getGoods()) {
             String goodFormat = String.format("%s +%.2f", good.getName(), good.getPrice());
@@ -34,7 +34,7 @@ class CheckPrinter {
         return bodyText.toString();
     }
 
-    private String getTotal(int cashierNumber, double sum, Market market) {
+    private String generateFooter(int cashierNumber, double sum, Market market) {
         String sumLineFormat = String.format("TOTAL: %.2f", sum);
         initializeValues(cashierNumber, sumLineFormat);
         return String.format(TOTAL_FORMAT, columns[0], columns[1], columns[2], columns[3], columns[4], market.getQueue().size(), market.getTotalIncome());
