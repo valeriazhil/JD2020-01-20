@@ -1,3 +1,7 @@
 error.add = Операция %s + %s невозможна
 error.sub = Операция %s - %s невозможна
-error.divByZero = Деление на ноль
+error.mul = Операция %s * %s невозможна.
+error.div = Операция %s / %s невозможна.
+error.divByZero = Деление на ноль.
+error.invalidOperation = Невозможная операция.
+error.varNotFound = Переменная не найдена.

@@ -10,20 +10,20 @@ abstract class Var implements Operation {
 
     private static Map<String, Var> vars = FileHelper.getVarsMapFromFile(FileHelper.varsFile);
 
-    static Var saveVar(String varName, Var var) {
+    static void saveVar(String varName, Var var) {
         vars.put(varName, var);
         FileHelper.writeVarToFile(varName, var, FileHelper.varsFile);
-        return var;
     }
-
-    static void printvar() {
-        List<String> keys = new ArrayList<>(vars.keySet());
-        for (String key : keys) {
-            System.out.println(key + "=" + vars.get(key));
-        }
-    }
+//
+//    static void printvar() {
+//        List<String> keys = new ArrayList<>(vars.keySet());
+//        for (String key : keys) {
+//            System.out.println(key + "=" + vars.get(key));
+//        }
+//    }
 
     static void sortVar() {
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
         List<String> keys = new ArrayList<>(vars.keySet());
         Collections.sort(keys);
     }
@@ -40,30 +40,30 @@ abstract class Var implements Operation {
     }
 
     public Var add(Scalar other) throws CalcException {
-        throw new CalcException(String.format("Operation %s + %s is impossible", this, other));
+        throw new CalcException(String.format(manager.get(Error.ADD), this, other));
     }
 
     public Var add(Vector other) throws CalcException {
-        throw new CalcException(String.format("Operation %s + %s is impossible", this, other));
+        throw new CalcException(String.format(manager.get(Error.ADD), this, other));
     }
 
     public Var add(Matrix other) throws CalcException {
-        throw new CalcException(String.format("Operation %s + %s is impossible", this, other));
+        throw new CalcException(String.format(manager.get(Error.ADD), this, other));
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException("Операция " + this + " - " + other + " невозможна");
+        throw new CalcException(String.format(manager.get(Error.SUB), this, other));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("Операция " + this + " * " + other + " невозможна");
+        throw new CalcException(String.format(manager.get(Error.MUL), this, other));
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("Операция " + this + " / " + other + " невозможна");
+        throw new CalcException(String.format(manager.get(Error.DIV), this, other));
     }
 
     static Var create(String strVar) throws CalcException {
@@ -79,7 +79,7 @@ abstract class Var implements Operation {
         } else {
             Var var = vars.get(strVar);
             if (var == null) {
-                throw new CalcException("Переменная не найдена " + strVar);
+                throw new CalcException(manager.get(Error.VAR_NOT_FOUND) +" ("+ strVar+")");
             } else {
                 return var;
             }

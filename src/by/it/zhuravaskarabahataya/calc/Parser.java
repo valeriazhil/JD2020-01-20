@@ -60,7 +60,9 @@ class Parser {
             String strLeft = operands.remove(index);
             String strRight = operands.remove(index);
             Var var = oneOper(strLeft, op, strRight);
-            operands.add(index, var.toString());
+            if (var != null) {
+                operands.add(index, var.toString());
+            }
         }
 
         return Var.create(operands.get(0));

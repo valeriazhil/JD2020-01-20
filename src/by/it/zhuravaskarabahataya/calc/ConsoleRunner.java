@@ -5,10 +5,7 @@ import by.it.zhuravaskarabahataya.calc.translate.ResMan;
 import java.util.Locale;
 import java.util.Scanner;
 
-
 class ConsoleRunner {
-
-    private static String varsFile = FileHelper.getFilePath("vars.txt", Var.class);
 
     public static void main(String[] args) {
         ResMan man = ResMan.INSTANCE;
@@ -20,25 +17,28 @@ class ConsoleRunner {
             if (expr.equals("end")) {
                 break;
             }
-            switch (expr){
-                case "ru" :
+            switch (expr) {
+                case "ru":
                     Locale locale = new Locale("ru");
                     man.setLocale(locale);
-                        break;
-                case  "en":
-                ResMan.INSTANCE.setLocale(new Locale("en", "US"));
-            break;
+                    break;
+                case "en":
+                    ResMan.INSTANCE.setLocale(new Locale("en", "US"));
+                    break;
+                case "be":
+                    ResMan.INSTANCE.setLocale(new Locale("be", "BY"));
+                    break;
                 default:
-            try {
-                Var var;
-                var = parser.calc(expr);
-                printer.print(var);
-            } catch (CalcException e) {
-                System.out.println(e.getMessage());
+                    try {
+                        Var var;
+                        var = parser.calc(expr);
+                        printer.print(var);
+                    } catch (CalcException e) {
+                        System.out.println(e.getMessage());
+                    }
             }
+            // Var.printvar();
+            Var.sortVar();
         }
-
-        // Var.printvar();
-        Var.sortVar();
-    }}
+    }
 }
