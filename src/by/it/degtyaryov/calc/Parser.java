@@ -1,5 +1,8 @@
 package by.it.degtyaryov.calc;
 
+import by.it.degtyaryov.calc.i18n.ResManager;
+import by.it.degtyaryov.calc.i18n.TextResource;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,6 +10,7 @@ import java.util.regex.Pattern;
 class Parser {
 
     private static final Map<String, Integer> OPERATION_PRIORITY = new HashMap<>();
+    private ResManager res = ResManager.INSTANCE;
 
     static {
         OPERATION_PRIORITY.put("=", 0);
@@ -73,7 +77,7 @@ class Parser {
             case "/":
                 return varLeft.div(varRight);
             default:
-                throw new CalcException("unknown operation" + operator);
+                throw new CalcException(res.get(TextResource.UNKNOWN_OPERATION) + operator);
         }
     }
 }

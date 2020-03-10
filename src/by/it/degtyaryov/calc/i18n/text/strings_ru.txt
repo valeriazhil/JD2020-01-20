@@ -1,0 +1,19 @@
+calcException=ОШИБКА: %s.
+unknownOperation=неизвестная операция
+unknownVariable=неизвестная переменная
+
+message.noSavedVars=Переменные еще не добавлялись.
+
+expression=выражение: %s, результат: %s.
+
+matrix.differentSize=разный размер матриц
+vector.differentSize=разный размер векторов
+vector.differentSizeVM=разный размер вектора и матрицы
+
+scalar.divisionByZero=деление на ноль
+
+
+add.operationImpossible=операция %s + %s невозможна.
+sub.operationImpossible=операция %s - %s невозможна.
+mul.operationImpossible=операция %s * %s невозможна.
+div.operationImpossible=операция %s / %s невозможна.

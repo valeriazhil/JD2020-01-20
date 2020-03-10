@@ -1,5 +1,8 @@
 package by.it.degtyaryov.calc;
 
+import by.it.degtyaryov.calc.i18n.ResManager;
+import by.it.degtyaryov.calc.i18n.TextResource;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +11,8 @@ abstract class Var implements Operation {
 
     private static final String VARS_FILE = Helper.getPath(Var.class, "var.txt");
     private static Map<String, Var> variables = new HashMap<>();
+
+    private static ResManager res = ResManager.INSTANCE;
 
     public static Var saveVariable(String key, Var value) {
         Var var = variables.put(key, value);
@@ -50,13 +55,13 @@ abstract class Var implements Operation {
         } else if (variables.containsKey(operand)) {
             return variables.get(operand);
         } else {
-            throw new CalcException("unknown variables " + operand);
+            throw new CalcException(res.get(TextResource.UNKNOWN_VARIABLE) + operand);
         }
     }
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException("operation " + other + " + " + this + " is impossible");
+        throw new CalcException(String.format(res.get(TextResource.ADD_OPERATION_IMPOSSIBLE), other, this));
     }
 
     public abstract Var add(Scalar scalar) throws CalcException;
@@ -67,7 +72,7 @@ abstract class Var implements Operation {
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException("operation " + other + " - " + this + " is impossible");
+        throw new CalcException(String.format(res.get(TextResource.SUB_OPERATION_IMPOSSIBLE), other, this));
     }
 
     public abstract Var sub(Scalar scalar) throws CalcException;
@@ -78,7 +83,7 @@ abstract class Var implements Operation {
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("operation " + other + " * " + this + " is impossible");
+        throw new CalcException(String.format(res.get(TextResource.MUL_OPERATION_IMPOSSIBLE), other, this));
     }
 
     public abstract Var mul(Scalar scalar) throws CalcException;
@@ -89,7 +94,7 @@ abstract class Var implements Operation {
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("operation " + other + " / " + this + " is impossible");
+        throw new CalcException(String.format(res.get(TextResource.DIV_OPERATION_IMPOSSIBLE), other, this));
     }
 
     public abstract Var div(Scalar scalar) throws CalcException;
