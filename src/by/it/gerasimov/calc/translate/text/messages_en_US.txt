@@ -1,0 +1,7 @@
+error.divisionByZero=Division by zero
+error.error=ERROR
+error.illegalOperationException="Операция %s %s %s невозможна"
+error.invalidInput=Invalid input
+error.notFoundVar=Not found variable 
+message.hello=Hello
+user.name=Gerasimov Jegor
