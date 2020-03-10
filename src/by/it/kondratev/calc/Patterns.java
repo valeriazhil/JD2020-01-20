@@ -1,8 +1,8 @@
-package by.it.kondratev.Calculator;
+package by.it.kondratev.calc;
 
-public class Patterns {
+interface Patterns {
 
-    static final String OPERATION = "[-+/*]";
+    static final String OPERATION = "(?<=[^-+*/{,])[-+*/=]";
     static final String SCALAR = "-?[0-9]+\\.?[0-9]*";
     static final String VECTOR =  "\\{("+SCALAR+",?)+}"; //"\\{(-?[0-9]+\\.?[0-9]*,?)+}";
     static final String MATRIX = "\\{("+VECTOR+",?)+}";  //"\\{(\\{(-?[0-9]+\\.?[0-9]*,?)+},?)+}";

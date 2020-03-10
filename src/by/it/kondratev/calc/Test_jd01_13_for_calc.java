@@ -1,4 +1,4 @@
-package by.it.kondratev.Calculator;
+package by.it.kondratev.calc;
 
 
 import org.junit.Test;
