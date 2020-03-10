@@ -1,8 +1,12 @@
 package by.it.zhuravaskarabahataya.calc;
 
+import by.it.zhuravaskarabahataya.calc.translate.Error;
+import by.it.zhuravaskarabahataya.calc.translate.ResMan;
 import java.util.*;
 
 abstract class Var implements Operation {
+
+    private static ResMan manager = ResMan.INSTANCE;
 
     private static Map<String, Var> vars = FileHelper.getVarsMapFromFile(FileHelper.varsFile);
 
@@ -22,9 +26,6 @@ abstract class Var implements Operation {
     static void sortVar() {
         List<String> keys = new ArrayList<>(vars.keySet());
         Collections.sort(keys);
-        for (String key : keys) {
-            System.out.println(key + "=" + vars.get(key));
-        }
     }
 
     @Override
@@ -35,19 +36,19 @@ abstract class Var implements Operation {
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException("Операция " + this + " + " + other + " невозможна");
+        throw new CalcException(String.format(manager.get(Error.ADD) , this, other));
     }
 
     public Var add(Scalar other) throws CalcException {
-        throw new CalcException("Операция " + this + " + " + other + " невозможна");
+        throw new CalcException(String.format("Operation %s + %s is impossible", this, other));
     }
 
     public Var add(Vector other) throws CalcException {
-        throw new CalcException("Операция " + this + " + " + other + " невозможна");
+        throw new CalcException(String.format("Operation %s + %s is impossible", this, other));
     }
 
     public Var add(Matrix other) throws CalcException {
-        throw new CalcException("Операция " + this + " + " + other + " невозможна");
+        throw new CalcException(String.format("Operation %s + %s is impossible", this, other));
     }
 
     @Override

@@ -1,0 +1,3 @@
+error.add = Операция %s + %s невозможна
+error.sub = Операция %s - %s невозможна
+error.divByZero = Деление на ноль

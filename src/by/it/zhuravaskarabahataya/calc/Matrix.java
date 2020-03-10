@@ -76,7 +76,7 @@ class Matrix extends Var implements Operation {
             double[][] result = new double[values.length][values[0].length];
             double s = ((Scalar) other).getValue();
             for (int i = 0; i < result.length; i++) {
-                for (int j = 0; j < result.length; j++) {
+                for (int j = 0; j < result[0].length; j++) {
                     result[i][j] = values[i][j] - s;
                 }
             }
@@ -104,7 +104,7 @@ class Matrix extends Var implements Operation {
         if (other instanceof Scalar) {
             double[][] result = new double[values.length][values[0].length];
             for (int i = 0; i < result.length; i++) {
-                for (int j = 0; j < result.length; j++) {
+                for (int j = 0; j < result[0].length; j++) {
                     result[i][j] = values[i][j] * ((Scalar) other).getValue();
                 }
             }

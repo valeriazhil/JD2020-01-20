@@ -2,6 +2,7 @@ package by.it.zhuravaskarabahataya.calc;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 class FileHelper {
     private static final String root = System.getProperty("user.dir");
@@ -26,7 +27,10 @@ class FileHelper {
 
     static HashMap<String, Var> getVarsMapFromFile(String filename) {
         String textFromFile = readTextFromFile(filename);
-        HashMap<String, Var> vars = getMapFromString(textFromFile);
+        HashMap<String, Var> vars = new HashMap<>();
+        if (textFromFile.length() != 0) {
+           vars = getMapFromString(textFromFile);
+        }
         return vars;
     }
 
