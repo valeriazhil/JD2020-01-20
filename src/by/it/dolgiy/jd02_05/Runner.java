@@ -28,11 +28,11 @@ class Runner {
                 locale = Locale.getDefault();
                 break;
         }
-        if (args.length==2){
-            String lang = args[0];
-            String country = args[1];
-            locale = new Locale(lang,country);
-        }
+//        if (args.length==2){
+//            String lang = args[0];
+//            String country = args[1];
+//            locale = new Locale(lang,country);
+//        }
         manager.changeResource(locale);
         System.out.println(manager.getString(Welcome.WELCOME));
         System.out.println(manager.getString(Welcome.USER_FIRST_NAME));

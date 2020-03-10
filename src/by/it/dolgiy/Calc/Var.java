@@ -1,6 +1,9 @@
 package by.it.dolgiy.Calc;
 
 
+import by.it.dolgiy.Calc.translate.CalcErrors;
+import by.it.dolgiy.Calc.translate.ResMan;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,7 +13,8 @@ import java.util.*;
 
 abstract class Var implements Operation {
 
-    private static Map<String,Var> vars= new HashMap<>();
+    static ResMan man = ResMan.INSTANCE;
+    private static Map<String, Var> vars= new HashMap<>();
     private static String fileVarPath = TaskH.getPath(Var.class,"Vars.txt");
 
     static Var saveVar(String name, Var var){
@@ -58,8 +62,8 @@ abstract class Var implements Operation {
         }
     }
 
-    static Var createVar(String strVar) throws CalcException{
-        strVar = strVar.trim().replace("\\s+","");
+    static Var createVar(String strVar) throws CalcException {
+        strVar = strVar.trim().replace(" ","");
         if (strVar.matches(Patterns.SCALAR)){
             return new Scalar(strVar);
         }
@@ -72,36 +76,28 @@ abstract class Var implements Operation {
         else if (vars.containsKey(strVar)) {
             return vars.get(strVar);
         }
-        throw new CalcException("Невозможно создать "+strVar);
-//        else {
-//            Var var = vars.get(strVar);
-//            if (var!=null){
-//                return var;
-//            }
-//            else {
-//                throw new CalcException("Невозможно создать "+strVar);
-//            }
-//        }
+        throw new CalcException(man.getString(CalcErrors.IMPOSSIBLE_TO_CREATE)+" "+strVar);
     }
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException("Операция сложения "+this+" + "+other+" невозможна");
+        throw new CalcException(String.format(man.getString(CalcErrors.ADD),this,other));
     }
 
     @Override
-    public Var sub(Var other) throws CalcException{
-        throw new CalcException("Операция вычитания "+this+" - "+other+" невозможна");
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException(String.format(man.getString(CalcErrors.SUB),this,other));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("Операция умножения "+this+" * "+other+" невозможна");
+        throw new CalcException(String.format(man.getString(CalcErrors.MUL),this,other));
     }
 
     @Override
-    public Var div(Var other) throws CalcException{
-        throw new CalcException("Операция деления "+this+" / "+other+" невозможна");
+    public Var div(Var other) throws CalcException {
+        throw new CalcException(String.format(man.getString(CalcErrors.DIV),this,other));
+
     }
 
     @Override
