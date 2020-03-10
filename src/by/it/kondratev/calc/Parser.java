@@ -32,6 +32,8 @@ public class Parser {
 
     Var calc(String expression) throws CalcException {
         expression = expression.trim().replace(" ", "");
+        if (expression.contains("("))
+            expression = deleteHooks(expression);
         String[] strings = expression.split(Patterns.OPERATION);
         List<String> operands = new ArrayList<>(Arrays.asList(strings));
         if (operands.size() == 1)
@@ -52,6 +54,20 @@ public class Parser {
             operands.add(index, res.toString());
         }
         return Var.create(operands.get(0));
+    }
+
+    String deleteHooks(String string) throws CalcException {
+        Matcher matcherHooks = Pattern.compile(Patterns.HOOKS).matcher(string);
+        String str1, str2;
+        while (matcherHooks.find(0)) {
+            str1 = matcherHooks.group();
+            str2 = str1;
+            str2 = str2.replace("(","").replace(")","");
+            str2 = calc(str2).toString();
+            string = string.replace(str1,str2);
+            matcherHooks = Pattern.compile(Patterns.HOOKS).matcher(string);
+        }
+        return string;
     }
 
     private static final Map<String,Integer> PR_MAP =new HashMap<>();

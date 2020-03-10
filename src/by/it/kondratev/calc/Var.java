@@ -14,7 +14,7 @@ abstract class Var implements Operation {
 
     static Var create(String strVar) throws CalcException {
 
-        strVar = strVar.trim().replace("\\s+","");
+        strVar = strVar.trim().replace(" ","");
         if(strVar.matches(Patterns.SCALAR)) return new Scalar(strVar);
         else
             if(strVar.matches(Patterns.VECTOR)) return new Vector(strVar);

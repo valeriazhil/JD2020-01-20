@@ -58,8 +58,8 @@ public class ScalarTest {
 
     @Test
     public void divSS() throws CalcException {
-        Double expected = 5.0/3.0;
-        assertEquals(expected.toString(), s1.div(s2).toString());
+        double expected = 5.0/3.0;
+        assertEquals(Double.toString(expected), s1.div(s2).toString());
     }
 
     @Test(expected = CalcException.class)

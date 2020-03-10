@@ -3,9 +3,13 @@ package by.it.kondratev.jd02_02;
 class Cashier extends Thread {
 
     Buyer buyer;
+    int number;
+    boolean nextCashierWorks;
+    boolean continueWork;
 
     Cashier (int number) {
         super("Касса № " + number);
+        this.number = number;
     }
 
     public void run() {
@@ -15,6 +19,7 @@ class Cashier extends Thread {
     }
 
     private void cashierWork() {
+        nextCashierWorks = false;
         boolean freeBuyer;
         do {  
             freeBuyer = false;
@@ -28,9 +33,23 @@ class Cashier extends Thread {
                     serveOneBuyer(this.buyer);
                     this.buyer.inLine = false;
                     Market.MONITOR.notifyAll();
+                    cashierManage();
                 }
             }
-        } while (Market.compliteBuyers < 10);
+            yield();
+            Helper.sleep(10);
+        } while (Market.compliteBuyers < Market.MAX_BUYERS);
+    }
+
+    private void cashierManage() {
+        if (Market.queue.size()>this.number*5
+                && !nextCashierWorks
+                && this.number!=5) {
+            Cashier next = new Cashier(this.number+1);
+                    next.start();
+            nextCashierWorks = true;
+        }
+
     }
 
     private void serveOneBuyer(Buyer buyer) {
