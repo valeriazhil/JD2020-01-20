@@ -76,27 +76,27 @@ abstract class Var implements Operation {
         else if (vars.containsKey(strVar)) {
             return vars.get(strVar);
         }
-        throw new CalcException(man.getString(CalcErrors.IMPOSSIBLE_TO_CREATE)+" "+strVar);
+        throw new CalcException(man.get(CalcErrors.IMPOSSIBLE_TO_CREATE)+" "+strVar);
     }
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException(String.format(man.getString(CalcErrors.ADD),this,other));
+        throw new CalcException(String.format(man.get(CalcErrors.ADD),this,other));
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException(String.format(man.getString(CalcErrors.SUB),this,other));
+        throw new CalcException(String.format(man.get(CalcErrors.SUB),this,other));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException(String.format(man.getString(CalcErrors.MUL),this,other));
+        throw new CalcException(String.format(man.get(CalcErrors.MUL),this,other));
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException(String.format(man.getString(CalcErrors.DIV),this,other));
+        throw new CalcException(String.format(man.get(CalcErrors.DIV),this,other));
 
     }
 

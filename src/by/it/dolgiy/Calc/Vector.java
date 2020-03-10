@@ -52,7 +52,7 @@ class Vector extends Var {
         else if (other instanceof Vector){
             double[] add1 = Arrays.copyOf(value,value.length);
             if (this.value.length!=((Vector) other).value.length){
-                throw new CalcException(man.getString(CalcErrors.LENGTH_ERROR));
+                throw new CalcException(man.get(CalcErrors.LENGTH_ERROR));
             }
             for (int i = 0; i < add1.length; i++) {
                 add1[i]=add1[i]+((Vector) other).value[i];
@@ -75,7 +75,7 @@ class Vector extends Var {
         else if (other instanceof Vector){
             double[] sub1 = Arrays.copyOf(value,value.length);
             if (this.value.length!=((Vector) other).value.length){
-                throw new CalcException(man.getString(CalcErrors.LENGTH_ERROR));
+                throw new CalcException(man.get(CalcErrors.LENGTH_ERROR));
             }
             for (int i = 0; i < sub1.length; i++) {
                 sub1[i]=sub1[i]-((Vector) other).value[i];
@@ -99,7 +99,7 @@ class Vector extends Var {
             double[] mul1 = Arrays.copyOf(value,value.length);
             double mul2 = 0;
             if (this.value.length!=((Vector) other).value.length){
-                throw new CalcException(man.getString(CalcErrors.LENGTH_ERROR));
+                throw new CalcException(man.get(CalcErrors.LENGTH_ERROR));
             }
             for (int i = 0; i < mul1.length; i++) {
                 mul1[i]=mul1[i]*((Vector) other).value[i];
@@ -116,7 +116,7 @@ class Vector extends Var {
         if (other instanceof Scalar){
             double[] div1 = Arrays.copyOf(value,value.length);
             if ((((Scalar) other).getValue())==0){
-                throw new CalcException(man.getString(CalcErrors.DIV_BY_ZERO));
+                throw new CalcException(man.get(CalcErrors.DIV_BY_ZERO));
             }
             for (int i = 0; i < div1.length; i++) {
                 div1[i]=div1[i]/((Scalar) other).getValue();

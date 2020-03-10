@@ -5,18 +5,20 @@ import java.util.ResourceBundle;
 
 public enum ResMan {
     INSTANCE;
-    private ResourceBundle resourceBundle;
-    private final String resourceName = "by.it.dolgiy.jd02_05.translation.welcome";
 
-    ResMan(){
-        resourceBundle = ResourceBundle.getBundle(resourceName, Locale.getDefault());
+    private ResourceBundle bundle;
+
+    ResMan() {
+        setLocale(Locale.getDefault());
     }
 
-    public void changeResource(Locale locale){
-        resourceBundle = ResourceBundle.getBundle(resourceName,locale);
+    public void setLocale(Locale locale) {
+        String baseName = "by.it.dolgiy.Calc.translate.lang.calc_errors";
+        bundle = ResourceBundle.getBundle(baseName, locale);
+        Locale.setDefault(locale);
     }
 
-    public String getString(String key){
-        return resourceBundle.getString(key);
+    public String get(String key) {
+        return bundle.getString(key);
     }
 }

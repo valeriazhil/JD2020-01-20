@@ -9,7 +9,7 @@ class Printer {
         if (var!=null)
             System.out.println(var);
         else
-            System.err.println(man.getString(CalcErrors.CALC_ERROR));
+            System.err.println(man.get(CalcErrors.CALC_ERROR));
     }
     public void message(String message) {
         System.out.println(message);

@@ -11,11 +11,11 @@ class CalcException extends Exception {
     }
 
     public CalcException(String message) {
-        super(man.getString(CalcErrors.CALC_ERROR)+ message);
+        super(man.get(CalcErrors.CALC_ERROR)+ message);
     }
 
     public CalcException(String message, Throwable cause) {
-        super(man.getString(CalcErrors.CALC_ERROR)+message, cause);
+        super(man.get(CalcErrors.CALC_ERROR)+message, cause);
     }
 
     public CalcException(Throwable cause) {

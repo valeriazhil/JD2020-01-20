@@ -58,7 +58,7 @@ class Matrix extends Var {
         else if (other instanceof Matrix) {
             double[][] add1=new double[value.length][value[0].length];
             if (this.value.length!=((Matrix) other).value.length || this.value[0].length!=((Matrix) other).value[0].length) {
-                throw new CalcException(man.getString(CalcErrors.LENGTH_ERROR));
+                throw new CalcException(man.get(CalcErrors.LENGTH_ERROR));
             }
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[i].length; j++) {
@@ -85,7 +85,7 @@ class Matrix extends Var {
         else if (other instanceof Matrix) {
             double[][] sub1 = new double[value.length][value[0].length];
             if (this.value.length!=((Matrix) other).value.length || this.value[0].length!=((Matrix) other).value[0].length){
-                throw new CalcException(man.getString(CalcErrors.LENGTH_ERROR));
+                throw new CalcException(man.get(CalcErrors.LENGTH_ERROR));
             }
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[i].length; j++) {
@@ -112,7 +112,7 @@ class Matrix extends Var {
             double[][] mul1=new double[value.length][value[0].length];
             double[] mul2=new double[value.length];
             if (this.value[0].length!=((Vector) other).getValue().length){
-                throw new CalcException(man.getString(CalcErrors.LENGTH_ERROR));
+                throw new CalcException(man.get(CalcErrors.LENGTH_ERROR));
             }
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[0].length; j++) {
@@ -125,7 +125,7 @@ class Matrix extends Var {
         else if (other instanceof Matrix){
             double[][] mul1=new double[value.length][value[0].length];
             if (this.value.length!=((Matrix) other).value.length || this.value[0].length!=((Matrix) other).value[0].length){
-                throw new CalcException(man.getString(CalcErrors.LENGTH_ERROR));
+                throw new CalcException(man.get(CalcErrors.LENGTH_ERROR));
             }
             for (int i = 0; i < this.value.length; i++) {
                 for (int j = 0; j < this.value[0].length; j++) {
