@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 class TaskB {
     public static void main(String[] args) {
-        String textFile = getPath("TaskB.txt");
+        String textFile = getPath("text.txt");
         String textFromFile = readText(textFile);
         int countWords = getCountWords(textFromFile);
         int punctMarks = getPunctMarks(textFromFile);

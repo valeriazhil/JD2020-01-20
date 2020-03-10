@@ -43,6 +43,12 @@ class Matrix extends Var {
                 .replace('[','{')
                 .replace(']','}');
     }
+
+    public Matrix add(Matrix other) {
+        return other.add(this);
+    }
+
+
 }
 
 

@@ -9,6 +9,7 @@ abstract class Var implements Operation {
         return null;
     }
 
+
     @Override
     public Var sub(Var other) {
         System.out.println("Операция вычитания "+this+"-"+other+" невозможна" );

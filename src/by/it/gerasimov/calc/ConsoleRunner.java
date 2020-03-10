@@ -8,6 +8,7 @@ class ConsoleRunner {
         Parser parser = new Parser();
         Printer printer = new Printer();
         while (true) {
+            Var.loadVars();
             String expression = scanner.nextLine();
             if (expression.equals("end")) {
                 break;

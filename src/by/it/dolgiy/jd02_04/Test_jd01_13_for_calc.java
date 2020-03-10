@@ -1,4 +1,4 @@
-package by.it.pkochubei.jd01_13;
+package by.it.dolgiy.jd02_04;
 
 
 import org.junit.Test;

@@ -14,28 +14,22 @@ class Market {
             new Good("Eggs", 2.0),
             new Good("Water", 1.0)));
 
-    private static final int BUYERS_BEGIN_MINUTE = 10;
-    private static final int BUYERS_MIDDLE_MINUTE = 40;
+    private List<Buyer> buyers = new ArrayList<>(1000);
 
-    private List<Buyer> buyers = new ArrayList<>(2000);
-
-    public void startWork(int workTime) {
-        int entered = 0;
+    public void start(int workTime) {
         for (int time = 0; time < workTime; time++) {
-            int mustBeInMarket = getCountMustBeInMarket(time);
-            int buyersToEnter = (Dispatcher.buyerInMarket > mustBeInMarket) ?
-                    0 : mustBeInMarket - Dispatcher.buyerInMarket;
+            int buyersToEnter = Dispatcher.getBuyerToEnterByTime(time);
             for (int i = 0; i < buyersToEnter; i++) {
-                Buyer buyer = new Buyer(++entered, Helper.getRandomIsPensioner());
+                Buyer buyer = new Buyer(Dispatcher.getBuyersCounter(), Helper.getRandomIsPensioner());
                 buyers.add(buyer);
                 buyer.start();
             }
-            System.out.printf("Time: %d sec. Now in market: %d buyers.%n", time, Dispatcher.buyerInMarket);
+            System.out.printf("Time: %d sec. Now in market: %d buyers.%n", time, Dispatcher.getBuyersInMarket());
             Helper.sleep(1000);
         }
     }
 
-    public void endWork() {
+    public void end() {
         for (Buyer buyer : buyers) {
             try {
                 buyer.join();
@@ -43,15 +37,5 @@ class Market {
                 e.printStackTrace();
             }
         }
-    }
-
-    private int getCountMustBeInMarket(int time) {
-        int count;
-        time %= 60; // для привязки к секунде без учета минуты
-        if (time < 30)
-            count = BUYERS_BEGIN_MINUTE + time;
-        else
-            count = BUYERS_MIDDLE_MINUTE + (30 - time);
-        return count;
     }
 }

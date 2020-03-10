@@ -1,0 +1,6 @@
+error.add=Операция %s + %s невозможна
+error.sub=Операция %s - %s невозможна
+error.mul=Операция %s * %s невозможна
+error.div=Операция %s / %s невозможна
+error.divByZero=Деление на ноль
+error.noVariable=Не найдена переменная %s

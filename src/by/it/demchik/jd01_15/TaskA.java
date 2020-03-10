@@ -1,87 +1,87 @@
 package by.it.demchik.jd01_15;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+//Создайте матрицу 6 строк на 4 столбца из целых случайных чисел от -15 до 15 включительно.
+// Выведите матрицу в текстовый файл matrix.txt, расположенный в папке задания jd01_15.
+// При выводе для
+//каждого числа нужно предусмотреть для него три знакоместа, после чисел – один пробел.
+// Прочитайте файл и покажите его в консоли. Класс Scanner использовать нельзя.
+
+
+//Что тут произошло?
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
 
-public class TaskA {
+class TaskA {
 
-    private static final Random rnd = new Random();
+    private static final Random random = new Random();
+    private static String fileName = Helper.getPath("matrix.txt", TaskA.class);
 
     public static void main(String[] args) {
-        String fileName = Helper.getPath(TaskA.class, "matrix.txt");
-        int[][] array = generate(6, 4);
-        System.out.println(Arrays.deepToString(array));
-        saveArray(array, fileName);
-
-        array=loadArray(fileName);
-        System.out.println(Arrays.deepToString(array));
-
-
+        int[][] matrix = createMatrix(6, 4);
+        printMatrix(matrix);
+        matrixToFile(matrix);
+        System.out.println();
+        readFileToConsole(fileName);
     }
 
-    private static int[][] loadArray(String fileName) {
-        int[][] array=new int[0][0];
-
-        try (
-                BufferedReader reader = new BufferedReader(new FileReader(fileName))
-        ) {
-            ArrayList<String> list = new ArrayList<>();
-            while (true) {
-                String line = reader.readLine();
-                if (line == null) break;
-                list.add(line);
-            }
-
-            array = new int[list.size()][0];
-            for (int i = 0; i < list.size(); i++) {
-                String s = list.get(i);
-                String[] m = s.trim().split("\\s+");
-                array[i] = new int[m.length];
-                for (int j = 0; j < array[i].length; j++) {
-                    array[i][j] = Integer.parseInt(m[j]);
-                }
+    private static void readFileToConsole(String fileName) {
+        try (FileReader fr = new FileReader(fileName)) {
+            while (fr.ready()) {
+                int data = fr.read();
+                System.out.printf("%c", (char) data);
             }
         } catch (IOException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
-        return array;
+
     }
 
-    private static void saveArray(int[][] array, String fileName) {
-        try {
-            try (
-                    PrintWriter printWriter = new PrintWriter(fileName)) {
-                for (int[] row : array) {
-                    for (int e : row) {
-                        printWriter.printf("%5d ", e);
+    private static void matrixToFile(int[][] matrix) {
+        File file = new File(fileName);
+        try (PrintWriter pw = new PrintWriter(file)) {
+            for (int[] ints : matrix) {
+                for (int j = 0; j < matrix[0].length; j++) {
+                    pw.printf("%3d ", ints[j]);
+                }
+                pw.printf("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] ints : matrix) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print(ints[j] + " ");
+            }
+        }
+    }
+
+
+    private static int[][] createMatrix(int rows, int cols) {
+        boolean max = false;
+        boolean min = false;
+        int[][] result = new int[rows][cols];
+        while (!max || !min) {
+            max = false;
+            min = false;
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[0].length; j++) {
+                    int rand = random.nextInt(31) - 15;
+                    if (rand == 15) {
+                        max = true;
+                    } else if (rand == -15) {
+                        min = true;
                     }
-                    printWriter.println();
+                    result[i][j] = rand;
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.err.println(e);
         }
+        return result;
     }
-
-    private static int[][] generate(int rows, int cols) {
-        int[][] res = new int[rows][cols];
-        boolean maxOk;
-        boolean minOk;
-        do {
-            maxOk = false;
-            minOk = false;
-            for (int[] row : res) {
-                for (int i = 0; i < row.length; i++) {
-                    row[i] = rnd.nextInt(31) - 15;
-                    if (row[i] == 15) maxOk = true;
-                    if (row[i] == -15) minOk = true;
-                }
-            }
-        } while (!maxOk || !minOk);
-        return res;
-    }
-
-
 }

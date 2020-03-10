@@ -27,7 +27,7 @@ class Helper {
         return rnd.nextBoolean();
     }
 
-    static HashMap<String, Integer> shoppingList() {
+    static HashMap<String, Integer> shoppingListMethod() {
         HashMap<String,Integer> shoppingList1 = new HashMap<>();
         shoppingList1.put("sausage",30);
         shoppingList1.put("cheese",20);
@@ -39,5 +39,8 @@ class Helper {
         shoppingList1.put("meat",40);
         return shoppingList1;
     }
+
+    static HashMap<String, Integer> shoppingList = shoppingListMethod();
+
 
 }

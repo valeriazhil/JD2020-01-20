@@ -30,7 +30,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         enterToMarket();
         takeBacket();
         chooseGoods();
-        payForGoods();
+       // payForGoods();
         goOut();
     }
 
@@ -93,12 +93,12 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             System.out.println("Buyer №" + this.number + " put " + takenGood.getName() + " into a basket.");
     }
 
-    @Override
-    public void payForGoods() {
-        int payment = this.personalBusket.totalPrice;
-        Dispatcher.earning += payment;
-        System.out.println("Buyer №" + this.number + " payed " + payment + ".");
-    }
+//    @Override
+//    public void payForGoods() {
+//        int payment = this.personalBusket.totalPrice;
+//        Dispatcher.earning += payment;
+//        System.out.println("Buyer №" + this.number + " payed " + payment + ".");
+//    }
 
     @Override
     public void goOut() {
