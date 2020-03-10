@@ -4,9 +4,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 class BuyerManager {
 
-    private static final int PLAN = 300;
-    private static final int BUYERS_BEGIN_MINUTE = 30;
-    private static final int BUYERS_MIDDLE_MINUTE = 80;
+    private static final int PLAN = 100;
+    private static final int BUYERS_BEGIN_MINUTE = 10;
+    private static final int BUYERS_MIDDLE_MINUTE = 40;
 
     private final AtomicInteger buyersInMarket = new AtomicInteger();
     private final AtomicInteger buyersComplete = new AtomicInteger();
