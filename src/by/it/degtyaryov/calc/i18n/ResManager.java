@@ -18,6 +18,10 @@ public enum ResManager {
         Locale.setDefault(locale);
     }
 
+    public Locale getLocale() {
+        return bundle.getLocale();
+    }
+
     public String get(String key) {
         return bundle.getString(key);
     }

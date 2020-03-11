@@ -5,6 +5,8 @@ import by.it.degtyaryov.calc.i18n.TextResource;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -19,6 +21,7 @@ class ConsoleRunner {
 
         setArgsLocale(args, res);
         welcomeUser(res);
+        printCurrentDate(res.getLocale());
         loadSavedVars(res);
 
         while (true) {
@@ -75,6 +78,11 @@ class ConsoleRunner {
 
     private static void welcomeUser(ResManager res) {
         System.out.println(String.format(res.get(TextResource.WELCOME), res.get(TextResource.USER_NAME)));
+    }
+
+    private static void printCurrentDate(Locale locale) {
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG, locale);
+        System.out.println(dateFormat.format(new Date()));
     }
 
     private static void setArgsLocale(String[] args, ResManager res) {
