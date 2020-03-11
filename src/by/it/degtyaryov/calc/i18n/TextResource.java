@@ -14,4 +14,7 @@ public interface TextResource {
     String SUB_OPERATION_IMPOSSIBLE = "sub.operationImpossible";
     String MUL_OPERATION_IMPOSSIBLE = "mul.operationImpossible";
     String DIV_OPERATION_IMPOSSIBLE = "div.operationImpossible";
+
+    String USER_NAME = "user.name";
+    String WELCOME = "message.welcome";
 }

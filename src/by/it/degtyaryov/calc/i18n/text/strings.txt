@@ -16,3 +16,6 @@ add.operationImpossible = operation %s + %s is impossible
 sub.operationImpossible = operation %s - %s is impossible
 mul.operationImpossible = operation %s * %s is impossible
 div.operationImpossible = operation %s / %s is impossible
+
+user.name = Eugene
+message.welcome = Welcome, %s!

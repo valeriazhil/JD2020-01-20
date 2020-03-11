@@ -17,16 +17,9 @@ class ConsoleRunner {
         Printer printer = new Printer();
         ResManager res = ResManager.INSTANCE;
 
-        try {
-            Var.loadVars();
-        } catch (FileNotFoundException e) {
-            Logger.logger.log(res.get(TextResource.NO_SAVED_VARS));
-            System.out.println(res.get(TextResource.NO_SAVED_VARS));
-        } catch (IOException | CalcException e) {
-            Logger.logger.log(e.getMessage());
-            System.out.println(e.getMessage());
-        }
-
+        setArgsLocale(args, res);
+        welcomeUser(res);
+        loadSavedVars(res);
 
         while (true) {
             expression = scanner.nextLine();
@@ -65,6 +58,29 @@ class ConsoleRunner {
                     }
                     break;
             }
+        }
+    }
+
+    private static void loadSavedVars(ResManager res) {
+        try {
+            Var.loadVars();
+        } catch (FileNotFoundException e) {
+            Logger.logger.log(res.get(TextResource.NO_SAVED_VARS));
+            System.out.println(res.get(TextResource.NO_SAVED_VARS));
+        } catch (IOException | CalcException e) {
+            Logger.logger.log(e.getMessage());
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void welcomeUser(ResManager res) {
+        System.out.println(String.format(res.get(TextResource.WELCOME), res.get(TextResource.USER_NAME)));
+    }
+
+    private static void setArgsLocale(String[] args, ResManager res) {
+        if (args.length == 1) {
+            Locale defLocale = new Locale(args[0]);
+            res.setLocale(defLocale);
         }
     }
 }

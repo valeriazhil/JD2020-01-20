@@ -16,3 +16,6 @@ add.operationImpossible = аперацыя %s + %s немагчыма
 sub.operationImpossible = аперацыя %s - %s немагчыма
 mul.operationImpossible = аперацыя %s * %s немагчыма
 div.operationImpossible = аперацыя %s / %s немагчыма
+
+user.name = Яуген
+message.welcome = Прывітанне, %s!

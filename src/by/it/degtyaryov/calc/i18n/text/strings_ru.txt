@@ -16,3 +16,6 @@ add.operationImpossible = операция %s + %s невозможна
 sub.operationImpossible = операция %s - %s невозможна
 mul.operationImpossible = операция %s * %s невозможна
 div.operationImpossible = операция %s / %s невозможна
+
+user.name = Евгений
+message.welcome = Привет, %s!
