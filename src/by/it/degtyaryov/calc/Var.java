@@ -55,7 +55,7 @@ abstract class Var implements Operation {
         } else if (variables.containsKey(operand)) {
             return variables.get(operand);
         } else {
-            throw new CalcException(res.get(TextResource.UNKNOWN_VARIABLE) + operand);
+            throw new CalcException(String.format(res.get(TextResource.UNKNOWN_VARIABLE), operand));
         }
     }
 

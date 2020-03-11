@@ -77,7 +77,7 @@ class Parser {
             case "/":
                 return varLeft.div(varRight);
             default:
-                throw new CalcException(res.get(TextResource.UNKNOWN_OPERATION) + operator);
+                throw new CalcException(String.format(res.get(TextResource.UNKNOWN_OPERATION), operator));
         }
     }
 }

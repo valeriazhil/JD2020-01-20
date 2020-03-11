@@ -6,7 +6,6 @@ import by.it.degtyaryov.calc.i18n.TextResource;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 
 class ConsoleRunner {
@@ -49,6 +48,11 @@ class ConsoleRunner {
                     Locale en = new Locale("en");
                     res.setLocale(en);
                     System.out.println(en.getDisplayLanguage());
+                    continue;
+                case "be":
+                    Locale be = new Locale("be");
+                    res.setLocale(be);
+                    System.out.println(be.getDisplayLanguage());
                     continue;
                 default:
                     try {
