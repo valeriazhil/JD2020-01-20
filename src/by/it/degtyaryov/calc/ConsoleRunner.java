@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 class ConsoleRunner {
 
+    private static Logger logger = Logger.getInstance();
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String expression;
@@ -38,26 +40,29 @@ class ConsoleRunner {
                 case "ru":
                     Locale ru = new Locale("ru");
                     res.setLocale(ru);
+                    logger.log(ru.getDisplayLanguage());
                     System.out.println(ru.getDisplayLanguage());
                     continue;
                 case "en":
                     Locale en = new Locale("en");
                     res.setLocale(en);
+                    logger.log(en.getDisplayLanguage());
                     System.out.println(en.getDisplayLanguage());
                     continue;
                 case "be":
                     Locale be = new Locale("be");
                     res.setLocale(be);
+                    logger.log(be.getDisplayLanguage());
                     System.out.println(be.getDisplayLanguage());
                     continue;
                 default:
                     try {
                         Var result = parser.calc(expression);
                         printer.print(result);
-                        Logger.logger.log(String.format(res.get(TextResource.EXPRESSION), expression, result));
+                        logger.log(String.format(res.get(TextResource.EXPRESSION), expression, result));
                     } catch (CalcException e) {
                         System.out.println(e.getMessage());
-                        Logger.logger.log(e.getMessage());
+                        logger.log(e.getMessage());
                     }
                     break;
             }
@@ -68,16 +73,18 @@ class ConsoleRunner {
         try {
             Var.loadVars();
         } catch (FileNotFoundException e) {
-            Logger.logger.log(res.get(TextResource.NO_SAVED_VARS));
+            logger.log(res.get(TextResource.NO_SAVED_VARS));
             System.out.println(res.get(TextResource.NO_SAVED_VARS));
         } catch (IOException | CalcException e) {
-            Logger.logger.log(e.getMessage());
+            logger.log(e.getMessage());
             System.out.println(e.getMessage());
         }
     }
 
     private static void welcomeUser(ResManager res) {
-        System.out.println(String.format(res.get(TextResource.WELCOME), res.get(TextResource.USER_NAME)));
+        String message = String.format(res.get(TextResource.WELCOME), res.get(TextResource.USER_NAME));
+        logger.log(message);
+        System.out.println(message);
     }
 
     private static void printCurrentDate(Locale locale) {

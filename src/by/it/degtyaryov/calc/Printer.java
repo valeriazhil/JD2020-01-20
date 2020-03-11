@@ -26,8 +26,8 @@ class Printer {
             sb.append(element.getKey());
             sb.append('=');
             sb.append(element.getValue());
-            sb.append("\n");
         }
-        System.out.print(sb.toString());
+        Logger.getInstance().log(sb.toString());
+        System.out.println(sb.toString());
     }
 }

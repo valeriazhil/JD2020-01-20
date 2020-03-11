@@ -33,9 +33,12 @@ abstract class Var implements Operation {
     private static void saveVars() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(VARS_FILE))) {
             for (Map.Entry<String, Var> entry : variables.entrySet()) {
-                writer.printf("%s=%s%n", entry.getKey(), entry.getValue());
+                String line = String.format("%s=%s%n", entry.getKey(), entry.getValue());
+                Logger.getInstance().log(line);
+                writer.printf(line);
             }
         } catch (IOException e) {
+            Logger.getInstance().log(e.getMessage());
             e.printStackTrace();
         }
     }
