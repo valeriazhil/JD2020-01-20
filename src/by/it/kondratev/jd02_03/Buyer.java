@@ -1,74 +1,126 @@
 package by.it.kondratev.jd02_03;
 
-class Buyer extends Thread implements IBuyer, IuseBacket {
+import java.util.concurrent.Semaphore;
 
-    Basket basket;
-    boolean inLine = true;
+class Buyer implements Runnable, IBuyer, IUseBasket {
 
-    Buyer (int number) {
-        super( "Покупатель № " + number);
-        this.basket = new Basket("Покупатель № " + number);
+    public static final int MAX_BUYERS_CHOOSING_GOODS = 20;
+    private static Semaphore semaphore = new Semaphore(MAX_BUYERS_CHOOSING_GOODS);
+
+    private static int counter = 0;
+    private final int id = counter++;
+
+    private final boolean pensioner;
+    private final double speedFactor;
+    private final BuyerManager manager;
+
+    private String name;
+    private Good chosenGood;
+    private boolean waiting;
+    private Basket basket;
+
+    public Buyer(boolean pensioner, BuyerManager manager) {
+        this.name = "Buyer №" + id;
+        this.pensioner = pensioner;
+        this.speedFactor = (pensioner) ? 1.5 : 1;
+        this.manager = manager;
+        this.manager.markBuyerEnter();
     }
 
+    @Override
     public void run() {
         enterToMarket();
         takeBasket();
-        chooseGoods();
-        isInLine();
+        int countGoods = Helper.getRandom(1, 4);
+        chooseAndTakeGoods(countGoods);
+        goToQueue();
         goOut();
-    }
-
-    private void isInLine() {
-        synchronized (Market.MONITOR) {
-            Market.queue.add(this);
-            System.out.println(this + " стал  в очередь");
-            while (inLine) {
-                try {
-                    Market.MONITOR.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
     }
 
     @Override
     public void enterToMarket() {
-        System.out.println("Зашёл в магазин " + getName());
+        System.out.printf("%s enter to the market.%n", this);
     }
 
     @Override
     public void takeBasket() {
-        System.out.println("Взял корзину " + getName());
+        System.out.printf("%s is taking basket.%n", this);
+        Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
+        basket = manager.getBasket();
+        System.out.printf("%s has taken basket.%n", this);
     }
 
     @Override
-    public void chooseGoods()  {
-        System.out.println("Начал выбирать товары " + getName());
-        int goods_count = Helper.random(1,4);
-        for (int i = 0; i < goods_count; i++) {
-            putGoodsToBacket();
+    public void chooseGoods() {
+        System.out.printf("%s is choosing goods.%n", this);
+        Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
+        chosenGood = Helper.getRandomGood();
+        System.out.printf("%s has chosen %s.%n", this, chosenGood.getName().toLowerCase());
+    }
+
+    private void chooseAndTakeGoods(int goods) {
+        try {
+            semaphore.acquire();
+            System.out.printf("%s start choosing of %d goods.", this, goods);
+            for (int i = 0; i < goods; i++) {
+                chooseGoods();
+                putGoodsToBasket();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            semaphore.release();
         }
-        System.out.println("Окончил выбирать товары " + getName());
-
     }
 
     @Override
-    public void putGoodsToBacket() {
-        int good_number = Helper.random(0, WorkDay.GOODS_LIST.size()-1);
-        String good_name = WorkDay.GOODS_LIST.get(good_number);
-        basket.list.add(good_name);
-        System.out.println("Положил " + good_name + " в корзину " + getName());
+    public void putGoodsToBasket() {
+        System.out.printf("%s start put %s in basket.%n", this, chosenGood.getName().toLowerCase());
+        Helper.sleep((int) (Helper.getRandom(500, 2000) * speedFactor));
+        basket.add(chosenGood);
+        System.out.printf("%s put in basket %s.%n", this, chosenGood.getName().toLowerCase());
+        chosenGood = null;
+    }
+
+    @Override
+    public void goToQueue() {
+        System.out.printf("%s stand in queue.%n", this);
+        synchronized (this) {
+            try {
+                manager.getMarket().getQueue().add(this);
+                waiting = true;
+                while (waiting) {
+                    this.wait();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void goOut() {
-        System.out.println("Ушёл из магазина " + this.getName());
+        basket.clear();
+        manager.returnBasket(basket);
+        manager.markBuyerGoOut();
+        System.out.printf("%s go out from the market.%n", this);
+    }
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public boolean isPensioner() {
+        return pensioner;
+    }
+
+    public void endWaiting() {
+        this.waiting = false;
     }
 
     @Override
     public String toString() {
-        return this.getName();
+        String age = (pensioner) ? "Pensioner " : "";
+        return age + this.name;
     }
 }

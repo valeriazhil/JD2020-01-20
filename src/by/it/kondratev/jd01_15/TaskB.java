@@ -6,7 +6,7 @@ public class TaskB {
 
     private static String java_name = getPath() + TaskB.class.getSimpleName() + ".java";
     private static String txt_name = getPath() + TaskB.class.getSimpleName() + ".txt";
-    String s = "hello world";
+
 
     public static void main(String[] args) {
         StringBuilder sb = read_from_java();
