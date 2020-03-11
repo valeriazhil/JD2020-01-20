@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 class Parser {
 
     private static final Map<String, Integer> OPERATION_PRIORITY = new HashMap<>();
-    private ResManager res = ResManager.INSTANCE;
 
     static {
         OPERATION_PRIORITY.put("=", 0);
@@ -20,8 +19,13 @@ class Parser {
         OPERATION_PRIORITY.put("/", 2);
     }
 
+    private ResManager res = ResManager.INSTANCE;
+
     public Var calc(String expressions) throws CalcException {
         expressions = expressions.trim().replace(" ", "");
+
+        expressions = calcSubExpressions(expressions);
+
         String[] strOperands = expressions.split(Patterns.OPERATOR);
         List<String> operands = new ArrayList<>(Arrays.asList(strOperands));
         if (operands.size() == 1) {
@@ -43,6 +47,42 @@ class Parser {
             operands.add(index, result.toString());
         }
         return Var.create(operands.get(0));
+    }
+
+    private String calcSubExpressions(String expressions) throws CalcException {
+        while (expressions.contains("(") && expressions.contains(")")) {
+            String sub = getSubExpression(expressions);
+            String subWithoutBrackets = sub.substring(1, sub.length() - 1);
+            expressions = expressions.replace(sub, calc(subWithoutBrackets).toString());
+        }
+        return expressions;
+    }
+
+    private String getSubExpression(String expressions) {
+        Deque<Character> deque = new LinkedList<>();
+        int firstBracket = 0;
+        int lastBracket = 0;
+        boolean findFirst = false;
+        char[] chars = expressions.toCharArray();
+
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == '(') {
+                if (!findFirst) {
+                    firstBracket = i;
+                    findFirst = true;
+                } else {
+                    deque.addLast('(');
+                }
+            } else if (chars[i] == ')') {
+                if (deque.size() == 0) {
+                    lastBracket = i;
+                    break;
+                } else {
+                    deque.pollLast();
+                }
+            }
+        }
+        return expressions.substring(firstBracket, lastBracket + 1);
     }
 
     private int getOperationIndex(List<String> operations) {
