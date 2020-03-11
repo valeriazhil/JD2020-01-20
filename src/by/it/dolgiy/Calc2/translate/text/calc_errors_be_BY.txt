@@ -1,0 +1,8 @@
+error.calc_exception=ПАМЫЛКА:
+error.impossible_to_create=Немагчыма стварыць
+error.add=Аперацыя %s + %s немагчымая
+error.sub=Аперацыя %s - %s немагчымая
+error.mul=Аперацыя %s * %s немагчымая
+error.div=Аперацыя %s / %s немагчымая
+error.div_by_zero=Дзяленне на нуль
+error.invalid_expression_length=Некарэктная даўжыня выразы
