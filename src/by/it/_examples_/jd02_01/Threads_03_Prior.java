@@ -10,7 +10,7 @@ class Threads_03_Prior {
             for (int i = 0; i < 71; i++) {
                 System.out.println(getName() + " " + i);
                 try {
-                    Thread.sleep(0); // попробовать sleep(0),sleep(10)
+                    Thread.sleep(10); // попробовать sleep(0),sleep(10)
                 } catch (InterruptedException e) {
                     System.err.print(e.toString());
                 }
