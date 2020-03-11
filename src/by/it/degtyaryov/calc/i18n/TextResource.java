@@ -10,7 +10,6 @@ public interface TextResource {
     String UNKNOWN_OPERATION = "unknownOperation";
     String UNKNOWN_VARIABLE = "unknownVariable";
     String DIVISION_BY_ZERO = "scalar.divisionByZero";
-
     String ADD_OPERATION_IMPOSSIBLE = "add.operationImpossible";
     String SUB_OPERATION_IMPOSSIBLE = "sub.operationImpossible";
     String MUL_OPERATION_IMPOSSIBLE = "mul.operationImpossible";

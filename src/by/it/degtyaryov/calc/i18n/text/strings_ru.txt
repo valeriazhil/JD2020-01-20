@@ -1,19 +1,18 @@
-calcException=ОШИБКА: %s.
-unknownOperation=неизвестная операция
-unknownVariable=неизвестная переменная
+calcException = ОШИБКА: %s.
+unknownOperation = неизвестная операция %s
+unknownVariable = неизвестная переменная %s
 
-message.noSavedVars=Переменные еще не добавлялись.
+message.noSavedVars = Переменные еще не добавлялись.
 
-expression=выражение: %s, результат: %s.
+expression = выражение: %s, результат: %s.
 
-matrix.differentSize=разный размер матриц
-vector.differentSize=разный размер векторов
-vector.differentSizeVM=разный размер вектора и матрицы
+matrix.differentSize = разный размер матриц
+vector.differentSize = разный размер векторов
+vector.differentSizeVM = разный размер вектора и матрицы
 
-scalar.divisionByZero=деление на ноль
+scalar.divisionByZero = деление на ноль
 
-
-add.operationImpossible=операция %s + %s невозможна.
-sub.operationImpossible=операция %s - %s невозможна.
-mul.operationImpossible=операция %s * %s невозможна.
-div.operationImpossible=операция %s / %s невозможна.
+add.operationImpossible = операция %s + %s невозможна
+sub.operationImpossible = операция %s - %s невозможна
+mul.operationImpossible = операция %s * %s невозможна
+div.operationImpossible = операция %s / %s невозможна
