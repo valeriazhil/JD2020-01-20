@@ -102,7 +102,7 @@ class Parser {
     private Var calcOneOperation(String strLeft, String operator, String strRight) throws CalcException {
         Var varRight = VarCreator.create(strRight);
         if (operator.equals("=")) {
-            Var.saveVariable(strLeft, varRight);
+            VarSaver.saveVariable(strLeft, varRight);
             return varRight;
         }
         Var varLeft = VarCreator.create(strLeft);

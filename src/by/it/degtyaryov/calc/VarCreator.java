@@ -13,8 +13,8 @@ public class VarCreator {
             return new Vector(operand);
         } else if (operand.matches(Patterns.MATRIX)) {
             return new Matrix(operand);
-        } else if (Var.getVariables().containsKey(operand)) {
-            return Var.getVariables().get(operand);
+        } else if (VarSaver.getVariables().containsKey(operand)) {
+            return VarSaver.getVariables().get(operand);
         } else {
             throw new CalcException(String.format(ResManager.INSTANCE.get(TextResource.UNKNOWN_VARIABLE), operand));
         }

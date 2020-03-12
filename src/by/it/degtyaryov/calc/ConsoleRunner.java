@@ -71,7 +71,7 @@ class ConsoleRunner {
 
     private static void loadSavedVars(ResManager res) {
         try {
-            Var.loadVars();
+            VarSaver.loadVars();
         } catch (FileNotFoundException e) {
             logger.log(res.get(TextResource.NO_SAVED_VARS));
             System.out.println(res.get(TextResource.NO_SAVED_VARS));
