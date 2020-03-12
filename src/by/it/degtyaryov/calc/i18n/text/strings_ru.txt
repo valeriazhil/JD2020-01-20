@@ -19,3 +19,12 @@ div.operationImpossible = операция %s / %s невозможна
 
 user.name = Евгений
 message.welcome = Привет, %s!
+
+message.reportForm = Для получения полного отчета нажмите [F], для короткого - [S].
+
+report.fullTitle = Полный отчет
+report.shortTitle = Короткий отчет
+
+report.fullFormOperation = Выражение:%n%s%Результат:%n%s%n
+report.startTime = Время начала:
+report.endTime = Время окончания:

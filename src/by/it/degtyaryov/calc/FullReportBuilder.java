@@ -1,38 +1,41 @@
 package by.it.degtyaryov.calc;
 
 import by.it.degtyaryov.calc.i18n.ResManager;
+import by.it.degtyaryov.calc.i18n.TextResource;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 class FullReportBuilder extends ReportBuilder {
 
     @Override
-    public Report addTitle(String title) {
-        report.setTitle("Full report");
-        return report;
+    public void addTitle() {
+        report.setTitle("\n--------------------\n" +
+                                ResManager.INSTANCE.get(TextResource.FULL_TITLE) +
+                                "\n--------------------\n");
     }
 
     @Override
-    public Report addStartTime(Date start) {
-        String date = DateFormat.getDateInstance(DateFormat.FULL, ResManager.INSTANCE.getLocale()).format(start);
+    public void addStartTime() {
+        String date = DateFormat.getTimeInstance(DateFormat.FULL, ResManager.INSTANCE.getLocale()).format(new Date());
         report.setStartTime(date);
-        return report;
     }
 
     @Override
-    public Report addEndTime(Date end) {
-        String date = DateFormat.getDateInstance(DateFormat.FULL, ResManager.INSTANCE.getLocale()).format(end);
+    public void addEndTime() {
+        String date = DateFormat.getTimeInstance(DateFormat.FULL, ResManager.INSTANCE.getLocale()).format(new Date());
         report.setEndTime(date);
-        return report;
     }
 
     @Override
-    public Report addOperation(String operation, String result) {
-        report.setOperation(operation);
-        report.setOperation(result);
-        return report;
+    public void addOperation(List<Expression> operations) {
+        List<String> op = new ArrayList<>();
+        for (Expression operation : operations) {
+            String line = String.format(ResManager.INSTANCE.get(TextResource.FULL_FORM_OPERATION), operation.getOperation(), operation.getResult());
+            op.add(line);
+        }
+        report.setOperations(op);
     }
-
-
 }

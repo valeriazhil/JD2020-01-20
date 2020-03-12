@@ -17,4 +17,11 @@ public interface TextResource {
 
     String USER_NAME = "user.name";
     String WELCOME = "message.welcome";
+
+    String FORM_REPORT = "message.reportForm";
+    String FULL_TITLE = "report.fullTitle";
+    String SHORT_TITLE = "report.shortTitle";
+    String FULL_FORM_OPERATION = "report.fullFormOperation";
+    String START_TIME = "report.startTime";
+    String END_TIME = "report.endTime";
 }

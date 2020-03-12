@@ -20,6 +20,7 @@ class ConsoleRunner {
         Parser parser = new Parser();
         Printer printer = new Printer();
         ResManager res = ResManager.INSTANCE;
+        Reporter reporter = new Reporter();
 
         setArgsLocale(args, res);
         welcomeUser(res);
@@ -30,6 +31,7 @@ class ConsoleRunner {
             expression = scanner.nextLine();
             switch (expression) {
                 case "end":
+                    printReport(reporter, scanner);
                     return;
                 case "printvar":
                     printer.printVariables(false);
@@ -38,29 +40,22 @@ class ConsoleRunner {
                     printer.printVariables(true);
                     break;
                 case "ru":
-                    Locale ru = new Locale("ru");
-                    res.setLocale(ru);
-                    logger.log(ru.getDisplayLanguage());
-                    System.out.println(ru.getDisplayLanguage());
+                    setLocale(res, "ru");
                     continue;
                 case "en":
-                    Locale en = new Locale("en");
-                    res.setLocale(en);
-                    logger.log(en.getDisplayLanguage());
-                    System.out.println(en.getDisplayLanguage());
+                    setLocale(res, "en");
                     continue;
                 case "be":
-                    Locale be = new Locale("be");
-                    res.setLocale(be);
-                    logger.log(be.getDisplayLanguage());
-                    System.out.println(be.getDisplayLanguage());
+                    setLocale(res, "be");
                     continue;
                 default:
                     try {
                         Var result = parser.calc(expression);
                         printer.print(result);
+                        reporter.addOperation(expression, result.toString());
                         logger.log(String.format(res.get(TextResource.EXPRESSION), expression, result));
                     } catch (CalcException e) {
+                        reporter.addOperation(expression, e.getMessage());
                         System.out.println(e.getMessage());
                         logger.log(e.getMessage());
                     }
@@ -69,15 +64,10 @@ class ConsoleRunner {
         }
     }
 
-    private static void loadSavedVars(ResManager res) {
-        try {
-            VarSaver.loadVars();
-        } catch (FileNotFoundException e) {
-            logger.log(res.get(TextResource.NO_SAVED_VARS));
-            System.out.println(res.get(TextResource.NO_SAVED_VARS));
-        } catch (IOException | CalcException e) {
-            logger.log(e.getMessage());
-            System.out.println(e.getMessage());
+    private static void setArgsLocale(String[] args, ResManager res) {
+        if (args.length == 1) {
+            Locale defLocale = new Locale(args[0]);
+            res.setLocale(defLocale);
         }
     }
 
@@ -92,10 +82,39 @@ class ConsoleRunner {
         System.out.println(dateFormat.format(new Date()));
     }
 
-    private static void setArgsLocale(String[] args, ResManager res) {
-        if (args.length == 1) {
-            Locale defLocale = new Locale(args[0]);
-            res.setLocale(defLocale);
+    private static void loadSavedVars(ResManager res) {
+        try {
+            VarSaver.loadVars();
+        } catch (FileNotFoundException e) {
+            logger.log(res.get(TextResource.NO_SAVED_VARS));
+            System.out.println(res.get(TextResource.NO_SAVED_VARS));
+        } catch (IOException | CalcException e) {
+            logger.log(e.getMessage());
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void printReport(Reporter reporter, Scanner scanner) {
+        System.out.println(ResManager.INSTANCE.get(TextResource.FORM_REPORT));
+        ReportBuilder builder = chooseReportForm(scanner);
+        reporter.setReportBuilder(builder);
+        reporter.buildReport();
+        System.out.println(reporter.getReport());
+    }
+
+    private static void setLocale(ResManager res, String locale) {
+        Locale ru = new Locale(locale);
+        res.setLocale(ru);
+        logger.log(ru.getDisplayLanguage());
+        System.out.println(ru.getDisplayLanguage());
+    }
+
+    private static ReportBuilder chooseReportForm(Scanner scanner) {
+        String input = scanner.next();
+        if (input.equals("F")) {
+            return new FullReportBuilder();
+        } else {
+            return new ShortReportBuilder();
         }
     }
 }
