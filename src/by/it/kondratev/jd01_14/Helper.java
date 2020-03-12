@@ -2,11 +2,11 @@ package by.it.kondratev.jd01_14;
 
 import java.io.File;
 
-class Helper {
+public class Helper {
 
     private static final String root = System.getProperty("user.dir");
 
-    static String getPath(Class<?> clazz, String file_name) {
+    public static String getPath(Class<?> clazz, String file_name) {
         String name = clazz.getName();
         name = name.replace('.', File.separatorChar).
                 replace(clazz.getSimpleName(),"");
