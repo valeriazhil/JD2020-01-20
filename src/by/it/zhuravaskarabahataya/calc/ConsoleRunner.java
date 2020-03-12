@@ -1,20 +1,32 @@
 package by.it.zhuravaskarabahataya.calc;
 
 import by.it.zhuravaskarabahataya.calc.translate.ResMan;
+import by.it.zhuravaskarabahataya.calc.report.*;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
 class ConsoleRunner {
 
     public static void main(String[] args) {
+        ReportDirector.setLaunchTime(DateFormat.getDateTimeInstance().format(new Date()));
         ResMan man = ResMan.INSTANCE;
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
         while (true) {
             String expr = sc.nextLine();
+            Logger.getInstance().log("\n" + expr);
+            ReportDirector.addOperation("\n"+ expr);
             if (expr.equals("end")) {
+                ReportDirector.setFinish(DateFormat.getDateTimeInstance().format(new Date()));
+                ReportDirector reportDirector = new ReportDirector();
+                BriefReportBuilder briefReportBuilder = new BriefReportBuilder();
+                reportDirector.buildReport(briefReportBuilder);
+                FullReportBuilder fullReportBuilder = new FullReportBuilder();
+                reportDirector.buildReport(fullReportBuilder);
                 break;
             }
             switch (expr) {
@@ -33,6 +45,8 @@ class ConsoleRunner {
                         Var var;
                         var = parser.calc(expr);
                         printer.print(var);
+                        Logger.getInstance().log("= "+ var.toString());
+                        ReportDirector.addOperation(" = " + var.toString());
                     } catch (CalcException e) {
                         System.out.println(e.getMessage());
                     }

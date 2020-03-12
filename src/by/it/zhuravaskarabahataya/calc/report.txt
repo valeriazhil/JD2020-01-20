@@ -1,0 +1,147 @@
+Brief Report About Project
+Launch time: 12.03.2020 11:46:32
+Finish time: 12.03.2020 11:46:34
+null
+-----------------------------
+Full Report About Project
+Launch time: 12.03.2020 11:46:32
+Finish time: 12.03.2020 11:46:34
+null
+-----------------------------
+Brief Report About Project
+Launch time: 12.03.2020 11:49:40
+Finish time: 12.03.2020 11:49:41
+No errors in this program:)
+-----------------------------
+Full Report About Project
+Launch time: 12.03.2020 11:49:40
+Finish time: 12.03.2020 11:49:41
+No errors in this program:)
+-----------------------------
+Brief Report About Project
+Launch time: 12.03.2020 12:18:19
+Finish time: 12.03.2020 12:18:23
+Деление на ноль.
+-----------------------------
+Full Report About Project
+Launch time: 12.03.2020 12:18:19
+Finish time: 12.03.2020 12:18:23
+ERROR: Деление на ноль.
+-----------------------------
+Brief Report About Project
+Launch time: 12.03.2020 12:24:13
+Finish time: 12.03.2020 12:24:43
+
+2+2 = 4.0
+A=4 = 4.0
+A+A = 8.0
+A/0
+Деление на ноль.
+
+{2,3}/{5,6}
+Операция {2.0, 3.0} / {5.0, 6.0} невозможна.
+
+end
+-----------------------------
+Full Report About Project
+Launch time: 12.03.2020 12:24:13
+Finish time: 12.03.2020 12:24:43
+
+2+2 = 4.0
+A=4 = 4.0
+A+A = 8.0
+A/0
+ERROR: Деление на ноль.
+
+{2,3}/{5,6}
+ERROR: Операция {2.0, 3.0} / {5.0, 6.0} невозможна.
+
+end
+-----------------------------
+Brief Report About Project
+Launch time: 12.03.2020 12:26:08
+Finish time: 12.03.2020 12:26:13
+
+3/0by.it.zhuravaskarabahataya.calc.CalcException: ERROR:Деление на ноль.
+end
+-----------------------------
+Full Report About Project
+Launch time: 12.03.2020 12:26:08
+Finish time: 12.03.2020 12:26:13
+
+3/0
+ERROR: Деление на ноль.
+
+end
+-----------------------------
+Brief Report About Project
+Launch time: 12.03.2020 12:27:20
+Finish time: 12.03.2020 12:27:26
+
+2+3 = 5.0
+3/0
+ERROR:Деление на ноль.
+end
+-----------------------------
+Full Report About Project
+Launch time: 12.03.2020 12:27:20
+Finish time: 12.03.2020 12:27:26
+
+2+3 = 5.0
+3/0
+ERROR: Деление на ноль.
+
+end
+-----------------------------
+Brief Report About Project
+Launch time: 12.03.2020 13:37:30
+Finish time: 12.03.2020 13:37:40
+
+2+2 = 4.0
+A=9 = 9.0
+A+22 = 31.0
+end
+-----------------------------
+Full Report About Project
+Launch time: 12.03.2020 13:37:30
+Finish time: 12.03.2020 13:37:40
+
+2+2 = 4.0
+A=9 = 9.0
+A+22 = 31.0
+end
+-----------------------------
+Brief Report About Project
+Launch time: 12.03.2020 13:39:42
+Finish time: 12.03.2020 13:40:25
+
+A/0
+Деление на ноль.
+
+be
+A/0
+Дзяленне на нуль.
+
+A/A = 1.0
+C=A/A = 1.0
+C+A = 10.0
+A+A = 18.0
+end
+-----------------------------
+Full Report About Project
+Launch time: 12.03.2020 13:39:42
+Finish time: 12.03.2020 13:40:25
+
+A/0
+ERROR: Деление на ноль.
+
+be
+A/0
+ERROR: Дзяленне на нуль.
+
+A/A = 1.0
+C=A/A = 1.0
+C+A = 10.0
+A+A = 18.0
+end
+-----------------------------

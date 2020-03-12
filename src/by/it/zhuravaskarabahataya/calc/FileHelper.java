@@ -1,13 +1,18 @@
 package by.it.zhuravaskarabahataya.calc;
 
+import by.it.zhuravaskarabahataya.calc.report.Report;
+
 import java.io.*;
 import java.util.HashMap;
 
-class FileHelper {
+public class FileHelper {
 
     private static final String root = System.getProperty("user.dir");
 
     static String varsFile = FileHelper.getFilePath("vars.txt", Var.class);
+    public static String reportFile = FileHelper.getFilePath("report.txt", Var.class);
+
+
 
     static String getFilePath(String fileName, Class<?> sourceClass) {
         String className = sourceClass.getName();
