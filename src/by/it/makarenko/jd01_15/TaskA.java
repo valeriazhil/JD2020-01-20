@@ -1,44 +1,27 @@
 package by.it.makarenko.jd01_15;
 
 
+
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class TaskA {
+
     private static final Random rnd = new Random();
-   private static String fileName = Helper.getPath(TaskA.class, "matrix.txt");
 
     public static void main(String[] args) {
+        String fileName = Helper.getPath(TaskA.class, "matrix.txt");
         int[][] array = generate(6, 4);
-        System.out.println(Arrays.deepToString(array));
         saveArray(array, fileName);
-        array = loadArray(fileName);
-        System.out.printf(Arrays.deepToString(array));
-
+        array=loadArray(fileName);
+        print(array);
     }
 
-    private static int[][] generate(int rows, int cols) {
-        int[][] result = new int[rows][cols];
-        boolean maxOk;
-        boolean minOk;
-        do {
-            maxOk = false;
-            minOk = false;
-            for (int[] row : result) {
-                for (int i = 0; i < row.length; i++) {
-                    row[i] = rnd.nextInt(31) - 15;
-                    if (row[i] == 15) maxOk = true;
-                    if (row[i] == -15) minOk = true;
-                }
-            }
-        } while (!maxOk || !minOk);
-        return result;
-    }
 
     private static int[][] loadArray(String fileName) {
-        int[][] array = new int[0][0];
+        int[][] array=new int[0][0];
+
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(fileName))
         ) {
@@ -48,6 +31,7 @@ public class TaskA {
                 if (line == null) break;
                 list.add(line);
             }
+
             array = new int[list.size()][0];
             for (int i = 0; i < list.size(); i++) {
                 String s = list.get(i);
@@ -58,7 +42,7 @@ public class TaskA {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e);
         }
         return array;
     }
@@ -69,13 +53,40 @@ public class TaskA {
                     PrintWriter printWriter = new PrintWriter(fileName)) {
                 for (int[] row : array) {
                     for (int e : row) {
-                        printWriter.printf("%3d ",e);
+                        printWriter.printf("%3d ", e);
                     }
                     printWriter.println();
                 }
             }
-        } catch (FileNotFoundException ex) {
-            System.err.println(ex);
+        } catch (FileNotFoundException e) {
+            System.err.println(e);
         }
+    }
+
+    private static void print(int[][] array) {
+        for (int[] row : array) {
+            for (int e : row) {
+                System.out.printf("%3d ", e);
+            }
+            System.out.println();
+        }
+    }
+
+    private static int[][] generate(int rows, int cols) {
+        int[][] res = new int[rows][cols];
+        boolean maxOk;
+        boolean minOk;
+        do {
+            maxOk = false;
+            minOk = false;
+            for (int[] row : res) {
+                for (int i = 0; i < row.length; i++) {
+                    row[i] = rnd.nextInt(31) - 15;
+                    if (row[i] == 15) maxOk = true;
+                    if (row[i] == -15) minOk = true;
+                }
+            }
+        } while (!maxOk || !minOk);
+        return res;
     }
 }
