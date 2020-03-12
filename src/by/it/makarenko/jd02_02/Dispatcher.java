@@ -1,31 +1,40 @@
 package by.it.makarenko.jd02_02;
 
-import java.lang.management.PlatformLoggingMXBean;
+class Dispatcher {
+    volatile static int numberBuyers = 0;
+    volatile static int completedBuyers = 0;
+    volatile static int buyersInMarket = 0;
+    private static final int PLANNED_BUYERS = 100;
+    static final int K_SPEED = 1;
+    private static int todayEarning = 0;
+    private static final Integer EARNING_MONITOR = 1;
 
-public class Dispatcher {
-    static final int K_SPEED = 10;
+    static int getBuyersInQueue(){
+        return QueueBuyers.getQueueLength()+ QueuePens.getQueueLength();
+    }
 
-    static int numberBuyers =0;
+    static void payForGoods(int billSum){
+        synchronized (EARNING_MONITOR){
+            todayEarning += billSum;
+        }
+    }
 
-    private volatile static int buyersInMarket =0;
-    private volatile static int completeBuyers=0;
-    private static final int PLAN=100;
+    static int getRevenue(){
+        return todayEarning;
+    }
 
-    synchronized static void newBuyer(){
+    synchronized static void newBuyerEnterToMarket(){
         numberBuyers++;
         buyersInMarket++;
     }
-    synchronized static void buyerLeaveInMarket(){
+
+    synchronized static void buyerLeaveToMarket(){
+        completedBuyers++;
         buyersInMarket--;
-        completeBuyers++;
-    }
-    static boolean marketIsOpend(){
-        return completeBuyers+buyersInMarket<PLAN;
     }
 
-    static boolean marketIsClosed(){
-        return PLAN==completeBuyers;
+    synchronized static boolean marketIsOpened(){
+        return (completedBuyers + buyersInMarket ) < PLANNED_BUYERS;
     }
 
-    static int completeBuyer = 0;
 }

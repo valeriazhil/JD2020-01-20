@@ -1,0 +1,7 @@
+error.divisionByZero=Дзяленне на нуль
+error.error=ПАМЫЛКА
+error.illegalOperationException="Аперацыя %s %s %s немагчымая"
+error.invalidInput=Няправільны ўвод
+error.notFoundVar=Не знойдзена пераменная 
+message.hello=Прывiтанне
+user.name=Герасімаў Ягор

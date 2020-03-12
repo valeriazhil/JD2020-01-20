@@ -1,0 +1,7 @@
+error.add = Operation %s + %s is impossible.
+error.sub = Operation %s - %s is impossible.
+error.mul = Operation %s * %s is impossible.
+error.div = Operation %s / %s is impossible.
+error.divByZero = Division by zero.
+error.invalidOperation = Invalid operation.
+error.varNotFound = Var not found.

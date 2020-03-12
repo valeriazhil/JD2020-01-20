@@ -9,12 +9,29 @@ class Parser {
         strValue = strValue.trim().replace(" ", "");
         if (strValue.matches(Patterns.ASSIGNMENT)) {
             String[] map = strValue.split(Patterns.ASSIGNMENT_OPERATORS);
-            Var var = calcLine(map[1], 0);
+            Var var = calcLine(clearFromBrackets(map[1]), 0);
             Var.setVar(map[0], var);
             return var;
         } else {
-            return calcLine(strValue, 0);
+            return calcLine(clearFromBrackets(strValue), 0);
         }
+    }
+
+    private String clearFromBrackets(String str) throws CalcException {
+        Pattern bracket = Pattern.compile(Patterns.BRACKETS);
+        Matcher m = bracket.matcher(str);
+        if (!m.find()) {
+            return str;
+        }
+        m.reset();
+        while (m.find()) {
+            String brackets = m.group();
+            str = str.replace(brackets,
+                calcLine(brackets.substring(1, brackets.length() - 1), 0).toString());
+            m = bracket.matcher(str);
+        }
+        clearFromBrackets(str);
+        return str;
     }
 
     private Var calcLine(String str, int priority) throws CalcException {
@@ -33,6 +50,4 @@ class Parser {
         }
         return result;
     }
-
-
 }

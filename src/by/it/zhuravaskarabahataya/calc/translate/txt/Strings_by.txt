@@ -1,0 +1,7 @@
+error.add = Аперацыя %s + %s немагчымая.
+error.sub = Аперацыя %s - %s немагчымая.
+error.mul = Аперацыя %s * %s немагчымая.
+error.div = Аперацыя %s / %s немагчымая.
+error.divByZero = Дзяленне на нуль.
+error.invalidOperation = Немагчымая аперацыя.
+error.varNotFound = Пераменная не знойдзена.

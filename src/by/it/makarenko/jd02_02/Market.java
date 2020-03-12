@@ -1,46 +1,61 @@
 package by.it.makarenko.jd02_02;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Market {
+class Market {
+    static List<Buyer> buyers = new ArrayList<>(128);
 
-
-            public static void main (String[]args){
-
-                System.out.println("Open market");
-                List<Thread> threads = new ArrayList<>(128);
-
-                for (int i = 1; i <= 2; i++) {
-                    Cashier cashier = new Cashier(i);
-                    Thread thread = new Thread(cashier);
-                    threads.add(thread);
-                    thread.start();
-
-                }
-
-
-                while (Dispatcher.marketIsOpend()) {
-                    int currentCount = HelperTime.random(2);
-                    for (int i = 0; i < currentCount&&Dispatcher.marketIsOpend(); i++) {
-                        int number = Dispatcher.numberBuyers;
-                        Buyer buyer = new Buyer(++number);
-                        threads.add(buyer);
+    public static void main(String[] args) {
+        System.out.println("Market is open!");
+        new Warehouse();
+        CashierManager managerPetrovich = new CashierManager();
+        managerPetrovich.start();
+        int seconds = 0;
+        while (Dispatcher.marketIsOpened()) {
+            ScreenPrinter.printThis("-----------------------------------------------------------\n");
+            ScreenPrinter.printThis("\t\tSECOND " + seconds++ + "\n");
+            ScreenPrinter.printThis("Buyers In Market " + Dispatcher.buyersInMarket);
+            ScreenPrinter.printThis("Completed Buyers " + Dispatcher.completedBuyers);
+            if (seconds < 30) {
+                QueueBuyers.print();
+                QueuePens.print();
+                for (int i = 0; i < 5; i++) {
+                    if (Dispatcher.buyersInMarket < seconds + 10 && Dispatcher.marketIsOpened()) {
+                        Buyer buyer = new Buyer(Dispatcher.numberBuyers + 1);
                         buyer.start();
+                        buyers.add(buyer);
                     }
-                    HelperTime.sleep(1000);
                 }
-                for (Thread thread : threads) {
-                    try {
-                        thread.join();
-                    } catch (InterruptedException e) {
-                        System.err.println("Hmmmm");
-                    }
 
+            } else if (seconds <= 59) {
+                QueueBuyers.print();
+                QueuePens.print();
+                if (Dispatcher.buyersInMarket < (70 - seconds)) {
+                    Buyer buyer = new Buyer(Dispatcher.numberBuyers + 1);
+                    buyer.start();
+                    buyers.add(buyer);
                 }
-                System.out.println("Close Market");
+            }
+            if (seconds == 59) {
+                seconds = 0;
+            }
+            TimingHelper.sleep(1000);
+        }
+        for (Buyer buyer : buyers) {
+            try {
+                buyer.join();
+            } catch (InterruptedException e) {
+                System.err.println("Something happened.");
+            }
+        }
+        try {
+            managerPetrovich.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ScreenPrinter.printThis("CompletedBuyers " + Dispatcher.completedBuyers + ".");
+        ScreenPrinter.printThis("Earning today is " + Dispatcher.getRevenue() + " coins.");
+        ScreenPrinter.printThis("Market is closed...");
     }
 }
-

@@ -1,55 +1,78 @@
 package by.it.pkochubei.jd02_02;
 
-class Buyer extends Thread implements IBuyer {
+import java.util.HashMap;
+import java.util.Map;
 
+public class Buyer extends Thread implements IBuyer, IUseBacket {
+    private Backet backet;
+    protected boolean pensioneer;
+    protected Map<String,Integer> choosenGoods = new HashMap<>();
 
     Buyer(int number) {
-        super("Buyer № " + number);
-        Dispatcher.newBuyer();
+        super("Buyer №" + number);
+        backet = new Backet();
+        pensioneer = Math.random() < 0.25;
+        Dispatcher.addBuyer();
     }
-
     @Override
-    public void run() {
+    public void run(){
         enterToMarket();
+        takeBacket();
         chooseGoods();
+        putGoodToBacket();
         goToQueue();
         goOut();
     }
 
     @Override
     public void enterToMarket() {
-        System.out.println(this+" enter the Market");
     }
 
     @Override
     public void chooseGoods() {
-        System.out.println(this+" started choosing goods");
-        int timeout = Helper.random(500, 2000);
-        Helper.sleep(timeout);
-        System.out.println(this+" finished choosing goods");
+        int timeOut = Util.random(500, 2000);
+        if (pensioneer) Util.sleep(timeOut * 3 / 2);
+        else Util.sleep(timeOut);
     }
 
     @Override
     public void goToQueue() {
-        System.out.println(this+" queued");
+        QueueBuyer.add(this);
         synchronized (this){
-            try {
-                QueueBuyers.add(this);
+            try{
                 this.wait();
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e){
                 e.printStackTrace();
             }
         }
     }
 
     @Override
-    public void goOut() {
-        System.out.println(this+" leave the Market");
-        Dispatcher.buyerLeaveTheMarket();
+    public void takeBacket() {
+        int timeOut = Util.random(500,2000);
+        if(pensioneer) Util.sleep(timeOut*3/2);
+        else Util.sleep(timeOut);
     }
 
     @Override
-    public String toString() {
-        return this.getName();
+    public void putGoodToBacket() {
+        int timeOut = Util.random(500,2000);
+        int numOfGoods = Util.random(1,4);
+        for (int i = 0; i < numOfGoods; i++) {
+            if (pensioneer) Util.sleep(timeOut * 3 / 2);
+            else Util.sleep(timeOut);
+            choosenGoods.put(Backet.putGoods().getKey(), Backet.putGoods().getValue());
+        }
+    }
+
+    @Override
+    public void goOut() {
+        Dispatcher.removeBuyer();
+    }
+    @Override
+    public String toString(){
+        if(pensioneer) return getName() + " pensioneer: ";
+        else return getName() + ": ";
     }
 }

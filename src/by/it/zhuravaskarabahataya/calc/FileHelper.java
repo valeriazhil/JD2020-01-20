@@ -1,11 +1,18 @@
 package by.it.zhuravaskarabahataya.calc;
 
+import by.it.zhuravaskarabahataya.calc.report.Report;
+
 import java.io.*;
 import java.util.HashMap;
 
-class FileHelper {
+public class FileHelper {
+
     private static final String root = System.getProperty("user.dir");
+
     static String varsFile = FileHelper.getFilePath("vars.txt", Var.class);
+    public static String reportFile = FileHelper.getFilePath("report.txt", Var.class);
+
+
 
     static String getFilePath(String fileName, Class<?> sourceClass) {
         String className = sourceClass.getName();
@@ -26,7 +33,10 @@ class FileHelper {
 
     static HashMap<String, Var> getVarsMapFromFile(String filename) {
         String textFromFile = readTextFromFile(filename);
-        HashMap<String, Var> vars = getMapFromString(textFromFile);
+        HashMap<String, Var> vars = new HashMap<>();
+        if (textFromFile.length() != 0) {
+           vars = getMapFromString(textFromFile);
+        }
         return vars;
     }
 
@@ -44,15 +54,14 @@ class FileHelper {
     }
 
     static HashMap<String, Var> getMapFromString(String text) {
-        String textStr = text;
         HashMap<String, Var> vars = new HashMap<>();
-        String[] lines = textStr.split("\n");
+        String[] lines = text.split("\n");
         for (String line : lines) {
             String[] partsOfLine = line.split("=");
             String name = partsOfLine[0];
             String var = partsOfLine[1];
             try {
-                vars.put(name, Var.create(var.toString()));
+                vars.put(name, Var.create(var));
             } catch (
                     CalcException e) {
                 e.printStackTrace();

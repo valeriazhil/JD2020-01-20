@@ -1,0 +1,3 @@
+message.welcome=Добро пожаловать!
+user.first_name=Евгений
+user.last_name=Долгий
