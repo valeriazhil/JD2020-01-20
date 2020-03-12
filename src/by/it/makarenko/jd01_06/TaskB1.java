@@ -1,21 +1,44 @@
 package by.it.makarenko.jd01_06;
 
-public class TaskB1 {
-    private static String [] words = new String[0];
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+public class TaskB1 {
+    // Вывести в консоль все слова текста, начинающихся согласной и заканчивающихся гласной буквой
+    // (нужно сделать для проверки этого условия приватный метод без regex).
     public static void main(String[] args) {
-        String text = new String(Poem.text);
- //       char [] isVowel = new char [] {'а','у','е','ы','о','э','я','и','ю'};
-        String [] redText = text.split(" ");
-        redText = text.split(",");
-        redText = text.split("-");
-        redText = text.split(".");
-        redText = text.split("...");
-        redText = text.split(":");
-        for (int i = 0; i <redText.length ; i++) {
-            if (redText[i].equals(redText[i+1]))
-                System.out.println(redText[i]);
-                return;
+        printWords(by.it.makarenko.jd01_06.Poem.text);
+    }
+
+    private static void printWords (String text){
+        Pattern pattern = Pattern.compile("[а-яА-ЯёЁ]+");
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()){
+            String word = matcher.group();
+            startsWithConconantEndsWithVowel(word);
+        }
+    }
+
+    private static void startsWithConconantEndsWithVowel (String word){
+        char[] vowels = {'а','А', 'о','О','е','Е','и', 'И', 'я', 'Я', 'у', 'У', 'ю' ,'Ю','ы','э','Э','ё','Ё'};
+        boolean startsWithConconant = true;
+        for (char a: vowels) {
+            if (word.charAt(0) == a){
+                startsWithConconant = false;
+                break;
+            }
+        }
+        boolean endsWithVowels = false;
+        if (startsWithConconant){
+            for (char a: vowels) {
+                if (word.charAt(word.length() - 1) == a){
+                    endsWithVowels = true;
+                    break;
+                }
+            }
+        }
+        if (startsWithConconant && endsWithVowels){
+            System.out.println(word);
         }
     }
 }
