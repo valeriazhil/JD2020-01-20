@@ -1,11 +1,10 @@
 Начало работы программы 12.03.20
-Thu Mar 12 13:53:43 MSK 2020 A=1.0=1.0
-Thu Mar 12 13:53:43 MSK 2020 B={1.0, 2.0}={1.0, 2.0}
-Thu Mar 12 13:53:43 MSK 2020 C={{1.0, 2.0}, {3.0, 4.0}}={{1.0, 2.0}, {3.0, 4.0}}
-Thu Mar 12 13:53:52 MSK 2020 1.0+{1.0, 2.0}={2.0, 3.0}
-Thu Mar 12 13:53:52 MSK 2020 A+B={2.0, 3.0}
-Thu Mar 12 13:54:06 MSK 2020 1.0+{1.0, 2.0}={2.0, 3.0}
-Thu Mar 12 13:54:06 MSK 2020 ОШИБКА:Операция {2.0, 3.0} + {{1.0, 2.0}, {3.0, 4.0}} невозможна
-Thu Mar 12 13:54:18 MSK 2020 ERROR:Impossible to create rrr
-Thu Mar 12 13:54:26 MSK 2020 ERROR:Division by zero
-Program termination 3/12/20
+Thu Mar 12 21:02:26 MSK 2020 A=1.0=1.0
+Thu Mar 12 21:02:26 MSK 2020 B={1.0, 2.0}={1.0, 2.0}
+Thu Mar 12 21:02:26 MSK 2020 C={{1.0, 2.0}, {3.0, 4.0}}={{1.0, 2.0}, {3.0, 4.0}}
+Thu Mar 12 21:02:34 MSK 2020 ERROR:Impossible to create dfgfg
+Thu Mar 12 21:02:42 MSK 2020 D=666=666.0
+Thu Mar 12 21:03:00 MSK 2020 E=D=666.0
+Thu Mar 12 21:03:15 MSK 2020 ERROR:Impossible to create dddd
+Thu Mar 12 21:03:22 MSK 2020 ПАМЫЛКА:Немагчыма стварыць ddd
+Канчатак працы праграмы 12.3.20
