@@ -1,14 +1,20 @@
-package by.it.bunkov.jd02_02;
-
+package by.it.bunkov.jd02_03;
 
 import java.util.Random;
+import java.util.concurrent.Semaphore;
+
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
-
+    private static final Semaphore chooseGoods = new Semaphore(20);
     private int number;
     private boolean pensioner;
-    private Backet backet;
+    private Backet basket;
     private Good chosenGood;
+    private final Object QUEUE_MONITOR = new Object();
+
+    public Object getQueueMonitor() {
+        return QUEUE_MONITOR;
+    }
 
     public Buyer() {
         this(Dispatcher.getTotalBuyersCount() + 1);
@@ -30,6 +36,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         return this.getName();
     }
 
+
     private double getSpeedRate() {
         return isPensioner() ? Helper.getPensionerDecelerationRate() : 1.0;
     }
@@ -43,7 +50,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     public Backet getBasket() {
-        return backet;
+        return basket;
     }
 
     @Override
@@ -79,16 +86,24 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void chooseGoods() {
-        for (int i = 0; i < Helper.getGoodsCount(); i++) {
-            sleepChooseGoods();
-            chosenGood = Helper.chooseGood();
-            printToConsole(" chose good " + (i + 1));
-            putGoodsToBasket();
+        try {
+            chooseGoods.acquire();
+            for (int i = 0; i < Helper.getGoodsCount(); i++) {
+                sleepChooseGoods();
+                chosenGood = Helper.chooseGood();
+                printToConsole(" chose good " + (i + 1));
+                putGoodsToBasket();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            chooseGoods.release();
         }
     }
 
     @Override
     public void goOut() {
+        Dispatcher.putBasket(basket);
         sleepGoOut();
         printToConsole(" left the shop");
         Dispatcher.decreaseCurrentBuyersCount();
@@ -104,28 +119,32 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void takeBasket() {
-        backet = new Backet();
-        printToConsole(" took a basket");
+        try {
+            this.basket = Dispatcher.getBacket();
+            printToConsole(" took a basket");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void putGoodsToBasket() {
-        backet.addGood(chosenGood);
+        basket.addGood(chosenGood);
         printToConsole(
                 " put " + chosenGood.getName() + " for " + chosenGood.getPrice() + " into the basket");
     }
 
     @Override
-    synchronized public void goToQueue() {
+    public void goToQueue() {
         printToConsole(" go to the queue");
-        try {
-            BuyerQue.add(this);
-            this.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        synchronized (QUEUE_MONITOR) {
+            try {
+                BuyerQue.add(this);
+                QUEUE_MONITOR.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 }
-
-
-
