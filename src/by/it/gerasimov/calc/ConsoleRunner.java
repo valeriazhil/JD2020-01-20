@@ -1,9 +1,30 @@
 package by.it.gerasimov.calc;
 
 import by.it.gerasimov.calc.translate.Globalization;
+import by.it.gerasimov.calc.translate.Messages;
+import by.it.gerasimov.calc.translate.ResMan;
 import java.util.Scanner;
 
 class ConsoleRunner {
+
+    static void printReport(String size) {
+        try {
+            size = size.trim();
+            ReportBuilder builder;
+            if (size.equals("short")) {
+                builder = new ShortReportBuilder();
+            } else if (size.equals("full")) {
+                builder = new FullReportBuilder();
+            } else {
+                throw new CalcException(ResMan.INSTANCE.get(Messages.INVALID_INPUT));
+            }
+            Report report = new Report();
+            report.setBuilder(builder);
+            report.printReport();
+        } catch (CalcException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -22,6 +43,8 @@ class ConsoleRunner {
             } else if (expression.startsWith("lang")) {
                 Globalization.switchLang(expression.substring(4));
                 Globalization.greetings();
+            } else if (expression.startsWith("report")) {
+                printReport(expression.substring(6));
             } else {
                 try {
                     Var var = parser.calc(expression);

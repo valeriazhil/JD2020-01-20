@@ -18,6 +18,11 @@ public class Globalization {
 
     public static void greetings() {
         System.out.println(manager.get(Messages.HELLO) + ", " + manager.get(Messages.USER_NAME));
-        System.out.println(DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault()).format(System.currentTimeMillis()));
+        System.out.println(getCurrentDate());
+    }
+
+    public static String getCurrentDate() {
+        return DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault())
+            .format(System.currentTimeMillis());
     }
 }

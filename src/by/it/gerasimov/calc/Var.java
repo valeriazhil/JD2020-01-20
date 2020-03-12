@@ -68,27 +68,29 @@ abstract class Var implements Operation {
     }
 
     public static void log(String str) {
-        Logger logger = new Logger();
+        Logger logger = Logger.getInstance();
         logger.writeLog(str);
     }
 
     static Var create(String strValue) throws CalcException {
+        VarCreator creator;
         strValue = strValue.trim().replace(" ", "");
         if (strValue.matches(Patterns.SCALAR)) {
-            return new Scalar(strValue);
+            creator = new ScalarCreator();
         } else if (strValue.matches(Patterns.VECTOR)) {
-            return new Vector(strValue);
+            creator = new VectorCreator();
         } else if (strValue.matches(Patterns.MATRIX)) {
-            return new Matrix(strValue);
+            creator = new MatrixCreator();
         } else if (strValue.matches(Patterns.VARIABLE)) {
             if (vars.containsKey(strValue)) {
                 return vars.get(strValue);
             } else {
-                throw new CalcException(manager.get(Messages.NOT_FOUND_VAR) + strValue);
+                throw new CalcException(manager.get(Messages.NOT_FOUND_VAR) + " " + strValue);
             }
         } else {
             throw new CalcException(manager.get(Messages.INVALID_INPUT));
         }
+        return creator.getVar(strValue);
     }
 
     @Override

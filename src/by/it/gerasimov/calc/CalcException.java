@@ -25,7 +25,7 @@ class CalcException extends Exception {
     }
 
     public static void log(CalcException e) {
-        Logger logger = new Logger();
+        Logger logger = Logger.getInstance();
         logger.writeLog(e.getMessage());
     }
 }
