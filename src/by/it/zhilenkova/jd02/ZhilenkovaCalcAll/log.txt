@@ -1,0 +1,59 @@
+-----------------------LONG REPORT------------------------------
+
+12-03-2020 20:37:28 Start use time
+
+a=3 3.0
+b=4 4.0
+a+b 7.0
+12-03-2020 20:37:43 ERROR: Пераменная h ня вызначана
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Var.createVar(Var.java:130)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Parcer.oneOperation(Parcer.java:83)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Parcer.calc(Parcer.java:59)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.ConsoleRunner.main(ConsoleRunner.java:54)
+
+{1,2,3}+{1,2,3} {2.0, 4.0, 6.0}
+12-03-2020 20:38:09 ERROR: Сложение невозможно. Длинна векторов не равна!
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Vector.add2(Vector.java:68)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Vector.add(Vector.java:34)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Parcer.oneOperation(Parcer.java:96)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Parcer.calc(Parcer.java:59)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.ConsoleRunner.main(ConsoleRunner.java:54)
+
+12-03-2020 20:43:49 ERROR: Пераменная end ня вызначана
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Var.createVar(Var.java:130)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Parcer.calc(Parcer.java:62)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.ConsoleRunner.main(ConsoleRunner.java:54)
+
+
+12-03-2020 20:43:57 End use time
+----------------------------------SHORT REPORT-----------------------------------
+
+12-03-2020 21:04:10 Start use time
+
+ERROR: Складанне немагчыма. Доўгая вектараў не роўная!
+
+-----------------------LONG REPORT------------------------------
+
+12-03-2020 21:14:45 Start use time
+
+12-03-2020 21:14:54 ERROR: Пераменная { ня вызначана
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Var.createVar(Var.java:130)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Parcer.calc(Parcer.java:62)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.ConsoleRunner.main(ConsoleRunner.java:57)
+
+{1,2,} {1.0, 2.0}
+12-03-2020 21:15:16 ERROR: Складанне немагчыма. Доўгая вектараў не роўная!
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Vector.add2(Vector.java:73)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Vector.add(Vector.java:37)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Parcer.oneOperation(Parcer.java:96)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Parcer.calc(Parcer.java:59)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.ConsoleRunner.main(ConsoleRunner.java:57)
+
+12-03-2020 21:19:23 ERROR: Пераменная  ня вызначана
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Var.createVar(Var.java:130)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.Parcer.calc(Parcer.java:62)
+by.it.zhilenkova.jd02.ZhilenkovaCalcAll.ConsoleRunner.main(ConsoleRunner.java:57)
+
+1+2 3.0
+
+12-03-2020 21:19:31 End use time
