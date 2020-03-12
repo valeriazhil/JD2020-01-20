@@ -6,3 +6,5 @@ error.mul=Операция %s * %s невозможна
 error.div=Операция %s / %s невозможна
 error.div_by_zero=Деление на ноль
 error.invalid_expression_length=Некорректная длина выражения
+log.program_start=Начало работы программы
+log.program_termination=Окончание работы программы

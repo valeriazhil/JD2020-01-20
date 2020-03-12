@@ -1,8 +1,0 @@
-error.calc_exception=ОШИБКА:
-error.impossible_to_create=Невозможно создать
-error.add=Операция %s + %s невозможна
-error.sub=Операция %s - %s невозможна
-error.mul=Операция %s * %s невозможна
-error.div=Операция %s / %s невозможна
-error.div_by_zero=Деление на ноль
-error.invalid_expression_length=Некорректная длина выражения

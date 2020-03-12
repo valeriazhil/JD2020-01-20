@@ -9,14 +9,16 @@ import java.util.Scanner;
 
 class ConsoleRunner {
     public static void main(String[] args) {
+        Logger.startWriteReport();
         ResMan man = ResMan.INSTANCE;
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
         Var.loadVars();
         String line;
-        while (!(line = scanner.nextLine()).equals("end")){
+        while (true){
             try {
+                line = scanner.nextLine();
                 if (line.equals("ru")){
                     Locale locale = new Locale("ru","RU");
                     man.setLocale(locale);
@@ -42,6 +44,11 @@ class ConsoleRunner {
                 if (line.equals("sortvar")){
                     Var.sortVar();
                     continue;
+                }
+                if (line.equals("end")){
+                    Logger.endWriteReport();
+                    Logger.printLog(Logger.logs);
+                    break;
                 }
                 Var result = parser.calc(line);
                 printer.print(result);

@@ -12,6 +12,7 @@ class CalcException extends Exception {
 
     public CalcException(String message) {
         super(man.get(CalcErrors.CALC_ERROR)+ message);
+        Logger.writeError(man.get(CalcErrors.CALC_ERROR)+ message);
     }
 
     public CalcException(String message, Throwable cause) {

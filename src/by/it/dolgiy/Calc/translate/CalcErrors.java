@@ -10,5 +10,7 @@ public interface CalcErrors {
     String DIV = "error.div";
     String DIV_BY_ZERO = "error.div_by_zero";
     String LENGTH_ERROR = "error.invalid_expression_length";
+    String START = "log.program_start";
+    String STOP = "log.program_termination";
 
 }

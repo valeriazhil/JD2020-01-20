@@ -16,18 +16,23 @@ class Parser {
         Var left = Var.createVar(strLeft);
         switch (operation) {
             case "+":
+                Logger.writeExpression((left+"+"+right),left.add(right).toString());
                 return left.add(right);
             case "-":
+                Logger.writeExpression((left+"-"+right),left.sub(right).toString());
                 return left.sub(right);
             case "*":
+                Logger.writeExpression((left+"*"+right),left.mul(right).toString());
                 return left.mul(right);
             case "/":
+                Logger.writeExpression((left+"/"+right),left.div(right).toString());
                 return left.div(right);
         }
         return null;
     }
 
     Var calc(String exp) throws CalcException {
+        String exp1 = exp;
         exp = exp.trim().replace("\\s+","");
         String[] strings = exp.split(Patterns.OPERATION);
         List<String> operands = new ArrayList<>(Arrays.asList(strings));
@@ -47,6 +52,7 @@ class Parser {
             Var res = oneOperation(strLeft, op, strRight);
             operands.add(index, res.toString());
         }
+        Logger.writeExpression(exp1,Var.createVar(operands.get(0)).toString());
         return Var.createVar(operands.get(0));
     }
 

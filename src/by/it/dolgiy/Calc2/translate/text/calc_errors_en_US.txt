@@ -1,8 +1,0 @@
-error.calc_exception=ERROR:
-error.impossible_to_create=Impossible to create
-error.add=Operation %s + %s is impossible
-error.sub=Operation %s - %s is impossible
-error.mul=Operation %s * %s is impossible
-error.div=Operation %s / %s is impossible
-error.div_by_zero=Division by zero
-error.invalid_expression_length=Invalid expression length
