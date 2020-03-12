@@ -1,47 +1,43 @@
 package by.it.degtyaryov.jd02_03;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class BuyerManager {
 
-    private static final int MAX_BASKET = 50;
     private static final int PLAN = 100;
     private static final int BUYERS_BEGIN_MINUTE = 10;
     private static final int BUYERS_MIDDLE_MINUTE = 40;
 
-    private BlockingQueue<Basket> baskets = new ArrayBlockingQueue<>(MAX_BASKET);
     private final AtomicInteger buyersInMarket = new AtomicInteger();
     private final AtomicInteger buyersComplete = new AtomicInteger();
     private final Market market;
 
     public BuyerManager(Market market) {
-        createBaskets();
         this.market = market;
     }
 
+    /**
+     * Проверка нужно ли запускать новых покупателей
+     *
+     * @param time секунда, на которую происходит проверка (от значения секунды зависит количество покупателей)
+     */
     public void check(int time) {
-        if (canEnterBuyer()) {
+        if (canBuyerEnter()) {
             int buyersToEnter = getCountBuyerToEnter(time);
-            for (int i = 0; i < buyersToEnter && canEnterBuyer(); i++) {
+            for (int i = 0; i < buyersToEnter && canBuyerEnter(); i++) {
                 Buyer buyer = new Buyer(Helper.getRandomIsPensioner(), this);
                 new Thread(buyer).start();
             }
         }
     }
 
-    public void markBuyerEnter() {
-        buyersInMarket.getAndIncrement();
+    private boolean canBuyerEnter() {
+        return buyersInMarket.get() + buyersComplete.get() < PLAN;
     }
 
-    public void markBuyerGoOut() {
-        buyersComplete.getAndIncrement();
-        buyersInMarket.getAndDecrement();
-    }
-
-    public int getBuyersInMarket() {
-        return buyersInMarket.get();
+    private int getCountBuyerToEnter(int time) {
+        int mustBeInMarket = getCountMustBeInMarket(time);
+        return (getBuyersInMarket() > mustBeInMarket) ? 0 : mustBeInMarket - getBuyersInMarket();
     }
 
     private int getCountMustBeInMarket(int time) {
@@ -54,35 +50,26 @@ class BuyerManager {
         return count;
     }
 
-    private int getCountBuyerToEnter(int time) {
-        int mustBeInMarket = getCountMustBeInMarket(time);
-        return (getBuyersInMarket() > mustBeInMarket) ? 0 : mustBeInMarket - getBuyersInMarket();
+    public int getBuyersInMarket() {
+        return buyersInMarket.get();
     }
 
-    public boolean canEnterBuyer() {
-        return buyersInMarket.get() + buyersComplete.get() < PLAN;
+    public void markBuyerEnter() {
+        buyersInMarket.getAndIncrement();
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public void markBuyerGoOut() {
+        buyersComplete.getAndIncrement();
+        buyersInMarket.getAndDecrement();
+    }
+
     public boolean allBuyersComplete() {
         return buyersComplete.get() == PLAN;
     }
 
-    private void createBaskets() {
-        for (int i = 1; i <= MAX_BASKET; i++) {
-            Basket basket = new Basket();
-            try {
-                baskets.put(basket);
-                System.out.printf("Created one new basket. Now there are %d baskets.%n", baskets.size());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public Basket getBasket() {
         try {
-            return baskets.take();
+            return market.getBaskets().take();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -90,8 +77,8 @@ class BuyerManager {
     }
 
     public void returnBasket(Basket basket) {
-        baskets.offer(basket);
-        System.out.printf("Buyer return basket. We have %d free baskets.%n", baskets.size());
+        market.getBaskets().offer(basket);
+        System.out.printf("Buyer return basket. We have %d free baskets.%n", market.getBaskets().size());
     }
 
     public Market getMarket() {

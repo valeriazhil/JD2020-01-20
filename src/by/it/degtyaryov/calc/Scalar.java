@@ -1,8 +1,13 @@
 package by.it.degtyaryov.calc;
 
+import by.it.degtyaryov.calc.i18n.ResManager;
+import by.it.degtyaryov.calc.i18n.TextResource;
+
 import java.util.Arrays;
 
 class Scalar extends Var {
+
+    private ResManager res = ResManager.INSTANCE;
 
     private double value;
 
@@ -111,17 +116,13 @@ class Scalar extends Var {
 
     @Override
     public Var div(Scalar scalar) throws CalcException {
-        if (this.value == 0) {
-            throw new CalcException("division by zero");
-        }
+        checkDivisionByZero();
         return new Scalar(scalar.value / value);
     }
 
     @Override
     public Var div(Vector vector) throws CalcException {
-        if (this.value == 0) {
-            throw new CalcException("division by zero");
-        }
+        checkDivisionByZero();
         double[] result = Arrays.copyOf(vector.getValue(), vector.getValue().length);
         for (int i = 0; i < result.length; i++) {
             result[i] /= value;
@@ -131,9 +132,7 @@ class Scalar extends Var {
 
     @Override
     public Var div(Matrix matrix) throws CalcException {
-        if (this.value == 0) {
-            throw new CalcException("division by zero");
-        }
+        checkDivisionByZero();
         double[][] result = new double[matrix.getValue().length][0];
         for (int i = 0; i < result.length; i++) {
             result[i] = Arrays.copyOf(matrix.getValue()[i], matrix.getValue()[i].length);
@@ -142,6 +141,12 @@ class Scalar extends Var {
             }
         }
         return new Matrix(result);
+    }
+
+    private void checkDivisionByZero() throws CalcException {
+        if (this.value == 0) {
+            throw new CalcException(res.get(TextResource.DIVISION_BY_ZERO));
+        }
     }
 
     @Override

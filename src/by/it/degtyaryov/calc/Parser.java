@@ -1,5 +1,8 @@
 package by.it.degtyaryov.calc;
 
+import by.it.degtyaryov.calc.i18n.ResManager;
+import by.it.degtyaryov.calc.i18n.TextResource;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,12 +19,17 @@ class Parser {
         OPERATION_PRIORITY.put("/", 2);
     }
 
+    private ResManager res = ResManager.INSTANCE;
+
     public Var calc(String expressions) throws CalcException {
         expressions = expressions.trim().replace(" ", "");
+
+        expressions = calcSubExpressions(expressions);
+
         String[] strOperands = expressions.split(Patterns.OPERATOR);
         List<String> operands = new ArrayList<>(Arrays.asList(strOperands));
         if (operands.size() == 1) {
-            return Var.create(expressions);
+            return VarCreator.create(expressions);
         }
 
         List<String> operators = new ArrayList<>();
@@ -38,7 +46,43 @@ class Parser {
             Var result = calcOneOperation(left, op, right);
             operands.add(index, result.toString());
         }
-        return Var.create(operands.get(0));
+        return VarCreator.create(operands.get(0));
+    }
+
+    private String calcSubExpressions(String expressions) throws CalcException {
+        while (expressions.contains("(") && expressions.contains(")")) {
+            String sub = getSubExpression(expressions);
+            String subWithoutBrackets = sub.substring(1, sub.length() - 1);
+            expressions = expressions.replace(sub, calc(subWithoutBrackets).toString());
+        }
+        return expressions;
+    }
+
+    private String getSubExpression(String expressions) {
+        Deque<Character> deque = new LinkedList<>();
+        int firstBracket = 0;
+        int lastBracket = 0;
+        boolean findFirst = false;
+        char[] chars = expressions.toCharArray();
+
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == '(') {
+                if (!findFirst) {
+                    firstBracket = i;
+                    findFirst = true;
+                } else {
+                    deque.addLast('(');
+                }
+            } else if (chars[i] == ')') {
+                if (deque.size() == 0) {
+                    lastBracket = i;
+                    break;
+                } else {
+                    deque.pollLast();
+                }
+            }
+        }
+        return expressions.substring(firstBracket, lastBracket + 1);
     }
 
     private int getOperationIndex(List<String> operations) {
@@ -56,12 +100,12 @@ class Parser {
     }
 
     private Var calcOneOperation(String strLeft, String operator, String strRight) throws CalcException {
-        Var varRight = Var.create(strRight);
+        Var varRight = VarCreator.create(strRight);
         if (operator.equals("=")) {
-            Var.saveVariable(strLeft, varRight);
+            VarSaver.saveVariable(strLeft, varRight);
             return varRight;
         }
-        Var varLeft = Var.create(strLeft);
+        Var varLeft = VarCreator.create(strLeft);
 
         switch (operator) {
             case "+":
@@ -73,7 +117,7 @@ class Parser {
             case "/":
                 return varLeft.div(varRight);
             default:
-                throw new CalcException("unknown operation" + operator);
+                throw new CalcException(String.format(res.get(TextResource.UNKNOWN_OPERATION), operator));
         }
     }
 }

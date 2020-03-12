@@ -29,6 +29,9 @@ class CashierManager {
         executor.shutdown();
     }
 
+    /**
+     * Проверка нужно ли открывать еще кассы (зависит от количества покупателей в оччереди)
+     */
     public void check() {
         int cashiersMustWorks = getCashiersMustWorks(market.getQueue().size());
         System.out.printf("DISPATCHER: now in queue %d buyers, working cashiers - %d.%n", market.getQueue().size(), workedCashiers.size());
