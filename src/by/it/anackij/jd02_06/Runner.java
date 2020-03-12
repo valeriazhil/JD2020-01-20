@@ -1,12 +1,12 @@
 package by.it.anackij.jd02_06;
 
 public class Runner {
-    public static void main(String[] args) {
-        Logger logger = Logger.getInstance();
-        logger.log("Hello");
 
-        for (int i = 0; i < 100; i++) {
-            new Thread((Logger.getInstance().log("Hello2")));
+        public static void main(String[] args) {
+            Logger logger= Logger.getLogger();
+            logger.log("Message 1");
+            logger.log("Message 2");
+            logger.log("Message 3");
+            logger.log("Message 4");
         }
-    }
 }
