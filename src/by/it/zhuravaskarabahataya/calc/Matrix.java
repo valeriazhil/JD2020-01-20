@@ -1,5 +1,8 @@
 package by.it.zhuravaskarabahataya.calc;
 
+import by.it.zhuravaskarabahataya.calc.translate.Error;
+import by.it.zhuravaskarabahataya.calc.translate.ResMan;
+
 class Matrix extends Var implements Operation {
     private double[][] values;
 
@@ -15,6 +18,7 @@ class Matrix extends Var implements Operation {
         }
     }
 
+    @SuppressWarnings("unused")
     public Matrix(Matrix matrix) {
         this(matrix.values);
     }
@@ -42,7 +46,7 @@ class Matrix extends Var implements Operation {
 
     public Var add(Scalar other) throws CalcException {
         double[][] result = new double[values.length][values[0].length];
-        double s = ((Scalar) other).getValue();
+        double s = other.getValue();
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[0].length; j++) {
                 result[i][j] = values[i][j] + s;
@@ -56,11 +60,12 @@ class Matrix extends Var implements Operation {
     }
 
     public Var add(Matrix other) throws CalcException {
-        if (this.values.length != ((Matrix) other).values.length) {
-            throw new CalcException("Разные размеры матриц");
+        if (this.values.length != other.values.length) {
+            ResMan manager = ResMan.INSTANCE;
+            throw new CalcException(manager.get(Error.INVALID_OPERATION));
         }
         double[][] first = this.values;
-        double[][] second = ((Matrix) other).getValues();
+        double[][] second = other.getValues();
         double[][] result = new double[first.length][first[0].length];
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result.length; j++) {
@@ -76,7 +81,7 @@ class Matrix extends Var implements Operation {
             double[][] result = new double[values.length][values[0].length];
             double s = ((Scalar) other).getValue();
             for (int i = 0; i < result.length; i++) {
-                for (int j = 0; j < result.length; j++) {
+                for (int j = 0; j < result[0].length; j++) {
                     result[i][j] = values[i][j] - s;
                 }
             }
@@ -84,7 +89,8 @@ class Matrix extends Var implements Operation {
         }
         if (other instanceof Matrix) {
             if (this.values.length != ((Matrix) other).values.length || this.values[0].length != ((Matrix) other).values[0].length){
-                throw new CalcException("Разные размеры матриц");
+                ResMan manager = ResMan.INSTANCE;
+                throw new CalcException(manager.get(Error.INVALID_OPERATION));
             }
             double[][] first = this.values;
             double[][] second = ((Matrix) other).getValues();
@@ -104,14 +110,15 @@ class Matrix extends Var implements Operation {
         if (other instanceof Scalar) {
             double[][] result = new double[values.length][values[0].length];
             for (int i = 0; i < result.length; i++) {
-                for (int j = 0; j < result.length; j++) {
+                for (int j = 0; j < result[0].length; j++) {
                     result[i][j] = values[i][j] * ((Scalar) other).getValue();
                 }
             }
             return new Matrix(result);
         } else if (other instanceof Vector) {
             if (((Vector) other).getValues().length!=this.values[0].length){
-                throw new CalcException("Неподходящие размеры");
+                ResMan manager = ResMan.INSTANCE;
+                throw new CalcException(manager.get(Error.INVALID_OPERATION));
             }
             double[] result = new double[((Vector) other).getValues().length];
             for (int i = 0; i < result.length; i++) {
@@ -122,7 +129,8 @@ class Matrix extends Var implements Operation {
             return new Vector(result);
         } else if (other instanceof Matrix) {
             if (this.values[0].length != ((Matrix) other).getValues().length){
-                throw new CalcException("Разные размеры матриц");
+                ResMan manager = ResMan.INSTANCE;
+                throw new CalcException(manager.get(Error.INVALID_OPERATION));
             }
             double[][] first = this.values;
             double[][] second = ((Matrix) other).getValues();
@@ -143,8 +151,8 @@ class Matrix extends Var implements Operation {
     public Var div(Var other) throws CalcException{
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue() == 0) {
-                throw new CalcException("Деление на ноль");
-            }
+                ResMan manager = ResMan.INSTANCE;
+                throw new CalcException(manager.get(Error.DIV_BY_ZERO));            }
             double[][] result = new double[values.length][values[0].length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {

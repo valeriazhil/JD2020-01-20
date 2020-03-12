@@ -1,5 +1,8 @@
 package by.it.zhuravaskarabahataya.calc;
 
+import by.it.zhuravaskarabahataya.calc.translate.Error;
+import by.it.zhuravaskarabahataya.calc.translate.ResMan;
+
 import java.util.Arrays;
 
 class Vector extends Var implements Operation {
@@ -11,11 +14,10 @@ class Vector extends Var implements Operation {
 
     public Vector(double[] values) {
         this.values = new double[values.length];
-        for (int i = 0; i < values.length; i++) {
-            this.values[i] = values[i];
-        }
+        System.arraycopy(values, 0, this.values, 0, values.length);
     }
 
+    @SuppressWarnings("unused")
     public Vector(Vector vector) {
         this(vector.values);
     }
@@ -60,8 +62,9 @@ class Vector extends Var implements Operation {
 
     public Var add(Vector other) throws CalcException {
         double[] result = Arrays.copyOf(values, values.length);
-        if (this.values.length != ((Vector) other).values.length) {
-            throw new CalcException("Разные размеры векторов " + this + " + " + other);
+        if (this.values.length != other.values.length) {
+            ResMan manager = ResMan.INSTANCE;
+            throw new CalcException(manager.get(Error.INVALID_OPERATION));
         }
         for (int i = 0; i < result.length; i++) {
             result[i] += other.values[i];
@@ -72,27 +75,6 @@ class Vector extends Var implements Operation {
     public Var add(Matrix other) throws CalcException {
         return super.add(other);
     }
-//    @Override
-//    public Var add(Var other) throws CalcException {
-//        double[] result = Arrays.copyOf(values, values.length);
-//        if (other instanceof Scalar){
-//            double s = ((Scalar) other).getValue();
-//            for (int i = 0; i < result.length; i++) {
-//                result[i] +=s;
-//            }
-//            return new Vector(result);
-//        }
-//         if (other instanceof Vector){
-//             if (this.values.length != ((Vector) other).values.length){
-//                 throw new CalcException("Разные размеры векторов " + this + " + " + other);
-//             }
-//            for (int i = 0; i < result.length; i++) {
-//                result[i] += ((Vector) other).values[i];
-//            }
-//            return new Vector(result);
-//        }
-//        return super.add(other);
-//    }
 
     @Override
     public Var sub(Var other) throws CalcException {
@@ -106,7 +88,8 @@ class Vector extends Var implements Operation {
         }
         if (other instanceof Vector){
             if (this.values.length != ((Vector) other).values.length){
-                throw new CalcException("Разные размеры векторов " + this + " - " + other);
+                ResMan manager = ResMan.INSTANCE;
+                throw new CalcException(manager.get(Error.INVALID_OPERATION));
             }
             for (int i = 0; i < result.length; i++) {
                 result[i] -= ((Vector) other).values[i];
@@ -127,7 +110,8 @@ class Vector extends Var implements Operation {
         }
         else if (other instanceof Vector){
             if (this.values.length != ((Vector) other).values.length){
-                throw new CalcException("Разные размеры векторов " + this + " * " + other);
+                ResMan manager = ResMan.INSTANCE;
+                throw new CalcException(manager.get(Error.INVALID_OPERATION));
             }
             int res = 0;
             for (int i = 0; i < values.length; i++) {
@@ -142,7 +126,8 @@ class Vector extends Var implements Operation {
     public Var div(Var other) throws CalcException{
         if (other instanceof Scalar){
             if (((Scalar) other).getValue() == 0) {
-                throw new CalcException("Деление на ноль");
+                ResMan manager = ResMan.INSTANCE;
+                throw new CalcException(manager.get(Error.DIV_BY_ZERO));
             }
             double[] result = Arrays.copyOf(this.values, values.length);
             for (int i = 0; i < result.length; i++) {
