@@ -11,7 +11,7 @@ class Logger {
 
     private static final String LOG_FILE = Helper.getPath(Logger.class, "log.txt");
 
-    private static volatile Logger logger = new Logger();
+    private static volatile Logger logger;
 
     private Logger() {
     }
