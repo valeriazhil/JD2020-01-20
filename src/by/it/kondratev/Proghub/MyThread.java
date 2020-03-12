@@ -1,60 +1,33 @@
 package by.it.kondratev.Proghub;
 
-public class MyThread implements Runnable {
-    int count;
+class MyThread implements Runnable{
+
     Thread thrd;
-    static boolean stop = false;
-    static String currentName;
+    TickTock ttOb;
 
-    MyThread(String name) {
-        thrd = new Thread(this, name);
-        count = 0;
-        currentName = name;
+    MyThread (String name, TickTock tt) {
+        thrd = new Thread(this,name);
+        ttOb = tt;
     }
 
-    public void run() {
-        System.out.println(thrd.getName() + " - запуск . ");
-        do {
-            count++;
-            /*if ( currentName . compareTo ( thrd . getName () ) !=0) {
-                currentName = thrd . getName ( ) ;
-            System . out . println ( " B " + currentName ) ; }*/
-        } while (stop == false && count < 10000000);
-        stop = true;
-    }
-}
-
-             //       System . out . print l n ("\n" + thrd . getName () +
-               //     " - прерывание .") ;
-
-            /*
-
-    static int count;
-    static boolean stop = false;
-
-    MyThread (String name) {
-        super(name);
-    }
-
-    public forPriority(String name, int priority) {
-        MyThread thrd = new MyThread(name);
-        int count = 0;
-        myThrd.setPriority(priority);
-
+    public static MyThread createAndStart(String name, TickTock tt) {
+        MyThread myThread = new MyThread(name,tt);
+        myThread.thrd.start();
+        return  myThread;
     }
 
     @Override
     public void run() {
-        do {
-            count++;
 
-        } while (stop == false && count<10000000);
-        stop = true;
-
-    }
-
-    public int count() {
-        return count;
+        if(thrd.getName().equals("Tick")) {
+            for (int i = 0; i < 5; i++) {
+                ttOb.tick(true);
+                ttOb.tick(false);
+            }
+        }
+        else for (int i = 0; i < 5; i++) {
+            ttOb.tock(true);
+            ttOb.tock(false);
+        }
     }
 }
-*/

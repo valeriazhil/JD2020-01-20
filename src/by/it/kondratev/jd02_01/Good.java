@@ -4,9 +4,7 @@ import java.util.*;
 
 class Good {
 
-    static List<String> goods_list = make_list();
-
-    static List<String> make_list() {
+        static List<String> goodsList() {
         List<String> list = new ArrayList<>(20);
         list.add("Яблоко");
         list.add("Груша");
@@ -25,13 +23,11 @@ class Good {
 
     static Map<String, Integer> make_map() {
         Map<String, Integer> price_map = new HashMap<>(20);
-        Iterator<String> iterator = goods_list.iterator();
-        for (int i = 0; i < goods_list.size(); i++) {
+        Iterator<String> iterator = goodsList().iterator();
+        for (int i = 0; i < goodsList().size(); i++) {
             price_map.put(iterator.next(), Helper.random(1,10));
         }
         return price_map;
     }
-
-
 
 }

@@ -11,15 +11,15 @@ class TaskB1 {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            String inputValue = scanner.next();
-            if (inputValue.equals("end")) {
+            String word = scanner.next();
+            if (word.equals("end")) {
                 break;
             } else {
-                inputValue = inputValue.replaceAll("[^\\w']+", "");
-                if (map.containsKey(inputValue)) {
-                    map.put(inputValue, map.get(inputValue) + 1);
+                word = word.replaceAll("[^\\w']+", "");
+                if (map.containsKey(word)) {
+                    map.put(word, map.get(word) + 1);
                 } else {
-                    map.put(inputValue, 1);
+                    map.put(word, 1);
                 }
             }
         }

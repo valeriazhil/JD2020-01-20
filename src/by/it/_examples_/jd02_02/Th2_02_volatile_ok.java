@@ -3,7 +3,7 @@ package by.it._examples_.jd02_02;
 public class Th2_02_volatile_ok {
 
     //переменная баланса
-    private volatile static int balance=0;
+    private volatile static Integer balance=0;
 
     //это касса. Просто добавляет в баланс единицу
     static class Cashier extends Thread {

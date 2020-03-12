@@ -7,7 +7,7 @@ import java.util.Scanner;
 class TaskA3 {
 
     public static void main(String[] args) {
-        int zeroPosition = 0;
+        int posZero = 0;
         List<Integer> list = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
@@ -20,9 +20,9 @@ class TaskA3 {
             if (number < 0) {
                 list.add(number);
             } else if (number == 0) {
-                list.add(zeroPosition, number);
+                list.add(posZero, number);
             } else {
-                list.add(zeroPosition++, number);
+                list.add(posZero++, number);
             }
         }
 

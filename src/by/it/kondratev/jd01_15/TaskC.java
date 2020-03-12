@@ -7,22 +7,22 @@ import java.util.Scanner;
 
 class TaskC {
 
-    private static File currentPath = new File(Helper.getPath(TaskC.class, ""));
+    private static File file = new File(Helper.getPath(TaskC.class, ""));
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.printf("%s: ", currentPath);
+            System.out.println(file);
+            System.out.print("Введите команду: ");
             String command = scanner.nextLine();
             if (command.equals("end")) {
-                // System.exit(0);
                 break;
             } else if (command.equals("dir")) {
                 dir();
             } else if (command.matches("cd .+")) {
-                currentPath = cd(command.replace("cd ", ""));
+                file = cd(command.replace("cd ", ""));
             } else {
-                System.out.printf("invalid argument: %s%n", command);
+                System.out.println("Команда не распознана");
             }
         }
     }
@@ -30,7 +30,7 @@ class TaskC {
     private static void dir() {
         Date calendar;
         String date, time, isDirectory, size, name;
-        File[] files = currentPath.listFiles();
+        File[] files = file.listFiles();
         files = (files != null) ? files : new File[0];
 
         for (File file : files) {
@@ -48,13 +48,13 @@ class TaskC {
     private static File cd(String path) {
         File newPath = null;
         try {
-            newPath = new File(currentPath, "/" + path).getCanonicalFile();
+            newPath = new File(file, "/" + path).getCanonicalFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
         if (newPath != null && !newPath.exists()) {
             System.out.println("invalid path");
-            return currentPath;
+            return file;
         }
         return newPath;
     }

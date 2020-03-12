@@ -1,18 +1,17 @@
 package by.it.kondratev.jd02_01;
 
-import java.util.List;
-
 class Buyer extends Thread implements IBuyer, IuseBacket {
 
+    private Basket basket;
 
-    Backet backet = new Backet();
-    List<String> list = backet.list;
-
-    Buyer (int number) { super( "Покупатель № " + number); }
+    Buyer (int number) {
+        super( "Покупатель № " + number);
+        this.basket = new Basket("Покупатель № " + number);
+    }
 
     public void run() {
         enterToMarket();
-        takeBacket();
+        takeBasket();
         chooseGoods();
         goOut();
     }
@@ -23,7 +22,7 @@ class Buyer extends Thread implements IBuyer, IuseBacket {
     }
 
     @Override
-    public void takeBacket() {
+    public void takeBasket() {
         System.out.println("Взял корзину " + getName());
     }
 
@@ -40,15 +39,15 @@ class Buyer extends Thread implements IBuyer, IuseBacket {
 
     @Override
     public void putGoodsToBacket() {
-        int good_number = Helper.random(0,Market.goods_list.size()-1);
-        String good_name = Market.goods_list.get(good_number);
-        list.add(good_name);
+        int good_number = Helper.random(0,WorkDay.GOODS_LIST.size()-1);
+        String good_name = WorkDay.GOODS_LIST.get(good_number);
+        basket.list.add(good_name);
         System.out.println("Положил " + good_name + " в корзину " + getName());
     }
 
     @Override
     public void goOut() {
-        System.out.println("Ушёл из магазина " + this.getName());
+        System.out.println("Ушёл из магазина " + this.getName() + " " + basket);
     }
 
     @Override

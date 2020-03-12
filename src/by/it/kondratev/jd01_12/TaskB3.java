@@ -25,45 +25,45 @@ class TaskB3 {
     }
 
     private static String process(ArrayList<String> peoples) {
-        boolean needDelete = false;
+        boolean deleteName = false;
         while (peoples.size() > 1) {
             Iterator<String> iterator = peoples.iterator();
             while (iterator.hasNext()) {
                 iterator.next();
-                if (needDelete) {
+                if (deleteName) {
                     iterator.remove();
                 }
-                needDelete = !needDelete;
+                deleteName = !deleteName;
             }
         }
         return peoples.get(0);
     }
 
     private static String process(LinkedList<String> peoples) {
-        boolean needDelete = false;
+        boolean deleteName = false;
         while (peoples.size() > 1) {
             Iterator<String> iterator = peoples.iterator();
             while (iterator.hasNext()) {
                 iterator.next();
-                if (needDelete) {
+                if (deleteName) {
                     iterator.remove();
                 }
-                needDelete = !needDelete;
+                deleteName = !deleteName;
             }
         }
         return peoples.get(0);
     }
 
     private static String processOnQueue(LinkedList<String> peoples) {
-        boolean needDelete = false;
+        boolean deleteName = false;
         Queue<String> qu = peoples;
         while (qu.size() > 1) {
-            if (needDelete) {
+            if (deleteName) {
                 qu.poll();
             } else {
                 qu.offer(qu.poll());
             }
-            needDelete = !needDelete;
+            deleteName = !deleteName;
         }
         return qu.element();
     }
