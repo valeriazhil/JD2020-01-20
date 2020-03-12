@@ -1,4 +1,4 @@
-package by.it.makarenko.jd02_02;
+package by.it.makarenko.jd02_03;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +21,8 @@ class Market {
                 QueueBuyers.print();
                 QueuePens.print();
                 for (int i = 0; i < 5; i++) {
-                    if (Dispatcher.buyersInMarket < seconds + 10 && Dispatcher.marketIsOpened()) {
-                        Buyer buyer = new Buyer(Dispatcher.numberBuyers + 1);
+                    if (Dispatcher.buyersInMarket.get() < seconds + 10 && Dispatcher.marketIsOpened()) {
+                        Buyer buyer = new Buyer(Dispatcher.numberBuyers.get() + 1);
                         buyer.start();
                         buyers.add(buyer);
                     }
@@ -31,8 +31,8 @@ class Market {
             } else if (seconds <= 59) {
                 QueueBuyers.print();
                 QueuePens.print();
-                if (Dispatcher.buyersInMarket < (70 - seconds)) {
-                    Buyer buyer = new Buyer(Dispatcher.numberBuyers + 1);
+                if (Dispatcher.buyersInMarket.get() < (70 - seconds)) {
+                    Buyer buyer = new Buyer(Dispatcher.numberBuyers.get() + 1);
                     buyer.start();
                     buyers.add(buyer);
                 }
@@ -54,7 +54,7 @@ class Market {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ScreenPrinter.printThis("CompletedBuyers " + Dispatcher.completedBuyers + ".");
+        ScreenPrinter.printThis("CompletedBuyers " + Dispatcher.completedBuyers.get() + ".");
         ScreenPrinter.printThis("Earning today is " + Dispatcher.getRevenue() + " coins.");
         ScreenPrinter.printThis("Market is closed...");
     }

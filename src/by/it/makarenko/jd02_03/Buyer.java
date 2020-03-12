@@ -1,9 +1,11 @@
-package by.it.makarenko.jd02_02;
+package by.it.makarenko.jd02_03;
 
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
+    private static Semaphore semaphore = new Semaphore(20);
     int number;
     boolean pensioner;
     Basket personalBasket;
@@ -38,7 +40,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void enterToMarket() {
-       ScreenPrinter.printEnterTheMarket(this, this.pensioner);
+
+        ScreenPrinter.printEnterTheMarket(this, this.pensioner);
     }
 
     @Override
@@ -56,6 +59,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
                 e.printStackTrace();
             }
         }
+        Basket.basketSemaphore.release();
     }
 
     @Override
@@ -63,16 +67,27 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         int timeout = (int) (TimingHelper.random(500, 2000) * pensionerSlowdown());
         TimingHelper.sleep(timeout);
         personalBasket = new Basket();
+        try {
+            Basket.basketSemaphore.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ScreenPrinter.printSmth(this,  " took a basket.");
     }
 
     @Override
     public void chooseGoods() {
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ScreenPrinter.printSmth(this, " started choosing goods.");
         int timeout = (int) (TimingHelper.random(500, 2000) * pensionerSlowdown());
         putGoodsToBacket();
         TimingHelper.sleep(timeout);
         ScreenPrinter.printSmth(this, " finished choosing goods.");
+        semaphore.release();
     }
 
     private double pensionerSlowdown() {

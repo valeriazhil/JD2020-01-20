@@ -1,4 +1,4 @@
-package by.it.makarenko.jd02_02;
+package by.it.makarenko.jd02_03;
 
 interface IBuyer {
     void enterToMarket(); //вошел в магазин (мгновенно)
