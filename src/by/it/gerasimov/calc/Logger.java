@@ -1,5 +1,6 @@
 package by.it.gerasimov.calc;
 
+import by.it.gerasimov.calc.translate.Globalization;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,9 +12,26 @@ import java.util.LinkedList;
 class Logger {
 
     private static final int MAX_COUNT = 50;
+    private static volatile Logger instance;
     private static Deque<String> logs = new LinkedList<>();
 
-    public void readLog() {
+    private Logger() {
+    }
+
+    public static Logger getInstance() {
+        Logger localInstance = instance;
+        if (localInstance == null) {
+            synchronized (Logger.class) {
+                localInstance = instance;
+                if (localInstance == null) {
+                    instance = localInstance = new Logger();
+                }
+            }
+        }
+        return localInstance;
+    }
+
+    private void readLog() {
         try (BufferedReader br = new BufferedReader(new FileReader(Settings.pathToLog))) {
             String line;
             int count = 0;
@@ -45,6 +63,6 @@ class Logger {
     }
 
     private String toLogFormat(String str) {
-        return new Date().toString() + " " + str;
+        return Globalization.getCurrentDate() + " " + str;
     }
 }

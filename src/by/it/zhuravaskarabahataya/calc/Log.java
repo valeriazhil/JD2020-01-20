@@ -14,24 +14,24 @@ class Log {
             e.printStackTrace();
         }
     }
+//
+//    static void writeExpressionWithoutResultToLogFile(String expression) {
+//        try (FileWriter pw = new FileWriter(logFile, true)) {
+//            checkLogLineCount();
+//            pw.write(expression + "\n");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    static void writeExpressionWithoutResultToLogFile(String expression) {
-        try (FileWriter pw = new FileWriter(logFile, true)) {
-            checkLogLineCount();
-            pw.write(expression + "\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    static void writeResultToLogFile(String expression, String result) {
-        try (FileWriter pw = new FileWriter(logFile, true)) {
-            checkLogLineCount();
-            pw.write( expression + " = " + result + "\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    static void writeResultToLogFile(String expression, String result) {
+//        try (FileWriter pw = new FileWriter(logFile, true)) {
+//            checkLogLineCount();
+//            pw.write( expression + " = " + result + "\n");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     static void checkLogLineCount() {
         int lineNumber = countLines();

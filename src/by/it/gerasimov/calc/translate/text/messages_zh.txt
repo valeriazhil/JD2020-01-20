@@ -1,0 +1,4 @@
+error.error=错误
+error.illegalOperationException=無法操作 %s %s %s
+message.hello=你好
+user.name=格拉西莫夫·埃戈爾

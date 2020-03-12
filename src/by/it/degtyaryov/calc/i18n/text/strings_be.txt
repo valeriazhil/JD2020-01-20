@@ -1,0 +1,30 @@
+calcException = ПАМЫЛКА: %s.
+unknownOperation = невядомая аперацыя %s
+unknownVariable = невядомая пераменная %s
+
+message.noSavedVars = Зменныя яшчэ не дадаваліся.
+
+expression = выраз: %s, вынік: %s.
+
+matrix.differentSize = розны памер матрыц
+vector.differentSize = розны памер вектараў
+vector.differentSizeVM = розны памер вектара і матрыцы
+
+scalar.divisionByZero = дзяленне на нуль
+
+add.operationImpossible = аперацыя %s + %s немагчыма
+sub.operationImpossible = аперацыя %s - %s немагчыма
+mul.operationImpossible = аперацыя %s * %s немагчыма
+div.operationImpossible = аперацыя %s / %s немагчыма
+
+user.name = Яуген
+message.welcome = Прывітанне, %s!
+
+message.reportForm = Калі вам патрэбен поуны атчот - націсніце [F], або [S] для кароткага.
+
+report.fullTitle = Поуны атчот
+report.shortTitle = Кароткі атчот
+
+report.fullFormOperation = Выражэнне:%n%s%Рэзультат:%n%s%n
+report.startTime = Час пачатку:
+report.endTime = Час аканчання:

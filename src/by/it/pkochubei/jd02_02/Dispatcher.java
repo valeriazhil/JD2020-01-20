@@ -1,31 +1,41 @@
 package by.it.pkochubei.jd02_02;
 
-class Dispatcher {
+public class Dispatcher {
+    static final int K_SPEED = 120;
+    static int buyerCounter = 0;
+    private static final Object localMonitor = new Object();
+    private static int buyerInShop = 0;
+    private static final int buyerPlan = 100;
 
-    static final int K_SPEED = 100;
-
-    static int numberBuyer = 0;
-
-    private volatile static int buyersInMarket = 0;
-    private volatile static int completeBuyers = 0;
-    private static final int PLAN = 100;
-
-    synchronized static void newBuyer() {
-        numberBuyer++;
-        buyersInMarket++;
+    static int getBuyerCounter() {
+        return buyerCounter;
+    }
+    static int getBuyerInShop(){ return buyerInShop;}
+    static void addBuyer() {
+        synchronized (localMonitor) {
+            int i = buyerCounter;
+            int j = buyerInShop;
+            Util.sleep(100);
+            buyerCounter = ++i;
+            buyerInShop = ++j;
+        }
     }
 
-    synchronized static void buyerLeaveTheMarket() {
-        buyersInMarket--;
-        completeBuyers++;
-    }
-
-    static boolean marketIsOpened() {
-        return completeBuyers+buyersInMarket < PLAN;
+    static void removeBuyer() {
+        synchronized (localMonitor) {
+            buyerInShop--;
+        }
     }
 
     static boolean marketClosed() {
-        return PLAN==completeBuyers;
+        synchronized (localMonitor) {
+            return buyerCounter >= buyerPlan && buyerInShop == 0;
+        }
     }
 
+    static boolean marketOpened(){
+        synchronized (localMonitor){
+            return buyerCounter < buyerPlan;
+        }
+    }
 }

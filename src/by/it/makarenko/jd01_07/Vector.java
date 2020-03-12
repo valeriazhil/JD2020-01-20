@@ -1,26 +1,38 @@
 package by.it.makarenko.jd01_07;
 
 class Vector extends Var{
-    private  double [] values;
-    public Vector(double[] values){
+    double[] values;
+
+    public Vector(double[] values) {
         this.values = values;
+    }
+
+    public Vector(Vector vector) {
+        this.values = vector.values;
+    }
+
+    public Vector(String strVector) {
+        StringBuilder sb = new StringBuilder(strVector);
+        sb.deleteCharAt(sb.length() -1);
+        sb.deleteCharAt(0);
+        String[] strArray = sb.toString().split(",");
+        double[] doubleArray = new double[strArray.length];
+        for (int i = 0; i < doubleArray.length; i++) {
+            doubleArray[i] = Double.parseDouble(strArray[i]);
+        }
+        this.values = doubleArray;
     }
 
     @Override
     public String toString() {
-        StringBuilder out = new StringBuilder();
-        out.append('{');
-        String delimiter ="";
-        for (double value: values){
-            out.append(delimiter).append(value);
-            delimiter=", ";
+        StringBuilder sb = new StringBuilder("{");
+        String delimiter = "";
+        for (double d : values) {
+            sb.append(delimiter).append(d);
+            delimiter = ", ";
         }
-        out.append('}');
-        return out.toString();
-    }
-
-    Vector (Vector otherVec){
-        this.values = otherVec.values;
+        sb.append('}');
+        return sb.toString();
     }
 
 }

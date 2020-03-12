@@ -1,6 +1,6 @@
 package by.it.bunkov.jd02_01;
 
-interface IBuyer {
+public  interface IBuyer {
 
 
     void enterToMarket(); //вошел в магазин (мгновенно)

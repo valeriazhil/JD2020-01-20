@@ -1,5 +1,8 @@
 package by.it.zhuravaskarabahataya.calc;
 
+import by.it.zhuravaskarabahataya.calc.translate.Error;
+import by.it.zhuravaskarabahataya.calc.translate.ResMan;
+
 class Scalar extends Var implements Operation {
 
     private double value;
@@ -12,6 +15,7 @@ class Scalar extends Var implements Operation {
         this.value = value;
     }
 
+    @SuppressWarnings("unused")
     Scalar(Scalar scalar) {
         this.value = scalar.value;
     }
@@ -32,8 +36,7 @@ class Scalar extends Var implements Operation {
 
     @Override
     public Var add(Scalar other) throws CalcException {
-        double result = this.value + ((Scalar) other).getValue();
-        String strResult = Double.toString(result);
+        double result = this.value + other.getValue();
         return new Scalar(result);
     }
 
@@ -69,7 +72,8 @@ class Scalar extends Var implements Operation {
     public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).value == 0) {
-                throw new CalcException("Деление на ноль");
+                ResMan manager = ResMan.INSTANCE;
+                throw new CalcException(manager.get(Error.DIV_BY_ZERO));
             }
             double result = this.value / ((Scalar) other).value;
             return new Scalar(result);

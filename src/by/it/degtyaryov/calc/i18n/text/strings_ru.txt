@@ -1,0 +1,30 @@
+calcException = ОШИБКА: %s.
+unknownOperation = неизвестная операция %s
+unknownVariable = неизвестная переменная %s
+
+message.noSavedVars = Переменные еще не добавлялись.
+
+expression = выражение: %s, результат: %s.
+
+matrix.differentSize = разный размер матриц
+vector.differentSize = разный размер векторов
+vector.differentSizeVM = разный размер вектора и матрицы
+
+scalar.divisionByZero = деление на ноль
+
+add.operationImpossible = операция %s + %s невозможна
+sub.operationImpossible = операция %s - %s невозможна
+mul.operationImpossible = операция %s * %s невозможна
+div.operationImpossible = операция %s / %s невозможна
+
+user.name = Евгений
+message.welcome = Привет, %s!
+
+message.reportForm = Для получения полного отчета нажмите [F], для короткого - [S].
+
+report.fullTitle = Полный отчет
+report.shortTitle = Короткий отчет
+
+report.fullFormOperation = Выражение:%n%s%Результат:%n%s%n
+report.startTime = Время начала:
+report.endTime = Время окончания:

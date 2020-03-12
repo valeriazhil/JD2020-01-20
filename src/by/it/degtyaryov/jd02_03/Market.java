@@ -3,6 +3,8 @@ package by.it.degtyaryov.jd02_03;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 class Market {
@@ -15,8 +17,11 @@ class Market {
             new Good("Eggs", 2.0),
             new Good("Water", 1.0)));
 
-    private volatile double TOTAL_INCOME = 0;
+    private static final int MAX_BASKET = 50;
 
+    private final BlockingQueue<Basket> baskets = new ArrayBlockingQueue<>(MAX_BASKET);
+
+    private volatile double TOTAL_INCOME = 0;
     private Queue queue = new Queue();
     private BuyerManager buyerManager = new BuyerManager(this);
     private CashierManager cashierManager = new CashierManager(this);
@@ -24,6 +29,7 @@ class Market {
     public void start() {
         System.out.println("Market is opened.");
         int timer = 0;
+        createBaskets();
         cashierManager.createCashiers();
         while (!buyerManager.allBuyersComplete()) {
             buyerManager.check(++timer);
@@ -33,6 +39,17 @@ class Market {
         }
         awaitTerminationCashiers();
         System.out.println("Market is closed.");
+    }
+
+    private void createBaskets() {
+        for (int i = 1; i <= MAX_BASKET; i++) {
+            Basket basket = new Basket();
+            try {
+                baskets.put(basket);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void awaitTerminationCashiers() {
@@ -51,6 +68,10 @@ class Market {
 
     public synchronized double getTotalIncome() {
         return TOTAL_INCOME;
+    }
+
+    public BlockingQueue<Basket> getBaskets() {
+        return baskets;
     }
 
     public Queue getQueue() {

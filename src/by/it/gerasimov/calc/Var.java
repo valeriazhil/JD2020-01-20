@@ -1,5 +1,7 @@
 package by.it.gerasimov.calc;
 
+import by.it.gerasimov.calc.translate.Messages;
+import by.it.gerasimov.calc.translate.ResMan;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,6 +15,7 @@ import java.util.Map.Entry;
 
 abstract class Var implements Operation {
 
+    static ResMan manager = ResMan.INSTANCE;
     private static volatile HashMap<String, Var> vars = new HashMap<>();
 
     public static void printVars() {
@@ -65,27 +68,29 @@ abstract class Var implements Operation {
     }
 
     public static void log(String str) {
-        Logger logger = new Logger();
+        Logger logger = Logger.getInstance();
         logger.writeLog(str);
     }
 
     static Var create(String strValue) throws CalcException {
+        VarCreator creator;
         strValue = strValue.trim().replace(" ", "");
         if (strValue.matches(Patterns.SCALAR)) {
-            return new Scalar(strValue);
+            creator = new ScalarCreator();
         } else if (strValue.matches(Patterns.VECTOR)) {
-            return new Vector(strValue);
+            creator = new VectorCreator();
         } else if (strValue.matches(Patterns.MATRIX)) {
-            return new Matrix(strValue);
+            creator = new MatrixCreator();
         } else if (strValue.matches(Patterns.VARIABLE)) {
             if (vars.containsKey(strValue)) {
                 return vars.get(strValue);
             } else {
-                throw new CalcException("Не найдена переменная " + strValue);
+                throw new CalcException(manager.get(Messages.NOT_FOUND_VAR) + " " + strValue);
             }
         } else {
-            throw new CalcException("Неверный формат ввода");
+            throw new CalcException(manager.get(Messages.INVALID_INPUT));
         }
+        return creator.getVar(strValue);
     }
 
     @Override
@@ -111,76 +116,92 @@ abstract class Var implements Operation {
             default:
                 result = null;
         }
-        log("Операция " + this + " " + operator + " " + other + (result != null ? " = " + result
-            : "невозможна"));
+        log("Операция " + this + " " + operator + " " + other +
+            (result != null ? " = " + result : "невозможна"));
         return result;
     }
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException("Операция " + this + " + " + other + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), this, '+', other));
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException("Операция " + this + " - " + other + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), this, '-', other));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("Операция " + this + " * " + other + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), this, '*', other));
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("Операция " + this + " / " + other + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), this, '/', other));
     }
 
     protected Var reverseAdd(Scalar other) throws CalcException {
-        throw new CalcException("Операция " + other + " + " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '+', this));
     }
 
     protected Var reverseAdd(Vector other) throws CalcException {
-        throw new CalcException("Операция " + other + " + " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '+', this));
     }
 
     protected Var reverseAdd(Matrix other) throws CalcException {
-        throw new CalcException("Операция " + other + " + " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '+', this));
     }
 
     protected Var reverseSub(Scalar other) throws CalcException {
-        throw new CalcException("Операция " + other + " - " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '-', this));
     }
 
     protected Var reverseSub(Vector other) throws CalcException {
-        throw new CalcException("Операция " + other + " - " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '-', this));
     }
 
     protected Var reverseSub(Matrix other) throws CalcException {
-        throw new CalcException("Операция " + other + " - " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '-', this));
     }
 
     protected Var reverseMul(Scalar other) throws CalcException {
-        throw new CalcException("Операция " + other + " * " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '*', this));
     }
 
     protected Var reverseMul(Vector other) throws CalcException {
-        throw new CalcException("Операция " + other + " * " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '*', this));
     }
 
     protected Var reverseMul(Matrix other) throws CalcException {
-        throw new CalcException("Операция " + other + " * " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '*', this));
     }
 
     protected Var reverseDiv(Scalar other) throws CalcException {
-        throw new CalcException("Операция " + other + " / " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '/', this));
     }
 
     protected Var reverseDiv(Vector other) throws CalcException {
-        throw new CalcException("Операция " + other + " / " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '/', this));
     }
 
     protected Var reverseDiv(Matrix other) throws CalcException {
-        throw new CalcException("Операция " + other + " / " + this + " невозможна");
+        throw new CalcException(
+            String.format(manager.get(Messages.ILLEGAL_OPERATION_EXCEPTION), other, '/', this));
     }
 }

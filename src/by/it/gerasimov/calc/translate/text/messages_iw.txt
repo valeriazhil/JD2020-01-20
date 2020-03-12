@@ -1,0 +1,4 @@
+error.error=שגיאה
+error.illegalOperationException="אָפּעראַציע% s% s% s ניט מעגלעך"
+message.hello=הי
+user.name=גרסימוב אגור

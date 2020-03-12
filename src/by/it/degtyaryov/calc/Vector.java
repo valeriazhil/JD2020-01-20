@@ -1,8 +1,13 @@
 package by.it.degtyaryov.calc;
 
+import by.it.degtyaryov.calc.i18n.ResManager;
+import by.it.degtyaryov.calc.i18n.TextResource;
+
 import java.util.Arrays;
 
 class Vector extends Var {
+
+    private ResManager res = ResManager.INSTANCE;
 
     private double[] value;
 
@@ -45,9 +50,7 @@ class Vector extends Var {
 
     @Override
     public Var add(Vector vector) throws CalcException {
-        if (this.value.length != vector.value.length) {
-            throw new CalcException("different size of vectors");
-        }
+        checkVectorsSize(vector);
         double[] result = Arrays.copyOf(vector.value, vector.value.length);
         for (int i = 0; i < result.length; i++) {
             result[i] += value[i];
@@ -76,9 +79,7 @@ class Vector extends Var {
 
     @Override
     public Var sub(Vector vector) throws CalcException {
-        if (this.value.length != vector.value.length) {
-            throw new CalcException("different size of vectors");
-        }
+        checkVectorsSize(vector);
         double[] result = Arrays.copyOf(vector.value, vector.value.length);
         for (int i = 0; i < result.length; i++) {
             result[i] -= value[i];
@@ -107,9 +108,7 @@ class Vector extends Var {
 
     @Override
     public Var mul(Vector vector) throws CalcException {
-        if (this.value.length != vector.value.length) {
-            throw new CalcException("different size of vectors");
-        }
+        checkVectorsSize(vector);
         double result = 0;
         for (int i = 0; i < value.length; i++) {
             result += value[i] * vector.value[i];
@@ -117,10 +116,16 @@ class Vector extends Var {
         return new Scalar(result);
     }
 
+    private void checkVectorsSize(Vector vector) throws CalcException {
+        if (this.value.length != vector.value.length) {
+            throw new CalcException(res.get(TextResource.V_DIFFERENT_SIZE));
+        }
+    }
+
     @Override
     public Var mul(Matrix matrix) throws CalcException {
         if (this.value.length != matrix.getValue().length) {
-            throw new CalcException("different size matrix and vector");
+            throw new CalcException(res.get(TextResource.VM_DIFFERENT_SIZE));
         }
         double[] result = new double[matrix.getValue().length];
         for (int i = 0; i < matrix.getValue().length; i++) {
@@ -155,5 +160,18 @@ class Vector extends Var {
     public String toString() {
         return Arrays.toString(value).replace('[', '{')
                 .replace(']', '}');
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector vector = (Vector) o;
+        return Arrays.equals(value, vector.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(value);
     }
 }

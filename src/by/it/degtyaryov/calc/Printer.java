@@ -13,7 +13,7 @@ class Printer {
     public void printVariables(boolean needSort) {
         Set<Map.Entry<String, Var>> entries;
         // при создании TreeMap значения сортируются по ключу
-        entries = (needSort) ? new TreeMap<>(Var.getVariables()).entrySet() : Var.getVariables().entrySet();
+        entries = (needSort) ? new TreeMap<>(VarSaver.getVariables()).entrySet() : VarSaver.getVariables().entrySet();
 
         // для возможности сортировки как по ключу, так и по значению, необходимо использовать метод Collections.sort
         // но необходимо реализовать дополнительно компаратор в классе Var
@@ -28,6 +28,7 @@ class Printer {
             sb.append(element.getValue());
             sb.append("\n");
         }
-        System.out.print(sb.toString());
+        Logger.getInstance().log(sb.toString());
+        System.out.println(sb.toString());
     }
 }
