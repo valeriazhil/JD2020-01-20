@@ -8,11 +8,11 @@ import java.io.PrintWriter;
 public class TaskC {
     public static void main(String[] args) {
         String dir = System.getProperty("user.dir") + "/src/"
-                + by.it.zhilenkova.jd01.jd01_14.TaskC.class.getName().replace(by.it.zhilenkova.jd01.jd01_14.TaskC.class.getSimpleName(), "")
+                + TaskC.class.getName().replace(TaskC.class.getSimpleName(), "")
                 .replace(".", "/");
         String pathDirs = (new File(dir)).getParent();
         File dirs = new File(pathDirs);
-        File result = new File(getPath(by.it.zhilenkova.jd01.jd01_14.TaskC.class, "resultTaskC.txt"));
+        File result = new File(getPath(TaskC.class, "resultTaskC.txt"));
         try (PrintWriter out = new PrintWriter(new FileWriter(result))) {
             printToConsoleAndFile(dirs, out, result);
         } catch (IOException e) {
