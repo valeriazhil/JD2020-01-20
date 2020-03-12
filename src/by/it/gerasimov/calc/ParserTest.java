@@ -7,6 +7,24 @@ import org.junit.Test;
 public class ParserTest {
 
     @Test
+    public void createScalar() {
+        Var v = new Scalar(3);
+        assertEquals(v.toString(), "3.0");
+    }
+
+    @Test
+    public void createVector() {
+        Var v = new Vector(new double[]{3, 4.4, 5});
+        assertEquals(v.toString(), "{3.0, 4.4, 5.0}");
+    }
+
+    @Test
+    public void createMatrix() {
+        Var v = new Matrix(new double[][]{{3, 2.2}, {4.4, 5}});
+        assertEquals(v.toString(), "{{3.0, 2.2}, {4.4, 5.0}}");
+    }
+
+    @Test
     public void addSS() throws CalcException {
         Var s1 = new Scalar(3);
         Var s2 = new Scalar(4);

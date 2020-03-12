@@ -1,5 +1,7 @@
 package by.it.gerasimov.calc;
 
+import by.it.gerasimov.calc.translate.Messages;
+import by.it.gerasimov.calc.translate.ResMan;
 import java.util.Objects;
 
 class Scalar extends Var {
@@ -135,7 +137,7 @@ class Scalar extends Var {
         if (other.value != 0) {
             return new Scalar(this.value / other.value);
         } else {
-            throw new CalcException("Деление на 0");
+            throw new CalcException(ResMan.INSTANCE.get(Messages.DIVISION_BY_ZERO));
         }
     }
     @Override
