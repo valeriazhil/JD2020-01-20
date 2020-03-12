@@ -13,14 +13,18 @@ abstract class Var implements Operation {
     }
 
     static Var create(String strVar) throws CalcException {
-
         strVar = strVar.trim().replace(" ","");
-        if(strVar.matches(Patterns.SCALAR)) return new Scalar(strVar);
+        VarCreator [] vc = {new ScalarCreator(), new VectorCreator(), new MatrixCreator()};
+
+        if(strVar.matches(Patterns.SCALAR)) {
+            return vc[0].factoryMethod(strVar);              // new Scalar(strVar);
+        } else
+            if(strVar.matches(Patterns.VECTOR))
+                return vc[1].factoryMethod(strVar);          // new Vector(strVar);
         else
-            if(strVar.matches(Patterns.VECTOR)) return new Vector(strVar);
-        else
-            if(strVar.matches(Patterns.MATRIX)) return new Matrix(strVar);
-        else
+            if(strVar.matches(Patterns.MATRIX))
+                return vc[2].factoryMethod(strVar);          // new Matrix(strVar);
+            else
             if (vars.containsKey(strVar)) return vars.get(strVar);
         else
             throw new CalcException("Невозможно создать " + strVar);
