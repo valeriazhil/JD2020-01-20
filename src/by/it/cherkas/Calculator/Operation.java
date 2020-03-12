@@ -1,6 +1,7 @@
-package by.it.cherkas.calc15;
+package by.it.cherkas.Calculator;
 
-interface Operation {
+
+public interface Operation {
     Var add(Var other) throws CalcException;
     Var sub(Var other) throws CalcException;
     Var mul(Var other) throws CalcException;
