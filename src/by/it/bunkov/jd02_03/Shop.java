@@ -1,9 +1,11 @@
-package by.it.bunkov.jd02_02;
+package by.it.bunkov.jd02_03;
 
-class Market {
+
+public class Shop {
     public static void main(String[] args) {
         Helper.setSpeed(100);
         Helper.generatePriceList();
+        Dispatcher.generateCashiers();
         Dispatcher.generateCashiers();
         Dispatcher.generateBuyers();
         Dispatcher.joinAll();
@@ -12,4 +14,3 @@ class Market {
     }
 
 }
-
