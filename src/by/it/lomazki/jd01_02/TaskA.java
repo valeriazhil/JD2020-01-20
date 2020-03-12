@@ -46,6 +46,4 @@ public class TaskA {
                 System.out.print(i + " ");
         }
     }
-
-
 }
