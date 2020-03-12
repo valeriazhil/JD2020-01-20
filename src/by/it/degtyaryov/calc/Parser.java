@@ -29,7 +29,7 @@ class Parser {
         String[] strOperands = expressions.split(Patterns.OPERATOR);
         List<String> operands = new ArrayList<>(Arrays.asList(strOperands));
         if (operands.size() == 1) {
-            return Var.create(expressions);
+            return VarCreator.create(expressions);
         }
 
         List<String> operators = new ArrayList<>();
@@ -46,7 +46,7 @@ class Parser {
             Var result = calcOneOperation(left, op, right);
             operands.add(index, result.toString());
         }
-        return Var.create(operands.get(0));
+        return VarCreator.create(operands.get(0));
     }
 
     private String calcSubExpressions(String expressions) throws CalcException {
@@ -100,12 +100,12 @@ class Parser {
     }
 
     private Var calcOneOperation(String strLeft, String operator, String strRight) throws CalcException {
-        Var varRight = Var.create(strRight);
+        Var varRight = VarCreator.create(strRight);
         if (operator.equals("=")) {
             Var.saveVariable(strLeft, varRight);
             return varRight;
         }
-        Var varLeft = Var.create(strLeft);
+        Var varLeft = VarCreator.create(strLeft);
 
         switch (operator) {
             case "+":

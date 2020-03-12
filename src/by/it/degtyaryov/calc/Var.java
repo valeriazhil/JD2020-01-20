@@ -25,7 +25,7 @@ abstract class Var implements Operation {
             String var;
             while ((var = reader.readLine()) != null) {
                 String[] split = var.trim().split("=");
-                variables.put(split[0], create(split[1]));
+                variables.put(split[0], VarCreator.create(split[1]));
             }
         }
     }
@@ -45,21 +45,6 @@ abstract class Var implements Operation {
 
     public static Map<String, Var> getVariables() {
         return variables;
-    }
-
-    public static Var create(String operand) throws CalcException {
-        operand = operand.trim().replace(" ", "");
-        if (operand.matches(Patterns.SCALAR)) {
-            return new Scalar(operand);
-        } else if (operand.matches(Patterns.VECTOR)) {
-            return new Vector(operand);
-        } else if (operand.matches(Patterns.MATRIX)) {
-            return new Matrix(operand);
-        } else if (variables.containsKey(operand)) {
-            return variables.get(operand);
-        } else {
-            throw new CalcException(String.format(res.get(TextResource.UNKNOWN_VARIABLE), operand));
-        }
     }
 
     @Override
