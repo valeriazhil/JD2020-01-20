@@ -1,0 +1,15 @@
+Краткий отчет об ошибках
+12.03.2020 ||  21:01:46 ||
+
+12.03.2020 ||  21:00:53 ||
+by.it.kondratev.calc.CalcException: ERROR: Деление на ноль
+
+12.03.2020 ||  21:00:59 ||
+by.it.kondratev.calc.CalcException: ERROR: Невозможно создать er
+
+12.03.2020 ||  21:01:21 ||
+by.it.kondratev.calc.CalcException: ERROR: Невозможно создать 5\{1,2}
+
+12.03.2020 ||  21:01:32 ||
+by.it.kondratev.calc.CalcException: ERROR: Операция деления 5.0 / {1.0, 2.0} невозможна
+
